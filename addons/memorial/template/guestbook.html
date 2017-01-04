@@ -1,0 +1,75 @@
+{template 'common/header'}
+<style type="text/css">
+	.require{color:red;}
+	.info{padding:6px;width:400px;margin:-20px auto 3px auto;text-align:center;}
+</style>
+{if $op == 'list'}
+	<style type="text/css">
+		.status-toggle,.recommend-toggle{cursor:pointer;}
+	</style>
+	<div class="main">
+		<form class="form-horizontal" action="" method="post">
+			<div class="panel panel-default">
+				<div class="panel-body table-responsive">
+					<table class="table table-hover">
+						<thead class="navbar-inner">
+							<tr>
+								<th>序号</th>
+								<th>姓名</th>
+								<th>留言内容</th>
+								<th>通过</th>
+							</tr>
+						</thead>
+						<tbody>
+							{loop $lists $item}
+							<tr>
+								<td>{$item['id']}</td>
+								<td>{$item['name']}</td>
+								<td>{$item['content']}</a></td>
+								<td id="scien_{$item['id']}">
+									{if $item['status'] == 1}
+										<span class="btn btn-sm btn-success status-toggle" id="{$item['id']}" data-toggle="0" title="点击修改">通过</span>
+									{else}
+										<span class="btn btn-sm btn-warning status-toggle" id="{$item['id']}" data-toggle="1" title="点击修改">拒绝</span>
+									{/if}
+								</td>
+
+							</tr>
+							{/loop}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{$pager}
+		</form>
+	</div>
+	<script type="text/javascript">
+		require(['util'], function(u){
+			$('.btn').hover(function(){
+				$(this).tooltip('show');
+			},function(){
+				$(this).tooltip('hide');
+			});
+			$('.status-toggle').click(function(){
+				var id = $(this).attr('id');
+				var dvalue = $(this).attr('data-toggle');
+				$.post("{php echo $this->createWebUrl('guestbook', array('op' => 'display_switch'))}", {'id':id, 'display':dvalue}, function(data){
+					if(data == ' success') {
+
+						if(dvalue==1){
+							$("#scien_"+id+" span").text('通过').removeClass('btn-warning').addClass('btn-success').attr("data-toggle","0");
+							}
+						else{
+							$("#scien_"+id+" span").text('拒绝').removeClass('btn-success').addClass('btn-warning').attr("data-toggle","1");
+							}	
+					} else {
+						u.message('编辑通过状态失败');
+					}
+				});
+			});
+
+		});
+
+	</script>
+{/if}
+{template 'common/footer'}

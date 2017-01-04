@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input,select,a,button,img{ margin:0; padding:0;}
+
+
+ 
+.content{background:url(../img/bg.jpg) no-repeat center top #f6f7f7; background-size:100%; width:100%; height:1000px; overflow-y:hidden;}
+.content_box{overflow:hidden; width:1024px; margin:0 auto; }
+.content_left{float:left; margin-top:15px; margin-left:20px; }
+.content_right{float:right; margin-top:40px; margin-right:120px; }
+
+.list{overflow:hidden; margin-top:10px;}
+/*.list_box{max-height:800px; overflow:auto;}*/
+.list_img{float:left; width:78px; height:78px; border-radius:50%; }
+.word_list{margin-top:20px;}
+.list_message{float:right; background:url(../img/bg1.png) no-repeat; background-size:contain; width:586px; height:126px;}
+.list_img img{display:block; margin:6px auto;border-radius: 100%;
+    width: 100%;
+    padding: 6px;
+    background: rgba(255,255,255,.2);}
+.message{margin-top:15px; margin-left:30px; width:530px; height:65px; border-bottom:solid 2px #f3f3f3;    font-size: 1.2em;
+    line-height: 1.4em;}
+.plus{float:right; margin-right:23px; /*border:solid 1px red;*/ width:60px;}
+.plus span{color:#d2d2d2; font-size:16px; display:inline-block; float:right; margin-top:4px; /*border:solid 1px red;*/}
+.sicon{background:url(../img/plus.png) no-repeat; background-size:contain; float:left; width:23px; height:22px; margin-top:3px; display:inline-block; /*border:solid 1px red;*/}
+
+.plus .active{color:#fd5f6c}
+
+    /* 设置滚动条的样式 */
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+	scrollbar{width:0px;}
+    /* 滚动槽 */
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px transparent;
+        border-radius: 3px;
+    }
+	scrollbar-track-color{}
+	
+    /* 滚动条滑块 */
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0,0,0,0.1);
+        -webkit-box-shadow: inset 0 0 6px transparent;
+    }
+	
+	
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: transparent;
+    }
+	
+	

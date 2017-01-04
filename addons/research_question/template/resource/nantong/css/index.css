@@ -1,0 +1,303 @@
+@charset "utf-8";
+/* CSS Document */
+
+body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input,select,a,button,img{
+	 margin:0; padding:0; list-style: none;font-family: Helvetica; font-weight: normal;}
+body{color:#3f3f3f; font-size:16px;}
+*{box-sizing: border-box;}
+
+/*首页*/
+.page1{ width:100%; height:100%;background-color: #FFFFFF;}
+.bannerDiv{width: 100%;}
+.bannerDiv img{width:100%; height:100%; background-size: 100% 100%;}
+.contentDiv{
+	width: 80%;
+	/*height: 16rem;*/
+    border: 2px dashed #65b0ff;
+    border-radius: 8px;
+    padding: 20px 0 40px 0;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.contentDiv h3{
+	text-align: center;
+    font-weight: bold;
+    margin-top: 2%;
+}
+.contentDiv p{
+	padding: 0 30px;
+    text-align: justify;
+    line-height: 1.5em;
+    margin-top: 40px;
+    font-size: .9em;
+}
+.discussbtn{
+	background: #65b0ff;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 75px;
+    color: #fff;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 3% 0;
+    border-radius: 6px;
+    margin-bottom: 50px;
+}
+/*************问卷调查页*****************/
+.content2Div{
+	width: 90%;
+	/*height: 49rem;*/
+    border: 2px dashed #65b0ff;
+    border-radius: 8px;
+    padding: 20px 15px 40px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.content2Div h3{
+	text-align: center;
+    font-weight: bold;
+    margin-top: 2%;	
+}
+.content2Div h4{
+    margin: 4% 0 2% 2%;	
+}
+.citySelect{
+    width: 75%;
+    height: 2.3rem;
+    font-size: 1rem;
+    line-height: 2rem;
+    border-radius: 5px;
+    margin: 3% 0 0px 2%;
+}
+.content2Div label{
+	padding-left: 4%;
+    margin-left: -1%;
+    font-size: 0.9rem;
+}
+.content2Div textarea{
+	width: 92%;
+	margin: 4%;
+	border-radius: 5px;
+	font-size: 0.7rem;
+	color: #999999;
+	resize: none;
+	padding-left: 15%;
+    padding-top: 5%;
+}
+.content2Div input{
+	margin: 1%;
+}
+.submitbtn{
+	background: #65b0ff;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 10%;
+    color: #fff;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 3% 0;
+    border-radius: 6px;
+    margin-bottom: 50px;
+}
+.txt{
+	display: inline;
+	padding-top:2% ;
+}
+/************提交成功页************************************/
+.context3Icon{
+	margin-top: 25%;
+	width: 100%;
+}
+.context3Icon img{width:100%; height:100%; background-size: 100% 100%;}
+
+.context3Txt{
+	width: 82%;
+	margin: 0 auto;
+	margin-top: 15%;
+}
+.succeedbtn{
+	background: #65b0ff;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 20%;
+    color: #fff;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 3% 0;
+    border-radius: 6px;
+    margin-bottom: 50px;
+}
+/**************投诉直通车首页************************************************/
+.content4Div{
+	width: 80%;
+	/*height: 27rem;*/
+    border: 2px dashed #65b0ff;
+    border-radius: 8px;
+    padding: 20px 0 40px 0;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.content4Div h3{
+	text-align: center;
+    font-weight: bold;
+    margin-top: 2%;	
+}
+.content4Div p{
+	padding: 0 5%;
+    text-align: justify;
+    line-height: 1.5em;
+    margin-top: 7%;
+    font-size: .9em;
+}
+.complaintbtn{
+	background: #65b0ff;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 9%;
+    color: #fff;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 3% 0;
+    border-radius: 6px;
+    margin-bottom: 50px;
+}
+/****************投诉直通车信息页**********************************************************/
+.item{
+	width: 100%;
+	position: relative;
+    display: table;
+    border-collapse: separate;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+.item span{
+	float: left;
+    width: 30%;
+    display: table-cell;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 2% 6%;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: #555;
+}
+.item input{
+    padding: 2% 7%;
+    font-size: 1em;
+    line-height: 1.5rem;
+    color: #999999;
+    position: relative;
+    z-index: 2;
+    float: right;
+    width: 60%;
+    margin-bottom: 0;
+    display: table-cell;
+    outline: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    text-align: center;
+    margin-right: 5%;
+}
+.addSelect{
+    width: 83%;
+    font-size: 1rem;
+    padding-left: 29%;
+    line-height: 1.5rem;
+    border-radius: 8px;
+    height: 2.5rem;
+    color: #999999;
+}
+.addSelect2{
+    width: 83%;
+    font-size: 1rem;
+    padding-left: 26%;
+    line-height: 1.5rem;
+    border-radius: 8px;
+    height: 2.5rem;
+    color: #999999;
+}
+.addSelect option{
+    text-align: center;	
+}
+.page3 textarea{
+	text-align: center;
+	width: 83%;
+	border-radius: 8px;
+	color: #999999;
+	resize: none;
+}
+.lastitem{
+	width: 100%;
+	position: relative;
+    display: table;
+    border-collapse: separate;
+    padding: 10px 0;
+}
+.textarea{
+    text-align: center;
+    width: 83%;
+    border-radius: 8px;
+    color: #CCCCCC;
+    resize: none;
+    padding-top: 5%;
+    height: 7rem;
+}
+.lastitem1{
+	width: 100%;
+	padding: 10px 0;
+	padding-left: 5%;
+}
+.lastitem2{
+	width: 100%;
+	padding: 10px 0;
+	padding-left: 6%;
+}
+.lastitem2 textarea{
+	width: 94%;
+	padding: 8%;
+	border-radius: 8px;
+	color: #999999;
+	resize: none;
+}
+.description{
+    width: 100%;
+    display: table-cell;
+    white-space: nowrap;
+    
+    vertical-align: top;
+    padding-left: 7%;
+    padding-top: 3%;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: #555;
+}
+@media (min-device-width:375px) and (max-device-width:667px) and (-webkit-min-device-pixel-ratio:2){
+	
+	
+}
+@media (min-device-width:414px) and (max-device-width:736px) and (-webkit-min-device-pixel-ratio:3){
+	.save2_box{top:6.7%; }
+}
+
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */
+   .item input {width: 56%;}
+    .textarea{
+        width: 78%;
+        margin-left: 6%;
+    }
+}
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+    .item input {width: 56%;}
+}
+
+
+
+
+
+
+
+
+
+
+
+

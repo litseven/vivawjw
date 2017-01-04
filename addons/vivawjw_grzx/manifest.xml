@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[个人中心]]></name>
+		<identifie><![CDATA[vivawjw_grzx]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[统一模块]]></ability>
+		<description><![CDATA[无锡微警务-个人中心]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[http://lab.scienmedia.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="我的车驾告知" do="user_warn" state="" direct="false" />
+			<entry title="我的车辆" do="user_car" state="" direct="false" />
+			<entry title="我的驾驶证" do="user_driving" state="" direct="false" />
+			<entry title="我的申诉" do="user_complain" state="" direct="false" />
+			<entry title="我的路况" do="user_road" state="" direct="false" />
+			<entry title="我的快处" do="user_dispose" state="" direct="false" />
+			<entry title="我的在线学习" do="user_study" state="" direct="false" />
+			<entry title="产品反馈" do="pro_feedback" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+
+
+</manifest>

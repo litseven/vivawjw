@@ -1,0 +1,285 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body,h1,h2,h3,h4,input,ul,li,dl,dt,dd,p,button,img{margin:0;padding:0; list-style:none;font-weight:normal;}
+body{background-color:white; font-size:16px; color:#333333;}
+.content{width:100%; height:100%;}
+.content_box{width:100%;}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 204563 */
+  src: url('http://at.alicdn.com/t/font_7uplnm1yg5dk7qfr.eot');
+  src: url('http://at.alicdn.com/t/font_7uplnm1yg5dk7qfr.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_7uplnm1yg5dk7qfr.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_7uplnm1yg5dk7qfr.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_7uplnm1yg5dk7qfr.svg#iconfont') format('svg');
+}
+
+.search_box{width:100%; background-color:white; padding-top:4%; padding-bottom:3%;}
+.search{width:80%; margin:0 auto; overflow:hidden;}
+.search input{border:solid 1px #b3b3b3; padding-left:3%; width:100%; height:34px; float:left; border-radius:10px;}
+.search button{border:none; background-color:transparent; float:right; margin-top:-8%; margin-right:4%;}
+.search button i{font-family:"iconfont" !important; color:#747171; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.search_tip{font-size:0.8rem; width:100%; margin-top:2%; text-align:center;}
+.search_tip span{display:inline-block; margin-left:1%; }
+
+.guild{width:100%;}
+.guild_box{width:100%;}
+.guild1{display:block; width:100%; overflow:hidden; height:44px; margin-top:4%; background-color:white;}
+.guild1 .icon1 ,.icon2 ,.icon3 ,.icon4 ,.icon5 ,.icon6{float:left; margin-left:5.3%; margin-top:13px; background-color:#657bff; border-radius:4px; width:18px; height:18px;}
+.guild1 .icon1 i ,.icon2 i ,.icon3 i ,.icon4 i ,.icon5 i ,.icon6 i{color:white; text-align:center; margin-left:1.5px; line-height:18px;font-family:"iconfont" !important;font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.guild1 div:nth-child(2){float:left; margin-left:2.6%; line-height:44px;}
+.guild1 .icon11 ,.icon22 ,.icon33 ,.icon44 ,.icon55 ,.icon66{float:right;line-height:44px; color:#a5a5a5; font-family:"iconfont" !important;font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+
+.icon2{background-color:#ff7b7b;}
+.guild1 .icon2 i{font-size:13px; margin-left:2.4px;}
+.icon3{background-color:#5dba87;}
+.icon5 i{font-size:13px;margin-left:2.4px;}
+.icon4{background-color:#ff9d34;}
+.icon5{background-color:#5fb0fc;}
+.icon6{background-color:#955eb5;}
+.icon6 i{font-size:12px; margin-left:3px;}
+
+.guild1_box{width:100%; margin-top:4%; margin-bottom:4%;}
+.question1{width:100%; height:35px; padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;}
+.ques{float:left; line-height:35px;}
+.question1 i ,.question2 i{float:right; margin-right:3%; line-height:35px; color:#00ca79; font-family:"iconfont" !important;font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.question2{width:100%; height:54px; padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;}
+.question2 span{font-size:0.8rem; color:#999999;}
+.ques2{float:left; line-height:24px; width:88%;}
+.question2 i{line-height:54px;}
+
+/*新车上牌*/
+.license_head{border-bottom:solid 1px #b3b3b3; width:100%; padding-left:4%;}
+.license_head div:nth-child(1){margin-top:4%;}
+.license_head div:nth-child(2){color:#999999; margin-top:1%; margin-bottom:2%;}
+.lice_con{width:100%;}
+.license_box{width:67.5%; max-height:23rem; overflow-y:auto; margin:5% auto; font-size:0.8rem; line-height:1.2rem;}
+#back{display:block; width:40%; margin:0 auto; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
+
+/*交通路况随时报*/
+.picture_banner{width:100%;}
+.picture_banner img{width:100%;}
+.picture_tip{width:88%; margin:0 auto; margin-top:10px; font-size:0.8rem; line-height:1.1rem;}
+.upload_img{width:100%; padding-left:5%; margin-top:5%; overflow:hidden;}
+.upload1{width:66px; float:left; margin-left:3%;height:66px; line-height:61px; border:solid 2px #dddddd;}
+.upload1 i{color:#afaeab; display:block; text-align:center; font-size:30px;  font-family:"iconfont" !important; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.upload_tip{font-size:0.8rem; text-align:center; margin:0 auto; width:82%; margin-top:4%;}
+.pict_intro{width:80%; border-radius:10px; padding-left:3%; padding-top:2%;height:100px; margin-top:10%; margin-left:10%; border:solid 1px #b3b3b3; resize:none;}
+.picture_btn ,#road ,#appeal_back ,.acc_step ,#certain ,#submit ,#remind_back ,#feed_sub ,#feed_btn{display:block; width:40%; margin:0 auto; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
+
+/*路况查询*/
+.place_box{width:100%; background-color:white; margin-top:4%;}
+.place{width:100%;}
+.areas{width:100%; display:-webkit-box;}
+.area1{width:50%; box-flex:1; -webkit-box-flex:1; }
+.area_1{ overflow:hidden; border-bottom:solid 1px #b2b2b2;}
+.area_1 i{ float:left; padding-left:10%; height:50px; line-height:50px; font-family:"iconfont" !important; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.area1:nth-child(1){border-right:solid 1px #b2b2b2; }
+.area_1 div{ line-height:50px; margin-left:43%;}
+.area_current{color:white; background-color:#39ca74;}
+
+#area1{border-right:none; }
+
+.detail_area{width:100%;}
+.detail_box{width:100%;}
+.detail1{width:100%; overflow:hidden; height:50px; border-bottom:solid 1px #b2b2b2;}
+.detail_icon1{color:#a8a8a8; margin-left:3%; line-height:50px; float:left; font-size:16px; font-family:"iconfont" !important; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.deta_addr{float:left; line-height:50px; font-size:0.9rem; margin-left:3%;}
+.deta_collect{float:right;/* margin-right:2%;*/ width:23%;}
+.deta_collect i{color:#999999; line-height:50px; font-family:"iconfont" !important; font-size:18px; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.deta_collect .star{color:#ffda0e;}
+.deta_collect span{font-size:0.9rem;}
+
+/*交通路况随时报*/
+.appeal1_box{width:100%;}
+.appeal_suc{ display:block; font-family:"iconfont" !important; text-align:center; margin:0 auto; margin-top:20%; color:#2ecc71; font-size:80px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.appeal1_box div{text-align:center;font-size:0.9rem; width:85%; margin:0 auto;  margin-top:11%;}
+#appeal_back{margin-top:33.3%;}
+
+/*事故快处*/
+.acc_head{width:100%; margin-top:5.3%; background-color:#3cca74; color:white; height:25px; line-height:25px; text-align:center;}
+.acc_place{width:100%; height:58px; padding-left:4%;  overflow:hidden; border-bottom:solid 1px #eeeeee;}
+.acc_place div{float:left; line-height:58px;}
+.acc_place input{float:left; padding-left:9%; margin-left:12.6%; border:solid 1px #dddddd; margin-top:12px; width:48%; height:34px; border-radius:10px; background:url(file:///C|/Users/dr2009/Desktop/%E6%97%A0%E9%94%A1%E4%BA%A4%E8%AD%A6/wx/img/plane.png) no-repeat 5% center; background-size:7%;}
+.acc_photo{padding-left:4%; margin-top:2%; border-bottom:solid 1px #eeeeee; padding-bottom:3%;}
+.acc_photo .upload1{ width:56px; height:56px; margin-left:0; margin-right:4%; line-height:50px;}
+.upload_img{padding-left:0; margin-left:0;}
+.acc_photo div:nth-child(1) span{display:inline-block; color:#3cca74; font-size:0.9rem; margin-left:3%;}
+.photo_part{margin-top:2%; overflow:hidden;}
+.photo_part div{float:left;width:56px; text-align:center; margin-right:4%; font-size:0.5rem; }
+.photo_part div:nth-child(1){margin-right:3%;}
+.photo_part div:nth-child(2){width:60px;}
+.photo_part div:nth-child(3){margin-right:2%;}
+.photo_part div:nth-child(4){width:72px;}
+.acc_name ,.acc_number ,.acc_ph ,.acc_range ,.acc_serv{overflow:hidden; padding-left:4%;  border-bottom:solid 1px #eeeeee; height:50px; line-height:50px;}
+.acc_name div:nth-child(1){float:left; width:26%;}
+.acc_name input ,.acc_ph input ,.acc_range select{float:left;  padding-left:9%; border:solid 1px #dddddd; width:45%; height:30px; margin-top:10px; border-radius:10px; background:url(file:///C|/Users/dr2009/Desktop/%E6%97%A0%E9%94%A1%E4%BA%A4%E8%AD%A6/wx/img/name.png) no-repeat 6% center; background-size:10%;}
+.acc_number ,.acc_ph{overflow: hidden;}
+.acc_number div:nth-child(1){float:left; width:26%;}
+.acc_number input{/*float:left; line-height:30px;*/ padding-left:5%; border:solid 1px #dddddd; width:45%; height:30px; margin-top:10px; border-radius:10px; }
+.acc_ph div ,.acc_range div ,.acc_serv div{float:left; width:26%;}
+.acc_ph input{background:url(../img/phone.png) no-repeat 6% center;background-size:10%;}
+.acc_range select{}
+.range_box ,.serv_box{color:#999999;width:100%; font-size:0.8rem;border-bottom:solid 1px #eeeeee;}
+.range_box div{width:90%; margin:0 auto; line-height:1.1rem; padding-top:3%; padding-bottom: 3%;;}
+.acc_serv select{padding-left:5%; border:solid 1px #dddddd; width:45%; height:30px; margin-top:10px; border-radius:10px;}
+.acc_serv button{background-color:transparent; border:none; margin-left:4%; line-height:50px; }
+.acc_serv i{font-family:"iconfont" !important; color:#3cca74; font-size:18px; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.serv_box{padding-top:3%;width:100%; line-height:1.1rem;  padding-bottom: 3%;}
+.serv_box div{width:90%; margin:0 auto;}
+
+
+/*事故快处适应范围*/
+.adap_range{border:dashed 3px #39ca74; width:80%;  margin:0 auto; margin-top:15%; height:400px; border-radius: 25px;;}
+.adap_range1{border:dashed 3px #39ca74; width:80%;  margin:0 auto; margin-top:10%; height:310px; border-radius: 25px;;}
+.adap_range div:nth-child(1) ,.adap_range1 div:nth-child(1){text-align: center; margin-top:3%;}
+.adap_range div:nth-child(2) ,.adap_range1 div:nth-child(2){font-size:0.8rem; width:90%; overflow-y: auto; max-height:21rem;margin:5% auto;}
+.adap_range1 div:nth-child(2){max-height:15rem;}
+/*违法查询*/
+.driv_box{margin-top:8%;width:100%;}
+.illegal_box{margin-top:5%;}
+.ill_score{height:45px;width:100%; padding-left:4%; line-height:45px; border-bottom: solid 1px #dddddd;}
+.ill_score div:nth-child(1){float:left;}
+.ill_score div:nth-child(2){float:right; margin-right:4%; text-align: right; width:20%;}
+
+/*驾驶人信息变更*/
+.driv_info{width:100%;height:50px; overflow: hidden;padding-left:4%; border-bottom: solid 1px #dddddd;}
+.info_icon{float:left; width:20px; height:20px;margin-top:15px; border-radius: 4px; background-color:#57c79e;}
+.info_icon i,.info_icon1 i,.info_icon2 i ,.info_icon3 i ,.info_icon4 i{color:white;text-align: center;margin-left:12%; line-height: 20px; font-family:"iconfont" !important; font-size:14px; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.driv_info div:nth-child(2){float:left; margin-left:3%; text-align: left; width:21%; line-height:50px; }
+.driv_info input{float:left; margin-top:10px; width:45%;padding-left:7%; border:solid 1px #dddddd; height:30px; border-radius: 10px;}
+.info_icon1{float:left; width:20px; height:20px;margin-top:15px; border-radius: 4px; background-color:#68b5f6;}
+.info_icon2 ,.info_icon3,.info_icon4{float:left; width:20px; height:20px;margin-top:15px; border-radius: 4px; background-color:#6c5ef5;}
+.info_icon3{background-color:#f5cc5e;}
+.info_icon4{background-color:#8f5da9;}
+.driv_info select{float:left; margin-top:10px; width:45%;padding-left:7%; border:solid 1px #dddddd; height:30px; border-radius: 10px;}
+
+/*驾驶人信息变更查询*/
+.ill_head{width:100%; display:-webkit-box; border-bottom:solid 2px #dddddd; background-color:white;}
+.illegal{-webkit-box-flex:1; width:50%; text-align:center; height:45px; line-height:45px; }
+.illegal:nth-child(1){border-right:solid 2px #dddddd;}
+.illegal div{ width:100%; margin:0 auto; font-size:1rem;}
+.ill_current{border-bottom:solid 2px #2ecc71; color:#2ecc71;}
+
+.ill_query{width:100%;}
+.query_box{width:100%;}
+.car_style{width:100%; padding-left:5%; height:53px; line-height:49px; overflow:hidden; border-bottom:solid 1px #eeeeee;}
+.car_style div{float:left; text-align: center; width:22%;}
+.car_style select{margin-left:3%; padding-left:3%; width:67%; border:solid 1px #dddddd; border-radius:8px; padding-top:2%; padding-bottom:2%; background-size:9%;}
+#car_number,#car_fa ,#car_number1,#car_fa1{margin-left:3%; padding-left:3%; width:67%; font-size:0.6rem; border:solid 1px #dddddd; border-radius:8px; padding-top:2.5%; padding-bottom:2%;}
+.car_style:nth-child(3) a ,.where{display:block; margin-top:-33px; font-size:0.6rem; text-align:center; color:#2ecc71;}
+.car_style:nth-child(1){margin-top:4%;}
+#query ,#query1{display:block; width:40%; margin:0 auto; margin-bottom:6%; margin-top:18.6%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white;}
+#query1{margin-top:30%;}
+.query_word1{color:#999999; text-align:center; font-size:0.8rem; margin-top:14%;}
+.query_word2 ,.query_word3 {color:#2ecc71; text-align:center; font-size:0.8rem; margin-top:1%;}
+.query_word3{margin-top:18.6%;}
+
+
+/*我的提醒*/
+.person_box{width:100%; background-color:white; padding-bottom: 5%;}
+.remind1{width:100%; height:50px; padding-left:4%; padding-right:4%; overflow:hidden; border-bottom: solid 1px #b3b3b3;} 
+.remind1 div:nth-child(1){float:left; line-height:50px; }
+.checkbox{float:right; margin-top:12.5px;}
+.checkbox input{display:none;}
+.checkbox label{position:relative; display:inline-block; width:50px; height:25px; border-radius: 20px; background-color:white; border:solid 1px #cccccc;}
+.checkbox label:after{content:''; position:absolute; top:0px; left:0px; width:22px; height:22px; border-radius: 20px; background-color:white; box-shadow: 1px 1px 2px rgba(0,0,0,0.2);}
+.checkbox input[type="checkbox"]:checked + label{background-color:#2ecc71;}
+.checkbox input[type="checkbox"]:checked + label:after{transform: translateX(28px);}
+#remind_back{margin-top:35%;}
+
+/*添加绑定车辆*/
+.bind_car{text-align: center; margin-top:4%; font-size:1.2rem;}
+.bind{text-align: center; margin-top:11%;}
+.bind a{color:#51ca6e;}
+
+/*绑定后驾驶证*/
+.person_num1{width:100%; padding-left:5%; height:53px; line-height:49px; overflow:hidden; border-bottom:solid 1px #eeeeee;}
+.person_num1 div{float:left; text-align: left; width:22%;}
+.person_num1 input{margin-left:3%; padding-left:3%; width:67%; font-size:0.6rem; border:none; border-radius:8px; padding-top:2.5%; padding-bottom:2%;}
+.person_btn{ width:100%;}
+.btn_box{overflow: hidden; margin:5% auto; margin-left:8%;}
+.person_btn a{display:block;width:40%; float:left; font-size:0.9rem; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
+.person_btn a:nth-child(1){margin-right:4%;}
+
+/*产品反馈*/
+.feed_head{overflow: hidden; width:100%; height:55px; padding-left:4%;}
+.feed_head div{float:left; width:35%; line-height:55px;}
+.feed_head select{float:left; margin-top:3%; padding-left:3%; width:50%; font-size:0.6rem; border:solid 1px #dddddd; border-radius:8px; padding-top:2.5%; padding-bottom:2%;}
+.feed_fg{width:100%; padding-top:3.5%; background-color:#eeeeee;}
+.feed_sugg {width:100%; margin-top:6%;}
+.feed_sugg textarea{border:solid 1px #b3b3b3; padding-left:4%; padding-top:3%; margin-left:4%; width:92%; height:160px; border-radius: 10px; resize: none;}
+.feed_sugg input{border:solid 1px #b3b3b3; padding-left:3%; margin-top:4%; margin-left:4%; width:92%; border-radius:8px; padding-top:2.5%; padding-bottom:2%;} 
+
+/*关注路况*/
+.query_info{background-color:white; width:100%; border-bottom:solid 1px #dddddd; font-size:0.9rem;}
+.query_info1{overflow:hidden; height:50px; width:100%; padding-right:4%; padding-left:4%;}
+.arrow_left{float:left;  margin-left:4%; width:11%;}
+.info_right{float:left; line-height:50px;}
+.arrow_left i{font-family:"iconfont" !important; line-height:50px; color:#a5a5a5; font-size:18px; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.query_info1 button{display:block; border:none; font-size:0.8rem; margin-top:11px; float:right; text-align: center; width:21%; line-height:28px; height:28px; text-align:center; background-color:#2ecc71; border-radius:6px; color:white; }
+
+.info_right span {display:inline-block; margin-left:2%;}
+.info_detail{ width:100%;}
+.info_detail img{width:100%;}
+.detail_box{background-color:#cfcfcf; font-size:0.8rem; height:65px; text-align: center; line-height: 65px; color:white;}
+.hide{display:none;}
+
+/*加载*/
+#loading-fs{position: fixed; display:none; z-index:999;
+    top: 40%;
+    left: 0;
+    width: 100%;}
+#loading-fs > div{    background: rgba(0,0,0,.8);
+    padding: 40px 0;
+    width: 46%;
+    margin: 0 auto;
+    border-radius: 5px;
+    color: #fff;
+    font-size: .8em;
+    text-align: center;}
+#loadanim {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url(../img/loading.png) no-repeat;
+    vertical-align: -3px;
+    margin-right: 5px;
+    -webkit-animation: loading .8s linear infinite;
+    -moz-animation: loading 0.8s linear infinite;
+    -o-animation: loading 0.8s linear infinite;
+    animation: loading 0.8s linear infinite;
+}
+@-webkit-keyframes loading{
+    0%{-webkit-transform:rotate(0deg);}	100%{-webkit-transform:rotate(360deg);}}
+@-moz-keyframes loading{
+    0%{-moz-transform:rotate(0deg);}  	100%{-moz-transform:rotate(360deg);}}
+@-o-keyframes loading{
+    0%{-o-transform:rotate(0deg);}	100%{-o-transform:rotate(360deg);}}
+@keyframes loading{
+    0%{transform:rotate(0deg);}	100%{transform:rotate(360deg);}}
+
+
+
+
+
+
+
+
+
+
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){  /* 兼容iphone4/4s */
+    #car_number,#car_fa ,#car_number1,#car_fa1{width:74%;}
+    .car_style select{width:74%;}
+}
+
+
+
+
+
+

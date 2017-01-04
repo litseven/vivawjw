@@ -1,0 +1,1099 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<title>无标题文档</title>
+<script>
+	document.write('<div id="preloading"><div class="prelogo"><img src="http://imgcdn.yimiaoxiao.com/dst_flower.png"></div></div>');
+</script>
+    <script>
+        if (document.images) {
+            img = new Image();
+            img.src = "{S_URL}img/bg_last.jpg";
+            var imgs = new Array();
+            for(i=1; i<=48; i++){
+                imgs[i] = new Image();
+                imgs[i].src = "{S_URL}img/"+i+".jpg" ;
+            }
+        };
+    </script>
+<style>
+    body{margin:0;padding:0}
+	#preloading{position:fixed;width:100%;height:100%;background:rgba(0,0,0,1);margin:0;padding:0;z-index:5000;}
+	.prelogo{position:absolute;width:20%;top:45%;left:40%;}
+	.prelogo img{max-width:100%;-webkit-animation: loading 5s linear infinite;}
+	@-webkit-keyframes loading{	
+	0%{-webkit-transform:rotate(0deg);}	100%{-webkit-transform:rotate(360deg);}}
+</style>
+<link rel="stylesheet" href="{S_URL}/css/push.css"/>
+<script>
+function addLoadEvent(func) { 
+	  var oldonload = window.onload; 
+	  if (typeof window.onload != 'function') { 
+		console.log(window.onload);
+	    window.onload = func; 
+	  } else { 
+	    window.onload = function() { 
+		  if (oldonload) { 
+	        oldonload(); 
+	      } 
+	      func(); 
+	    } 
+	  } 
+}
+addLoadEvent(function() { 
+	$("#preloading").hide();
+});
+</script>
+</head>
+
+<body>
+     
+     
+<!--    <audio loop id="music" src="http://lab.scienmedia.compages/sst/nj_gj1213/{S_URL}/img/1.mp3"></audio>
+-->    <!--第一页-->
+        <div id="first_page" class="memorial">
+            <div class="memTitle">
+               <img src="{S_URL}/img/title.png">
+            </div>
+            <div class="memTime">
+               <img src="{S_URL}/img/date.png">
+            </div>
+            <div class="loader">
+             <div class="loading">
+                   <i></i>
+                   <i></i>
+                   <i></i>
+                   <i></i>
+                  
+             </div>
+            </div>
+            <div class="startBtn">
+               <div class="mery">
+                    <a>开启1937年的记忆</a>
+               </div>
+               
+            </div>
+          
+        </div>
+        
+        <!--第一个文字字幕式出现-->
+         <div class="subtitle1" style="display:none;">
+              <div class="subtitle_box1">
+              
+                   <div class="word_tit1">
+                       <div class="word1_h1"><img src="{S_URL}/img/zm1_h1.png"></div>
+                       <div class="word1_h2"><img src="{S_URL}/img/zm1_h2.png"></div>
+                       <div class="word1_h3"><img src="{S_URL}/img/zm1_h3.png"></div>
+                       <div class="word1_h4"><img src="{S_URL}/img/zm1_h4.png"></div>
+                       <div class="word1_h5"><img src="{S_URL}/img/zm1_h5.png"></div>
+                       <div class="word1_h6"><img src="{S_URL}/img/zm1_h6.png"></div>
+                       <div class="word1_h7"><img src="{S_URL}/img/zm1_h7.png"></div>
+                       
+                   </div>
+              <div class="arrow"><img src="{S_URL}/img/down_arrow.png"/></div>
+              </div>
+          </div>
+         
+         
+         <!--第二个文字字幕式出现-->
+         <div class="subtitle" style="display:none;">
+              <div class="subtitle_box">
+              
+                   <div class="word_tit">
+                       <div class="word_h1"><img src="{S_URL}/img/zm_h1.png"></div>
+                       <div class="word_h2"><img src="{S_URL}/img/zm_h2.png"></div>
+                       <div class="word_h3"><img src="{S_URL}/img/zm_h3.png"></div>
+                       <div class="word_h4"><img src="{S_URL}/img/zm_h4.png"></div>
+                       <div class="word_h5"><img src="{S_URL}/img/zm_h5.png"></div>
+                       <div class="word_h6"><img src="{S_URL}/img/zm_h6.png"></div>
+                       <div class="word_h7"><img src="{S_URL}/img/zm_h7.png"></div>
+                       <div class="word_h8"><img src="{S_URL}/img/zm_h8.png"></div>
+                       <div class="word_h9"><img src="{S_URL}/img/zm_h9.png"></div>
+                   </div>
+              <div class="arrow"><img src="{S_URL}/img/down_arrow.png"/></div>
+              </div>
+          </div>
+<!--第三个文字字幕式出现-->
+         <div class="subtitle3" style="display:none;">
+              <div class="subtitle_box3">
+              
+                   <div class="word_tit3">
+                       <div class="word3_h1"><img src="{S_URL}/img/zm2_h1.png"></div>
+                       <div class="word3_h2"><img src="{S_URL}/img/zm2_h2.png"></div>
+                       <div class="word3_h3"><img src="{S_URL}/img/zm2_h3.png"></div>
+                       <div class="word3_h4"><img src="{S_URL}/img/zm2_h4.png"></div>
+                       <div class="word3_h5"><img src="{S_URL}/img/zm2_h5.png"></div>
+                       <div class="word3_h6"><img src="{S_URL}/img/zm2_h6.png"></div>
+                       <div class="word3_h7"><img src="{S_URL}/img/zm2_h7.png"></div>
+                       <div class="word3_h8"><img src="{S_URL}/img/zm2_h8.png"></div>
+                   </div>
+                   
+              </div>
+              <div class="arrow"><img src="{S_URL}/img/down_arrow.png"/></div>
+          </div>
+             <!--文字字幕结束-->
+                
+        
+        <div class="old_soldier">
+            <div class="logo"><img src="{S_URL}/img/logo.png" /></div>
+            <div class="surviver">
+            	<div class="num">8455</div>
+                <img src="{S_URL}/img/survive.png"/>
+            </div>
+            <div id="search_sqaure"></div>
+            <div id="search_sqaure_1"></div>
+            <div class="inner" style="height: 100%; top: 24%;">
+                <ul style="height: 7.7%;">
+                        <li class="maskf li1 li21"></li>
+                        <li class="maskf li20"></li>
+                        <li class="maskf li19"></li>
+                        <li class="maskf li18"></li>
+                        <li class="maskf li17"></li>
+                        <li class="maskf li16"></li>
+                </ul>
+                <ul style="height: 7.7%;">
+                    <li class="maskf li2 maskf2 li22"></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class="maskf li15"></li>
+                </ul>
+                <ul style="height: 7.8%;">
+                    <li class="maskf li3 maskf3 li23"></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class="maskf li14"></li>
+                </ul>
+                <ul style="height: 7.9%;">
+                    <li class="maskf li4 maskf4 li24"></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class="maskf li13"></li>
+                </ul>
+                <ul style="height: 7.92%;">
+                    <li class="maskf li5 li25"></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class=""></li>
+                    <li class="maskf li12"></li>
+                </ul>
+                <ul style="height: 7.9%;">
+                    <li class="maskf li6"></li>
+                    <li class="maskf li7"></li>
+                    <li class="maskf li8"></li>
+                    <li class="maskf li9"></li>
+                    <li class="maskf li10"></li>
+                    <li class="maskf li11"></li>
+                </ul>
+            </div>
+            <div class="arrow"><img src="{S_URL}/img/down_arrow.png"/></div>
+        </div>
+
+        <div class="container">
+            <div class="logo"><img src="{S_URL}/img/logo.png" /></div>
+            <div class="word"><img src="{S_URL}/img/word.png" /></div>
+            <div id="blingbling"></div>
+            <div class="box" id="bb">
+                <canvas id="cas" ></canvas>
+            </div>
+            <div class="out">
+                <div id="center_peace" style="opacity:0">
+                    <div class="peace_per">
+                     您是第<span>{$num}</span>位<br>点亮烛光的和平使者
+                    </div>
+                    <div class="peace_btn">
+                      <a>留言墙</a>
+                      <a class="transform_btn">传递和平</a>
+                    </div>
+                    <div class="share">
+                        <img src="{S_URL}/img/share.png">
+                    </div>
+                </div>
+                <div id="content">
+                    <img class="lazhu" src="{S_URL}/img/1.jpg" style="position:absolute;"/>
+                    <div class="logo"><img src="{S_URL}/img/logo.png" /></div>
+                    <div class="word"><img src="{S_URL}/img/word.png" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="waiting">
+            <div class="waiting_box">
+               
+               <div class="wait_return">
+                    <a><img src="{S_URL}/img/fanhui.png"></a>
+               </div>
+               
+                           
+            </div>
+            
+            <div class="waiting_img">
+            </div>
+            
+            <div class="waiting_title">
+               <div class="wait_tbox">
+                    <div class="wait_imgs">
+                         <img src="{S_URL}/img/wait.png">
+                    </div>
+                    <div class="wait_btn">
+                         <a><img src="{S_URL}/img/waitBtn.png"></a>
+                    </div>
+               </div>
+            </div>
+            
+            <div class="wait_point">
+               <div class="white_box"></div>
+               <div class="gesture">
+                    <img src="{S_URL}/img/shoushi1.png">
+               </div>
+            </div>
+            
+            <!--我的留言弹出层-->
+            <div class="leave_message" style="display:none;">
+                <div class="lea_box">
+                    <div class="leav_board">
+                         <img src="{S_URL}/img/lyq.png">
+                    </div>
+                    <div class="leav_word">
+                        <input type="hidden" name="name" value="{$user[nickname]}">
+                        <textarea name="content" placeholder="请输入留言"></textarea>
+                    </div>
+                    <div class="leav_btn">
+                         <img src="{S_URL}/img/close.png">
+                    </div>
+                    <div class="leav_close sub">
+                         <img src="{S_URL}/img/close1.png">
+                    </div>
+                    <div class="leav_submit sub" >提交</div>
+                </div>
+            </div>
+                
+                  <!--查看框-->
+            <div class="see_message" style="display:none;">
+                <div class="see_box">
+                    <div class="see_board">
+                         <img src="{S_URL}/img/lyq1.png">
+                    </div>
+                    <div class="see_btn">
+                         <img src="{S_URL}/img/close.png">
+                    </div>
+                    <div class="see_slide" id="see_slide">
+                         
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                     <!--<div class="slide_text">我的心中有一股说不出的悲凉的感受。但由现在看来，我们的祖国日渐强大起来，已经不再害怕任何国家在侵略我们了，中国人民是不可战胜的。
+                                     </div>
+                                     <div class="slide_name">宁静致远</div>-->
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            <!-- Add Pagination -->
+                        </div>
+                    </div>
+                    
+                    <div class="see_point">
+                         <img src="{S_URL}/img/shoushi2.png">
+                    </div>
+                            <!--loading框-->
+                    <div id="see_loading">
+                        <div class="spinner">
+                            <div class="spinner-container container1">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container2">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            
+                            <div class="spinner-container container3">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<audio loop id="music" src="http://lab.scienmedia.com/pages/sst/nj_gj1213/img/1.mp3"></audio>
+</body>
+{template 'wxsdk'}
+<script src="{S_URL}/js/jquery-3.1.0.min.js"></script>
+<!--数据处理Start-->
+<script>
+    $(function(){
+        $(".sub").click(function(){
+            var name = $("[name='name']").val();
+            var content = $("[name='content']").val();
+            if(!content){alert("请完善内容后提交！");return false;}
+            $.post("{php echo $this->createMobileUrl('postday')}",{name:name,content:content},function(data){
+                if (data.status == 200){
+                    alert('留言成功!');
+                }else{
+                    alert('已留言，不能重复留言！');
+                }
+            },'JSON');
+        });
+        $('.wait_point').click(function(){
+                msg();
+        });
+        var process = false;
+        function msg(){
+            if(process)return false;
+            process = true;
+            $('#see_loading').show();
+            $.post("{php echo $this->createMobileUrl('seldata')}",function(data){
+                $('#see_loading').hide();
+                //$('.tt').show().html("留言内容："+data.content+"<br>"+"名字："+data.name);
+                $('.swiper-slide').html("<div class='slide_text'>"+data.content+"</div><div class='slide_name'>"+data.name+"</div>");
+                process = false;
+            },'JSON');
+
+        }
+
+        document.getElementById('see_slide').addEventListener('touchstart', function (e) {
+            var touch=e.changedTouches;
+            startx=touch[0].clientX;
+            starty=touch[0].clientY;
+        });
+
+        document.getElementById('see_slide').addEventListener('touchend', function (e) {
+
+            var touch=e.changedTouches;
+            endx=touch[0].clientX;
+            endy=touch[0].clientY;
+            //alert(1);
+            msg();
+
+            document.getElementById('loading').style.display='block';
+
+            //判断左右移动程序
+            if(startx>endx){
+                // alert('left,模拟ajax异步加载数据');
+                window.setTimeout(function(){
+                   /* document.getElementById('check-content').innerText = "向左滑动了";
+                    document.getElementById('loading').style.display='none';*/
+                   msg();
+
+                },1000);
+            }else{
+                // alert('right,模拟ajax异步加载数据');
+
+                window.setTimeout(function(){
+                    /*document.getElementById('check-content').innerText = "向右滑动了";
+                    document.getElementById('loading').style.display='none';*/
+                    msg();
+                },1000);
+            }
+        });
+
+
+
+
+        /*var process = false;
+
+        $(em).do(function(){
+            if(process)return false;
+            process = true;
+            $.getJson(url,function(){
+
+                console.log("get data");
+
+                process = false;
+
+            });
+
+        });*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $('.waiting_img ,.wait_point').click(function(){
+            $('.wait_point').hide();
+            msg();
+            $('.see_message').show();
+        });
+    });
+    wx.ready(function(){
+        var bgm = document.getElementById('music');
+        bgm.play();
+        _title = '“12·13”第三个国家公祭日，我是第{$num}位传递和平的使者。';
+        _titleP = '缅怀同胞，永志不忘，点亮烛光，祈愿和平！';
+        _link = "{$_W['siteurl']}";
+        _imgUrl = "http://imgcdn.yimiaoxiao.com/dst_flower.png";
+        _desc = "快来留下你想说的话吧";
+        //朋友圈
+        wx.onMenuShareTimeline({
+            title: _title,
+            link: _link,
+            imgUrl: _imgUrl,
+            success: function () {}
+        });
+        //转发好友
+        wx.onMenuShareAppMessage({
+            title: _title,
+            link: _link,
+            desc: _desc,
+            imgUrl: _imgUrl,
+            success: function () {}
+        });
+
+    });
+</script>
+<!--数据处理End-->
+<script>
+//	window.onload =	document.getElementById('music').play();
+
+		// arrow  下一页
+	//获取接触屏幕时的X和Y
+			$('.subtitle3').bind('touchstart',function(e){
+				startX = e.originalEvent.changedTouches[0].pageX,
+				startY = e.originalEvent.changedTouches[0].pageY;
+			});
+			$('.subtitle3').bind('touchmove',function(e){
+				//获取滑动屏幕时的X,Y
+				endX = e.originalEvent.changedTouches[0].pageX,
+				endY = e.originalEvent.changedTouches[0].pageY;
+				//获取滑动距离
+				distanceX = endX-startX;
+				distanceY = endY-startY;
+				//判断滑动方向
+				if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX>0){
+					//console.log('往右滑动');
+				}else if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX<0){
+	//				console.log('往左滑动');
+				}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY<0){
+	//				console.log('往上滑动');
+					$('.subtitle3').css("top","-100%");
+					$(".old_soldier").css("opacity","1");
+					var num=1000;
+					var interval=setInterval(function(){
+						num = num - (parseInt(Math.random()*9));
+						$(".num").html("<span>"+num+"</span>");
+					if(num < 108){
+					$(".num").html("<span>108</span>");
+					clearInterval(interval);
+					}
+					},1);
+
+	//				$('.old_soldier').show(1000);
+					
+				}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY>0){
+	//				console.log('往下滑动');
+				}else{
+					//console.log('点击未滑动');
+				}
+			return false;
+			});	
+</script>
+<script>	
+	$(document).ready(function(){
+		$('.mery a').click(function(){
+			$(".memorial").hide();
+			$('.subtitle1').show();
+			$('.subtitle1').css("opacity","1");
+/*字幕*/
+
+<!--第一个文字字幕式出现-->
+	     setTimeout(function(){
+			 $('.word1_h1').animate({opacity:'1'},500,'linear');
+			 });
+			 
+		 setTimeout(function(){
+			 $('.word1_h2').animate({opacity:'1'},1500,'linear');
+			 },500);
+			 
+	     setTimeout(function(){
+			 $('.word1_h3').animate({opacity:'1'},1500,'linear');
+			 },1500);
+		 setTimeout(function(){
+			 $('.word1_h4').animate({opacity:'1'},1500,'linear');
+			 },2500);
+		 setTimeout(function(){
+			 $('.word1_h5').animate({opacity:'1'},1500,'linear');
+			 },3500);
+		setTimeout(function(){
+			 $('.word1_h6').animate({opacity:'1'},1500,'linear');
+			 },4500);
+	    setTimeout(function(){
+			 $('.word1_h7').animate({opacity:'1'},1500,'linear');
+			 },5500);
+		
+	//获取接触屏幕时的X和Y
+			$('.subtitle1').bind('touchstart',function(e){
+				startX = e.originalEvent.changedTouches[0].pageX,
+				startY = e.originalEvent.changedTouches[0].pageY;
+			});
+			$('.subtitle1').bind('touchmove',function(e){
+				//获取滑动屏幕时的X,Y
+				endX = e.originalEvent.changedTouches[0].pageX,
+				endY = e.originalEvent.changedTouches[0].pageY;
+				//获取滑动距离
+				distanceX = endX-startX;
+				distanceY = endY-startY;
+				//判断滑动方向
+				if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX>0){
+					//console.log('往右滑动');
+				}else if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX<0){
+	//				console.log('往左滑动');
+				}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY<0){
+	//				console.log('往上滑动');
+					$(".subtitle1").css("top","-100%");
+					$(".subtitle").show();
+	//				$('.old_soldier').show(1000);
+					 <!--第二个文字字幕式出现-->
+					 setTimeout(function(){
+						 $('.word_h1').animate({opacity:'1'},500,'linear');
+						 });
+						 
+					 setTimeout(function(){
+						 $('.word_h2').animate({opacity:'1'},1500,'linear');
+						 },500);
+						 
+					 setTimeout(function(){
+						 $('.word_h3').animate({opacity:'1'},1500,'linear');
+						 },1500);
+					 setTimeout(function(){
+						 $('.word_h4').animate({opacity:'1'},1500,'linear');
+						 },2500);
+					 setTimeout(function(){
+						 $('.word_h5').animate({opacity:'1'},1500,'linear');
+						 },3500);
+					setTimeout(function(){
+						 $('.word_h6').animate({opacity:'1'},1500,'linear');
+						 },4500);
+					setTimeout(function(){
+						 $('.word_h7').animate({opacity:'1'},1500,'linear');
+						 },5500);
+					 setTimeout(function(){
+						 $('.word_h8').animate({opacity:'1'},1500,'linear');
+						 },6500);
+					 setTimeout(function(){
+						 $('.word_h9').animate({opacity:'1'},1500,'linear');
+						 },7500);
+							
+					}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY>0){
+		//				console.log('往下滑动');
+					}else{
+						//console.log('点击未滑动');
+					}
+				return false;
+				});	
+			$('.subtitle').bind('touchstart',function(e){
+				startX = e.originalEvent.changedTouches[0].pageX,
+				startY = e.originalEvent.changedTouches[0].pageY;
+			});
+			$('.subtitle').bind('touchmove',function(e){
+				//获取滑动屏幕时的X,Y
+				endX = e.originalEvent.changedTouches[0].pageX,
+				endY = e.originalEvent.changedTouches[0].pageY;
+				//获取滑动距离
+				distanceX = endX-startX;
+				distanceY = endY-startY;
+				//判断滑动方向
+				if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX>0){
+					//console.log('往右滑动');
+				}else if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX<0){
+	//				console.log('往左滑动');
+				}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY<0){
+	//				console.log('往上滑动');
+					$(".subtitle").css("top","-100%");
+					$(".subtitle3").show();
+		<!--第三个文字字幕式出现-->
+				 setTimeout(function(){
+					 $('.word3_h1').animate({opacity:'1'},500,'linear');
+					 });
+					 
+				 setTimeout(function(){
+					 $('.word3_h2').animate({opacity:'1'},1500,'linear');
+					 },500);
+					 
+				 setTimeout(function(){
+					 $('.word3_h3').animate({opacity:'1'},1500,'linear');
+					 },1500);
+				 setTimeout(function(){
+					 $('.word3_h4').animate({opacity:'1'},1500,'linear');
+					 },2500);
+				 setTimeout(function(){
+					 $('.word3_h5').animate({opacity:'1'},1500,'linear');
+					 },3500);
+				setTimeout(function(){
+					 $('.word3_h6').animate({opacity:'1'},1500,'linear');
+					 },4500);
+				setTimeout(function(){
+					 $('.word3_h7').animate({opacity:'1'},1500,'linear');
+					 },5500);
+				 setTimeout(function(){
+					 $('.word3_h8').animate({opacity:'1'},1500,'linear');
+					 },6500);
+							
+				}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY>0){
+	//				console.log('往下滑动');
+				}else{
+					//console.log('点击未滑动');
+				}
+			return false;
+			});	
+		  });
+		  
+//获取接触屏幕时的X和Y
+		$('.memorial').bind('touchstart',function(e){
+			startX2 = e.originalEvent.changedTouches[0].pageX,
+			startY2 = e.originalEvent.changedTouches[0].pageY;
+		});
+		$('.memorial').bind('touchmove',function(e){
+			//获取滑动屏幕时的X,Y
+			endX2 = e.originalEvent.changedTouches[0].pageX,
+			endY2 = e.originalEvent.changedTouches[0].pageY;
+			//获取滑动距离
+			distanceX2 = endX2-startX2;
+			distanceY2 = endY2-startY2;
+			//判断滑动方向
+			if(Math.abs(distanceX2)>Math.abs(distanceY2) && distanceX2>0){
+				//console.log('往右滑动');
+			}else if(Math.abs(distanceX2)>Math.abs(distanceY2) && distanceX2<0){
+//				console.log('往左滑动');
+			}else if(Math.abs(distanceX2)<Math.abs(distanceY2) && distanceY2<0){
+//				console.log('往上滑动');
+//				$(".out").hide();
+//				$('.peace').show(1000);
+				
+			}else if(Math.abs(distanceX2)<Math.abs(distanceY2) && distanceY2>0){
+//				console.log('往下滑动');
+			}else{
+				//console.log('点击未滑动');
+			}
+		return false;
+		});	
+		
+		
+		
+	/*第四页*/	
+//  随机搜索的盒子
+		var Sch_Square = $("#search_sqaure");
+		var Sch_Square1 = $("#search_sqaure_1");
+		setInterval(Search,300);
+		function Search() {
+			var x = parseInt(Math.random()*8);
+			var y = parseInt(Math.random()*12);
+			x = 12.5*x;
+			y = 7.87*y;
+			Sch_Square.css("left",""+x+"%");
+			Sch_Square.css("top",""+y+"%");
+			var x = parseInt(Math.random()*8);
+			var y = parseInt(Math.random()*12);
+			x = 12.5*x;
+			y = 7.87*y;
+			Sch_Square1.css("left",""+x+"%");
+			Sch_Square1.css("top",""+y+"%");
+		}
+		/*旋转动画*/
+		var j=0;
+	
+		setInterval(animation,150);
+		function animation() {
+			var classes =new Array("maskf1","maskf2","maskf3","maskf4");
+			if (j<=19) {
+				for(var p = 0;p<=4 ;p++){
+					$(".li"+(j+p+1)+"").removeClass(classes[p]);
+					$(".li"+(j+p+2)+"").addClass(classes[p]);
+				}
+				j++;
+			}else {
+				j=0;
+			}		
+		}
+	// arrow  下一页
+//获取接触屏幕时的X和Y
+		$('.old_soldier').bind('touchstart',function(e){
+			startX1 = e.originalEvent.changedTouches[0].pageX,
+			startY1 = e.originalEvent.changedTouches[0].pageY;
+		});
+		$('.old_soldier').bind('touchmove',function(e){
+			//获取滑动屏幕时的X,Y
+			endX1 = e.originalEvent.changedTouches[0].pageX,
+			endY1 = e.originalEvent.changedTouches[0].pageY;
+			//获取滑动距离
+			distanceX1 = endX1-startX1;
+			distanceY1 = endY1-startY1;
+			//判断滑动方向
+			if(Math.abs(distanceX1)>Math.abs(distanceY1) && distanceX1>0){
+				//console.log('往右滑动');
+			}else if(Math.abs(distanceX1)>Math.abs(distanceY1) && distanceX1<0){
+//				console.log('往左滑动');
+			}else if(Math.abs(distanceX1)<Math.abs(distanceY1) && distanceY1<0){
+//				console.log('往上滑动');
+				$(".inner").hide();
+				$(".old_soldier").css("top","-100%");
+				$(".container").css("opacity","1");
+			}else if(Math.abs(distanceX1)<Math.abs(distanceY1) && distanceY1>0){
+//				console.log('往下滑动');
+			}else{
+				//console.log('点击未滑动');
+			}
+		return false;
+		});
+		
+			
+//  页面擦除效果
+		var canvas = document.getElementById("cas"), ctx = canvas.getContext("2d");
+		var x1, y1, a = 30, timeout, totimes = 100, distance = 30;
+		var saveDot = [];
+	
+		var canvasBox = document.getElementById("bb");
+	
+		canvas.width = canvasBox.clientWidth;
+		canvas.height = canvasBox.clientHeight;
+	/*	ctx.beginPath();
+		ctx.fillStyle = "rgba(24,18,37,0.6)";
+		ctx.fill();
+	*/
+		//  画布遮盖层  用图片来遮盖
+	
+		var img = new Image();
+		img.src = "{S_URL}/img/bg3_1.jpg";
+		img.onload = function () {
+			var w = canvas.height*img.width/img.height;
+	//		var w =canvas.width;
+			ctx.drawImage(img, (canvas.width-w)/2, 0, w, canvas.height);
+			tapClip()
+		};
+	
+		
+		function getClipArea(e, hastouch){
+			var x = hastouch ? e.targetTouches[0].pageX : e.clientX;
+			var y = hastouch ? e.targetTouches[0].pageY : e.clientY;
+			var ndom = canvas;
+	
+			while(ndom.tagName!=="BODY"){
+				x -= ndom.offsetLeft;
+				y -= ndom.offsetTop;
+				ndom = ndom.parentNode;
+			}
+	
+			return {
+				x: x,
+				y: y
+			}
+		}
+	
+		//通过修改globalCompositeOperation来达到擦除的效果
+		function tapClip() {
+			var hastouch = "ontouchstart" in window ? true : false,
+				tapstart = hastouch ? "touchstart" : "mousedown",
+				tapmove = hastouch ? "touchmove" : "mousemove",
+				tapend = hastouch ? "touchend" : "mouseup";
+			var area;
+			var x2,y2;
+			ctx.lineCap = "round";
+			ctx.lineJoin = "round";
+			ctx.lineWidth = a * 2;
+			ctx.globalCompositeOperation = "destination-out";
+	
+			canvas.addEventListener(tapstart, function (e) {
+				clearTimeout(timeout);
+				e.preventDefault();
+	
+				area = getClipArea(e, hastouch);
+	
+				x1 = area.x;
+				y1 = area.y;
+	
+				drawLine(x1, y1);
+				
+				this.addEventListener(tapmove, tapmoveHandler);
+	
+				this.addEventListener(tapend, function () {
+					this.removeEventListener(tapmove, tapmoveHandler);
+	
+					//检测擦除状态
+					timeout = setTimeout(function () {
+						var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+						var dd = 0;
+						for (var x = 0; x < imgData.width; x += distance) {
+							for (var y = 0; y < imgData.height; y += distance) {
+								var i = (y * imgData.width + x) * 4;
+								if (imgData.data[i + 3] > 0) { dd++ }
+							}
+						}
+						if (dd / (imgData.width * imgData.height / (distance * distance)) < 0.65) {
+//							canvas.className = "noOp";
+							$(".box").remove();
+	//						$(".out").animate();
+							$("#blingbling").fadeIn(1000);
+							setTimeout(function(){
+								$("#blingbling").hide();
+							},1000);
+	//蜡烛  点亮到闪烁
+						   var step=1;
+						   setInterval(times1,350);    
+						   function times1(){
+								if(step <= 25) {
+									$(".lazhu").attr("src","{S_URL}/img/"+step+".jpg");
+									step++;
+								}
+								else {
+									$(".lazhu").attr("src","{S_URL}/img/"+step+".jpg");
+										step++;
+									if(step == 49){
+										step = 25;
+									}
+								}
+					  	 }
+						 setTimeout(function (){
+							 $('#center_peace').animate({opacity:"1"},2000);
+						},4000);
+					}
+					}, totimes)
+				});
+	
+				function tapmoveHandler(e) {
+					clearTimeout(timeout);
+	
+					e.preventDefault();
+	
+					area = getClipArea(e, hastouch);
+	
+					x2 = area.x;
+					y2 = area.y;
+	
+					drawLine(x1, y1, x2, y2);
+	
+					x1 = x2;
+					y1 = y2;
+				}
+			});
+		}
+	
+	
+		function drawLine(x1, y1, x2, y2){
+	//		ctx.save();
+	//		if(arguments.length==2){
+	//			saveDot = [[x1, y1]];
+	//			ctx.beginPath();
+	//			ctx.arc(x1, y1, a, 0, 2 * Math.PI);
+	//			ctx.fill();
+	//		}else {
+	//			saveDot.push([x2,y2]);
+	//			if(saveDot.length >= 3){
+	//				ctx.beginPath();
+	//				ctx.moveTo(saveDot[0][0], saveDot[0][1]);
+	//				ctx.quadraticCurveTo(saveDot[1][0], saveDot[1][1], saveDot[2][0], saveDot[2][1]);
+	//				ctx.stroke();
+	//				saveDot = [saveDot.pop()];
+	//			}
+	//		}
+	//		ctx.restore();
+	
+			ctx.save();
+			ctx.beginPath();
+			if(arguments.length==2){
+				ctx.arc(x1, y1, a, 0, 2 * Math.PI);
+				ctx.fill();
+			}else {
+				ctx.moveTo(x1, y1);
+				ctx.lineTo(x2, y2);
+				ctx.stroke();
+			}
+			ctx.restore();
+		}
+	
+		//使用clip来达到擦除效果
+		function otherClip() {
+			var hastouch = "ontouchstart" in window ? true : false,
+				tapstart = hastouch ? "touchstart" : "mousedown",
+				tapmove = hastouch ? "touchmove" : "mousemove",
+				tapend = hastouch ? "touchend" : "mouseup";
+	
+			var area;
+	
+			canvas.addEventListener(tapstart, function (e) {
+				clearTimeout(timeout);
+				e.preventDefault();
+	
+				area = getClipArea(e, hastouch);
+	
+				x1 = area.x;
+				y1 = area.y;
+	
+				ctx.save();
+				ctx.beginPath();
+				ctx.arc(x1, y1, a, 0, 2 * Math.PI);
+				ctx.clip();
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.restore();
+	
+				canvas.addEventListener(tapmove, tapmoveHandler);
+				canvas.addEventListener(tapend, function () {
+					canvas.removeEventListener(tapmove, tapmoveHandler);
+					timeout = setTimeout(function () {
+						var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+						var dd = 0;
+						for (var x = 0; x < imgData.width; x += distance) {
+							for (var y = 0; y < imgData.height; y += distance) {
+								var i = (y * imgData.width + x) * 4;
+								if (imgData.data[i + 3] > 0) {
+									dd++;
+								}
+							}
+						}
+						if (dd / (imgData.width * imgData.height / (distance * distance)) < 0.65) {
+//							canvas.className = "noOp"
+							$(".box").remove();
+	//						$(".out").animate();
+							$("#blingbling").fadeIn(1000);
+							setTimeout(function(){
+								$("#blingbling").hide();
+							},1000);
+	//蜡烛  点亮到闪烁
+						   var step=1;
+						   setInterval(times1,350);    
+						   function times1(){
+								if(step <= 25) {
+									$(".lazhu").attr("src","{S_URL}/img/"+step+".jpg");
+									step++;
+								}
+								else {
+									$(".lazhu").attr("src","{S_URL}/img/"+step+".jpg");
+										step++;
+									if(step == 49){
+										step = 25;
+									}
+								}
+						   }
+						 setTimeout(function (){
+							 $('#center_peace').animate({opacity:"1"},2000);
+						},1000);
+					}
+					}, totimes)
+	
+				});
+	
+				function tapmoveHandler(e) {
+					e.preventDefault();
+					area = getClipArea(e, hastouch);
+					x2 = area.x;
+					y2 = area.y;
+	
+					var asin = a * Math.sin(Math.atan((y2 - y1) / (x2 - x1)));
+					var acos = a * Math.cos(Math.atan((y2 - y1) / (x2 - x1)));
+					var x3 = x1 + asin;
+					var y3 = y1 - acos;
+					var x4 = x1 - asin;
+					var y4 = y1 + acos;
+					var x5 = x2 + asin;
+					var y5 = y2 - acos;
+					var x6 = x2 - asin;
+					var y6 = y2 + acos;
+	
+					ctx.save();
+					ctx.beginPath();
+					ctx.arc(x2, y2, a, 0, 2 * Math.PI);
+					ctx.clip();
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					ctx.restore();
+	
+					ctx.save();
+					ctx.beginPath();
+					ctx.moveTo(x3, y3);
+					ctx.lineTo(x5, y5);
+					ctx.lineTo(x6, y6);
+					ctx.lineTo(x4, y4);
+					ctx.closePath();
+					ctx.clip();
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					ctx.restore();
+	
+					x1 = x2;
+					y1 = y2;
+				}
+			});
+		}
+});
+</script>
+<script>
+	$(document).ready(function(e) {
+			  <!--分享页面-->
+		  $('.transform_btn').click(function(){ 
+			  $('.share').show();
+			  return false;
+			  });
+			  
+		  $('.out').click(function(){
+			  $('.share').hide();
+		 
+			  });
+			  
+		  <!--点击留言墙按钮页面显示-->
+		  $('.peace_btn a:nth-child(1)').click(function(){
+//			  $(".waiting").show();
+			  $(".container").hide();
+			  $(".waiting").css("opacity","1");
+			  });
+		  $('.wait_return').click(function(){
+			  $(".container").show();
+			  });				
+			  
+		  <!--留言墙-->
+		  $('.wait_btn').click(function(){
+			  $('.leave_message').show();
+			  
+			  });
+		  $('.leav_btn,.leav_close').click(function(){
+			  $('.leave_message').hide();
+			  })
+		  $('.see_btn').click(function(){
+			  $('.see_message').hide();
+			  });
+		 /* $('.waiting_img ,.wait_point').click(function(){
+			  $('.wait_point').hide();
+			  $('.see_message').show();
+			  });*/
+		  <!--左右滑动加载loading事件-->
+		  /*function handleTouch(event){
+			  if(event.touches.length == 1){
+				   switch (event.type){
+					   case "touchmove":
+							 event.preventDefault();
+							 $('#see_loading').show().fadeOut(1500);
+							 $('.see_point').hide();
+                               alert(1);
+                             msg();
+							 break;
+					   }
+
+				  }
+			  }
+		  document.getElementById("see_slide").addEventListener('touchmove',handleTouch,false);*/
+    });
+
+</script>
+</html>

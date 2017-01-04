@@ -1,0 +1,151 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body,h1,h2,h3,h4,input,ul,li,dl,dt,dd,p,button{margin:0;padding:0; list-style:none;font-family:"Helvetica","Microsoft Yahei";font-weight:normal;}
+input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder { color:transparent; }
+a{ text-decoration:none;color:#007aff}
+@font-face {
+  font-family: 'scienfont';  /* project id："185241" */
+  src: url('//at.alicdn.com/t/font_w8x0kicq9t2ihpvi.eot');
+  src: url('//at.alicdn.com/t/font_w8x0kicq9t2ihpvi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_w8x0kicq9t2ihpvi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_w8x0kicq9t2ihpvi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_w8x0kicq9t2ihpvi.svg#iconfont') format('svg');
+}                                                                                                        
+ .sicon{    font-family:"scienfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}                     
+
+
+body{background:#eee;}
+.hide{display:none}
+#gbwel{ background-size:cover; background-repeat:no-repeat; background-position:center top;background-attachment: fixed}
+header img{width:20.8%;display:block}
+header{margin:20px 0 0 20px}
+.banner{margin-top:25px;}
+.banner img{width:100%;display:block}
+
+#gbbox{width:92%;margin:0 auto;margin-top:30px; background-color:#fff;padding:0 15px; border-radius:8px;padding-bottom:20px;margin-bottom:20px}
+.input-group{padding:10px 0;border-bottom:1px solid #ccc;width:100%;
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.input-group-addon {
+ 	display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+}
+
+.form-control {
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 1em;
+    line-height: 1.42857143;
+    color: #555;
+	position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    display: table-cell;
+	outline: none;
+	border: 0;
+    background: transparent;
+}
+
+.input-group-addon i.sicon{color:#fff; background-color:#389fff; border-radius:100px;margin-right:5px;font-size:.9em;padding:3px}
+[name='gbcontent']{height:150px;width:100%}
+#gbbox .input-group:last-of-type{border:0}
+#gbbox .btn{color:#fff; background-color:#389fff;border-radius:5px;width:100%;padding:8px;text-align:center;margin-top:20px}
+.more{margin-top:10px; text-align:center; }
+.more i{color:#389fff;margin-right:4px; }
+
+	#loading-fs{position: fixed; display:none; z-index:999;
+    top: 40%;
+    left: 0;
+    width: 100%;}
+	#loading-fs > div{    background: rgba(0,0,0,.8);
+    padding: 40px 0;
+    width: 46%;
+    margin: 0 auto;
+    border-radius: 5px;
+    color: #fff;
+    font-size: .8em;
+    text-align: center;}
+	
+	
+	#loadanim {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url(../images/loading.png) no-repeat;
+    vertical-align: -3px; 
+    margin-right: 5px;
+    -webkit-animation: loading .8s linear infinite;
+    -moz-animation: loading 0.8s linear infinite;
+    -o-animation: loading 0.8s linear infinite;
+    animation: loading 0.8s linear infinite;
+}
+.gblist{margin-bottom:50px}
+.gblist ul{width:90%;margin:10px auto}
+.gblist ul li{padding:15px 0;width:100%;
+    position: relative;
+    display: table;
+    border-collapse: separate;}
+.gblist ul li .ava {
+ 	display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: top;
+    line-height: 1;
+    color: #555;
+	text-align:center;
+	border-radius:100px
+}
+.ava>img{width:70px;border-radius:100px;display:block;	background-color:rgba(255,255,255,.6);padding:6px}
+.gblist ul li .gb{    padding: 10px 12px;
+    font-size: 1em;
+    line-height: 1.42857143;
+    color: #555;
+	position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    display: table-cell;
+	outline: none;
+	border: 0;
+    background: #fff;
+	margin-left: 10px;
+    border-radius: 5px;
+
+}
+.gblist ul li .gb .txt{padding-bottom:10px;border-bottom:1px solid #ccc;}
+.gblist ul li .gb .plus{margin-top:3px;text-align:right;}
+.plus i{margin-right:4px}
+	
+.gblist .active{color:#fd5f6c}	
+.postbtn{background:#389fff;color:#fff;text-align:center;padding:10px 0;font-size:1.1em; position:fixed;bottom:0;width:100%;z-index:2}
+.postbtn i{margin-right:5px}
+
+@-webkit-keyframes loading{	
+	0%{-webkit-transform:rotate(0deg);}	100%{-webkit-transform:rotate(360deg);}}
+
+@media screen and (max-height:520px) { 
+ 	[name='gbcontent']{height:100px}
+	#gbbox{margin-bottom:3px;}
+	.more{margin-top:2px;margin-bottom:3px}
+	}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[国家公祭日]]></name>
+		<identifie><![CDATA[memorial]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[统一模块]]></ability>
+		<description><![CDATA[留言系统]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[http://lab.scienmedia.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="活动入口" do="enter" state="" direct="true" />
+		</cover>
+		<menu>
+			<entry title="留言内容" do="guestbook" state="" direct="false" />
+		</menu>
+	</bindings>
+
+
+</manifest>

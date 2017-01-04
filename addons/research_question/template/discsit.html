@@ -1,0 +1,170 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li{if $op=='list'} class="active" {/if} class="lists"><a href="javascript:;">评议资料列表</a></li>
+    <li{if $op=='add'} class="active" {/if} class="add"><a href="javascript:;">添加资料</a></li>
+</ul>
+<script>
+    $(function(){
+        $('.nav .lists ').click(function(){
+            window.location.href="{php echo $this->createWebUrl('discsit', array('op' => 'list'))}";
+        });
+        $('.nav .add ').click(function(){
+            window.location.href="{php echo $this->createWebUrl('discsit', array('op' => 'add'))}";
+        });
+    });
+</script>
+{if $op == 'list'}
+<div class="list_page">
+    <form action="" method="post" id="form1">
+        <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:5%;">题号</th>
+                        <th style="width:65%;">题目</th>
+                        <th style="width:25%;text-align: center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $item}
+                    <tr>
+                        <td style="vertical-align:middle;">{$item['id']}</td>
+                        <td style="vertical-align:middle;font-weight: bold">{$item['title']}</td>
+                        <td id="update_{$item['id']}" style="text-align: center">
+                           <!-- {if $item['is_show'] == 0}
+                            <span class="btn-warning btn-sm btn status-toggle" title="点击修改" id="{$item['id']}" is_show="1">隐藏</span>&nbsp;&nbsp;
+                            {else}
+                            <span class="btn-success btn-sm btn status-toggle" title="点击修改" id="{$item['id']}" is_show="0">显示</span>&nbsp;&nbsp;
+                            {/if}-->
+                            <!-- <span  class="btn btn-sm btn-primary sub_compile" data-id="{$item['id']}" title="点击编辑">编辑</span>&nbsp;&nbsp;-->
+                            <span  class="btn btn-sm btn-danger sub_delete" data-id="{$item['id']}" title="点击删除">删除</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>选项：</td>
+                        <td colspan="2">
+                            {php $val =  unserialize($item['key'])}
+                            {loop $val $k $v}
+                                {php echo $k+1}:{$v}&nbsp;&nbsp;
+                            {/loop}
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {$pager}
+    </form>
+</div>
+<script>
+    $(function(){
+        $('.btn').hover(function(){
+            $(this).tooltip('show');
+        },function(){
+            $(this).tooltip('hide');
+        });
+        //是否显示
+        $('.status-toggle').click(function(){
+            var id = $(this).attr('id');
+            var is_show = $(this).attr('is_show');
+            $.post("{php echo $this->createWebUrl('discsit',array('op'=>'is_show'))}",{'id':id,'is_show':is_show},function(data){
+                if (data == 200){
+                    if(is_show == 1){
+                        $("#update_"+id+" .status-toggle").text('显示').removeClass('btn-warning').addClass('btn-success').attr("is_show","0");
+                    }
+                    else{
+                        $("#update_"+id+" .status-toggle").text('隐藏').removeClass('btn-success').addClass('btn-warning').attr("is_show","1");
+                    }
+                }
+            });
+        });
+        //删除
+        $('.sub_delete').click(function(){
+            var id = $(this).attr('data-id');
+            if (confirm('确认要删除吗？')) {
+                $.post("{php echo $this->createWebUrl('discsit',array('op'=>'sub_delete'))}", {'id': id}, function (data) {
+                    if (data == 200) {
+                        window.location.href="{php echo $this->createWebUrl('discsit', array('op' => 'list'))}";
+                    }
+                });
+            }
+        });
+    });
+</script>
+{/if}
+{if $op == 'add'}
+<div class="clearfix add_page" >
+    <!--<div class="alert alert-danger">
+        请谨慎修改积分行为参数
+    </div>-->
+    <div class="form-horizontal form">
+        <form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    添加资料
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">序号：</label>
+                        <div class="col-sm-1 col-xs-12">
+                            <input type="text" class="form-control" name="id">
+                        </div>
+                        <span class="help-block">前台要显示的题号,题号要连续</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">类型：</label>
+                        <div class="col-sm-2 col-xs-12">
+                            <select name="type" class="form-control">
+                                <option value="radio">单选</option>
+                                <option value="checked">多选</option>
+                                <option value="select">下拉</option>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">问题：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="title">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">选项1：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control xuan" name="xuan[]">
+                        </div>
+                        <button type="button" class="btn btn-default" id="add_input">添加选项</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <input type="button" id="sub" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+            </div>
+        </form>
+    </div>
+</div>
+{/if}
+<script>
+    $(function(){
+        //添加表单
+        var i = 2;
+        $("#add_input").click(function(){
+            $(".panel-body").append("<div class='form-group'><label class='col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label'>选项"+ i +"：</label> <div class='col-sm-9 col-xs-12'> <input type='text' class='form-control xuan' name='xuan[]'></div></div>");
+            i++;
+        });
+        //提交数据
+        $('#sub').click(function(){
+            var data = $('form').serialize();
+            $.post("{php echo $this->createWebUrl('posttz')}&"+data,function(data){
+                if (data == 200){
+                    alert('提交成功');
+                    window.location.href = "{php echo $this->createWebUrl('discsit',array('op'=>'list'))}";
+                }
+            });
+        });
+    });
+</script>
+{template 'common/footer'}

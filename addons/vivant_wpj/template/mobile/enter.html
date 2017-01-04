@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="{S_URL}nantong/css/index.css" rel="stylesheet">
+    <script src="{S_URL}nantong/js/jquery-3.0.0.js"></script>
+    <script src="{S_URL}nantong/js/index.js"></script>
+    <title>警务微评议</title>
+</head>
+<body >
+<!--问卷调查首页-->
+{if $op == 'page1'}
+<div class="page1">
+    <div class="bannerDiv">
+        <img src="{S_URL}nantong/img/banner.png">
+    </div>
+    <div class="contentDiv">
+        <h3>警务微评议使用须知</h3>
+        <p>欢迎您对南通警务工作进行评议，我们将以问卷的形式征集您对公安工作的看法。</p>
+    </div>
+    <div class="discussbtn"><a>开始评议</a></div>
+</div>
+{/if}
+<!--问卷调查信息页-->
+{if $op == 'page2'}
+<div class="page2">
+    <div class="content2Div">
+        <form id="discussForm" name="form1">
+            <h3>问卷调查</h3>
+            <!--<h4>1、您所在的地区？</h4>
+            <select class="citySelect">
+                <option value="0">江苏</option>
+                <option value="1">浙江</option>
+                <option value="2">上海</option>
+            </select>-->
+            {loop $dataList $item}
+                <h4>{$item['id']}、{$item['title']}</h4>
+                <!--下拉-->
+                {if $item['type'] == 'select'}
+                    <select class="citySelect" name="question_{$item['id']}">
+                    {loop $item['key'] $k $it}
+                        <option value="{php echo $k+1}">{$it}</option>
+                    {/loop}
+                    </select>
+                {/if}
+                <!--单选-->
+                {if $item['type'] == 'radio'}
+                    {loop $item['key'] $k $it}
+                    <label>
+                        <input name="question_{$item['id']}" type="radio" value="{php echo $k+1}" />
+                        <div class="txt">{$it}</div>
+                    </label>
+                    {/loop}
+                {/if}
+                <!--多选-->
+                {if $item['type'] == 'checked'}
+                    {loop $item['key'] $k $it}
+                    <label>
+                        <input name="question_{$item['id']}[]" type="checkbox" value="{php echo $k+1}"/>
+                        <div class="txt">{$it}</div>
+                    </label>
+                    {/loop}
+                {/if}
+            {/loop}
+            <h3>意见征集栏</h3>
+            <textarea rows="6" name="comment" placeholder="在此您可随意填写意见和建议" onfocus="this.placeholder=''" onBlur="this.placeholder='在此您可随意填写意见和建议'" name="text"></textarea>
+        </form>
+    </div>
+    <div class="submitbtn"><a>提交</a></div>
+</div>
+{/if}
+<!--问卷调查提交成功页-->
+{if $op == 'page3'}
+<div class="page3">
+    <div class="context3Icon"><img src="{S_URL}nantong/img/submit-icon.png"/></div>
+    <div class="context3Txt">
+         	<span>
+         		您的评议信息已成功提交，对您提出的诚挚意见
+				和建议，我们将及时整理汇总，并针对存在的问
+				题督促整改落实，感谢您对南通公安工作的理解
+				和支持。
+			</span>
+    </div>
+    <div class="succeedbtn"><a>我知道了</a></div>
+</div>
+{/if}
+<script>
+    $(function(){
+        $('.succeedbtn').click(function(){
+            window.location.href = "{php echo $this->createMobileUrl('enter',array('op'=>'page1'))}"
+        });
+        $('.discussbtn').click(function(){
+            window.location.href = "{php echo $this->createMobileUrl('enter',array('op'=>'page2'))}"
+        });
+        $('.submitbtn').click(function(){
+            var data = $('form').serialize();
+            var dataNum = "{$dataNum}";
+            //window.location.href = "{php echo $this->createMobileUrl('postdata',array('dataNum'=>dataNum))}&"+data;
+            $.post("{php echo $this->createMobileUrl('postdata')}&"+data,{'dataNum':dataNum},function(data){
+                if(data == 200){
+                    window.location.href = "{php echo $this->createMobileUrl('enter',array('op'=>'page3'))}"
+                }else if(data == 500){
+                    alert('请认真填写没道题哟！');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<!--暂时不做-->
+
+
+<!--投诉直通车首页-->
+<div class="page4" style="display:none">
+    <div class="bannerDiv">
+        <img src="{S_URL}nantong/img/banner.png">
+    </div>
+    <div class="content4Div">
+        <h3>投诉直通车使用须知</h3>
+        <p>1、您可使用本功能对南通公安机关及民警不依法履行职责、不依法行使职权或不遵守纪律等问题进行投诉举报，由于网络及微信等技术性限制，不能确保您的投诉举报能被实时受理，紧急情况下，请拨打南通公安投诉专用电话：0513-83562093或12389；
+            </br>2、为了方便与您联系，请您留下姓名和联系方式，并建议您留下身份证号码，以便我们核对相关信息，我们会安排专人与您联系，对于提供虚假联系方式的投诉，我们将不予受理；
+            </br>3、请您如实反映问题，有条件的可上传照片、视频等，对虚假、恶意投诉的，我们将根据情形依法予以惩戒；
+            </br>4、对您所填写的任何信息，我们都会严格予以保密，请您放心。
+        </p>
+    </div>
+    <div class="complaintbtn"><a>开始评议</a></div>
+</div>
+<!--投诉直通车信息页-->
+<div class="page5" style="display:none">
+    <form >
+        <div class="item">
+            <span class="name">您的姓名</span>
+            <input class="control"  value=""/>
+        </div>
+        <div class="item">
+            <span class="name">联系方式</span>
+            <input class="control"  value=""/>
+        </div>
+        <div class="item">
+            <span class="name">身份证号码</span>
+            <input class="control"  value="选填"/>
+        </div>
+        <div class="item">
+            <span class="name">投诉单位</span>
+            <input class="control"  value="选填"/>
+        </div>
+        <div class="item">
+            <span class="name">投诉民警姓名</br>或警号</span>
+            <input class="control"  value="选填"/>
+        </div>
+        <div class="lastitem">
+            <div class="lastitem1">
+                <span class="description">情况叙述</span>
+            </div>
+            <div class="lastitem2">
+					<textarea rows="5"   form="">请详细说明投诉事项发生的时间、地点，并对投诉事项的情形予以具体描述。
+					</textarea>
+            </div>
+        </div>
+        <div class="complaintbtn" id="shurebtn"><a>提交</a></div>
+    </form>
+</div>
+<!--投诉直通车提交成功页-->
+<div class="page3" style="display:none">
+    <div class="context3Icon"><img src="{S_URL}nantong/img/submit-icon.png"/></div>
+    <div class="context3Txt">
+         	<span>
+         		您的投诉已成功提交，我们将尽快安排专人与您联系，感谢您对南通公安工作的监督和支持。
+			</span>
+    </div>
+    <div class="succeedbtn"><a>我知道了</a></div>
+</div>
+</body>
+</html>

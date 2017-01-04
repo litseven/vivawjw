@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>留言墙</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" type="text/css" href="{S_URL}/css/style.css">
+</head> 
+
+<body id="gbwel" style="background-image:url({S_URL}/images/bg.jpg) ">
+<div id="wrapper">
+	<header><img src="{S_URL}/images/logo.png"></header>
+    <div class="banner"><img src="{S_URL}/images/banner.png"></div>
+    <div id="gbbox">
+        <div class="field">
+		<div class="input-group">
+    	 <span class="input-group-addon"><i class="sicon">&#xe678;</i>姓名</span>
+         <input class="form-control" name="realname" type="text" placeholder="请填写您的姓名"> 
+         <input type="hidden" name="avatar" value="{$user['headimgurl']}">
+         </div>
+
+		<div class="input-group">
+    	 <span class="input-group-addon qatip"><i class="sicon">&#xe60d;</i>留言</span>
+         
+         </div>
+         
+        <div class="input-group">
+         <textarea name="gbcontent" placeholder="请填写您的留言内容" class="form-control"></textarea>
+         </div>
+         
+        <div class="btn">提交</div> 
+    </div>
+    </div>
+    
+        <div class="more" onClick="window.location.href='{php echo $this->createMobileUrl('gblist')}'"><i class="sicon">&#xe625;</i>看看大家都怎么说</div>
+
+    </div>
+    
+    
+<div id="loading-fs">
+    	<div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+        </div>
+
+<script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+{template 'wxsdk'}
+<script>
+var process=false;
+
+wx.ready(function(){
+
+	
+_title = '我在南京银行面试现场，我想说';
+_link = "{$_W['siteurl']}";
+_imgUrl = "{S_URL}/images/poster.jpg";
+_desc = "快来留下你想说的话吧";
+	
+wx.onMenuShareTimeline({
+    title: _title,
+	link: _link,
+    imgUrl: _imgUrl,
+    success: function () {
+		
+		}
+});
+
+
+
+
+wx.onMenuShareAppMessage({
+    title: _title, 
+	link: _link,
+    desc: _desc,
+    imgUrl: _imgUrl,
+    success: function () {
+			
+			}
+});	
+	 
+	});
+	
+	
+	$(function(){
+		
+		$(".btn").click(function(){
+			if(process)return false;
+			rn = $("[name='realname']").val();
+			gc = $("[name='gbcontent']").val();
+			if(!rn||!gc){alert("请完善内容后提交！");return false;}
+			avatar = $("[name='avatar']").val();
+			process=true;
+			$("#loading-fs").show();
+			$.getJSON("{php echo $this->createMobileUrl('postgb')}&rn="+rn+"&gc="+gc+"&avatar="+avatar,function(json){
+					if(json.status == 200){
+						process = false;
+						window.location.href = '{php echo $this->createMobileUrl('gblist')}';
+						}
+					else  if(json.status == 500){
+						process = false;$("#loading-fs").hide();
+						alert("已留言，不可以重复留言！");
+						}	
+					else{
+						process = false;$("#loading-fs").hide();
+						alert("提交失败，请稍候重试！");
+						}	
+					
+					});
+			
+			});
+		
+		});
+    </script>
+</body>
+</html>

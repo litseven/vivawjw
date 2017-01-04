@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="{S_URL}/css/index.css" rel="stylesheet">
+<title>交通设施啄木鸟</title>
+</head>
+
+<body>
+     <div class="content n_1">
+          <div class="content_box">
+			<form action="{php echo $this->createMobileUrl('postwz');}" method="post" id="scienform">
+               <div class="picture_banner"><img src="{S_URL}/img/wood.jpg"></div>
+               <div class="picture_tip">您在道路上发现的交通标志标线红绿灯等设施损坏缺失，或者红绿灯放行时间不合理，可以在这里告诉我们，我们会尽快处理。</div>
+               <div class="upload_img">
+                    <div id="upload1" class="upload1"></div>
+                    <div id="upload2" class="upload1"></div>
+                    <div id="upload3" class="upload1"></div>
+                    <div id="upload4" class="upload1"></div>
+                    <input type="hidden" name="proof">
+               </div>
+               <div class="upload_tip">图片限制大小3000k，文明上网请勿上传与主题无关的内容。</div>
+               <textarea class="pict_intro" placeholder="请您提供照片相关说明，我们会及时认真处理。" name="memo" ></textarea>
+               <a class="picture_btn">确认</a>
+              	</form> 
+          </div>
+     </div>
+     
+     <div class="content hide n_2">
+          <div class="content_box">
+               <div class="appeal1_box">
+                   <i class="appeal_suc">&#xe60d;</i>
+                   <div>您上传的结果我们已收到，我们将为您尽快处理。</div>
+               </div>
+               <a id="appeal_back" onClick="closewin()">关 闭</a>
+          </div>
+     </div>
+     
+     
+<div id="loading-fs">
+     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+</div>
+<script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+<script src="http://imgcdn.yimiaoxiao.com/jquery.form.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{template 'wxsdk'}
+<script>
+var process = false;
+
+function closewin(){
+	wx.closeWindow();
+	}			
+				
+function showResponse(responseText, statusText, xhr, $form)  { 
+	if(statusText=='success' && (responseText =='200' || responseText ==200 )){
+			
+			process = false;
+			$("#scienform").resetForm();
+			$("#loading-fs").hide();
+			$(".n_1").hide();
+			$(".n_2").show();			
+		}
+		
+	}     
+    
+ 
+
+
+$(function(){
+	$(".upload_img>div").height($("#upload1").width());
+	$('#scienform').ajaxForm({success:showResponse});
+	
+		$(".upload_img>div").click(function(){
+			em = $(this);
+			wx.chooseImage({
+				count:1,
+				sizeType: ['compressed'], 
+				success: function (res) {
+					var localIds = res.localIds; 
+					
+							wx.uploadImage({
+								localId: localIds[0], 
+								isShowProgressTips: 1, 
+								success: function (res) {
+									var serverId = res.serverId; 
+									em.attr('sfotoid',serverId);
+									em.css({"background-image":"url("+localIds+")"});
+									
+								}
+							});					
+					
+						}
+					});
+			
+				});	
+	
+		$(".picture_btn").click(function(){
+			if(process)return false;
+				proof = [];
+				$(".upload_img>div").each(function(){
+						sid = $(this).attr('sfotoid');
+						if(sid)proof.push(sid);
+						});
+				$("[name='proof']").val(proof.join(','));		
+			
+			proof = $("[name='proof']").val();
+			memo = $("[name='memo']").val();
+			
+			if(!proof){alert("请上传照片！");return false;}
+			if(!memo){alert("请填写情况描述！");return false;}
+			
+			
+			process = true;
+
+			$("#loading-fs").show();
+			$("#scienform").submit();
+
+			
+				});		
+	
+	});
+
+</script>
+</body>
+</html>

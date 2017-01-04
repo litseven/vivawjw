@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="{S_URL}/bs/css/index.css" rel="stylesheet">
+<script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+<title>南京银行</title>
+</head>
+
+<body>
+     <div class="content">
+          <div class="content_box">
+               <div class="content_left">
+                    <img id="logo" src="{S_URL}/bs/img/logo.png">
+               </div>
+               <div class="content_right">
+                    <img id="title" src="{S_URL}/bs/img/title.png">
+                    <div class="word_list">
+                         <div class="list_box">
+                         
+                         
+                              
+                              
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </div>
+
+
+<script>
+	var lastestid ;
+	$(function(){
+		
+		getdata();
+		
+		setInterval(function(){getlastest();},30000);
+		
+		});
+	
+	
+	
+	function getlastest(){
+		$.getJSON("{php echo $this->createMobileUrl('getlastest')}",function(json){
+				
+				if(json.lastestid == lastestid){randomjson();}else{getdata();}
+				lastestid = json.lastestid;
+			});
+		
+		}
+		
+	
+	function getdata(){
+		$.getJSON("{php echo $this->createMobileUrl('bigdata')}",function(json){
+									var items = [];
+								  	$.each(json ,function(k,v){
+										hitstr = ishit = '';
+										if(parseInt(v.hit)>0)hitstr = '<span>'+v.hit+'</span>';
+										//if(parseInt(v.ishit)==1)ishit = ' active';
+										items.push('<div class="list"><div class="list_img"><img class="head" src="'+v.avatar+'"></div><div class="list_message"><div class="message">'+v.gb+'</div><div class="plus"><i class="sicon"></i>'+hitstr+'</div></div></div>');		
+											});
+									$(".list_box").html('');		
+									$(".list_box").append(items.join(""));
+			
+			});
+			
+			}
+		
+	function randomjson(){
+		$.getJSON("{php echo $this->createMobileUrl('bigdatarandom')}",function(json){
+									var items = [];
+								  	$.each(json ,function(k,v){
+										hitstr = ishit = '';
+										if(parseInt(v.hit)>0)hitstr = '<span>'+v.hit+'</span>';
+										//if(parseInt(v.ishit)==1)ishit = ' active';
+										items.push('<div class="list"><div class="list_img"><img class="head" src="'+v.avatar+'"></div><div class="list_message"><div class="message">'+v.gb+'</div><div class="plus"><i class="sicon"></i>'+hitstr+'</div></div></div>');		
+											});
+									//$(".list_box").html('');		
+									$(".list_box").prepend(items.join(""));
+			
+			});
+			
+			}
+		
+    </script>
+</body>
+</html>

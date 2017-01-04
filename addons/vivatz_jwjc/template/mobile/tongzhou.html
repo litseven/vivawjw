@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="{S_URL}tongzhou/css/index.css" rel="stylesheet">
+    <script src="{S_URL}tongzhou/js//jquery-3.0.0.js"></script>
+    <script src="{S_URL}tongzhou/js//index.js"></script>
+    <title>警务监督</title>
+</head>
+<body >
+<!--首页-->
+{if $op == 'page1'}
+<div class="page1">
+    <div class="bannerDiv">
+        <img src="{S_URL}tongzhou/img/banner.png">
+    </div>
+    <div class="page1btn" id="complaintbtn"><a>我要投诉</a></div>
+    <div class="page1btn" id="praisebtn"><a>我要表扬</a></div>
+    <div class="page1btn" id="discussbtn"><a>我要评议</a></div>
+</div>
+<script>
+    $(function(){
+        $('#complaintbtn').click(function(){
+            window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page4'))}";
+        });
+        $('#praisebtn').click(function(){
+            window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page2'))}";
+        });
+        $('#discussbtn').click(function(){
+            window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page6'))}";
+        });
+    });
+</script>
+{/if}
+{if $op == 'page2'}
+<!--表扬信息页-->
+<div class="page2">
+    <form>
+        <div class="item">
+            <span class="name">民警姓名</span>
+            <input class="control" name="pr_name" value=""/>
+        </div>
+        <div class="item">
+            <span class="name">民警警号</span>
+            <input class="control" name="pr_num" value=""/>
+        </div>
+        <div class="item">
+            <span class="name">车牌号码</span>
+            <input class="control" name="car_num" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="item">
+            <span class="name">民警单位</span>
+            <select class="addSelect" name="pr_unit">
+                <option value="指挥中心">指挥中心</option>
+                <option value="刑警大队">刑警大队</option>
+            </select>
+        </div>
+        <div class="item">
+            <span class="name">下属单位</span>
+            <select class="addSelect2" name="pr_next_unit">
+                <option value="法医鉴定所1">法医鉴定所1</option>
+                <option value="法医鉴定所2">法医鉴定所2</option>
+            </select>
+        </div>
+        <div class="item">
+            <span class="name">您的姓名</span>
+            <input class="control" name="pr_to_name" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="item">
+            <span class="name">您的电话</span>
+            <input class="control" name="pr_to_num" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="lastitem">
+            <span class="description">情况叙述</span>
+            <textarea  name="pr_comment" class="textarea" placeholder="在此您可随意填写意见和建议" onfocus="this.placeholder=''" onBlur="this.placeholder='在此您可随意填写意见和建议'"></textarea>
+        </div>
+        <div class="page1btn" id="pr_sub"><a>提交</a></div>
+    </form>
+</div>
+<script>
+    $(function(){
+        $('#pr_sub').click(function(){
+            var reg = /^\w+$/;
+            var data = $('form').serialize();
+            var pr_name = $("[name = 'pr_name']").val();
+            var pr_num = $("[name = 'pr_num']").val();
+            var pr_comment = $("[name = 'pr_comment']").val();
+            var pr_to_num = $("[name = 'pr_to_num']").val();
+            if (pr_name == ''){
+                alert('您要表扬哪位民警叔叔呢？');return false;
+            }
+            if(!reg.test(pr_num)){
+                alert('请输入正确编号！');return false;
+            }
+            if (pr_comment == ''){
+                alert('这位民警叔叔帮到了您什么呢？请简单叙述！');return false;
+            }
+            if (pr_to_num != ''){
+                if(!(/^1[34578]\d{9}$/.test(pr_to_num))){
+                    alert("手机号码有误，请重填");return false;
+                }
+            }
+            $.post("{php echo $this->createMobileUrl('prpost')}&"+data,function(data){
+                    if (data == 200){
+                        window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page3'))}";
+                    }
+            });
+        });
+    });
+</script>
+
+{/if}
+{if $op == 'page3'}
+<!--表扬确认页-->
+<div class="page3">
+    <div class="bannerDiv">
+        <img src="{S_URL}tongzhou/img/banner.png">
+    </div>
+    <div class="contentDiv">
+        <p>感谢您对通州公安工作和队伍管理的关心和支持！
+            人民警察为人民，帮助群众是我们应该做的！
+            表扬民警请回复我们，请将被表扬的民警姓名或警号、
+            单位等信息以及要表扬的具体事项写清楚。方便的话，
+            请您留下姓名和联系方式，以便我们进一步沟通。
+        </p>
+    </div>
+    <div class="page1btn callback" ><a>确定</a></div>
+</div>
+{/if}
+{if $op == 'page4'}
+<!--投诉信息页-->
+<div class="page4">
+    <form>
+        <div class="item">
+            <span class="type">投诉类型</span>
+            <select class="addSelect" name="co_type">
+                <option value="办事拖拉1">办事拖拉1</option>
+                <option value="办事拖拉2">办事拖拉2</option>
+            </select>
+        </div>
+        <div class="item">
+            <span class="name">民警姓名</span>
+            <input class="name" name="co_name" value=""/>
+        </div>
+        <div class="item">
+            <span class="name">民警警号</span>
+            <input class="number" name="co_num" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="item">
+            <span class="name">车牌号码</span>
+            <input class="control" name="co_car_num" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="item">
+            <span class="name">民警单位</span>
+            <select class="addSelect" name="co_unit">
+                <option value="指挥中心">指挥中心</option>
+                <option value="刑警大队">刑警大队</option>
+            </select>
+        </div>
+        <div class="item">
+            <span class="name">下属单位</span>
+            <select class="addSelect2" name="co_next_unit">
+                <option value="法医鉴定所1">法医鉴定所1</option>
+                <option value="法医鉴定所2">法医鉴定所2</option>
+            </select>
+        </div>
+        <div class="item">
+            <span class="name">您的姓名</span>
+            <input class="control" name="co_to_name" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="item">
+            <span class="name">您的电话</span>
+            <input class="control" name="co_to_num" placeholder="选填" onfocus="this.placeholder=''" onBlur="this.placeholder='选填'"/>
+        </div>
+        <div class="lastitem">
+            <span class="description">投诉事项</span>
+            <textarea class="textarea" name="co_comment" placeholder="在此您可随意填写意见和建议" onfocus="this.placeholder=''" onBlur="this.placeholder='在此您可随意填写意见和建议'"></textarea></textarea>
+        </div>
+        <div class="page1btn" id="co_sub"><a>提交</a></div>
+    </form>
+</div>
+<script>
+    $(function(){
+        $('#co_sub').click(function(){
+            var data = $('form').serialize();
+            var co_name = $("[name = 'co_name']").val();
+            var co_comment = $("[name = 'co_comment']").val();
+            var co_to_num = $("[name = 'co_to_num']").val();
+            if (co_name == ''){
+                alert('您对哪位民警叔叔做法不满意呢？');return false;
+            }
+            if (co_comment == ''){
+                alert('这位民警叔叔做了什么让您不满意的事情？请简单叙述！');return false;
+            }
+            if (co_to_num != ''){
+                if(!(/^1[34578]\d{9}$/.test(pr_to_num))){
+                    alert("手机号码有误，请重填");return false;
+                }
+            }
+            $.post("{php echo $this->createMobileUrl('copost')}&"+data,function(data){
+                var co_name = $("[name = 'co_name']").val();
+                if (data == 200){
+                    window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page5'))}";
+                }
+            });
+        });
+    });
+</script>
+{/if}
+{if $op == 'page5'}
+<!--投诉确认页-->
+<div class="page5">
+    <div class="bannerDiv">
+        <img src="{S_URL}tongzhou/img/banner.png">
+    </div>
+    <div class="contentDiv">
+        <p>感谢您关注公安工作和民警队伍建设！请您将需要投诉的情况微信回复我们！投诉时将被投诉民警姓名、警号、车辆、单位等信息以及要投诉的有关事项写清楚。方便的话，请您留下姓名和联系方式，以便我们向您反馈。
+        </p>
+    </div>
+    <div class="page1btn callback"><a>确定</a></div>
+</div>
+{/if}
+{if $op == 'page6'}
+<!--评议信息页-->
+<div class="page6">
+    <form method="post" action="#">
+        <div class="content6Div">
+            <h2>一、基础资料</h2>
+            <div class="contentList">
+                {loop $dataList $item}
+                <h3>{$item['id']}、{$item['title']}</h3>
+                <!--下拉-->
+                {if $item['type'] == 'select'}
+                <select class="citySelect" name="question_{$item['id']}">
+                    {loop $item['key'] $k $it}
+                    <option value="{php echo $k+1}">{$it}</option>
+                    {/loop}
+                </select>
+                {/if}
+                <!--单选-->
+                {if $item['type'] == 'radio'}
+                {loop $item['key'] $k $it}
+                <label>
+                    <input name="question_{$item['id']}" type="radio" value="{php echo $k+1}" />
+                    <label class="contentItem">{$it}</label>
+                </label>
+                {/loop}
+                {/if}
+                <!--多选-->
+                {if $item['type'] == 'checked'}
+                {loop $item['key'] $k $it}
+                <label>
+                    <input name="question_{$item['id']}[]" type="checkbox" value="{php echo $k+1}"/>
+                    <label class="contentItem">{$it}</label>
+                </label>
+                {/loop}
+                {/if}
+                {/loop}
+            </div>
+
+        </div>
+        <div class="page1btn" ><a>提交</a></div>
+    </form>
+</div>
+<script>
+    $(function(){
+        $('.page1btn').click(function(){
+            var data = $('form').serialize();
+            var dataNum = '{$dataNum}';
+
+            //window.location.href = "{php echo $this->createMobileUrl('posttong',array('dataNum'=>dataNum))}&"+data;
+            $.post("{php echo $this->createMobileUrl('posttong')}&"+data,{'dataNum':dataNum},function(data){
+                if(data == 200){
+                    window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page7'))}"
+                }else if(data == 500){
+                    alert('请认真填写没道题哟！');
+                }
+            });
+        });
+    });
+</script>
+{/if}
+{if $op == 'page7'}
+<!--评议确认页-->
+<div class="page7">
+    <div class="bannerDiv">
+        <img src="{S_URL}tongzhou/img/banner.png">
+    </div>
+    <div class="contentDiv">
+        <p>感谢您关注公安工作和民警队伍建设！请您将需要投诉的情况微信回复我们！投诉时将被投诉民警姓名、警号、车辆、单位等信息以及要投诉的有关事项写清楚。方便的话，请您留下姓名和联系方式，以便我们向您反馈。
+        </p>
+    </div>
+    <div class="page1btn callback" ><a>确定</a></div>
+</div>
+{/if}
+<script>
+    $(function(){
+        $('.callback').click(function(){
+            window.location.href = "{php echo $this->createMobileUrl('tongzhou',array('op'=>'page1'))}"
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{$reply['title']}</title>
+    <link href="../addons/bowen_jrxx/template/mobile/style/activity-style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../addons/bowen_jrxx/template/mobile/style/content.css" />
+</head>
+<body  data-role="page" class="activity-scratch-card-winning" >
+<div id="mcover" onclick="document.getElementById('mcover').style.display='none';" style="display:none;">
+    <img src="../addons/bowen_jrxx/template/mobile/img/guide.png" />
+</div>
+
+<div class="main">
+    <div class="content">
+        <div class="boxcontent boxwhite">
+            <div class="box">
+                <div class="title-brown">
+                    <span>{$reply['title']}</span>
+                </div>
+                <div class="Detail">
+                    {$nowday}<br><br>
+                    {$api['dat']}
+                    <br><br><br>今日英语:<br>{$api['api']['content']}<br>{$api['api']['note']}<br>{php echo str_replace('词霸小编','小编',$api['api']['translation']);}	<img src="{$api['api']['fenxiang_img']}">
+                </div>
+            </div>
+        </div>
+        <div class="boxcontent boxwhite">
+            <div class="box">
+                <div class="title-brown">
+                    <span>小助手</span>
+                </div>
+                <div class="Detail">
+                {php echo htmlspecialchars_decode($reply['description']);}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<div class="text" id="content">
+    <div id="mess_share">
+        <div id="share_1">
+            <button class="button2" onclick="document.getElementById('mcover').style.display='block';">
+                <img src="../addons/bowen_jrxx/template/mobile/img/icon_msg.png" width="64" height="64" />
+                &nbsp;发送给朋友
+            </button>
+        </div>
+        <div id="share_2">
+            <button class="button2" onclick="document.getElementById('mcover').style.display='block';">
+                <img src="../addons/bowen_jrxx/template/mobile/img/icon_timeline.png" width="64" height="64" />
+                &nbsp;分享到朋友圈
+            </button>
+        </div>
+        <div class="clr"></div>
+    </div>
+</div>
+<div class="footer">&copy; 2015-{php echo date('Y',time())} </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+    <style>
+        .scion{
+            color: red;
+        }
+        .nored{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        {loop $lists $item}
+        <li>头像：<img src="{$item['avatar']}" alt="" width="50" height="50"></li>
+        <li>姓名：{$item['uname']}</li>
+        <li>回复内容：{$item['content']}</li>
+        <li>时间：{php echo date('Y-m-d H:i:s',$item['times'])}&nbsp;
+            <a href="javascript:;" class="scion {if $item['ishit']}nored{/if}" data-id="{$item['uid']}" data-hit="{$item['hit']}">赞
+                <i>{$item['hit']}</i>
+            </a>
+        </li>
+        <hr>
+        {/loop}
+    </ul>
+</div>
+</body>
+<script>
+    $(function(){
+
+        $('.scion').click(function(){
+            //判断自己点赞
+            _this = $(this);
+            if(_this.hasClass('nored'))return false;
+            var touid = _this.attr('data-id');
+            var hit = _this.attr('data-hit');
+            //alert(hit);
+           $.post("{php echo $this->createMobileUrl('hit')}",{touid:touid},function(data){
+               if(data.status == 200){
+                   // $(this).addClass('nored');
+                   _this.addClass("nored");
+                   _this.find('i').text(parseInt(hit)+1);
+               }
+           },'JSON');
+        });
+    });
+</script>
+</html>

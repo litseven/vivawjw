@@ -1,0 +1,273 @@
+{template 'common/header'}
+{if $op == 'list'}
+<div class="main">
+
+
+	<form class="form-horizontal" action="" method="post">
+    <style>
+		.order-nav {margin: 0;width: 100%;min-width: 800px;}
+	.order-nav > li > a {display: block;}
+	.order-nav-tabs {background: #EEE;}
+	.order-nav-tabs > li {line-height: 40px;float: left;list-style: none;display: block;text-align: -webkit-match-parent;}
+	.order-nav-tabs > li > a {font-size: 14px;color: #666;height: 40px;line-height: 40px;padding: 0 10px;margin: 0;border: 1px solid transparent;border-bottom-width: 0px;-webkit-border-radius: 0;-moz-border-radius: 0;border-radius: 0;}
+	.order-nav-tabs > li > a, .order-nav-tabs > li > a:focus {border-radius: 0 !important;background-color: #f9f9f9;color: #999;margin-right: -1px;position: relative;z-index: 11;border-color: #c5d0dc;text-decoration: none;}
+	.order-nav-tabs >li >a:hover {background-color: #FFF;}
+	.order-nav-tabs > li.active > a, .order-nav-tabs > li.active > a:hover, .order-nav-tabs > li.active > a:focus {color: #576373;border-color: #c5d0dc;border-top: 2px solid #4c8fbd;border-bottom-color: transparent;background-color: #FFF;z-index: 12;margin-top: -1px;box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);}	
+</style>
+    
+    			<ul class="order-nav order-nav-tabs" style="background:none;float: left;margin-left: 0px;padding-left: 0px;border-bottom:1px #c5d0dc solid;">
+				<li{if $status == 0} class="active"{/if}><a href="{php echo $this->createWebUrl('wzlist', array('status' => 0))}">待确认</a></li>
+				<li{if $status == 1} class="active"{/if}><a href="{php echo $this->createWebUrl('wzlist', array('status' => 1))}">已确认</a></li>
+				<li{if $status == 2} class="active"{/if}><a href="{php echo $this->createWebUrl('wzlist', array('status' => 2))}">驳回</a></li>
+			</ul>
+
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+						<tr>
+							<th style="width:50px">编号</th>
+							<th>描述</th>
+							<th>提交时间</th>
+							<th style="width:100px; text-align:right;">操作</th>
+						</tr>
+					</thead>
+                    <style>.status_0{color:#FF9900;}.status_1{color:green;}.status_2{color:red;}</style>
+					<tbody>
+						{loop $lists $item}
+						<tr>
+							<td>{$item['id']}</td>
+							<td>{$item['memo']}</td>
+							<td>{$item['addtime']}</td>
+							<td style="text-align:right;">
+								<a href="{php echo $this->createWebUrl('wzlist', array('op' => 'view', 'id' => $item['id']))}" class="btn btn-default btn-sm" title="编辑" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye"> </i> 查看</a>
+								
+							</td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{$pager}
+	</form>
+</div>
+{elseif $op == 'view'}
+<script>
+require(['../../../addons/PUBLIC/template/resource/js/lightbox.min.js'],function(){
+	
+		
+		});
+</script>
+<style>
+	.thumbscien img{width:18%;margin-right:2%}
+	.thumbscien img:last-child{margin:0}
+	input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder { color:transparent; }
+    </style>
+<link rel="stylesheet" href="{MODULE_URL}template/resource/css/lightbox.min.css">
+
+<div class="main">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="site">
+				<input type="hidden" name="a" value="entry">
+				<input type="hidden" name="m" value="vivawjwtakefoto">
+				<input type="hidden" name="do" value="wzlist"/>
+				<input type="hidden" name="op" value="status"/>
+				<input type="hidden" name="id" value="{$info['id']}"/>
+
+    <div class="panel panel-default">
+				<div class="panel-heading">交通设施啄木鸟详情</div>
+				<div class="panel-body">
+
+                         
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label">提交时间:</label>
+							<div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{$info['addtime']}</p>
+							</div>	
+						</div>
+
+
+                        
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label">情况说明:</label>
+							<div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{$info['memo']}</p>
+							</div>	
+						</div>
+                        
+
+			</div>
+    
+	</div>
+    
+    <div class="panel panel-default" style="display:none">
+				<div class="panel-heading">举报人信息</div>
+				<div class="panel-body">   
+
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名:</label>
+							<div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{$info['realname']}</p>
+							</div>	
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label">联系方式:</label>
+							<div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{$info['mobile']}</p>
+							</div>	
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label">身份证号码:</label>
+							<div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{$info['idcard']}</p>
+							</div>	
+						</div>
+
+
+
+                	</div>
+                    </div> 
+    
+    
+    
+    
+    <div class="panel panel-default">
+				<div class="panel-heading">资料预览</div>
+				<div class="panel-body">   
+
+
+                        <div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label ">照片</label>
+							<div class="col-sm-9 col-xs-9 col-md-9 thumbscien">
+                            	{loop $v['imgdir'] $foto}
+                            	<a href="{php echo tomedia($foto);}" data-lightbox="roadtrip"><img src="{php echo tomedia($foto);}" ></a>
+								{/loop}
+                            </div>	
+						</div>
+
+						{if $v['videodir']}
+                        <div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label ">视频</label>
+							<div class="col-sm-9 col-xs-9 col-md-9 thumbscien">
+                            	{loop $v['videodir'] $video}
+                                <video src="{php echo tomedia($video);}" controls preload height="300" width="400">您的浏览器不支持 video 标签。</video>
+								{/loop}
+                            </div>	
+						</div>
+							{/if}
+
+                	</div>
+                    </div> 
+                    
+                    
+                    
+      		<div class="panel panel-default">
+				<div class="panel-heading">受理操作</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="require"> </span>是否通过</label>
+                        {if $info['status']}
+						<div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{if $info['status']==1}通过{else}驳回{/if}</p>
+							</div>	
+                        {else}
+						<div class="col-sm-9 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" value="1" name="status" onClick="$('#failreason').hide();$('#jdsbh').show()" checked> 通过
+							</label>
+							<label class="radio-inline">
+								<input type="radio" value="2" name="status" onClick="$('#failreason').show();$('#jdsbh').hide()"> 驳回
+							</label>
+						</div>
+                        {/if}
+					</div>
+                <div class="form-group" id="failreason" style="display:{if $info['status']==2}{else}none{/if}">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">驳回原因</label>
+                        {if $info['status']==3}
+                        <div class="col-sm-9 col-xs-9 col-md-9">
+								<p class="form-control-static">{$info['failreason']}</p>
+							</div>	
+                        {else}
+						<div class="col-sm-9 col-xs-12">
+							<textarea class="form-control" name="failreason">{$info['failreason']}</textarea>
+						</div>
+                        {/if}
+					</div>
+				</div>
+			</div>
+            
+            
+            
+                          
+                    
+                    
+    
+    
+    			<div class="form-group" style="padding-bottom:100px">
+				<div class="col-sm-9 col-xs-9 col-md-9">
+                	{if $info['status']}
+                    <a href="javascript:history.go(-1);" class="btn btn-primary">返回列表</a>
+                    {else}
+					<a href="javascript:;" class="btn btn-primary scien postbtn"  style="display:">确定操作</a>
+                    <a href="{php echo $this->createWeburl('tpl', array('c' => 'mc', 'id' => $info['fanid'], 'a' => 'notice','do'=>'tpl'));}" class="btn btn-success" target="_blank" style="margin-left:50px">联系当事人</a>
+                    {/if}
+                    
+                    
+				</div>	
+			</div>
+            
+            
+            
+            
+    </form>	
+    <script>
+    	$(function(){
+			
+			$(".due").click(function(){
+				$.getJSON("{php echo $this->createWeburl('wzlist', array("status"=>6,"op"=>"status","id"=>$_GPC['id']));}",function(json){
+					if(json.status==200){
+						$(".due").after("已受理");
+						$(".due").remove();
+						}
+						});
+				
+				});	
+			
+			$(".change").click(function(){
+				$.getJSON("{php echo $this->createWeburl('wzlist', array("op"=>"change","id"=>$_GPC['id']));}&quhua="+$('[name="quhua"]').val(),function(json){
+					if(json.status==200){
+						alert("已转至"+$('[name="quhua"]').val()+"处理!");
+						window.location.href = '{php echo $this->createWeburl('wzlist', array("do"=>"list"));}';
+						}
+						});
+				
+				});	
+			
+			
+			
+			
+			$(".scien.postbtn").click(function(){
+				
+				if($("[name='status']:checked").val()==2 && $("[name='failreason']").val()==''){
+						
+						alert("请填写驳回原因！！！");return false;
+						
+						}
+				if($("[name='status']:checked").val()==1 && $("[name='jdsbh']").val()==''){
+						
+						alert("请填写决定书编号！！！");return false;
+						
+						}
+						
+				if(!confirm('确定修改状态?')){ return false;		} else { $("form").submit(); }
+				
+					});
+				
+				});
+        </script>
+</div>
+{/if}
+{template 'common/footer'}

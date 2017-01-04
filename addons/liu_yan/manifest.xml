@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[留言测试]]></name>
+		<identifie><![CDATA[liu_yan]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[liuYan]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[123]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="封面1" do="fengmian1" state="" direct="false" />
+			<entry title="封面2" do="fengmian2" state="" direct="false" />
+		</cover>
+		<rule>
+			<entry title="规则" do="guize" state="" direct="false" />
+		</rule>
+		<menu>
+			<entry title="入口" do="rukou" state="" direct="false" />
+		</menu>
+		<profile>
+			<entry title="个人中心导航" do="gerendaohang" state="" direct="false" />
+		</profile>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA['']]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>留言墙列表</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" type="text/css" href="{S_URL}/css/style.css">
+</head>
+
+<body id="gbwel" style="background-image:url({S_URL}/images/bg.jpg) ">
+<div class="gblist">
+	<ul>
+    	{loop $lists $item}<li>
+        	<div class="ava"><img src="{$item['avatar']}"></div>
+            <div class="gb">
+            	<div class="txt">{$item['gb']}</div>
+                <div class="plus {if $item['ishit']}active{/if}" data-id='{$item['uid']}' data-ori="{$item['hit']}"><i class="sicon">&#xe629;</i>{if $item['hit']}<span>{$item['hit']}</span>{/if}</div>
+                </div>
+            </li>{/loop}
+
+        </ul>
+    </div> 
+<div class="postbtn" onClick="window.location.href='{php echo $this->createMobileUrl('enter')}'"><i class="sicon">&#xe60d;</i>我要留言</div> 
+   
+<div id="loading-fs">
+    	<div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+        </div>
+<script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+{template 'wxsdk'}
+<script>
+var process=false;curpage=1;totalpage = {$total};
+
+wx.ready(function(){
+
+	
+_title = '我在南京银行面试现场，我想说';
+_link = "{$_W['siteurl']}";
+_imgUrl = "{S_URL}/images/poster.jpg";
+_desc = "快来留下你想说的话吧";
+	
+wx.onMenuShareTimeline({
+    title: _title,
+	link: _link,
+    imgUrl: _imgUrl,
+    success: function () {
+		
+		}
+});
+
+
+
+
+wx.onMenuShareAppMessage({
+    title: _title, 
+	link: _link,
+    desc: _desc,
+    imgUrl: _imgUrl,
+    success: function () {
+			
+			}
+});	
+	 
+	});
+	
+
+	$(function(){
+				
+				
+				inisPlus();
+		
+				$(window).scroll(function(){
+						
+						if($(document).height() - $(window).height() - $(document).scrollTop() < 50){
+								
+								if(curpage==totalpage || curpage>totalpage) return false;
+								if(process)return false;
+								process = true;
+								curpage++;
+								$.getJSON("{php echo $this->createMobileUrl('gblist',array('datetype'=>'json'))}&p="+curpage, function(json){
+									var items = [];
+								  	$.each(json ,function(k,v){
+										hitstr = ishit = '';
+										if(parseInt(v.hit)>0)hitstr = '<span>'+v.hit+'</span>';
+										if(parseInt(v.ishit)==1)ishit = ' active';
+										items.push('<li><div class="ava"><img src="'+v.avatar+'"></div><div class="gb"><div class="txt">'+v.gb+'</div><div class="plus'+ishit+'" data-id="'+v.uid+'" data-ori="'+v.hit+'"><i class="sicon">&#xe629;</i>'+hitstr+'</div></div></li>');		
+											});
+									$(".gblist ul").append(items.join(""));
+									inisPlus();
+									process = false;
+								});
+								
+								}
+						
+						});		
+		
+		
+		});
+
+function inisPlus(){
+		$(".plus").click(function(){
+			_this = $(this);
+			if(_this.hasClass('active'))return false;
+			_id = _this.attr("data-id");
+			_ori = _this.attr("data-ori");
+			process=true;
+			$("#loading-fs").show();
+			$.getJSON("{php echo $this->createMobileUrl('hit')}&touid="+_id,function(json){
+				if(json.status==200){
+					process = false;
+					$("#loading-fs").hide();
+					_this.addClass("active");
+					_this.find('span').text(parseInt(_ori)+1);
+					}
+				else{
+					process = false;$("#loading-fs").hide();
+					}	
+					
+					});
+			});	
+	}
+		
+    </script>
+    
+    
+</body>
+</html>

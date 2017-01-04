@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[南通微评议]]></name>
+		<identifie><![CDATA[vivant_wpj]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[统一模块]]></ability>
+		<description><![CDATA[问卷调查]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[http://lab.scienmedia.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="南通问卷入口" do="enter" state="" direct="true" />
+		</cover>
+		<menu>
+			<entry title="问卷管理" do="sit" state="" direct="false" />
+			<entry title="问卷调查" do="admin" state="" direct="false" />
+			<entry title="问卷意见" do="opinion" state="" direct="false"/>
+		</menu>
+	</bindings>
+
+
+</manifest>

@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c16270bb-d744-46d9-b1e8-4cf79ab6650c" name="Default" comment="" />
+    <ignored path="pros.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="pros" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="site.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/site.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+              <folding>
+                <marker date="1483513039059" expanded="true" signature="708:721" ph="SELECT * FRO... " />
+                <marker date="1483513039059" expanded="true" signature="708:722" ph="SELECT * FRO... ${tablename()}" />
+                <marker date="1483513039059" expanded="true" signature="708:754" ph="SELECT * FRO... ${tablename('vivawjw_user_warn')}" />
+                <marker date="1483513039059" expanded="true" signature="708:781" ph="SELECT * FRO... ${tablename('vivawjw_user_warn')}" />
+                <marker date="1483513039059" expanded="true" signature="708:782" ph="SELECT * FRO... ${tablename('vivawjw_user_warn')}" />
+                <marker date="1483513039059" expanded="true" signature="867:888" ph="SELECT * FRO... " />
+                <marker date="1483513039059" expanded="true" signature="867:889" ph="SELECT * FRO... ${t}" />
+                <marker date="1483513039059" expanded="true" signature="867:970" ph="SELECT * FRO... ${tablename('viva_user_warn_status')}" />
+                <marker date="1483513039059" expanded="true" signature="867:971" ph="SELECT * FRO... ${tablename('viva_user_warn_status')}" />
+                <marker date="1483513039059" expanded="true" signature="2241:2330" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="2494:2583" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="4046:4139" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="4311:4404" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="6606:6619" ph="SELECT * FRO... " />
+                <marker date="1483513039059" expanded="true" signature="6606:6620" ph="SELECT * FRO... ${tablename()}" />
+                <marker date="1483513039059" expanded="true" signature="6606:6689" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+                <marker date="1483513039059" expanded="true" signature="6606:6690" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+                <marker date="1483513039059" expanded="true" signature="7207:7294" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+                <marker date="1483513039059" expanded="true" signature="8506:8519" ph="SELECT * FRO... " />
+                <marker date="1483513039059" expanded="true" signature="8506:8520" ph="SELECT * FRO... ${tablename()}" />
+                <marker date="1483513039059" expanded="true" signature="8506:8614" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="8506:8615" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="8766:8779" ph="SELECT * FRO... " />
+                <marker date="1483513039059" expanded="true" signature="8766:8780" ph="SELECT * FRO... ${tablename()}" />
+                <marker date="1483513039059" expanded="true" signature="8766:8834" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="8766:8836" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="8946:9054" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="9206:9274" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="9599:9711" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="9869:9941" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+                <marker date="1483513039059" expanded="true" signature="10062:10174" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_driving')}" />
+                <marker date="1483513039059" expanded="true" signature="10332:10404" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_driving')}" />
+                <marker date="1483513039059" expanded="true" signature="10707:10720" ph="SELECT * FRO... " />
+                <marker date="1483513039059" expanded="true" signature="10707:10721" ph="SELECT * FRO... ${ta}" />
+                <marker date="1483513039059" expanded="true" signature="10707:10784" ph="SELECT * FRO... ${tablename('vivawjw_user_feedback')}" />
+                <marker date="1483513039059" expanded="true" signature="10707:10785" ph="SELECT * FRO... ${tablename('vivawjw_user_feedback')}" />
+                <marker date="1483513039059" expanded="true" signature="10915:10982" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_driving')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="site.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/site.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+              <folding>
+                <marker date="1483513064829" expanded="true" signature="1606:1681" ph="SELECT COUNT... ${tablename('vivawjw_ssxx')}" />
+                <marker date="1483513064829" expanded="true" signature="1745:1865" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+                <marker date="1483513064829" expanded="true" signature="2005:2086" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="site.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_xxbg/site.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+              <folding>
+                <marker date="1483513073087" expanded="true" signature="2295:2379" ph="SELECT COUNT... ${tablename('vivawjw_change_driver')}" />
+                <marker date="1483513073087" expanded="true" signature="2447:2575" ph="SELECT * FRO... ${tablename('vivawjw_change_driver')}" />
+                <marker date="1483513073087" expanded="true" signature="2753:2843" ph="SELECT * FRO... ${tablename('vivawjw_change_driver')}" />
+                <marker date="1483513073087" expanded="true" signature="3024:3105" ph="SELECT COUNT... ${tablename('vivawjw_change_car')}" />
+                <marker date="1483513073087" expanded="true" signature="3174:3299" ph="SELECT * FRO... ${tablename('vivawjw_change_car')}" />
+                <marker date="1483513073087" expanded="true" signature="3479:3566" ph="SELECT * FRO... ${tablename('vivawjw_change_car')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="site.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_lkcx/site.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+              <folding>
+                <marker date="1483513048986" expanded="true" signature="2149:2248" ph="SELECT COUNT... ${tablename('vivawjw_accident')}" />
+                <marker date="1483513048986" expanded="true" signature="2299:2445" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+                <marker date="1483513048986" expanded="true" signature="2650:2722" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+                <marker date="1483513048986" expanded="true" signature="2819:2989" ph="SELECT a.*,b... ${tablename('vivawjw_accident')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="accident.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/template/mobile/accident.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="552">
+              <caret line="133" column="13" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
+              <folding>
+                <element signature="e#3770#3778#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wxsdk.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/template/mobile/wxsdk.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-36">
+              <caret line="6" column="29" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="processor.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/site_ume/processor.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="35" selection-end-column="0" />
+              <folding>
+                <marker date="1480930485007" expanded="true" signature="466:519" ph="SELECT * FRO... ${tablename('sit_ume')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="site.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/site.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+              <folding>
+                <marker date="1483513056948" expanded="true" signature="621:634" ph="SELECT * FRO... " />
+                <marker date="1483513056948" expanded="true" signature="621:635" ph="SELECT * FRO... ${t}" />
+                <marker date="1483513056948" expanded="true" signature="621:692" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+                <marker date="1483513056948" expanded="true" signature="621:693" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+                <marker date="1483513056948" expanded="true" signature="834:916" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+                <marker date="1483513056948" expanded="true" signature="3183:3286" ph="SELECT COUNT... ${tablename('vivawjw_accident')}" />
+                <marker date="1483513056948" expanded="true" signature="3337:3487" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+                <marker date="1483513056948" expanded="true" signature="3692:3768" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+                <marker date="1483513056948" expanded="true" signature="3865:4039" ph="SELECT a.*,b... ${tablename('vivawjw_accident')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="site.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addons/vivawjw_bszn/site.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="94" />
+              <folding>
+                <marker date="1483513009146" expanded="true" signature="479:604" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="693:788" ph="SELECT * FRO... ${tablename('vivawjw_bszn_hotkey')}" />
+                <marker date="1483513009146" expanded="true" signature="911:1020" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="1160:1267" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="1422:1502" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="1788:1869" ph="SELECT COUNT... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="1933:2062" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="2209:2296" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="2382:2471" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="2775:2864" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="3005:3092" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+                <marker date="1483513009146" expanded="true" signature="3243:3334" ph="SELECT * FRO... ${tablename('vivawjw_bszn_hotkey')}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/addons/vivawjw_wfcx/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/viviawjwtakefoto_zmn/site.php" />
+        <option value="$PROJECT_DIR$/addons/viviawjwtakefoto_zmn/template/wzlist.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sgkcl/template/manage.html" />
+        <option value="$PROJECT_DIR$/addons/viviawjwtakefoto_zmn/template/mobile/takefoto.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_xxbg/template/resource/css/style.css" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_ss/template/resource/css/index.css" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_ss/template/mobile/wxappeal.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_ss/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_ss/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sqxx/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sqxx/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_lkcx/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/vivant_wpj/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivatz_jwjc/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_ssxx/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sgkcl/template/resource/css/style.css" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_lkcx/template/manage.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_lkcx/template/resource/css/style.css" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_lkcx/template/mobile/roadsel.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_bszn/template/manage.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_bszn/template/mobile/guide.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_ssxx/template/mobile/wxappeal.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_xxbg/template/manage.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_wfcx/template/mobile/wxappeal.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/pro_feedback.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/manage.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_wfcx/template/resource/css/index.css" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_wfcx/template/mobile/illegal.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_wfcx/template/manage.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_complain.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_dispose.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_road.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_study.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_warn.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_xxbg/template/mobile/infochange.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_driving.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_car.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/template/resource/css/style.css" />
+        <option value="$PROJECT_DIR$/addons/liu_yan/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_bszn/template/resource/css/style.css" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sgkcl/manifest.xml" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sgkcl/template/mobile/wxsdk.html" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_bszn/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_grzx/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_lkcx/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sgkcl/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_wfcx/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_xxbg/site.php" />
+        <option value="$PROJECT_DIR$/addons/vivawjw_sgkcl/template/mobile/accident.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vivawjw_sgkcl" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vivawjw_sgkcl" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vivawjw_sgkcl" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mobile" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="site_ume" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="site_ume" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pros" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="site_ume" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mobile" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/WWW/pros/addons/vivawjw_xxbg/template/manage.html" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\WWW\pros\addons\vivawjw_wfcx\template\resource\img" />
+      <recent name="E:\WWW\pros\addons\siteume" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.login.html">
+    <configuration default="false" name="login.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/pros/app/themes/default/auth/login.html">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.login.html" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.login.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c16270bb-d744-46d9-b1e8-4cf79ab6650c" name="Default" comment="" />
+      <created>1479793884623</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1479793884623</updated>
+      <workItem from="1479793886358" duration="9601000" />
+      <workItem from="1480039350735" duration="16067000" />
+      <workItem from="1480296771040" duration="25572000" />
+      <workItem from="1480382503607" duration="24394000" />
+      <workItem from="1480470064595" duration="15803000" />
+      <workItem from="1480555660262" duration="19754000" />
+      <workItem from="1480641914659" duration="21982000" />
+      <workItem from="1480902959290" duration="20007000" />
+      <workItem from="1480989230196" duration="29474000" />
+      <workItem from="1481074267170" duration="20891000" />
+      <workItem from="1481159072846" duration="28255000" />
+      <workItem from="1481246153522" duration="2061000" />
+      <workItem from="1481263009334" duration="13711000" />
+      <workItem from="1481509649507" duration="8231000" />
+      <workItem from="1481592213444" duration="24656000" />
+      <workItem from="1481678661824" duration="26237000" />
+      <workItem from="1481765155141" duration="24719000" />
+      <workItem from="1481851184727" duration="22683000" />
+      <workItem from="1482112431591" duration="16083000" />
+      <workItem from="1482196935001" duration="21424000" />
+      <workItem from="1482282896710" duration="82759000" />
+      <workItem from="1482473322779" duration="20219000" />
+      <workItem from="1482715232009" duration="16000" />
+      <workItem from="1482716715519" duration="26112000" />
+      <workItem from="1482760614013" duration="272000" />
+      <workItem from="1482801523736" duration="23040000" />
+      <workItem from="1482888183020" duration="33722000" />
+      <workItem from="1482974883291" duration="20270000" />
+      <workItem from="1483061508486" duration="23932000" />
+      <workItem from="1483406784495" duration="22991000" />
+      <workItem from="1483492878103" duration="13443000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="658381000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14322917" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915523" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/guide.html" />
+    <entry file="file://$PROJECT_DIR$/addons/vivant_wpj/template/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivant_wpj/template/sit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1911">
+          <caret line="47" column="52" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivant_wpj/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-735">
+          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_lkcx/template/mobile/roadsel.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="601">
+          <caret line="623" column="26" selection-start-line="623" selection-start-column="26" selection-end-line="623" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_bszn/template/mobile/guide.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-561">
+          <caret line="57" column="11" selection-start-line="57" selection-start-column="11" selection-end-line="57" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/viviawjwtakefoto_zmn/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2024">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/viviawjwtakefoto_zmn/template/mobile/takefoto.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_xxbg/template/resource/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="256" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_xxbg/template/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3954">
+          <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_bszn/template/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="394" column="40" selection-start-line="394" selection-start-column="11" selection-end-line="394" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="22" column="44" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/template/mobile/wxappeal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="44" column="10" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/template/resource/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/template/mobile/illegal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="209" column="35" selection-start-line="209" selection-start-column="35" selection-end-line="209" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_dispose.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/pro_feedback.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="657">
+          <caret line="66" column="60" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_study.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_xxbg/template/mobile/infochange.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2037">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_warn.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/create_img/template/mobile/indexx.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1260">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_road.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1491">
+          <caret line="71" column="18" selection-start-line="71" selection-start-column="18" selection-end-line="71" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_driving.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="156" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/memorial/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_car.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/template/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3767">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12531">
+          <caret line="748" column="0" selection-start-line="748" selection-start-column="0" selection-end-line="749" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_lkcx/template/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3024">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_ssxx/template/appeal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1037">
+          <caret line="25" column="91" selection-start-line="25" selection-start-column="91" selection-end-line="25" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/template/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2457">
+          <caret line="117" column="18" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/resource/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="185" column="47" selection-start-line="185" selection-start-column="47" selection-end-line="185" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/template/mobile/user_complain.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/scp26463/home/wwwroot/lab/addons/viva_xyyh/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_xxbg/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_ssxx/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivant_wpj/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/liu_yan/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_bszn/template/resource/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="60" column="21" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="98" column="55" selection-start-line="98" selection-start-column="55" selection-end-line="98" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/scp20912/home/wwwroot/lab/addons/vivawjw_sgkcl/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-525">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <marker date="1483469820000" expanded="true" signature="698:769" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+            <marker date="1483469820000" expanded="true" signature="911:993" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+            <marker date="1483469820000" expanded="true" signature="3260:3363" ph="SELECT COUNT... ${tablename('vivawjw_accident')}" />
+            <marker date="1483469820000" expanded="true" signature="3414:3564" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+            <marker date="1483469820000" expanded="true" signature="3769:3845" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+            <marker date="1483469820000" expanded="true" signature="3942:4116" ph="SELECT a.*,b... ${tablename('vivawjw_accident')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/site_ume/processor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <marker date="1480930485007" expanded="true" signature="466:519" ph="SELECT * FRO... ${tablename('sit_ume')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_bszn/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="94" />
+          <folding>
+            <marker date="1483513009146" expanded="true" signature="479:604" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="693:788" ph="SELECT * FRO... ${tablename('vivawjw_bszn_hotkey')}" />
+            <marker date="1483513009146" expanded="true" signature="911:1020" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="1160:1267" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="1422:1502" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="1788:1869" ph="SELECT COUNT... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="1933:2062" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="2209:2296" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="2382:2471" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="2775:2864" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="3005:3092" ph="SELECT * FRO... ${tablename('vivawjw_bszn_guide')}" />
+            <marker date="1483513009146" expanded="true" signature="3243:3334" ph="SELECT * FRO... ${tablename('vivawjw_bszn_hotkey')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_grzx/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+          <folding>
+            <marker date="1483513039059" expanded="true" signature="708:721" ph="SELECT * FRO... " />
+            <marker date="1483513039059" expanded="true" signature="708:722" ph="SELECT * FRO... ${tablename()}" />
+            <marker date="1483513039059" expanded="true" signature="708:754" ph="SELECT * FRO... ${tablename('vivawjw_user_warn')}" />
+            <marker date="1483513039059" expanded="true" signature="708:781" ph="SELECT * FRO... ${tablename('vivawjw_user_warn')}" />
+            <marker date="1483513039059" expanded="true" signature="708:782" ph="SELECT * FRO... ${tablename('vivawjw_user_warn')}" />
+            <marker date="1483513039059" expanded="true" signature="867:888" ph="SELECT * FRO... " />
+            <marker date="1483513039059" expanded="true" signature="867:889" ph="SELECT * FRO... ${t}" />
+            <marker date="1483513039059" expanded="true" signature="867:970" ph="SELECT * FRO... ${tablename('viva_user_warn_status')}" />
+            <marker date="1483513039059" expanded="true" signature="867:971" ph="SELECT * FRO... ${tablename('viva_user_warn_status')}" />
+            <marker date="1483513039059" expanded="true" signature="2241:2330" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="2494:2583" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="4046:4139" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="4311:4404" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="6606:6619" ph="SELECT * FRO... " />
+            <marker date="1483513039059" expanded="true" signature="6606:6620" ph="SELECT * FRO... ${tablename()}" />
+            <marker date="1483513039059" expanded="true" signature="6606:6689" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+            <marker date="1483513039059" expanded="true" signature="6606:6690" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+            <marker date="1483513039059" expanded="true" signature="7207:7294" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+            <marker date="1483513039059" expanded="true" signature="8506:8519" ph="SELECT * FRO... " />
+            <marker date="1483513039059" expanded="true" signature="8506:8520" ph="SELECT * FRO... ${tablename()}" />
+            <marker date="1483513039059" expanded="true" signature="8506:8614" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="8506:8615" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="8766:8779" ph="SELECT * FRO... " />
+            <marker date="1483513039059" expanded="true" signature="8766:8780" ph="SELECT * FRO... ${tablename()}" />
+            <marker date="1483513039059" expanded="true" signature="8766:8834" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="8766:8836" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="8946:9054" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="9206:9274" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="9599:9711" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="9869:9941" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_car')}" />
+            <marker date="1483513039059" expanded="true" signature="10062:10174" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_driving')}" />
+            <marker date="1483513039059" expanded="true" signature="10332:10404" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_driving')}" />
+            <marker date="1483513039059" expanded="true" signature="10707:10720" ph="SELECT * FRO... " />
+            <marker date="1483513039059" expanded="true" signature="10707:10721" ph="SELECT * FRO... ${ta}" />
+            <marker date="1483513039059" expanded="true" signature="10707:10784" ph="SELECT * FRO... ${tablename('vivawjw_user_feedback')}" />
+            <marker date="1483513039059" expanded="true" signature="10707:10785" ph="SELECT * FRO... ${tablename('vivawjw_user_feedback')}" />
+            <marker date="1483513039059" expanded="true" signature="10915:10982" ph="SELECT * FRO... ${tablename('vivawjw_user_bound_driving')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_lkcx/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+          <folding>
+            <marker date="1483513048986" expanded="true" signature="2149:2248" ph="SELECT COUNT... ${tablename('vivawjw_accident')}" />
+            <marker date="1483513048986" expanded="true" signature="2299:2445" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+            <marker date="1483513048986" expanded="true" signature="2650:2722" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+            <marker date="1483513048986" expanded="true" signature="2819:2989" ph="SELECT a.*,b... ${tablename('vivawjw_accident')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+          <folding>
+            <marker date="1483513056948" expanded="true" signature="621:634" ph="SELECT * FRO... " />
+            <marker date="1483513056948" expanded="true" signature="621:635" ph="SELECT * FRO... ${t}" />
+            <marker date="1483513056948" expanded="true" signature="621:692" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+            <marker date="1483513056948" expanded="true" signature="621:693" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+            <marker date="1483513056948" expanded="true" signature="834:916" ph="SELECT * FRO... ${tablename('vivawjw_sgkc_addr')}" />
+            <marker date="1483513056948" expanded="true" signature="3183:3286" ph="SELECT COUNT... ${tablename('vivawjw_accident')}" />
+            <marker date="1483513056948" expanded="true" signature="3337:3487" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+            <marker date="1483513056948" expanded="true" signature="3692:3768" ph="SELECT * FRO... ${tablename('vivawjw_accident')}" />
+            <marker date="1483513056948" expanded="true" signature="3865:4039" ph="SELECT a.*,b... ${tablename('vivawjw_accident')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_wfcx/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+          <folding>
+            <marker date="1483513064829" expanded="true" signature="1606:1681" ph="SELECT COUNT... ${tablename('vivawjw_ssxx')}" />
+            <marker date="1483513064829" expanded="true" signature="1745:1865" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+            <marker date="1483513064829" expanded="true" signature="2005:2086" ph="SELECT * FRO... ${tablename('vivawjw_ssxx')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_xxbg/site.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+          <folding>
+            <marker date="1483513073087" expanded="true" signature="2295:2379" ph="SELECT COUNT... ${tablename('vivawjw_change_driver')}" />
+            <marker date="1483513073087" expanded="true" signature="2447:2575" ph="SELECT * FRO... ${tablename('vivawjw_change_driver')}" />
+            <marker date="1483513073087" expanded="true" signature="2753:2843" ph="SELECT * FRO... ${tablename('vivawjw_change_driver')}" />
+            <marker date="1483513073087" expanded="true" signature="3024:3105" ph="SELECT COUNT... ${tablename('vivawjw_change_car')}" />
+            <marker date="1483513073087" expanded="true" signature="3174:3299" ph="SELECT * FRO... ${tablename('vivawjw_change_car')}" />
+            <marker date="1483513073087" expanded="true" signature="3479:3566" ph="SELECT * FRO... ${tablename('vivawjw_change_car')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/template/mobile/wxsdk.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/site_ume/template/mobile/indexx.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addons/vivawjw_sgkcl/template/mobile/accident.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="133" column="13" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
+          <folding>
+            <element signature="e#3770#3778#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

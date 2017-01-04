@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[事故快处理]]></name>
+		<identifie><![CDATA[vivawjw_sgkcl]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[事故快处理]]></ability>
+		<description><![CDATA[无锡微警务_事故快处理]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="location" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="location" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+	
+	
+		<cover>
+			<entry title="入口" do="accident" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+
+	</permissions>
+	<install><![CDATA[DROP TABLE IF EXISTS `ims_vivawjw_accident`;
+CREATE TABLE `ims_vivawjw_accident` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `accaddr` varchar(255) DEFAULT NULL COMMENT '//事故地点',
+  `proof` text COMMENT '//现场图片',
+  `accname` varchar(255) DEFAULT NULL COMMENT '//姓名',
+  `accothername` varchar(255) DEFAULT NULL COMMENT '//对方姓名',
+  `accnum` varchar(10) DEFAULT NULL COMMENT '//车牌号',
+  `accothernum` varchar(10) DEFAULT NULL,
+  `accotherphone` int(11) DEFAULT NULL,
+  `accserve` varchar(255) DEFAULT NULL COMMENT '//理赔服务点',
+  `recordnum` varchar(255) DEFAULT NULL COMMENT '//报警记录号',
+  `acctime` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT '2' COMMENT '//状态，1确认、2待确认、3驳回',
+  `turndown` varchar(255) DEFAULT NULL COMMENT '//驳回原因',
+  `sittime` int(11) DEFAULT NULL COMMENT '//受理时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `ims_vivawjw_sgkc_addr`;
+CREATE TABLE `ims_vivawjw_sgkc_addr` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `mobile` varchar(15) DEFAULT NULL,
+  `lat` varchar(20) DEFAULT NULL,
+  `lng` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ims_vivawjw_sgkc_addr
+-- ----------------------------
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('3', '', '东方城理赔服务中心', '地址：金城东路290号（东方汽车城内）', '0510-82108815', '31.564550', '120.406710');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('4', '', '大昌理赔服务中心', '地址：运河东路138号', '0510-82813555', '31.570530', '120.280800');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('5', '', '荣胜理赔服务中心', '地址：大池路鸿桥路口', '0510-85121060', '31.565410', '120.250480');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('6', '', '众合理赔服务分中心', '地址：惠钱路85号', '0510-83706877', '31.593120', '120.251890');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('7', '', '惠山区理服务分中心高山服务点', '地址：惠山区金惠西路1号', '0510-83575510', '31.687560', '120.267680');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('8', '', '惠山区理赔服务分中心旭日服务点', '地址：惠山区洛社张镇工业园1号', '0510-83342816', '31.63257', '120.187310');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('9', '', '锡山区理赔服务分中心兴发服务点', '地址：228省道友谊路口', '0510-83787511', '31.641887', '120.377476');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('10', '', '锡山区理赔服务分中心强盛服务点', '地址：锡沪路东段77号', '0510-88788330', '31.609130', '120.490290');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('11', '', '锡山区理赔服务分中心仙盈服务点', '地址：228省道红豆工业城对面', '0510-88762838', '31.702910', '120.538350');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('12', '', '滨湖区理赔服务分中心华庄服务点', '地址：华庄瑞景道168号', '0510-85603708', '31.482730', '120.337380');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('13', '', '新区理赔服务分中心美新服务点', '地址：新区春江路35号', '0510-82228753', '31.558940', '120.361900');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('14', '', '新区理赔服务分中心豪威服务点', '地址：新区岷山路2号', '0510-85220077', '31.529040', '120.377470');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('15', '', '新区理赔服务分中心新泰服务点', '地址：新区梅村张公路30号', '0510-82228775', '31.558717', '120.422741');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('16', '', '江阴市梅园路理赔服务点', '地址：江阴市梅园路669号', '0510-80283333', '31.869057', '120.265939');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('17', '', '江阴市华西理赔服务点', '地址：江阴市华士镇华陆路181号', '0510-86216587', '31.817070', '120.445883');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('18', '', '宜兴市理赔服务中心', '地址：宜兴市宜城街道荆溪北路2号', '0510-87057999', '31.380529', '119.834796');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('19', '', '宜兴市城南服务点', '地址：宜兴市环保工业园百合场路3号', '0510-89759999', '31.347230', '119.777620');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('20', '', '宜兴市丁蜀服务点', '地址：宜兴市丁蜀镇川埠村428号', '0510-87491169', '31.276676', '119.820757');
+INSERT INTO `ims_vivawjw_sgkc_addr` VALUES ('21', '', '南长理赔服务分中心豪鑫点', '地址：南长金星街道盛新里31-1号', '0510-83111140', '31.547024', '120.296173');
+	
+		]]></install>
+	<uninstall><![CDATA[
+
+		]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

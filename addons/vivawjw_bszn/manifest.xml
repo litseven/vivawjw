@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[办事指南]]></name>
+		<identifie><![CDATA[vivawjw_bszn]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[统一模块]]></ability>
+		<description><![CDATA[无锡微警务-办事指南]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[http://lab.scienmedia.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="guide" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+
+
+</manifest>

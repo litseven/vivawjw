@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[路况查询]]></name>
+		<identifie><![CDATA[vivawjw_lkcx]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[交通设施路况查询]]></ability>
+		<description><![CDATA[无锡微警务_路况查询]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="location" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="location" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="roadsel" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+
+	</permissions>
+	<install><![CDATA[
+	
+		]]></install>
+	<uninstall><![CDATA[
+
+		]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

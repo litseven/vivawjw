@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>全国公祭日</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<link rel="stylesheet" type="text/css" href="{S_URL}/css/style.css">
+</head> 
+
+<body>
+<div>
+    <input type="hidden" name="name" value="{$user[nickname]}">
+    <textarea name="content"  cols="30" rows="10" placeholder="请输入留言"></textarea>
+    <input type="submit" id="sub">
+</div>
+
+<div class="cl" style="width: 100px;height: 100px;border: 1px solid red;float: left;"></div>
+<div class="cl" style="width: 100px;height: 100px;border: 1px solid red;float: left;"></div>
+<div class="cl" style="width: 100px;height: 100px;border: 1px solid red;float: left;"></div>
+<div class="cl" style="width: 100px;height: 100px;border: 1px solid red;float: left;"></div>
+<div class="cl" style="width: 100px;height: 100px;border: 1px solid red;float: left;"></div>
+<div style="clear: both"></div>
+<div class="tt" style="width: 120px;height: 120px;border: 1px solid blue;display:none;position:fixed;top: 20%;left: 25%;">
+
+</div>
+<script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+{template 'wxsdk'}
+<script>
+$(function(){
+    $("#sub").click(function(){
+        var name = $("[name='name']").val();
+        var content = $("[name='content']").val();
+        if(!content){alert("请完善内容后提交！");return false;}
+        $.post("{php echo $this->createMobileUrl('postday')}",{name:name,content:content},function(data){
+           if (data.status == 200){
+                alert('留言成功!');
+           }else{
+               alert('失败');
+           }
+        },'JSON');
+    });
+    $('.cl').click(function(){
+       $.post("{php echo $this->createMobileUrl('seldata')}",function(data){
+            $('.tt').show().html("留言内容："+data.content+"<br>"+"名字："+data.name);
+       },'JSON');
+    });
+});
+wx.ready(function(){
+    var shareData = {
+        title: '我在全国公祭日，我想说',
+        link: "{$_W['siteurl']}",
+        desc: "快来留下你想说的话吧",
+        imgUrl: "{S_URL}/images/banner.jpg"
+    };
+    wx.onMenuShareTimeline(shareData);
+    wx.onMenuShareAppMessage(shareData);
+
+});
+</script>
+</body>
+</html>

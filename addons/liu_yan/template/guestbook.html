@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
+<style>
+    .span_j{
+        color: red;
+        margin-left: 20px;
+    }
+    .span_t{
+        color: green;
+        margin-left: 20px;
+    }
+</style>
+<body>
+<div>
+    <table>
+        <tr>
+            <td>序号</td>
+            <td>姓名</td>
+            <td>留言信息</td>
+            <td>时间</td>
+            <td>是否通过</td>
+        </tr>
+        {loop $list $item}
+        <tr>
+            <td>{$item['id']}</td>
+            <td>{$item['uname']}</td>
+            <td>{$item['content']}</td>
+            <td>{php echo date('Y-m-d H:i:s', $item['times'])}</td>
+            <td id="pass_{$item['id']}">
+                {if $item['pass'] == 0}
+                    <span class="span_j span" title="点击修改" id="{$item['id']}" pass="1">拒绝</span>
+                {elseif $item['pass'] == 1}
+                    <span class="span_t span" title="点击修改" id="{$item['id']}" pass="0">通过</span>
+                {/if}
+            </td>
+        </tr>
+        {/loop}
+    </table>
+</div>
+</body>
+<script>
+    $(function(){
+        $('.span').click(function(){
+            var id = $(this).attr('id');
+
+            var pass = $(this).attr('pass');
+
+            $.post("{php echo $this->createWebUrl('rukou',array('op' => 'display_switch'))}",{id:id,pass:pass},function(data){
+                    if (data == 'ok'){
+                        if(pass == 1){
+                            $("#pass_"+id+" span").text('通过').removeClass('span_j').addClass('span_t').attr("pass","0");
+                        }
+                        else{
+                            $("#pass_"+id+" span").text('拒绝').removeClass('span_t').addClass('span_j').attr("pass","1");
+                        }
+                    }else{
+                        alert(data);
+                    }
+            });
+        });
+    });
+</script>
+</html>

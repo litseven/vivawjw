@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[违法查询]]></name>
+		<identifie><![CDATA[vivawjw_wfcx]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[统一模块]]></ability>
+		<description><![CDATA[无锡微警务-违法查询]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[http://lab.scienmedia.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="illegal" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+
+
+</manifest>

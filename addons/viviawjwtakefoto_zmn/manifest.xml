@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[交通设施啄木鸟]]></name>
+		<identifie><![CDATA[vivawjwtakefoto_zmn]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[交通设施啄木鸟]]></ability>
+		<description><![CDATA[随手拍模块]]></description>
+		<author><![CDATA[scien]]></author>
+		<url><![CDATA[http://www.scienmedia.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="location" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="location" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+	
+	
+		<cover>
+			<entry title="啄木鸟入口" do="takefoto" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="啄木鸟列表" do="wzlist" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+
+	</permissions>
+	<install><![CDATA[
+	
+		]]></install>
+	<uninstall><![CDATA[
+
+		]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
