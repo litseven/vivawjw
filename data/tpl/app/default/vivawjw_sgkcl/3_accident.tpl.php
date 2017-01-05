@@ -169,7 +169,7 @@
                var _lng = $(this).attr('data-lng');
                var _addr = $('.lpaddr').html();
                var _title = $('.lptitle option:selected').val();
-               window.location.href = 'http://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+_lat+','+_lng+';title:'+_title+';addr:'+_addr+'&key=6QRBZ-4YMLK-KXEJP-AWRND-HRGCV-CSF7C&referer=myapp';
+               window.location.href = 'http://apis.map.qq.com/uri/v1/marker?marker=coord:'+_lat+','+_lng+';title:'+_title+';addr:'+_addr+'&referer=myapp'
           });
           $('.upload_img>div').click(function(){
                var _this = $(this);

@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="<?php echo S_URL;?>css/style.css" rel="stylesheet">
     <script src="<?php echo S_URL;?>js/jquery-3.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <title>添加绑定驾驶证</title>
 </head>
 <body>
+<?php (!empty($this) && $this instanceof WeModuleSite) ? (include $this->template('wxsdk', TEMPLATE_INCLUDEPATH)) : (include template('wxsdk', TEMPLATE_INCLUDEPATH));?>
 <?php  if($op == 'wx_driving') { ?>
 <div class="content">
     <div class="content_box">
@@ -31,6 +33,12 @@
     </div>
 </div>
 <script>
+    wx.ready(function(){
+        wx.previewImage({
+            current: 'http://bpic.588ku.com/back_pic/04/43/99/9258539eda10ae8.jpg', // 当前显示图片的http链接
+            urls: ['http://bpic.588ku.com/back_pic/04/43/99/9258539eda10ae8.jpg'] // 需要预览的图片http链接列表
+        });
+    });
     var process = false;
     $(function () {
         $('#query1').click(function () {
