@@ -36,7 +36,6 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				}
 			}
 		}
-		$this->cerateMobileUrl();
 		if ($op == 'warnpost'){
 			//选择打开删除数据
 			if ($_GPC['on_off']){
