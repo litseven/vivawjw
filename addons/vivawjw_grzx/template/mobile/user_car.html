@@ -10,6 +10,7 @@
     <title>添加绑定车辆</title>
 </head>
 <body>
+{template 'wxsdk'}
 {if $op == 'wx_car'}
 <div class="content">
     <div class="content_box">
@@ -174,6 +175,17 @@
     </div>
 </div>
 {/if}
+<script>
+    wx.ready(function(){
+        $('.where').click(function(){
+            wx.previewImage({
+                current: '{S_URL}img/help2_0.jpg', // 当前显示图片的http链接
+                urls: ['{S_URL}img/help2_0.jpg'] // 需要预览的图片http链接列表
+            });
+        });
+
+    });
+</script>
 <div id="loading-fs">
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
 </div>
