@@ -39,7 +39,7 @@ a{text-decoration: none}
 
 /*违法查询*/
 .ill_head{width:100%; display:-webkit-box; border-bottom:solid 2px #dddddd; background-color:white;}
-.illegal{-webkit-box-flex:1; width:50%; text-align:center; height:45px; line-height:45px;}
+.illegal{-webkit-box-flex:1; width:50%; text-align:center; height:45px; line-height:45px;margin-bottom: -2px}
 .illegal:nth-child(1){border-right:solid 2px #dddddd;}
 .illegal div{ width:63%; margin:0 auto; font-size:1rem;}
 .ill_current{border-bottom:solid 2px #2ecc71; color:#2ecc71;}
