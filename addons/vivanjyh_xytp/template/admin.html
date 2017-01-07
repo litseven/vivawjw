@@ -1,0 +1,47 @@
+{template 'common/header'}
+<div class="main" >
+    <style>
+	.order-nav {margin: 0;width: 100%;min-width: 800px;}
+	.order-nav > li > a {display: block;}
+	.order-nav-tabs {background: #EEE;}
+	.order-nav-tabs > li {line-height: 40px;float: left;list-style: none;display: block;text-align: -webkit-match-parent;}
+	.order-nav-tabs > li > a {font-size: 14px;color: #666;height: 40px;line-height: 40px;padding: 0 10px;margin: 0;border: 1px solid transparent;border-bottom-width: 0px;-webkit-border-radius: 0;-moz-border-radius: 0;border-radius: 0;}
+	.order-nav-tabs > li > a, .order-nav-tabs > li > a:focus {border-radius: 0 !important;background-color: #f9f9f9;color: #999;margin-right: -1px;position: relative;z-index: 11;border-color: #c5d0dc;text-decoration: none;}
+	.order-nav-tabs >li >a:hover {background-color: #FFF;}
+	.order-nav-tabs > li.active > a, .order-nav-tabs > li.active > a:hover, .order-nav-tabs > li.active > a:focus {color: #576373;border-color: #c5d0dc;border-top: 2px solid #4c8fbd;border-bottom-color: transparent;background-color: #FFF;z-index: 12;margin-top: -1px;box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);}
+</style>
+<ul class="order-nav order-nav-tabs" style="background:none;float: left;margin-left: 0px;padding-left: 0px;border-bottom:1px #c5d0dc solid;">
+	<li{if $columns == 1} class="active"{/if}><a href="{php echo $this->createWebUrl('admin', array('columns' => 1))}">客户经理</a></li>
+	<li{if $columns == 2} class="active"{/if}><a href="{php echo $this->createWebUrl('admin', array('columns' => 2))}">支行及部门</a></li>
+	<li{if $columns == 3} class="active"{/if}><a href="{php echo $this->createWebUrl('admin', array('columns' => 3))}">中行及直属支行</a></li>
+</ul>
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+						<tr >
+							<th style="text-align: center">编号</th>
+							<th style="text-align: center">姓名</th>
+							<th style="text-align: center">票数</th>
+							<!--<th>操作</th>-->
+						</tr>
+					</thead>
+					<tbody>
+						{loop $list $item}
+						<tr style="text-align: center">
+							<td>{$item['numid']}</td>
+							<td>{$item['name']}</td>
+							<td>{$item['vote']}</td>
+							<!--<td>
+								<a href="{php echo $this->createWebUrl('manage', array('op' => 'view', 'id' => $item['id']))}" class="btn btn-default btn-sm" title="编辑" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye"> </i> 查看</a>
+							</td>-->
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{$pager}
+	</form>
+</div>
+{template 'common/footer'}

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="{S_URL}js/jquery-3.0.0.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="jingli" style="display: block;">
+    {loop $datalist $item}
+    {if $item['columns'] == 1}
+    <div style="border: solid 1px #DDDDDD;margin-bottom: 20px;">
+        <h1>{$item['numid']}</h1>
+        <h2>{$item['name']}</h2>
+        <h3>{$item['content']}</h3>
+        <h4>{$item['vote']}</h4>
+        <input type="checkbox" name="jingli" value="{$item['numid']}">
+    </div>
+    {/if}
+    {/loop}
+</div>
+
+<div class="zhihang" style="display: none;">
+    {loop $datalist $item}
+    {if $item['columns'] == 2}
+        <div style="border: solid 1px #DDDDDD;margin-bottom: 20px;">
+        <h1>{$item['numid']}</h1>
+        <h2>{$item['name']}</h2>
+        <h3>{$item['content']}</h3>
+            <h4>{$item['vote']}</h4>
+        <input type="checkbox" name="jingli" value="{$item['numid']}" >
+        </div>
+    {/if}
+{/loop}
+</div>
+
+<div class="zhonghang" style="display: none;">
+    {loop $datalist $item}
+    {if $item['columns'] == 3}
+        <div style="border: solid 1px #DDDDDD;margin-bottom: 20px;">
+        <h1>{$item['numid']}</h1>
+        <h2>{$item['name']}</h2>
+        <h3>{$item['content']}</h3>
+            <h4>{$item['vote']}</h4>
+        <input type="checkbox" name="jingli" value="{$item['numid']}">
+    </div>
+    {/if}
+    {/loop}
+</div>
+
+<a class="jinglis">经理</a>
+<a class="zhihangs">支行</a>
+<a class="zhonghangs">中行</a>
+<input type="hidden" value="{$uid}" name="uid">
+<input type="submit" value="提交" class="sub">
+<script>
+    $(function(){
+        $('.jinglis').click(function(){
+            $('.zhihang').hide();
+            $('.zhonghang').hide();
+            $('.jingli').show();
+        });
+        $('.zhihangs').click(function(){
+            $('.jingli').hide();
+            $('.zhonghang').hide();
+            $('.zhihang').show();
+        });
+        $('.zhonghangs').click(function(){
+            $('.zhihang').hide();
+            $('.jingli').hide();
+            $('.zhonghang').show();
+        });
+
+
+
+
+
+        $('.sub').click(function(){
+            var uid = $("[name = 'uid']").val();
+            var numid = $("[name = 'jingli']");
+            check_val = [];
+            for(k in numid){
+                if (numid[k].checked) {
+                    check_val.push(numid[k].value);
+                };
+            }
+            $.post("{php echo $this->createMobileUrl('votepost')}",{check_val:check_val,uid:uid},function(data){
+                if (data == 2){
+                    alert('你还有 2 次机会');
+                }else if(data == 1){
+                    alert('你还有 1 次机会');
+                }else if(data == 0){
+                    alert('你机会已经用完了');
+                }else if (data == -1){
+                    alert('你今天没机会');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
