@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link href="{S_URL}css/index.css" rel="stylesheet">
+		<script src="{S_URL}js/index.js"></script>
+		<script src="{S_URL}js/jquery-3.0.0.js"></script>
+		<title>奋斗誓言投票</title>
+	</head>
+	<body>
+		<div class="wrapper2">
+			{if $op == 'list'}
+			<div class="content">
+				<div class="secarchDiv">
+					<i class="secarch-icon">&#xe64e;</i><input class="secarchInput" type="text" placeholder="请输入编号"/>
+					<input class="btnInput" type="button" value="搜索"/>
+				</div>
+				<div class="item">
+					<!--1、中支及直属支行-->
+					<div class="zhonghang"  style="display: none;">
+						{loop $datalist $item}
+						{if $item['columns'] == 1}
+						<div class="rank_f" data-num="{$item['numid']}">
+							<div class="first_info">
+								<img class="rank_head" src="{S_URL}avatar/{$item['numid']}.png">
+								<div class="rank_name">{$item['jigou']}-{$item['name']}</br><span>编号：{$item['numid']}</span></div>
+								<div class="rank_num">
+									<input type="checkbox"  name="first" id="compare_{$item['numid']}" class="checkbox-input zhongzhi checke" value="{$item['numid']}">
+									<label class="checkboxcss zhongzhi checke" for="compare_{$item['numid']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<p style="margin-top:3%">票数:{$item['vote']}</p>
+								</div>
+							</div>
+							<div class="leave">留言:{$item['content']}</div>
+						</div>
+						{/if}
+						{/loop}
+					</div>
+					<!--2、支行及部门-->
+					<div class="zhihang" style="display: none;">
+						{loop $datalist $item}
+						{if $item['columns'] == 2}
+						<div class="rank_f" data-num="{$item['numid']}">
+							<div class="first_info">
+								<img class="rank_head" src="{S_URL}avatar/{$item['numid']}.png">
+								<div class="rank_name">{$item['jigou']}-{$item['name']}</br><span>编号：{$item['numid']}</span></div>
+								<div class="rank_num">
+									<input type="checkbox"  name="second" id="compare_{$item['numid']}" class="checkbox-input zhihang checke" value="{$item['numid']}">
+									<label class="checkboxcss zhihang checke" for="compare_{$item['numid']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<p style="margin-top:3%">票数:{$item['vote']}</p>
+								</div>
+							</div>
+							<div class="leave">留言:{$item['content']}</div>
+						</div>
+						{/if}
+						{/loop}
+					</div>
+					<!--3、客户经理-->
+					<div class="jingli">
+						{loop $datalist $item}
+						{if $item['columns'] == 3}
+						<div class="rank_f" data-num="{$item['numid']}">
+							<div class="first_info">
+								<img class="rank_head" src="{S_URL}avatar/{$item['numid']}.png">
+								<div class="rank_name">{$item['jigou']}-{$item['name']}</br><span>编号：{$item['numid']}</span></div>
+								<div class="rank_num">
+									<input type="checkbox"  name="checks" id="compare_{$item['numid']}" class="checkbox-input jingli checke" value="{$item['numid']}">
+									<label class="checkboxcss jingli checke" for="compare_{$item['numid']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<p style="margin-top:3%">票数:{$item['vote']}</p>
+								</div>
+							</div>
+							<div class="leave">留言:{$item['content']}</div>
+						</div>
+						{/if}
+						{/loop}
+					</div>
+				</div>
+			</div>
+			<!--底部固定导航条-->
+          	<div class="footer_nav">
+               <div class="nav_box">
+                    <a class="nav nav1" id="nav1" onclick="toItem1()">
+                         <img src="{S_URL}img/bottonbtn1-hover.png">
+                         <div style="color:#6f4710;">客户经理</div>
+                    </a>
+                    <a class="nav nav2" id="nav2"  onclick="toItem2()">
+                         <img src="{S_URL}img/bottonbtn2.png">
+                         <div>支行及部门</div>
+                    </a>
+                    <a class="nav nav3" id="nav3" onclick="toItem3()">
+                         <img src="{S_URL}img/bottonbtn3.png">
+                         <div>中支及直属支行</div>
+                    </a>
+               </div>        
+          	</div>
+			<script>
+				function toItem1(){
+					$('.jingli').show();
+					$('.zhonghang').hide();
+					$('.zhihang').hide();
+					$('#nav2 img').attr('src','{S_URL}img/bottonbtn2.png');
+					$('#nav2 div').css('color','#d0a306');
+					$('#nav3 img').attr('src','{S_URL}img/bottonbtn3.png');
+					$('#nav3 div').css('color','#d0a306');
+					$('#nav1 img').attr('src','{S_URL}img/bottonbtn1-hover.png');
+					$('#nav1 div').css('color','#6f4710');
+				}
+				function toItem2(){
+					$('.zhihang').show();
+					$('.zhonghang').hide();
+					$('.jingli').hide();
+					$('#nav1 img').attr('src','{S_URL}img/bottonbtn1.png');
+					$('#nav1 div').css('color','#d0a306');
+					$('#nav3 img').attr('src','{S_URL}img/bottonbtn3.png');
+					$('#nav3 div').css('color','#d0a306');
+					$('#nav2 img').attr('src','{S_URL}img/bottonbtn2-hover.png');
+					$('#nav2 div').css('color','#6f4710');
+				}
+				function toItem3(){
+					$('.zhonghang').show();
+					$('.jingli').hide();
+					$('.zhihang').hide();
+					$('#nav1 img').attr('src','{S_URL}img/bottonbtn1.png');
+					$('#nav1 div').css('color','#d0a306');
+					$('#nav2 img').attr('src','{S_URL}img/bottonbtn2.png');
+					$('#nav2 div').css('color','#d0a306');
+					$('#nav3 img').attr('src','{S_URL}img/bottonbtn3-hover.png');
+					$('#nav3 div').css('color','#6f4710');
+				}
+			</script>
+			{/if}
+          	<!--弹窗     感谢参与2-->
+          	<div id="rulemaskId2" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+	            	<div class="partInTxt">
+		            	<p>感谢参与</p>
+		            	<p>您已成功投票~</p>
+		            	<p>今日还有<span>两次</span>投票机会</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+        	<!--弹窗     感谢参与1-->
+          	<div id="rulemaskId1" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+	            	<div class="partInTxt">
+		            	<p>感谢参与</p>
+		            	<p>您已成功投票~</p>
+		            	<p>今日还有<span>一次</span>投票机会</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+        	<!--弹窗     感谢参与0-->
+          	<div id="rulemaskId0" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+	            	<div class="partInTxt">
+		            	<p>感谢参与</p>
+		            	<p>您已成功投票~</p>
+		            	<p>今日投票机会已用完。</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+        	<!--弹窗     明天再来-->
+          	<div id="rulemaskId3" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+	            	<div class="partInTxt">
+		            	<p>亲</p>
+		            	<p>今日投票机会已用完，</p>
+		            	<p>明天再来吧~</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+        	<!--弹窗     客户经理-->
+          	<div id="rulemaskIdjl" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose"/>
+	            	<div class="partInTxt">
+		            	<p>亲</p>
+		            	<p><span>【客户经理】</span>栏目</p>
+		            	<p>您还没有选择投票项目哦~</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+        	<!--弹窗     支行-->
+          	<div id="rulemaskIdzh" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose"/>
+	            	<div class="partInTxt">
+		            	<p>亲</p>
+		            	<p><span>【支行】</span>栏目</p>
+		            	<p>您还没有选择投票项目哦~</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+        	<!--弹窗     中支-->
+          	<div id="rulemaskIdzz" class="mask" style="display:none">
+	            <div class="partInContent">
+	            	<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose"/>
+	            	<div class="partInTxt">
+		            	<p>亲</p>
+		            	<p><span>【中支基层】</span>栏目</p>
+		            	<p>您还没有选择投票项目哦~</p>	            	
+	            	</div>
+	            </div>
+        	</div>
+			<!--弹窗     没搜索内容-->
+			<div id="rulemaskIdbh" class="mask" style="display:none">
+				<div class="partInContent">
+					<img src="{S_URL}img/close2-icon.png" id="partInclose" class="partInclose"/>
+					<div class="partInTxt">
+						<p>亲</p>
+						<p>请输入要搜索人的编号</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" value="{$uid}" name="uid">
+		<!--<input type="submit" value="提交" class="sub" style="position: fixed;bottom: 100px;right: 20px;background-color:#00a0e9;width: 80px;height: 50px">-->
+		<div class="submit"><img src="{S_URL}img/submit-btn.png"/></div>
+		<div id="loading-fs">
+			<div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+		</div>
+{template 'wxsdk'}
+</body>
+<script>
+	var process = false;
+	$("#loading-fs").hide();
+	$(function(){
+		//搜索
+		/*$(".btnInput").click(function(){
+			var numid = $('.secarchInput').val();
+			if(numid == ''){
+				$('#rulemaskIdbh').show();
+			}
+			if($.trim(numid)!=""){
+				$.post("{php echo $this->createMobileUrl('votelist',array('op'=>'search'))}",{numid:numid},function(data){
+					$(".item").hide().html("<div class='rank_f' id='rank_f'><div class='first_info'><img class='rank_head' src='{S_URL}avatar/"+data.numid+".png'> <div class='rank_name'>"+data.name+"</br><span>编号："+data.numid+"</span></div> <div class='rank_num'>票数：<span>"+data.vote+"</span></div> <div class='rank_rank'> <input type='checkbox' name='checks' value='"+data.numid+"'> </div> </div> <div class='leave'>留言:"+data.content+"</div> </div> </div>").show();
+				},'JSON');
+			}
+		});*/
+		//搜索
+		$(".btnInput").click(function(){
+			var numid = $('.secarchInput').val();
+			if ($('.zhihang').show()) {
+				$(".zhihang .rank_f").each(function() {
+					if (!numid) {$(".zhihang .rank_f").show();return false;}
+					if ($(this).data('num') != numid) {
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+				});
+			}
+		});
+		$(".btnInput").click(function(){
+			var numid = $('.secarchInput').val();
+			if ($('.zhonghang').show()) {
+				$(".zhonghang .rank_f").each(function() {
+					if (!numid) {$(".zhonghang .rank_f").show();return false;}
+					if ($(this).data('num') != numid) {
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+				});
+			}
+		});
+		$(".btnInput").click(function(){
+			var numid = $('.secarchInput').val();
+			if ($('.jingli').show()) {
+				$(".jingli .rank_f").each(function() {
+					if (!numid) {$(".jingli .rank_f").show();return false;}
+					if ($(this).data('num') != numid) {
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+				});
+			}
+		});
+
+
+		$('.submit').click(function(){
+			 if(process)return false;
+			// return false;
+			var uid = $("[name = 'uid']").val();
+			var numid1 = $("[name = 'first']");
+			var numid2 = $("[name = 'second']");
+			var numid = $("[name = 'checks']");
+			check_val1 = [];
+			check_val2 = [];
+			check_val = [];
+			for(k in numid1){
+				if (numid1[k].checked) {
+					check_val1.push(numid1[k].value);
+				};
+			}
+			for(k in numid2){
+				if (numid2[k].checked) {
+					check_val2.push(numid2[k].value);
+				};
+			}
+			for(k in numid){
+				if (numid[k].checked) {
+					check_val.push(numid[k].value);
+				};
+			}
+			if (check_val == ''){$('#rulemaskIdjl').show();return false;}
+			if (check_val2 == '') {$('#rulemaskIdzh').show();return false;}
+			if (check_val1 == '') {$('#rulemaskIdzz').show();return false;}
+			var numid = $(".checke");
+			check_val_all = [];
+			for(k in numid){
+				if (numid[k].checked) {
+					check_val_all.push(numid[k].value);
+				};
+			}
+			$("#loading-fs").show();
+			$.post("{php echo $this->createMobileUrl('votepost')}",{check_val:check_val_all,uid:uid},function(data){
+				$("#loading-fs").hide();
+				if (data == 2){
+					$('#rulemaskId2').show();
+				}else if(data == 1){
+					$('#rulemaskId1').show();
+				}else if(data == 0){
+					$('#rulemaskId0').show();
+				}else if (data == -1){
+					$('#rulemaskId3').show();
+				}
+			});
+			process = true;
+		});
+
+
+
+
+		//投票
+		/*$('.sub').click(function(){
+			if(process)return false;
+			var uid = $("[name = 'uid']").val();
+			var numid = $(".checke");
+			check_val = [];
+			for(k in numid){
+				if (numid[k].checked) {
+					check_val.push(numid[k].value);
+				};
+			}
+			if (check_val == ''){
+				$('#rulemaskIdmt').show();return false;
+			}
+			$("#loading-fs").show();
+			$.post("{php echo $this->createMobileUrl('votepost')}",{check_val:check_val,uid:uid},function(data){
+				$("#loading-fs").hide();
+				if (data == 2){
+					$('#rulemaskId2').show();
+				}else if(data == 1){
+					$('#rulemaskId1').show();
+				}else if(data == 0){
+					$('#rulemaskId0').show();
+				}else if (data == -1){
+					$('#rulemaskId3').show();
+				}
+			});
+			process = true;
+		});*/
+
+		$('.tpclose').click(function(){
+			$('.mask').hide();
+			location.reload()
+		});
+		$('.partInclose').click(function(){
+			$('.mask').hide();
+		});
+
+	});
+	wx.ready(function(){
+		_title = "2017年小微年度最赞奋斗誓言等你来选！";
+		_link = "{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&c=entry&do=vote&m=vivanjyh_xytp";
+		_imgUrl = "{S_URL}img/share_img.jpg";
+		_desc = "2017小微业务奋斗宣言投票活动。";
+		wx.onMenuShareTimeline({
+			title: _title,
+			link: _link,
+			imgUrl: _imgUrl,
+			success: function () {
+			}
+		});
+		wx.onMenuShareAppMessage({
+			title: _title,
+			link: _link,
+			desc: _desc,
+			imgUrl: _imgUrl,
+			success: function () {
+			}
+		});
+	});
+</script>
+</html>

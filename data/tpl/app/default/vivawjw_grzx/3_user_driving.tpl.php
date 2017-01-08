@@ -33,12 +33,6 @@
     </div>
 </div>
 <script>
-    wx.ready(function(){
-        wx.previewImage({
-            current: 'http://bpic.588ku.com/back_pic/04/43/99/9258539eda10ae8.jpg', // 当前显示图片的http链接
-            urls: ['http://bpic.588ku.com/back_pic/04/43/99/9258539eda10ae8.jpg'] // 需要预览的图片http链接列表
-        });
-    });
     var process = false;
     $(function () {
         $('#query1').click(function () {
@@ -178,5 +172,16 @@
 <div id="loading-fs">
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
 </div>
+<script>
+    wx.ready(function(){
+        $('.where').click(function(){
+            wx.previewImage({
+                current: '<?php echo S_URL;?>img/help_0.jpg', // 当前显示图片的http链接
+                urls: ['<?php echo S_URL;?>img/help_0.jpg'] // 需要预览的图片http链接列表
+            });
+        });
+
+    });
+</script>
 </body>
 </html>

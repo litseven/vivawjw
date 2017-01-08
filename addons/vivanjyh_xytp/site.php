@@ -9,23 +9,51 @@ defined('IN_IA') or exit('Access Denied');
 define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
 class Vivanjyh_xytpModuleSite extends WeModuleSite {
 
-	public function doMobileVoting() {
+    //首页
+    public function doMobileVote(){
         global $_W,$_GPC;
         $op =trim($_GPC['op'])? trim($_GPC['op']): 'jingli';
         if (empty($_W['fans']['nickname'])) {
             mc_oauth_userinfo();
         }
         /*---------------------------------------------------------------------------------------------------------------------------------*/
-        //$userid = $_W['member']['uid'];
-        $uid = $data['uid'] = 3;
-        //经理
-        $datalist = pdo_fetchall('SELECT * FROM '.tablename('vivanjyh_xytp').' WHERE uniacid=:uniacid',array(':uniacid'=>$_W['uniacid']));
-        foreach ($datalist as &$value){
-            $value['vote'] = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivanjyh_xytp_num').' WHERE  numid = :numid',array(':numid'=>$value['numid']));
+        $userid = $_W['member']['uid'];
+        //$uid = $data['uid'] = 3;
+
+        include $this->template('vote');
+    }
+
+    //列表
+	public function doMobileVotelist() {
+        global $_W,$_GPC;
+        $op = trim($_GPC['op'])? trim($_GPC['op']): 'list';
+        if (empty($_W['fans']['nickname'])) {
+            mc_oauth_userinfo();
+        }
+        /*---------------------------------------------------------------------------------------------------------------------------------*/
+        $uid = $_W['member']['uid'];
+        //$uid = $data['uid'] = 3;
+        //1.中支及直属支行;2.支行及部门;3.客户经理
+
+        if($op == 'list'){
+            $datalist = pdo_fetchall('SELECT * FROM '.tablename('vivanjyh_xytp').' WHERE uniacid=:uniacid',array(':uniacid'=>$_W['uniacid']));
+            foreach ($datalist as &$value){
+                $value['vote'] = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivanjyh_xytp_num').' WHERE  numid = :numid',array(':numid'=>$value['numid']));
+            }
+        }
+
+        //搜索
+        if($op == 'search'){
+            $numid = trim($_GPC['numid']);
+            $seadata = pdo_fetch('SELECT * FROM '.tablename('vivanjyh_xytp').' WHERE uniacid=:uniacid AND numid = :numid',array(':uniacid'=>$_W['uniacid'],':numid'=>$numid));
+            $vote = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivanjyh_xytp_num').' WHERE  numid = :numid',array(':numid'=>$numid));
+            $seadata['vote'] = $vote;
+            //var_dump($seadata);
+            echo json_encode($seadata);exit;
         }
 
 
-        include $this->template('voting');
+        include $this->template('votelist');
 	}
 	//提交投票
     public function doMobileVotepost(){
@@ -51,19 +79,19 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
             echo -1;exit;
         }
         //插入数据
-            foreach ($check_val as $val){
-                $indata = array(
-                    'uniacid' => $_W['uniacid'],
-                    'uid' => $uid,
-                    'numid' => $val,
-                    'degree' => $degree,
-                    'sittime' => time()
-                );
-                $data = pdo_insert('vivanjyh_xytp_num', $indata);
-            }
-            if ($data) {
-                echo $degree;exit;
-            }
+        foreach ($check_val as $val){
+            $indata = array(
+                'uniacid' => $_W['uniacid'],
+                'uid' => $uid,
+                'numid' => $val,
+                'degree' => $degree,
+                'sittime' => time()
+            );
+            $data = pdo_insert('vivanjyh_xytp_num', $indata);
+        }
+        if ($data) {
+            echo $degree;exit;
+        }
     }
     //后台
 	public function doWebAdmin() {

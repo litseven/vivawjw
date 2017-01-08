@@ -10,6 +10,7 @@
     <title>添加绑定车辆</title>
 </head>
 <body>
+<?php (!empty($this) && $this instanceof WeModuleSite) ? (include $this->template('wxsdk', TEMPLATE_INCLUDEPATH)) : (include template('wxsdk', TEMPLATE_INCLUDEPATH));?>
 <?php  if($op == 'wx_car') { ?>
 <div class="content">
     <div class="content_box">
@@ -174,6 +175,17 @@
     </div>
 </div>
 <?php  } ?>
+<script>
+    wx.ready(function(){
+        $('.where').click(function(){
+            wx.previewImage({
+                current: '<?php echo S_URL;?>img/help2_0.jpg', // 当前显示图片的http链接
+                urls: ['<?php echo S_URL;?>img/help2_0.jpg'] // 需要预览的图片http链接列表
+            });
+        });
+
+    });
+</script>
 <div id="loading-fs">
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
 </div>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="{S_URL}css/index.css" rel="stylesheet">
+	<script src="{S_URL}js/index.js"></script>
+	<script src="{S_URL}js/jquery-3.0.0.js"></script>
+	<title>奋斗誓言投票</title>
+</head>
+<body>
+<div class="wrapper1">
+	<!--飘带  渐现效果-->
+	<div class="ribbonDiv">
+		<img src="{S_URL}img/ribbon.png" />
+	</div>
+	<!--阳光   旋转闪烁效果-->
+	<div class="sunnyDiv">
+		<img src="{S_URL}img/sunny.png"/>
+	</div>
+	<div class="logoDiv">
+		<img src="{S_URL}img/logo.png"/>
+	</div>
+	<div class="title1Div">
+		<img src="{S_URL}img/title1.png"/>
+	</div>
+	<!--正文标题  放大效果-->
+	<div class="title2Div">
+		<img src="{S_URL}img/title2.png"/>
+	</div>
+	<!--投票按钮  跳转至内页-->
+	<div class="voteDiv">
+		<a href="{php echo $this->createMobileUrl('votelist')}"><img src="{S_URL}img/vote-btn.png"/></a>
+	</div>
+	<!--活动规则按钮  左方滑入-->
+	<div class="ruleDiv">
+		<img class="ruleImg" src="{S_URL}img/rule-btn.png" />
+	</div>
+</div>
+
+
+<!--规则弹窗-->
+<div id="rulemaskId" class="mask" style="display:none">
+	<div class="ruleContent">
+		<img src="{S_URL}img/close-icon.png" id="ruleclose" />
+		<div class="ruleTxt">
+			<p>活动时间：2017年1月9日-2017年1月12日</p>
+			<p>活动详情：</p>
+			<p>1.活动期间，每人每天均有<span>3次</span>机会进行投票。</p>
+			<p>2.每次投票， 【客户经理】 、 【支行】 、 【中支层级】<span> 各栏目均需选择项目投票</span>方可提交。</p>
+			<p>3.每个项目可同时选择多人进行（无限制）进行投票</p>
+
+		</div>
+	</div>
+		{template 'wxsdk'}
+		<script>
+			$(function(){
+				$('.ruleImg').click(function(){
+					$('#rulemaskId').show();
+				});
+				$('#ruleclose').click(function(){
+					$('#rulemaskId').hide();
+				});
+			});
+			wx.ready(function(){
+				_title = "2017年小微年度最赞奋斗誓言等你来选！";
+				_link = "{$_W['siteurl']}";
+				_imgUrl = "{S_URL}img/share_img.jpg";
+				_desc = "2017小微业务奋斗宣言投票活动。";
+				wx.onMenuShareTimeline({
+					title: _title,
+					link: _link,
+					imgUrl: _imgUrl,
+					success: function () {
+					}
+				});
+				wx.onMenuShareAppMessage({
+					title: _title,
+					link: _link,
+					desc: _desc,
+					imgUrl: _imgUrl,
+					success: function () {
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
