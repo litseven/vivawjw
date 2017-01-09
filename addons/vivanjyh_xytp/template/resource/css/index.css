@@ -1,7 +1,7 @@
 body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input,select,a,button,img{ margin:0; padding:0;}
 html {  width:100%; height: 100%; outline: 0; box-sizing:border-box; -webkit-text-size-adjust:none;}
-body {  width:100%; height: 100%; margin: 0;padding: 0;  -webkit-user-select: none;border: 0;}
-*{font-family: "微软雅黑";}
+body {  width:100%; height: 100%; margin: 0;padding: 0;  -webkit-user-select: none;border: 0;overflow: hidden;}
+*{font-family: "微软雅黑";-webkit-tap-highlight-color:rgba(0,0,0,0);}
 div,section{display: block;}
 a{text-decoration:none;}
 img{border: 0;display: block;}
@@ -13,11 +13,29 @@ img{border: 0;display: block;}
     url('http://at.alicdn.com/t/font_1sxa7pk2evz08uxr.ttf') format('truetype'),
     url('http://at.alicdn.com/t/font_1sxa7pk2evz08uxr.svg#iconfont') format('svg');
 }
+
+@font-face {
+  font-family: 'scienfont';  /* project id 217180 */
+  src: url('//at.alicdn.com/t/font_ssr9voe3qqzd7vi.eot');
+  src: url('//at.alicdn.com/t/font_ssr9voe3qqzd7vi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_ssr9voe3qqzd7vi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_ssr9voe3qqzd7vi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_ssr9voe3qqzd7vi.svg#iconfont') format('svg');
+}
+
+.footer-icon i{
+     font-family:"scienfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /***************************************************************************/
 .wrapper1{
     width: 100%;
     height: 100%;
-    background: url(../img/bg.png) no-repeat top center;
+    background: url(http://oisj37y62.bkt.clouddn.com/xytp_v2/bg.png) no-repeat top center;
     background-size: cover;
 }
 .logoDiv{
@@ -46,35 +64,32 @@ img{border: 0;display: block;}
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    margin-top: 3%;
+   /* margin-top: 3%;*/
 }
 .title2Div img{
     width: 90%;
     background-size: cover;
     margin: 0 auto;
     animation-iteration-count:1;
-    animation: 4s title2 0s normal;
+    animation: 2s title2 0s normal;
 }
 @keyframes title2{
     0%{width:40%;}
-
     100%{width:90%;}
 }
 @-webkit-keyframes title2{
     0%{width:40%;}
-
     100%{width:90%;}
 }
 @-moz-keyframes title2{
     0%{width:40%;}
-
     100%{width:90%;}
 }
 .voteDiv{
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    margin-top: 3%;
+    margin-top:5%;
     position: absolute;
     top: 45%;
     z-index: 100;
@@ -101,18 +116,18 @@ img{border: 0;display: block;}
 @keyframes sunny{
     0%{-webkit-transform: rotate(0);}
     10%{-webkit-transform: rotate(1deg);}
-    30%{-webkit-transform: rotate(1.5deg);}
+    30%{-webkit-transform: rotate(0deg);}
     50%{-webkit-transform: rotate(1deg);}
-    70%{-webkit-transform: rotate(1.5deg);}
+    70%{-webkit-transform: rotate(0deg);}
     90%{-webkit-transform: rotate(1deg);}
     100%{-webkit-transform: rotate(0);}
 }
 @-webkit-keyframes sunny{
     0%{-webkit-transform: rotate(0);}
     10%{-webkit-transform: rotate(1deg);}
-    30%{-webkit-transform: rotate(1.5deg);}
+    30%{-webkit-transform: rotate(0deg);}
     50%{-webkit-transform: rotate(1deg);}
-    70%{-webkit-transform: rotate(1.5deg);}
+    70%{-webkit-transform: rotate(0deg);}
     90%{-webkit-transform: rotate(1deg);}
     100%{-webkit-transform: rotate(0);}
 }
@@ -125,10 +140,12 @@ img{border: 0;display: block;}
     width: 100%;
     height: 100%;
     background-size: cover;
-    animation: 4s opacity2 0s infinite;
-    -webkit-animation: 4s opacity2 0s infinite;
-    -moz-animation: 4s opacity2 0s infinite;
+    animation: 3s opacity2 0s infinite;
+    -webkit-animation: 3s opacity2 0s infinite;
+    -moz-animation: 3s opacity2 0s infinite;
     animation-iteration-count:1;
+    -webkit-animation-iteration-count:1;
+    -moz-animation-iteration-count:1;
 }
 @keyframes opacity2{
     0%{opacity:0}
@@ -150,9 +167,7 @@ img{border: 0;display: block;}
     background-size: cover;
     position: absolute;
     top: 77%;
-    animation:myrule 3s normal;
-    animation-iteration-count:1;
-    -webkit-animation:myrule 3s normal;
+	left:70px
 }
 @keyframes myrule{
     from{left:0;}
@@ -174,8 +189,8 @@ img{border: 0;display: block;}
 }
 .ruleContent{
     width: 100%;
-    height: 38%;
-    background: url(../img/rulebg.png) no-repeat top center;
+    height:40%;
+    background: url(http://oisj37y62.bkt.clouddn.com/xytp_v2/rulebg.png) no-repeat top center;
     background-size: cover;
     position: absolute;
     top: 30%;
@@ -189,7 +204,7 @@ img{border: 0;display: block;}
 .partInContent{
     width: 100%;
     height: 28%;
-    background: url(../img/wicket1.png) no-repeat top center;
+    background: url(http://oisj37y62.bkt.clouddn.com/xytp_v2/wicket1.png) no-repeat top center;
     background-size: cover;
     position: absolute;
     top: 34%;
@@ -197,7 +212,7 @@ img{border: 0;display: block;}
 #partInclose{
     width: 6%;
     position: absolute;
-    left: 88%;
+    left: 83%;
     top: 4%;
 }
 .ruleTxt{
@@ -207,7 +222,7 @@ img{border: 0;display: block;}
     line-height: 1.5rem;
 }
 .partInTxt{
-    padding-top: 11%;
+    padding-top: 7%;
     width: 83%;
     margin: 0 auto;
     line-height: 2rem;
@@ -230,17 +245,17 @@ img{border: 0;display: block;}
 /********************************************************/
 .wrapper2{
     width: 100%;
-    background: url(../img/vote-bg.png) no-repeat top center;
+    height: 100%;
+    background: url(http://oisj37y62.bkt.clouddn.com/xytp_v2/vote-bg.png) no-repeat top center;
     background-size: cover;
-    overflow: hidden;
+    overflow-y: auto;
 }
 form{
     width: 100%;
-    height: 46rem;
 }
 .content{
     width: 90%;
-    height: 100%;
+    /*height: 100%;*/
     margin: 0 auto;
 }
 .secarchDiv{
@@ -253,11 +268,12 @@ form{
     border-radius: 15px;
     box-shadow: 3px 3px 5px rgba(0,0,0,.2);
     border: none;
-    padding-left: 15%;
+    padding-left: 9%;
+    position: relative;
+    left: -5%;
 }
 .btnInput{
     width: 25%;
-    margin-left: 3%;
     height: 46px;
     color: #ffffff;
     border-radius: 15px;
@@ -275,10 +291,11 @@ form{
     width: 15%;
     /* height: 15px; */
     /* top: 0; */
-    left:-31%;
+    left:-23%;
     background: #ffffff;
     border: 2px solid #d0a306;
     border-radius: 100%;
+    padding: 3%;
 }
 
 .checkboxcss:after {
@@ -305,28 +322,30 @@ form{
 .checkbox-input{
     text-align: center;
     margin-left: 37%;
+    visibility: hidden;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
 }
-
-
 
 .secarch-icon{
     font-family: "iconfont" !important;
-    font-size: 26px;
+    font-size: 24px;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
     color: #777777;
-    position: absolute;
+    position: relative;
     -moz-osx-font-smoothing: grayscale;
     padding-top: 3%;
-    left: 9%;
+    left: 4%;
+    z-index: 10;
 }
 .item{
     width: 100%;
-    height: 37rem;
-    margin-top: 5%;
+    margin-top: 6%;
+    padding-bottom:10%;
     /* position: relative; */
-    overflow-y: auto;
 }
 .list{
     width: 100%;
@@ -353,6 +372,7 @@ form{
     width: 90%;
     position: absolute;
     top: 75%;
+    z-index: 100;
 }
 .submit img{
     width: 28%;
@@ -383,8 +403,8 @@ form{
     width: 90%;
     margin: 0 auto;
     /* margin-top: 10%; */
-    padding: 6%;
-    font-size: .9rem;
+    padding: 5% 7%;
+    font-size: 1rem;
     white-space: normal;
     word-break: break-word;
 }
@@ -400,10 +420,12 @@ form{
     border-radius: 15px;
     margin-top: 7%;
     margin-bottom: 5%;
+    overflow: hidden;
 }
+.rank_f:last-child{margin-bottom:70px}
 .first_info{
     overflow: hidden;
-    padding-bottom: 7%;
+    padding-bottom: 8px;
     border-bottom: 1px solid #cccaca;
 }
 .rank_head{
@@ -416,22 +438,24 @@ form{
     float: left;
 }
 .rank_name{
-    margin-top: 7%;
+    margin-top: 6%;
     margin-left: 2%;
-    font-size: 0.9rem;
+    font-size: .9rem;
     float: left;
+    line-height: 1.3rem;
 }
 .rank_name span{
     color: #777777;
 }
 .rank_num{
-    width: 74.5px;
-    margin-top:6%;
-    padding-right:4%;
-    font-size: 0.9rem;
+    width: 31%;
+    margin-top: 6%;
+    padding-right: 4%;
+    font-size: .9rem;
     float: right;
     color: #d0a306;
     text-align: center;
+    line-height: 1.5rem;
 }
 .rank_num img{
     width: 30%;
@@ -448,8 +472,8 @@ form{
     background-size: cover;
 }
 /*底部导航条*/
-.footer_nav{position:fixed; bottom:0; left:0; width:100%;height:7%;background: url(../img/bottombg.png)no-repeat top center;background-size: cover; z-index:998;}
-.nav1 ,.nav2 ,.nav3{overflow:hidden; float:left; width:33%; font-size:0.8rem; line-height:3rem;color:#d0a306;}
+.footer_nav{position:fixed; bottom:0; left:0; width:100%;height:7%;background: url(http://oisj37y62.bkt.clouddn.com/xytp_v2/bottombg.png)no-repeat top center;background-size: cover; z-index:998;}
+.nav1 ,.nav2 ,.nav3{overflow:hidden; float:left; width:33%; font-size:0.8rem; line-height:3rem;color:#d0a306;text-align:center}
 .nav1 img {
     display: block;
     margin-top: 8%;
@@ -473,16 +497,16 @@ form{
 }
 @media (min-width:318px) and (max-width:323px) {
     .nav1 ,.nav2 ,.nav3{overflow:hidden; float:left; width:33%; font-size:0.8rem; line-height:2.5rem;}
-    .rank_name{font-size: .8rem;}.rank_num{font-size: .8rem;}.rank_rank img{width: 43%;}
-    .ruleTxt{font-size:0.8rem;line-height:1rem;}.item{height:29rem;}form{height: 35rem;}
+    .rank_name{font-size: .8rem;}.rank_num{font-size: .7rem;width: 24%;}.rank_rank img{width: 43%;}
+    .ruleTxt{font-size:0.8rem;line-height:1rem;}.item{height:29rem;}
 }
 @media (min-width:358px) and (max-width:362px) {
     .nav1 ,.nav2 ,.nav3{overflow:hidden; float:left; width:33%; font-size:0.8rem; line-height:2.5rem;}
     .rank_name{font-size: .8rem;}.rank_num{font-size: .8rem;}.rank_rank img{width: 43%;}
     .ruleTxt{font-size:0.8rem;line-height:1rem;}
 }
-@media (min-width:370px) and (max-width:376px) {
-    form{height: 41rem;}.ruleTxt{font-size: 0.8rem;}
+@media (min-width:370px) and (max-width:378px) {
+    .ruleTxt{font-size: 0.8rem;}.item{height:34rem;}.rank_num{width: 28%;}
 }
 
 
@@ -504,7 +528,7 @@ form{
     width: 16px;
     height: 16px;
     display: inline-block;
-    background: url(../img/loading.png) no-repeat;
+    background: url(http://oisj37y62.bkt.clouddn.com/xytp_v2/loading.png) no-repeat;
     vertical-align: -3px;
     margin-right: 5px;
     -webkit-animation: loading .8s linear infinite;
@@ -521,3 +545,7 @@ form{
 @keyframes loading{
     0%{transform:rotate(0deg);}	100%{transform:rotate(360deg);}}
 /*加载*/
+
+
+
+.zhonghang{margin-bottom:70px}

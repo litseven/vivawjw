@@ -1,11 +1,4 @@
-//规则按钮初始位置
-window.onload = function(){	
-	setTimeout(function(){
-		if(document.getElementsByClassName('ruleImg')[0]){
-			document.getElementsByClassName('ruleImg')[0].style.left='70px';
-		}		
-	},3000);	
-}
+
 //跳转至内页
 function toListPage(){
 	location.href='list.html';

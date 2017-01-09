@@ -58,7 +58,11 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
 	//提交投票
     public function doMobileVotepost(){
         global $_W,$_GPC;
-        $uid = $_GPC['uid'];
+        $uid =  $_W['member']['uid'];
+        if(!$uid){
+            die;
+        }
+
         $check_val = $_GPC['check_val'];
         $year = date("Y");
         $month = date("m");
