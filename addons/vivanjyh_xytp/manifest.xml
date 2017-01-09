@@ -40,7 +40,7 @@ CREATE TABLE `ims_vivanjyh_xytp` (
   `columns` int(11) DEFAULT NULL COMMENT '//栏目1经理、2支行、3中行',
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ims_vivanjyh_xytp_num`;
 CREATE TABLE `ims_vivanjyh_xytp_num` (
@@ -51,7 +51,7 @@ CREATE TABLE `ims_vivanjyh_xytp_num` (
   `sittime` int(11) DEFAULT NULL,
   `degree` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 	]]></install>
 	<uninstall><![CDATA[]]></uninstall>
 	<upgrade><![CDATA[]]></upgrade>
