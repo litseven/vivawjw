@@ -8,10 +8,17 @@
 	<link href="{S_URL}css/index.css" rel="stylesheet">
 	<script src="{S_URL}js/index.js"></script>
 	<script src="http://oisj37y62.bkt.clouddn.com/xytp_v2/jquery-3.0.0.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<title>奋斗誓言投票</title>
+
 </head>
 <body>
+<audio autoplay loop src="http://oisj37y62.bkt.clouddn.com/xytp_v2/1.mp3" id="bgMusic"></audio>
 <div class="wrapper1">
+	<!--音乐图标-->
+	<div class="mucDiv">
+		<img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/muc-icon.png"/>
+	</div>
 	<!--飘带  渐现效果-->
 	<div class="ribbonDiv">
 		<img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/ribbon.png" />
@@ -35,7 +42,7 @@
 		<a href="{php echo $this->createMobileUrl('votelist')}"><img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/vote-btn.png"/></a>
 	</div>
 	<!--活动规则按钮  左方滑入-->
-	<div class="ruleDiv">
+	<div class="ruleDiv" onclick="openRule()">
 		<img class="ruleImg" src="http://oisj37y62.bkt.clouddn.com/xytp_v2/rule-btn.png" />
 	</div>
 </div>
@@ -46,23 +53,41 @@
 	<div class="ruleContent" >
 		<img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close-icon.png" id="ruleclose" />
 		<div class="ruleTxt">
-			<p>活动时间：2017年1月9日-2017年1月12日</p >
+			<p>活动时间：2017年1月10日-2017年1月12日</p>
 			<p>活动详情：</p >
-			<p>1.活动期间，每人每天均有<span>3次</span>机会进行投票。</p >
-			<p>2.每次投票， 【中支及直属支行】 、 【支行及部门】 、 【客户经理】<span> 各栏均需至少选择一票</span>方可提交。</p >
-			<p>3.每栏可选择多条誓言进行投票。</p >
+			<p>1.活动期间，每人每天均有<span>3次</span>机会进行投票。</p>
+			<p>2.每次投票，<span>需至少选择6条誓言且最多不可超过十条誓言。</span>方可提交。</p >
+
 		</div>
+		</div>
+	</div>
 		{template 'wxsdk'}
 		<script>
+			var bgm = document.getElementById("bgMusic");
 			$(function(){
+
 				$('.ruleImg').click(function(){
 					$('#rulemaskId').show();
 				});
 				$('#ruleclose').click(function(){
 					$('#rulemaskId').hide();
 				});
+				
+				
+				$(".mucDiv").click(function(){
+					$(this).toggleClass("mult");
+					if($(this).hasClass("mult")){
+						bgm.pause();
+						}
+					else{
+						bgm.play();
+						}	
+					});
+				
 			});
+			
 			wx.ready(function(){
+				bgm.play();
 				_title = "2017年小微年度最赞奋斗誓言等你来选！";
 				_link = "{$_W['siteurl']}";
 				_imgUrl = "http://oisj37y62.bkt.clouddn.com/xytp_v2/share_img.jpg";
@@ -83,6 +108,14 @@
 					}
 				});
 			});
+			/*wx.ready(function(){
+				//加载音乐
+				$('#bgmusic').play();
+			});*/
+			
 		</script>
+
+
+
 	</body>
 </html>
