@@ -96,16 +96,17 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
 
     //周五活动
     public function doMobileSec(){
-        global $_W;$_GET;
+        global $_W,$_GPC;
+        $op =trim($_GPC['op'])? trim($_GPC['op']): 'sec';
         if (empty($_W['fans']['nickname'])) {
             mc_oauth_userinfo();
         }
+
+        if($op == 'seclist'){
+            $datalist = pdo_fetchall('SELECT * FROM '.tablename('vivanjyh_xytp_sec').' WHERE uniacid=:uniacid ORDER BY votes desc,id asc',array(':uniacid'=>$_W['uniacid']));
+        }
+
         include $this->template('sec');
-    }
-    public function doMobileSeclist(){
-        global $_W;$_GET;
-        $datalist = pdo_fetchall('SELECT * FROM '.tablename('vivanjyh_xytp_sec').' WHERE uniacid=:uniacid ORDER BY votes desc,id asc',array(':uniacid'=>$_W['uniacid']));
-        include $this->template('seclist');
     }
     //周五活动投票
     public function doMobileVotepostsec(){
@@ -124,7 +125,7 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
         $end = mktime(23, 59, 59, $month, $day, $year);
 
         $start4 = strtotime(date("Y-m-d H:i:s",mktime(9,30,00,1,13,2017)));
-        $end4 = strtotime(date("Y-m-d H:i:s",mktime(11,29,59,1,13,2017)));
+        $end4 = strtotime(date("Y-m-d H:i:s",mktime(10,45,00,1,13,2017)));
         $time = time();
         if($time < $start4){
             echo 100;exit;
@@ -176,6 +177,7 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
 	public function doWebAdmin() {
 		//这个操作被定义用来呈现 规则列表
         global $_W,$_GPC;
+        $op =trim($_GPC['op'])? trim($_GPC['op']): 'vote';
         $_GPC['columns'] = isset($_GPC['columns'])?$_GPC['columns']:1;
         $columns = intval($_GPC['columns']);
         $pindex =max(1, intval($_GPC['page']));
@@ -183,25 +185,21 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
         $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivanjyh_xytp'). ' WHERE uniacid = :uniacid ',array(':uniacid'=>$_W['uniacid']));
         $list = pdo_fetchall('SELECT * FROM '.tablename('vivanjyh_xytp').' WHERE uniacid = :uniacid ORDER BY votes desc,numid asc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid'=>$_W['uniacid']));
         $pager =pagination($total, $pindex, $psize);
+
+        //前20
+       if($op == 'sec'){
+           $_GPC['columns'] = isset($_GPC['columns'])?$_GPC['columns']:1;
+           $columns = intval($_GPC['columns']);
+           $pindex =max(1, intval($_GPC['page']));
+           $psize =10;
+           $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivanjyh_xytp_sec'). ' WHERE uniacid = :uniacid ',array(':uniacid'=>$_W['uniacid']));
+           $list = pdo_fetchall('SELECT * FROM '.tablename('vivanjyh_xytp_sec').' WHERE uniacid = :uniacid ORDER BY votes desc,numid asc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid'=>$_W['uniacid']));
+           $pager =pagination($total, $pindex, $psize);
+       }
         include $this->template('admin');
 	}
 
+    
 
-	//清空投票次数
-    public function doMobileTruncate(){
-       pdo_query('truncate table'.tablename('vivanjyh_xytp_num'));
-    }
-    //清除票数
-    public function doMobileDelvotes(){
-        pdo_update('vivanjyh_xytp',array('votes'=> 0));
-    }
-/*    //添加数据
-    public function doMobileAdd(){
-        global $_W,$_GPC;
-        $data = array(
-            'content' => '2016，一路有你，携手共拼搏；2017，一起奋斗，齐鑫创辉煌！'
-        );
-        pdo_update('vivanjyh_xytp',$data,array('numid'=>'09','uniacid'=>$_W['uniacid']));
-    }*/
 
 }

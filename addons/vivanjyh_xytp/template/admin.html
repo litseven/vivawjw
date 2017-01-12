@@ -11,7 +11,8 @@
 	.order-nav-tabs > li.active > a, .order-nav-tabs > li.active > a:hover, .order-nav-tabs > li.active > a:focus {color: #576373;border-color: #c5d0dc;border-top: 2px solid #4c8fbd;border-bottom-color: transparent;background-color: #FFF;z-index: 12;margin-top: -1px;box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);}
 </style>
 <ul class="order-nav order-nav-tabs" style="background:none;float: left;margin-left: 0px;padding-left: 0px;border-bottom:1px #c5d0dc solid;">
-	<li class="active"><a href="javascript:;">列表</a></li>
+	<li{if $op == 'vote'} class="active"{/if}><a href="{php echo $this->createWebUrl('admin',array('op'=>'vote'))}">列表</a></li>
+	<li{if $op == 'sec'} class="active"{/if}><a  href="{php echo $this->createWebUrl('admin',array('op'=>'sec'))}">前20列表</a></li>
 </ul>
 		<div class="panel panel-default">
 			<div class="panel-body table-responsive">
@@ -40,6 +41,5 @@
 			</div>
 		</div>
 		{$pager}
-	</form>
 </div>
 {template 'common/footer'}
