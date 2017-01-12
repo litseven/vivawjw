@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="{S_URL}css/index.css?v=1238" rel="stylesheet">
+    <script src="http://oisj37y62.bkt.clouddn.com/xytp_v2/jquery-3.0.0.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="{S_URL}js/index.js"></script>
+
+    <title>最赞奋斗誓言投票</title>
+</head>
+<body>
+<audio autoplay loop id="bgMusic" src="http://oisj37y62.bkt.clouddn.com/xytp_v2/1.mp3"></audio>
+<div class="wrapper2" style="background-image: url('{S_URL}/img/bgimg.png')">
+    <!--音乐图标-->
+    <div class="mucDiv" onclick="onMuc()">
+        <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/muc-icon.png"/>
+    </div>
+    <div class="content">
+        <div class="secarchDiv">
+            <i class="secarch-icon">&#xe64e;</i><input class="secarchInput" type="text" placeholder="请输入完整编号"/>
+            <div class="btnInput">搜索</div>
+        </div>
+        <div class="item">
+            <div class="jingli">
+                {loop $datalist $item}
+                <div class="rank_f" data-num="{$item['numid']}">
+                    <div class="first_info">
+                        <div class="user_id">编号:<span>{$item['numid']}</span></div>
+                        <div class="user_num">票数:<span>{if $item['votes']}{$item['votes']}{else}0{/if}</span></div>
+                        <div class="user_choice">
+                            <input type="checkbox" name="checks" id="compare_{$item['numid']}" class="checkbox-input checke" value="{$item['numid']}">
+                            <!--<label class="checkboxcss checke" for="compare_{$item['numid']}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
+                            <!--<label for="compare_{$item['numid']}"><i class="check-icon">&#xe602;</i></label>-->
+                            <label class="label-1 checked" for="compare_{$item['numid']}" ><span style="opacity: 0;">ww</span></label>
+                        </div>
+                    </div>
+                    <div class="leave">{$item['content']}</div>
+                </div>
+                {/loop}
+            </div>
+            <div style="height:40px;width:100% ; background-color:transparent"></div>
+            <style>
+                .rank_f:last-child{margin-bottom:70px}
+            </style>
+        </div>
+    </div>
+    <!--弹窗     感谢参与0-->
+    <div id="rulemaskId0" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+            <div class="partInTxt">
+                <p>感谢参与</p>
+                <p>您已成功投票~</p>
+                <p>今日投票机会已用完。</p>
+            </div>
+        </div>
+    </div>
+    <!--弹窗     明天再来-->
+    <div id="rulemaskId3" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+            <div class="partInTxt">
+                <p>亲</p>
+                <p>今日投票机会已用完！</p>
+            </div>
+        </div>
+    </div>
+    <div id="rulemaskId1" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+            <div class="partInTxt">
+                <p>亲</p>
+                <p>活动9：30正式开启</p>
+                <p>稍后再来吧~</p>
+            </div>
+        </div>
+    </div>
+    <div id="rulemaskId2" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+            <div class="partInTxt">
+                <p>活动已截止，感谢参与~</p>
+            </div>
+        </div>
+    </div>
+    <div id="rulemaskIdbh" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose tpclose"/>
+            <div class="partInTxt">
+                <p style="width: 80%;margin: 0 auto;padding-top: 5%">亲，请输入正确的编号</p>
+            </div>
+        </div>
+    </div>
+    <div id="rulemaskIdcc" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose"/>
+            <div class="partInTxt">
+                <p style="width: 80%;margin: 0 auto;padding-top: 5%">亲，最多只可选择6条誓言进行投票哦</p>
+            </div>
+        </div>
+    </div>
+    <div id="rulemaskIdzs" class="mask" style="display:none">
+        <div class="partInContent">
+            <img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/close2-icon.png" id="partInclose" class="partInclose"/>
+            <div class="partInTxt">
+                <p style="width: 80%;margin: 0 auto;padding-top: 5%">亲，至少需选择3条誓言方可提交投票哦~</p>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="{$uid}" name="uid">
+<!--<input type="submit" value="提交" class="sub" style="position: fixed;bottom: 100px;right: 20px;background-color:#00a0e9;width: 80px;height: 50px">-->
+<div class="submit"><img src="http://oisj37y62.bkt.clouddn.com/xytp_v2/submit-btn.png"/></div>
+<div id="loading-fs">
+    <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+</div>
+{template 'wxsdk'}
+</body>
+<script>
+    var process = false;
+    $("#loading-fs").hide();
+    var bgm = document.getElementById("bgMusic");
+    $(function(){
+        $(".mucDiv").click(function(){
+            $(this).toggleClass("mult");
+            if($(this).hasClass("mult")){
+                bgm.pause();
+            }
+            else{
+                bgm.play();
+            }
+        });
+        //搜索
+        $(".btnInput").click(function(){
+            var numid = $('.secarchInput').val();
+            if(numid.length == 1){
+                numid = '0'+numid;
+            }
+            var ranks = $(".rank_f").length;
+            if(numid > ranks){
+                $('#rulemaskIdbh').show();
+            }
+            if (numid == ''){
+                $('.rank_f').show();
+            }
+            $(".rank_f").each(function() {
+                var arr = [];
+                if ($(this).data('num') == numid) {
+                    var name = $(this).parent().attr('class');
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i] != name) {
+                            $("." + arr[i]).hide();
+                        }
+                    }
+                    $("." + name).children(".rank_f").hide();
+                    $(this).show();
+                }
+            });
+        });
+        //选择规则
+        $('.checke').click(function(){
+            var numid = $("[name = 'checks']");
+            check_val = [];
+            for(k in numid){
+                if (numid[k].checked) {
+                    check_val.push(numid[k].value);
+                };
+            }
+            if(check_val.length > 6){
+                $('#rulemaskIdcc').show();return false;
+            }
+        });
+        $('.submit').click(function(){
+            if(process)return false;
+            // return false;
+            var numid = $("[name = 'checks']");
+            check_val = [];
+            for(k in numid){
+                if (numid[k].checked) {
+                    check_val.push(numid[k].value);
+                };
+            }
+            if(check_val.length < 3){
+                $('#rulemaskIdzs').show();return false;
+            }
+            $("#loading-fs").show();
+            $.post("{php echo $this->createMobileUrl('votepostsec')}",{check_val:check_val},function(data){
+                $("#loading-fs").hide();
+                console.log(data);
+                if(data == 0){
+                    $('#rulemaskId0').show();
+                }else if (data == -1){
+                    $('#rulemaskId3').show();
+                }else if(data == 100){
+                    $('#rulemaskId1').show();
+                }else if(data == 300){
+                    $('#rulemaskId2').show();
+                }else if(data == 500){
+                    alert('请在微信中打开');
+                }
+            });
+            process = true;
+        });
+        $('.tpclose').click(function(){
+            $('.mask').hide();
+            location.reload();
+        });
+        $('.partInclose').click(function(){
+            $('.mask').hide();
+        });
+
+    });
+    wx.ready(function(){
+        bgm.play();
+        wx.hideAllNonBaseMenuItem();// 隐藏所有非“基本类”按钮
+    });
+
+
+</script>
+</html>

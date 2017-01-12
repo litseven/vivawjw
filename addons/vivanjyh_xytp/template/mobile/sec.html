@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link href="{S_URL}css5/index.css" rel="stylesheet">
+		<script src="{S_URL}js/jquery-3.0.0.js"></script>
+
+		<title>奋斗誓言投票</title>
+	</head>
+	<body>
+		<audio id="music" autoplay="autoplay" loop="loop" src="{S_URL}img5/1.mp3"></audio>
+		<div class="wrapper1">
+			<!--音乐图标-->
+			<div class="mucDiv" onclick="onMuc()">
+				<img src="{S_URL}img5/muc-icon.png"/>
+			</div>
+
+			<div class="sunnyDiv">
+				<img src="{S_URL}img5/sunny.png"/>
+			</div>
+			<div class="logoDiv">
+				<img src="{S_URL}img5/logo.png"/>
+			</div>
+			<div class="voteDiv">
+				<div class="circlediv">
+					<div class="circle" ><img src="{S_URL}img5/circle.png"/></div>
+					<div class="circle" ><img src="{S_URL}img5/circle-2.png"/></div>
+					<a style="width:70%; display: block;"><img src="{S_URL}img5/vote2-btn.png"/></a>
+				</div>
+			</div>
+			<!--活动规则按钮  左方滑入-->
+			<div class="ruleDiv">
+				<img class="ruleImg" src="{S_URL}img5/rule2-btn.png" />
+			</div>
+			
+		</div>
+		<!--规则弹窗-->
+		<div id="rulemaskId" class="mask" style="display:none">
+            <div class="ruleContent" >
+            	<img src="{S_URL}img5/close-icon.png" id="ruleclose" />
+            	<div class="ruleTxt">
+					<p>活动时间：2017年1月13日</p>
+					<p>活动详情：</p>
+					<p>1.活动期间，每人仅有<span>3次</span>机会进行投票。</p>
+					<p>2.投票需至少选择3条誓言且最多不可超过6条誓言，方可提交</p>
+            	</div>
+        	</div>
+		</div>
+	</body>
+	<script>
+		$(function(){
+			$('.circlediv').click(function(){
+				window.location.href = "{php echo $this->createMobileUrl('seclist')}";
+			});
+			$('.ruleImg').click(function(){
+				$('#rulemaskId').show();
+			});
+			$('#ruleclose').click(function(){
+				$('#rulemaskId').hide();
+			});
+
+		});
+	</script>
+</html>
