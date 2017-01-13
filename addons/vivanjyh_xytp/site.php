@@ -112,8 +112,8 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
     public function doMobileVotepostsec(){
         global $_W,$_GPC;
         /*---------------------------------------------------------------------------------------------------------------------------------*/
-        //$uid =  $_W['member']['uid'];
-        $uid = 8;
+        $uid =  $_W['member']['uid'];
+        //$uid = 8;
         if(!$uid){
             echo 500;exit;
         }
@@ -125,7 +125,7 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
         $end = mktime(23, 59, 59, $month, $day, $year);
 
         $start4 = strtotime(date("Y-m-d H:i:s",mktime(9,20,00,1,13,2017)));
-        $end4 = strtotime(date("Y-m-d H:i:s",mktime(10,45,00,1,13,2017)));
+        $end4 = strtotime(date("Y-m-d H:i:s",mktime(10,25,00,1,13,2017)));
         $time = time();
         if($time < $start4){
             echo 100;exit;
@@ -197,6 +197,55 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
             $pager =pagination($total, $pindex, $psize);
         }
         include $this->template('admin');
+    }
+
+
+    public function doMobileSqldata(){
+        $list = pdo_fetchall('SELECT * FROM ' . tablename('vivanjyh_xytp_sec'));
+        foreach ($list as $key => $value) {
+           echo '编号->'.$v['numid'].'&bnbsp;票数->'.$v['votes'];
+        }
+    }
+
+
+
+
+
+
+    /**
+     * 数据导出 Excel 文件
+     */
+    public function doMobileExport() {
+        include IA_ROOT . '/framework/library/phpexcel/PHPExcel.php';
+        $list = pdo_fetchall('SELECT * FROM ' . tablename('vivanjyh_xytp_sec'));
+        foreach ($list as $k => $v) {
+            $data[$k]['numid'] = $v['numid'];
+            $data[$k]['votes'] = $v['votes'];
+        }
+        $excel = new PHPExcel();
+        $letter = array('A', 'B');
+        $tableheader = array('编号', '票数');
+        for($i = 0; $i < count($tableheader); $i++) {
+            $excel->getActiveSheet()->setCellValue($letter[$i] . '1', $tableheader[$i]);
+        }
+        for ($i = 0; $i < count($data); $i++) {
+            $j = 0;
+            foreach ($data[$i] as $k => $v) {
+                $excel->getActiveSheet()->setCellValue($letter[$j] . ($i + 2), $v);
+                $j++;
+            }
+        }
+        $write = new PHPExcel_Writer_Excel5($excel);
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type:application/force-download");
+        header("Content-Type:application/vnd.ms-execl");
+        header("Content-Type:application/octet-stream");
+        header("Content-Type:application/download");;
+        header('Content-Disposition:attachment;filename="' . time() . '.xls"');
+        header("Content-Transfer-Encoding:binary");
+        $write->save('php://output');
     }
 
 
