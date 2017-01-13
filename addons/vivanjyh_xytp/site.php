@@ -112,8 +112,8 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
     public function doMobileVotepostsec(){
         global $_W,$_GPC;
         /*---------------------------------------------------------------------------------------------------------------------------------*/
-        $uid =  $_W['member']['uid'];
-        //$uid = 8;
+        //$uid =  $_W['member']['uid'];
+        $uid = 8;
         if(!$uid){
             echo 500;exit;
         }
@@ -124,8 +124,8 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
         $start = mktime(0, 0, 0, $month, $day, $year);
         $end = mktime(23, 59, 59, $month, $day, $year);
 
-        $start4 = strtotime(date("Y-m-d H:i:s",mktime(9,30,00,1,13,2017)));
-        $end4 = strtotime(date("Y-m-d H:i:s",mktime(17,45,00,1,13,2017)));
+        $start4 = strtotime(date("Y-m-d H:i:s",mktime(9,20,00,1,13,2017)));
+        $end4 = strtotime(date("Y-m-d H:i:s",mktime(10,45,00,1,13,2017)));
         $time = time();
         if($time < $start4){
             echo 100;exit;
@@ -200,10 +200,5 @@ class Vivanjyh_xytpModuleSite extends WeModuleSite {
     }
 
 
-    public function doMobilesqlnum(){
-        global $_W,$_GPC;
-        $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivanjyh_xytp_sec'). ' WHERE uniacid = :uniacid ',array(':uniacid'=>$_W['uniacid']));
-        var_dump($total);
-    }
 
 }
