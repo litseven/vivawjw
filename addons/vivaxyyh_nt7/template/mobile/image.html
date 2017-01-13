@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<link href="{S_URL}css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="{S_URL}css/jquery.flipster.css">
+<link rel="stylesheet" href="{S_URL}css/flipsternavtabs.css">
+<script type="text/javascript" src="{S_URL}js/jquery-1.8.3.min.js"></script>
+
+<script src="{S_URL}js/reset.js"></script>
+<title>梦想之路，你我同行</title>
+<script>
+function addLoadEvent(func) { 
+	var oldonload = window.onload; 
+	if (typeof window.onload != 'function') { 
+	    window.onload = func; 
+	} else { 
+	    window.onload = function() { 
+		    if (oldonload) { 
+	           oldonload(); 
+	        }
+	        func(); 
+	    } 
+	} 
+}
+addLoadEvent(function() { 
+	$("#page-hd").hide();
+});
+</script>
+{template 'wxsdk'}
+</head>
+<body>
+<style>
+.music{position: absolute; z-index: 999; right:0.5rem;top:0.5rem; }
+.music img {width:0.58rem;  height:0.58rem;}
+.zhuan1{-webkit-animation:spin 5s linear infinite; }
+#yinp{width:0.58rem;  height:0.58rem;}
+@-webkit-keyframes spin{
+   from{transform:rotate(0deg);}
+   to{transform:rotate(360deg);}
+}
+</style>
+<audio loop id="yinp" src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/1_v2.mp3" preload="preload"></audio>
+<div class="music">
+    <img src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/music.png" class="zhuan1" />
+</div>
+<script>
+        document.addEventListener("WeixinJSBridgeReady", function () { 
+            document.getElementById("yinp").play();
+        }, false); 
+        $('.music').click(function(){
+        if($('.music img').hasClass('zhuan1')){
+            $('.music img').removeClass('zhuan1');
+            document.getElementById('yinp').pause();
+        }else{
+            $('.music img').addClass('zhuan1');
+            document.getElementById("yinp").play();
+        }
+    })
+</script>
+<div id="page-hd">
+     <div style="width:100%; height:10.08rem; position:fixed; top:0; left:0; z-index:1111; background-color:transparent;"></div>
+</div>
+{if $op == 'index'}
+    <!--个人头像上传页-->
+    <div class="bank_day">
+    	<div class="day_box">
+    		<div class="dream_name">{$info['name']}</div>
+    		<div class="dream_day">您已在兴业银行追逐梦想<span>{$days}</span>天</div>
+    		<div class="upload_img"><img src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/sc.png" style="border-radius: 50%;"></div>
+    		<div class="upload">上传个人头像照片<br>(4MB以内)</div>
+    		<textarea class="leave_word" placeholder="输入留言(30字内)"></textarea>
+    		<button id="dream_step"></button>
+    	</div>
+    </div>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/util_new.js"></script>
+<!--<script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/app/util.js"></script>-->
+<script src="{$_W['siteroot']}app/resource/js/require.js"></script>
+ <script src="{$_W['siteroot']}appresource/js/app/config.js"></script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/mui.min.js?v=20160906"></script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/common.js?v=20160906"></script>
+<link href="{$_W['siteroot']}app/resource/css/common.min.css?v=003" rel="stylesheet">
+<link href="{$_W['siteroot']}app/resource/components/cropper/cropper.min.css" rel="stylesheet">
+<style type="text/css">
+    .webuploader-pick{padding: 0;}
+</style>
+<script type="text/javascript">
+    require.config({baseUrl: 'resource/js/app',paths: {
+        'bootstrap': '../../../../web/resource/js/lib/bootstrap.min',
+        'webuploader':'../../../../web/resource/components/webuploader/webuploader.min',
+        'jquery': '../../../../web/resource/js/lib/jquery-1.11.1.min',
+        'cropper':'../../../../app/resource/components/cropper/cropper.min',
+        'previewer':'../../../../app/resource/components/previewer/mui.previewimage',
+        'swiper': '../../components/swiper/swiper.min',}
+        ,});
+    util.image($(".upload_img"),
+        function(result) {
+            $(".upload_img img").attr('src', result.url);
+            // $("#loading").hide();
+        },
+        {crop : true, multiple : true, preview : true}
+    );
+    $('#dream_step').bind('click',function(){
+        var content = $(".leave_word").val();
+        if ($(".upload_img img").attr('src') == 'http://oisj37y62.bkt.clouddn.com/img_njbank_16/sc.png' || !$(".upload_img img").attr('src')) {
+            mui.alert('请上传头像');
+            return false;
+        }
+        if (!content) {
+            mui.alert('请填写留言');
+            return false;
+        }
+        if (content.length > 30) {
+            mui.alert('留言内容不超过 30 个字');
+            return false;
+        }
+        $.getJSON("{php echo $this->createMobileUrl('image', array('op' => 'submit', 'id' => $id))}", {avatar : $(".upload_img img").attr('src'), content : content}, function(msg) {
+            if (msg.status) {
+                location.href = "{php echo $this->createMobileUrl('image', array('op' => 'choose', 'id' => $id))}";
+            } else {
+                mui.alert('提交失败，请重试');
+            }
+        });
+    });
+</script>
+{elseif $op == 'choose'}
+    <!--选择专属你的模板-->
+    <div class="template">
+    	<div class="template_box" id="template_box">
+    		<div class="template_3" id="template_3">
+    		<div class="flipster">
+        		<ul style="padding-top:0.2rem;">
+        			<li> 
+	        			<div class="template_one" id="template">
+<!--	        				<div class="one_head">
+	        					<img src="{php echo tomedia($info['message']['avatar'])}">
+	        				</div>
+	        				<div class="one_name">{$info['name']}</div>
+	        				<div class="one_day">{$days}</div>
+	        				<img class="one_comm" src="{S_URL}template/{$level}.png">
+	        				<div class="one_ewm">
+	        					<img src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/ewm.png">
+	        				</div>
+-->	        			</div>
+	        			<!--<img class="reflect" src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/reflat.png">-->
+        			</li>
+        			<li>
+        				<div class="template_one" id="template1">
+<!--	        				<div class="one_head">
+	        					<img src="{php echo tomedia($info['message']['avatar'])}">
+	        				</div>
+	        				<div class="one_name">{$info['name']}</div>
+	        				<div class="one_day">{$days}</div>
+	        				<img class="one_comm" src="{S_URL}template/{$level}.png">
+	        				<div class="one_ewm">
+	        					<img src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/ewm.png">
+	        				</div>
+-->        				</div>
+        			</li>
+        			<li>
+	        			<div class="template_one" id="template2">
+<!--	        				<div class="one_head">
+	        					<img src="{php echo tomedia($info['message']['avatar'])}">
+	        				</div>
+	        				<div class="one_name">{$info['name']}</div>
+	        				<div class="one_day">{$days}</div>
+	        				<img class="one_comm" src="{S_URL}template/{$level}.png">
+	        				<div class="one_ewm">
+	        					<img src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/ewm.png">
+	        				</div>
+-->	        			</div>
+        			</li>
+        		</ul>
+    		    <img class="reflect" src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/reflat.png">
+    		</div>
+    		</div>
+    	</div>
+    	<div class="template_tip"><img src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/word2.png"/></div>
+    	<button id="tem_btn"></button>
+    </div>
+    <script src="{S_URL}js/jquery.flipster.js"></script>
+    <script type="text/javascript">
+    $("#likes_btn1").click(function() {
+        location.href = "{php echo $this->createMobileUrl('entry')}";
+    });
+    var li_index = 1;
+    $(function(){
+        $(".flipster").flipster({
+            itemContainer:          'ul', // Container for the flippin' items.
+            itemSelector:           'li', // Selector for children of itemContainer to flip
+            style:                          'carousel', // Switch between 'coverflow' or 'carousel' display styles
+            start:                          1, // Starting item. Set to 0 to start at the first, 'center' to start in the middle or the index of the item you want to start with.
+            enableKeyboard:         false, // Enable left/right arrow navigation
+            enableMousewheel:   false, // Enable scrollwheel navigation (up = left, down = right)
+            enableTouch:                true, // Enable swipe navigation for touch devices
+            enableNav:                  false, // If true, flipster will insert an unordered list of the slides
+            enableNavButtons:   false, // If true, flipster will insert Previous / Next buttons
+            onItemSwitch:           function(){}, // Callback function when items are switches
+        });
+    });
+    $("#tem_btn").click(function() {
+        $.getJSON("{php echo $this->createMobileUrl('image', array('op' => 'addtemp', id => $id))}", {temp : li_index}, function(msg) {
+            if (msg.status) {
+                location.href = "{php echo $this->createMobileUrl('image', array('op' => 'share', id => $id))}";
+            }
+        });
+    });
+    </script>
+{elseif $op == 'share'}
+    {if $_W['member']['uid'] == $info['message']['openid']}
+    <!--个人点赞页面-->
+    <div class="likes" id="self" {if intval($info['message']['temp']) == 1} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg10.jpg) no-repeat"{elseif intval($info['message']['temp']) == 2} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg11.jpg) no-repeat"{else} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg12.jpg) no-repeat"{/if}>
+    	<div class="likes_box">
+    		<div class="likes_back">
+    			<i>&#xe63d;</i>
+    			<div id="backtoindex">返回首页</div>
+    		</div>
+            <div class="likes_bj">
+        		<div class="likes_head">
+        			<img src="{php echo tomedia($info['message']['avatar'])}">
+        		</div>
+        		<div class="likes_word">{$info['message']['content']}</div>
+        		<div class="likes_name">{$info['name']}</div>
+        		<div class="likes_day">在兴业银行追逐梦想<span class="days">{$days}</span>天</div>
+        		<div class="likes_word1">被评为</div>
+        		<img id="comment" src="{S_URL}template/{$level}.png">
+                </div>
+<!--    		<div class="likes_friend">
+    			<i {if $was_hit} class="friend_acti" {/if}>&#xe600;</i>
+    			<div>已获<span>{$info['message']['hit']}</span>位好友点赞支持</div>
+    		</div>
+-->    		
+			<div class="likes_friend">
+        			<!--<i>&#xe600;</i>-->
+        			<div>点击<i {if $was_hit} class="friend_acti" {/if}>&#xe600;</i> 支持哦，有<span>{$info['message']['hit']}</span>个朋友看了觉得很赞！</div>
+        		</div>
+            <div class="hand_img"><img class="hand" src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/hand.png"/></div>
+            <div class="likes_btn">
+    			<button id="likes_btn1"></button>
+    			<button id="likes_btn2"></button>
+    		</div>
+    	</div>
+    </div>
+<script>
+var pro = false;
+$("#likes_btn1").click(function() {
+    // location.href = "{php echo $this->createMobileUrl('image', array('id' => $id))}";
+    location.href = "{php echo $this->createMobileUrl('entry', array('page' => 6))}";
+});
+$('#likes_btn2').click(function(){
+    location.href = "{php echo $this->createMobileUrl('image', array('op' => 'show', 'id' => $id))}";
+})
+var num = $(".likes_friend div span").html();
+$('.likes_friend i').click(function(){
+
+    if (pro) {
+        return false;
+    }
+    pro = true;
+    $.getJSON("{php echo $this->createMobileUrl('hit')}", {id : {$id}}, function(msg) {
+        if (msg.status) {
+            $('.likes_friend div i').addClass('friend_acti');
+            num++;
+            $('.likes_friend div span').empty();
+            $('.likes_friend div span').html(num);
+        }
+        pro = false;
+    });
+})
+</script>
+    {else}
+    <!--分享点赞页-->
+    <div class="likes" id="friend" {if intval($info['message']['temp']) == 1} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg10.jpg) no-repeat"{elseif intval($info['message']['temp']) == 2} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg11.jpg) no-repeat"{else} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg12.jpg) no-repeat"{/if}>
+    	<div class="likes_box">
+    		<div class="likes_back">
+    			<i>&#xe63d;</i>
+    			<div id="backtoindex">返回首页</div>
+    		</div>
+            <div class="likes_bj">
+        		<div class="likes_head">
+        			<img src="{php echo tomedia($info['message']['avatar'])}">
+        		</div>
+        		<div class="likes_word">{$info['message']['content']}</div>
+        		<div class="likes_name">{$info['name']}</div>
+        		<div class="likes_day">在兴业银行追逐梦想<span class="days">{$days}</span>天</div>
+        		<div class="likes_word1">被评为</div>
+        		<img id="comment" src="{S_URL}template/{$level}.png">
+            </div>
+			<div class="likes_friend">
+        			<!--<i>&#xe600;</i>-->
+        			<div>点击<i {if $was_hit} class="friend_acti" {/if}>&#xe600;</i> 支持哦，有<span>{$info['message']['hit']}</span>个朋友看了觉得很赞！</div>
+        		</div>
+            <div class="hand_img"><img class="hand" src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/hand.png"/></div>
+    		<div class="likes_btn spec_btn">
+    			<button id="likes_btn3"></button>
+    		</div>
+    	</div>
+    </div>
+    <script type="text/javascript">
+    var pro = false;
+    var num = $(".likes_friend div span").html();
+    $('.likes_friend i').click(function(){
+
+        if (pro) {
+            return false;
+        }
+        pro = true;
+        $.getJSON("{php echo $this->createMobileUrl('hit')}", {id : {$id}}, function(msg) {
+            if (msg.status) {
+                $('.likes_friend div i').addClass('friend_acti');
+                num++;
+                $('.likes_friend div span').empty();
+                $('.likes_friend div span').html(num);
+            }
+            pro = false;
+        });
+    });
+    $("#likes_btn3").click(function() {
+        location.href = "{php echo $this->createMobileUrl('entry')}";
+    });
+    </script>
+    {/if}
+{elseif $op == 'show'}
+    <!--个人二维码蓝色模板-->
+    <div class="modal" {if trim($info['message']['temp']) == 0} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg12.jpg);"{elseif trim($info['message']['temp']) == 1}  style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg10.jpg);"{else} style="background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg11.jpg);"{/if}>
+    	<div class="modal_box">
+    		<div class="likes_back">
+    			<i>&#xe63d;</i>
+    			<div id="backtoindex">返回首页</div>
+    		</div>
+    		<img class="moadl_comm" style="width: 90%;margin: 0 auto;display: block;margin-top:10px" src="{php echo $this->createMobileUrl('show', array('id' => trim($_GPC['id'])))}">
+            <img class="modal_save1" src="http://oisj37y62.bkt.clouddn.com/img_njbank_16/save.png">
+    	</div>
+    </div>
+{/if}
+<div style="display: none"><script src="https://s11.cnzz.com/z_stat.php?id=1261140994&web_id=1261140994" language="JavaScript"></script></div>
+</body>
+<script type="text/javascript">
+    $("#backtoindex").click(function() {
+        location.href = "{php echo $this->createMobileUrl('entry')}";
+    });
+    wx.ready(function(){
+        {if $this->was_message}
+        _title = '我是{php echo $this->info["name"]}，在兴业银行追逐梦想 {php echo $this->info["days"]} 天，被评为{php echo $this->info["level"]}追梦人';
+			{if $op == 'share' && $_W['member']['uid'] != $info['message']['openid']}
+				_title = '“梦想之路，你我同行”，兴业银行南通分行七周年';
+				_link = "{$_W['siteurl']}"
+			{else}
+				_link = "{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&c=entry&op=share&id={php echo $this->was_message['staffid']}&do=image&m=viva_xyyh";
+			{/if}
+        _desc = '“梦想之路，你我同行”，兴业银行南通分行七周年';
+        {else}
+			_title = '“梦想之路，你我同行”，兴业银行南通分行七周年';
+			{if $op == 'share' && $_W['member']['uid'] != $info['message']['openid']}
+				_link = "{$_W['siteurl']}"
+			{else}
+				_link = "{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&c=entry&do=entry&m=viva_xyyh";
+			{/if}
+        _desc = '';
+        {/if}
+        _imgUrl = 'http://oisj37y62.bkt.clouddn.com/img_njbank_16/share.jpeg';
+        //朋友圈
+        wx.onMenuShareTimeline({
+            title: _title,
+            link: _link,
+            imgUrl: _imgUrl,
+            success: function () {}
+        });
+        //转发好友
+        wx.onMenuShareAppMessage({
+            title: _title,
+            link: _link,
+            desc: _desc,
+            imgUrl: _imgUrl,
+            success: function () {}
+        });
+    });
+</script>
+<script>
+$('body a:last').hide();
+$(function(){
+      	$(window).on('resize',function(){
+      		if($('body').height() < 400){
+      			$('.upload_img').hide();
+      			$('.upload').hide();
+//    			console.log($('body').height());
+      		}else{
+      			
+      			$('.upload_img').css('display','block');
+      			$('.upload').css('display','block');
+      		}
+
+      		
+      	});
+      	
+      })
+</script>
+</html>

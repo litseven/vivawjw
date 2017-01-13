@@ -1,0 +1,163 @@
+* {box-sizing: border-box;}
+*:before, *:after {box-sizing: border-box;}
+*, *:before, *:after { -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+html {  width:100%;height:100%;  font-size: 100px; outline: 0; -webkit-text-size-adjust:none;}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+ margin: 0;padding: 0;}
+body{background:linear-gradient(to right,#44b7db,#5cc6e2,#44b7db);height:100%}
+ 
+@font-face {
+  font-family: 'iconfont';  /* project id 208053 */
+  src: url('http://at.alicdn.com/t/font_eb05cycpzcn89f6r.eot');
+  src: url('http://at.alicdn.com/t/font_eb05cycpzcn89f6r.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_eb05cycpzcn89f6r.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_eb05cycpzcn89f6r.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_eb05cycpzcn89f6r.svg#iconfont') format('svg');
+}
+ 
+@font-face {font-family: 'webfont';
+  src: url('http://at.alicdn.com/t/oio1524im8wipb9.eot'); /* IE9*/
+  src: url('http://at.alicdn.com/t/oio1524im8wipb9.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('http://at.alicdn.com/t/oio1524im8wipb9.woff') format('woff'), /* chrome、firefox */
+  url('http://at.alicdn.com/t/oio1524im8wipb9.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('http://at.alicdn.com/t/oio1524im8wipb9.svg#思源黑体-极细') format('svg'); /* iOS 4.1- */
+}
+
+
+
+
+.bank_day{position: fixed;z-index: 990; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg7_nt.jpg) no-repeat;overflow: hidden; background-size: 100% 100%; width:100%; height:100%;}
+/*.bank_day{background:url({S_URL}img/bg7.jpg) no-repeat; background-size: contain; width:6.4rem; height:10.08rem;}*/
+/*.day_box{overflow-y:auto; height: 24rem;}
+*/.dream_name{padding-top:2.6rem; text-align: center; color:#004099; font-size:0.48rem; font-weight: bold;}
+.dream_day{margin-top:0.1rem; text-align: center; color:#004099; font-size:0.28rem;}
+.dream_day span{display: inline-block; width:1.3rem; font-size:0.36rem; text-align: center; font-weight: bold;}
+.upload_img{margin:0 auto; margin-top:0.5rem; /*background: url({S_URL}img/sc.png) no-repeat; background-size: contain;*/ width:2rem; height:2rem; border-radius: 50%;}
+.upload_img img{width:2rem; height:2rem;display:block; }
+.upload{font-size:0.22rem; margin-top:0.1rem; text-align: center;color:#004099;}
+.leave_word{width:5.5rem; margin:0 auto; height:1.6rem; padding-left:0.3rem; padding-top:0.2rem; font-size:0.26rem; margin-top:0.3rem; display:block; border-radius: 0.1rem; resize: none; box-shadow: inset 0 3px 8px rgba(157,157,157,0.5); border:solid 0.02rem #004099;}
+#dream_step{border:none; margin:0 auto; display:block; margin-top:0.25rem; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/step_btn.png) no-repeat; background-size:contain; width:2.62rem; height:1.12rem;}
+.leave_word:focus::-webkit-input-placeholder{color:transparent;}
+
+
+/*选择模板*/
+.template{position:absolute;background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg8_nt.jpg) no-repeat; background-size:100% 100%; width:100%; height:100%;}
+.template_3{padding-top: 2.8rem; overflow: hidden; padding-bottom: 0.3rem;}
+.template_one{float:left;}
+.template_one .one_head{position:absolute; top:0.4rem;  margin:0 auto; margin-left:0.75rem; width:0.74rem; height:0.74rem; background-color:#74bddc; border-radius: 50%;;}
+.template_one .one_head img{width:0.67rem; height:0.67rem; border-radius: 50%; display:block; margin-top:0.04rem; margin-left:0.04rem;}
+.template_one .one_name{font-size:0.16rem; padding-top:1.3rem; color:#004099;font-weight: bold; text-align: center;}
+.template_one .one_day{font-size:0.1rem; text-align: center; margin-left:0.8rem; color:#004099; }
+.template_one .one_comm{width:0.75rem; height:0.47rem; display:block; margin:0 auto; margin-top:0.2rem;}
+.template_one .one_ewm{width:0.48rem; height:0.48rem; background-color:#74bddc; margin:0 auto; margin-top:0.06rem;}
+.template_one .one_ewm img{width:0.44rem; height:0.44rem;display:block; margin: 0 auto; margin-top:0.08rem;}
+#template{background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/mb2_v1_nt.jpg) no-repeat; position:relative; /*margin-top:0.3rem;*/  background-size:contain; width:2.21rem; height:3.08rem; }
+#template1{position:relative; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/mb1_v1_nt.jpg) no-repeat; background-size:contain; width:2.21rem; height:3.08rem;}
+#template2{position:relative; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/mb3_v1_nt.jpg) no-repeat; background-size:contain; width:2.21rem; height:3.08rem; /*margin-top:0.3rem;*/ }
+
+
+.reflect{width:2.17rem; height:0.48rem; display: block;margin:0 auto; /*margin-top:0.2rem;*/}
+.template_tip img{width:6.4rem;height:0.85rem}
+#tem_btn{background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/centain.png) no-repeat; background-size:contain; width:2.72rem; height:1.15rem; display:block; border:none; margin:0 auto; margin-top:0.5rem;}
+
+
+/*个人点赞页面*/
+.likes{background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg10.jpg) no-repeat; background-size: 100% 100%; width:100%;height: 100%;position: fixed;}
+.likes_box{position:relative;width:100%}
+.likes_back{/*position:absolute; top:0.2rem; float:right;left:4.75rem;*/padding-left:4.8rem;margin-top:0.2rem ;overflow: hidden;/*width:35%;*/}
+.likes_back i{color:#004099;float:left; font-family:"iconfont" !important;font-size:16px;font-style:normal;-webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px;-moz-osx-font-smoothing: grayscale;}
+.likes_back div{color:#004099; margin-left:0.35rem; font-size:0.24rem;}
+
+.likes_bj{background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/pic_nt.png) no-repeat; background-size:100% 100%; width:100%; height:8rem;margin-top:-0.2rem/* background-position-y: 0.4rem;*/}
+
+.likes_head{/*position:absolute;top:1.45rem; left:2.2rem;*/ width:1.95rem;  height:1.95rem; /*background-color: #71bcdc;*/ border-radius: 50%;margin:0 auto;padding-top:1.6rem}
+.likes_head img{display: block;/*margin-top:0.07rem; margin-left:0.07rem;*/ border-radius: 50%; width:1.8rem; height:1.8rem;border:4px solid #71bcdc}
+.likes_word{font-family: 'webfont';color:#02429a; text-align: center; font-size:0.24rem;font-weight: 700; /*padding-top: 3.6rem;*/ width:5.6rem; margin:0 auto;margin-top:1.7rem}
+.likes_name{text-align: center; font-size:0.48rem; color:#004099; font-weight: bold; margin-top:0.15rem;}
+.likes_day{text-align: center; font-size:0.3rem; color:#004099; margin-top:0.1rem;}
+.likes_word1{font-size:0.24rem; color:#004099; text-align: center; margin-top:0.1rem;}
+#comment{width:1.97rem; height:1.21rem; display:block; margin:0 auto; margin-top:0.1rem;}
+
+
+.likes_friend,.likes_friend1{overflow: hidden; margin:0 auto; margin-top:-0.2rem; width:5.8rem; height:0.55rem; background-color:transparent; border-radius: 6rem;background: rgba(102,102,102,.5);}
+.likes_friend i{ line-height:0.55rem; color:white; font-family:"iconfont" !important;font-size:18px;font-style:normal;-webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px;-moz-osx-font-smoothing: grayscale;}
+.likes_friend1 i{ float:left;margin-left:0.8rem;line-height:0.55rem; color:white; font-family:"iconfont" !important;font-size:22px;font-style:normal;-webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px;-moz-osx-font-smoothing: grayscale;}
+.friend_acti{-webkit-text-fill-color:#fd2328; -webkit-text-stroke: #ee0000 3px;}
+.hand_img{position:relative;z-index:3;width:10%;left:14%;top:-28px;display:inline-block}
+.hand {width:100%;-webkit-animation:hand 1s infinite linear;display:block;}
+@-webkit-keyframes hand{
+	0%{-webkit-transform:translateY(4px);}
+	50%{-webkit-transform:translateY(0px);}
+	100%{-webkit-transform:translateY(4px);}
+}
+.days{font-family:"webfont" !important; font-size:20px;font-style:normal;-webkit-font-smoothing: antialiased;-webkit-text-stroke-width: 0.2px;-moz-osx-font-smoothing: grayscale;width:1.3rem;display:inline-block;color:#02429a; font-weight: bold; text-align: center;}
+.likes_friend div{text-align:center;color:white; font-size:0.24rem; line-height:0.55rem;}
+.likes_friend1 div{margin-left:0.6rem;float:left;color:white; font-size:0.24rem; line-height:0.55rem;}
+.likes_friend div span,.likes_friend1 div span{color:#fdcc07; font-size:0.3rem; display:inline-block; width:0.74rem; text-align: center;}
+
+
+.likes_btn{overflow: hidden;width:85%;margin:0 auto; margin-top:-0.8rem}
+.spec_btn {width:40%;margin:0 auto;margin-top:-0.8rem}
+.likes_btn button{display: block; float:left; border:none;}
+#likes_btn1{background: url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/again.png) no-repeat;/*margin-left:0.48rem;*/ background-size:contain; width:2.72rem; height:1.15rem;}
+#likes_btn2{background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/pict.png) no-repeat; background-size:contain; width:2.72rem; height:1.15rem;}
+
+#likes_btn3{display:block; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/join.png) no-repeat; background-size:contain; width:2.6rem; height:1.2rem;}
+
+
+/*个人二维码页蓝色模板*/
+.modal{background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg10.jpg) no-repeat; background-size:100% 100%; width:100%; height:100%;position: fixed;}
+.modal_box{position:relative;}
+.modal_save{position:absolute; top:0.35rem; width:6.4rem; height:9.2rem;}
+.modal_head{position:absolute; top:1.5rem;left:2.22rem; width:1.95rem;  height:1.95rem; background-color: #76bedd; border-radius: 50%;}
+.modal_head img{display: block;margin-top:0.07rem; margin-left:0.07rem; border-radius: 50%; width:1.8rem; height:1.8rem;}
+.modal_mess{text-align: center; width:100%; position:absolute; color:#5a74a9; font-size:0.24rem; padding-top:3.65rem;}
+.modal_name{text-align: center;width:100%; position:absolute; top:3.9rem; color:#004099; font-weight: bold; font-size:0.48rem; margin-top:0.25rem;}
+.modal_day{color:#004099; font-weight: bold; font-size:0.36rem; position:absolute; top:4.75rem; left:3.75rem; margin-top:0.2rem; width:1.3rem; text-align: center;}
+.moadl_comm{display: block;height: 8.35rem;box-shadow: -2px 0px 15px rgba(102,102,102,.2),0px -2px 15px rgba(102,102,102,.2),0px 2px 15px rgba(102,102,102,.2),2px 0px 15px rgba(102,102,102,.2);}
+.modal_save1{margin: 0 auto; width: 38%;display: block;margin-top: 10px;}
+
+.modal1{position:absolute; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg11.jpg) no-repeat; background-size:100% 100%; width:100%; height:100%;}
+.modal2{position:absolute; background:url(http://oisj37y62.bkt.clouddn.com/img_njbank_16/bg12.jpg) no-repeat; background-size:100% 100%; width:100%; height:100%;}
+
+
+
+
+
+
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){  /* 兼容iphone4/4s */
+    .dream_name{padding-top:2.3rem;}
+}
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){  /* 兼容iphone5 */
+    .dream_name{padding-top:2.5rem;}
+}
+@media (device-width:375px) and (-webkit-min-device-pixel-ratio:2){
+    .dream_name{padding-top:2.6rem;}/* 兼容iphone 6 */
+}
+@media (device-width:414px) and (-webkit-min-device-pixel-ratio:3.0){
+    .dream_name{padding-top:2.65rem;}/* 兼容iphone6 plus */
+}
+
+@media (max-height:532px) and (min-height:530px){/* 兼容华为 */
+	.day_box {position:relative}
+	#tem_btn {margin-top:0.2rem}
+	.likes_bj {height:7.6rem}
+	.dream_name {padding-top:2.3rem}
+	.moadl_comm{height:7.9rem}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

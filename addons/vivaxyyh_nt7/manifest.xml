@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[兴业七周年]]></name>
+		<identifie><![CDATA[vivaxyyh_nt7]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[兴业银行七周年活动]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[张意飞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform> 
+	<bindings>
+		<cover>
+			<entry title="入口" do="entry" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="列表" do="entry" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+
+DROP TABLE IF EXISTS `ims_xy_message_nt`;
+CREATE TABLE `ims_xy_message_nt` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `staffid` varchar(20) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `content` varchar(30) NOT NULL,
+  `time` int(10) NOT NULL,
+  `hit` int(10) NOT NULL DEFAULT '0',
+  `temp` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `ims_xy_hit_nt`;
+CREATE TABLE `ims_xy_hit_nt` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `fromuid` int(10) NOT NULL,
+  `msgid` int(10) NOT NULL,
+  `time` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
