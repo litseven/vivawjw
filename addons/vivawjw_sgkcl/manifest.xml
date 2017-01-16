@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns="http://www.we7.cc" versionCode="0.6,0.7">
 	<application setting="false">
-		<name><![CDATA[事故快处理]]></name>
+		<name><![CDATA[事故快处]]></name>
 		<identifie><![CDATA[vivawjw_sgkcl]]></identifie>
 		<version><![CDATA[1.0]]></version>
 		<type><![CDATA[activity]]></type>
-		<ability><![CDATA[事故快处理]]></ability>
-		<description><![CDATA[无锡微警务_事故快处理]]></description>
+		<ability><![CDATA[事故快处]]></ability>
+		<description><![CDATA[无锡微警务_事故快处]]></description>
 		<author><![CDATA[litseven]]></author>
 		<url><![CDATA[]]></url>
 	</application>
