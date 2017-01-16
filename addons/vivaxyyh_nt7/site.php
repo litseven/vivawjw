@@ -13,7 +13,7 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 	public $info;
 	public function __construct() {
 		global $_W, $_GPC;
-		$this->was_message = pdo_fetch('SELECT * FROM ' . tablename('xy_message') . ' WHERE openid=:openid', array(':openid' => $_W['member']['uid']));
+		$this->was_message = pdo_fetch('SELECT * FROM ' . tablename('xy_message_nt') . ' WHERE openid=:openid', array(':openid' => $_W['member']['uid']));
 		$this->info = pdo_fetch('SELECT * FROM ' . tablename('xy_bank') . ' WHERE id=:id', array(':id' => $this->was_message['staffid']));
 		$this->info['days'] = floor((time() - strtotime($this->info['entrytime'])) / 86400);
 		$years = date('Y-m-d', time()) - $this->info['entrytime'];
@@ -29,16 +29,20 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 	}
 
 	public function doMobileSql() {
-		//$message = pdo_query('TRUNCATE ims_xy_message');
-		//$hit = pdo_query('TRUNCATE ims_xy_hit');
-		//pdo_insert('xy_bank', array('number' => '9568998', 'name' => '宋苏婷', 'entrytime' => '2005-05-05'));
-		//pdo_insert('xy_bank', array('number' => '9568997', 'name' => '宋苏婷', 'entrytime' => '1992-05-05'));
-		//pdo_insert('xy_bank', array('number' => '9568999', 'name' => '宋苏婷', 'entrytime' => '2015-05-05'));
-		pdo_update('xy_bank', array('name' => '测试一'), array('number' => '9568997'));
-		pdo_update('xy_bank', array('name' => '测试二'), array('number' => '9568998'));
-		pdo_update('xy_bank', array('name' => '测试三'), array('number' => '9568999'));
-		//$res = pdo_fetchall('SELECT * FROM ' . tablename('xy_message'));
-// 		var_dump($message . ' ' . $hit);
+		$message = pdo_query('TRUNCATE'.tablename('xy_message_nt'));
+		$hit = pdo_query('TRUNCATE '.tablename('xy_hit_nt'));
+		/*pdo_insert('xy_bank', array('number' => '9569100', 'name' => '测试四', 'entrytime' => '2000-05-05'));
+		pdo_insert('xy_bank', array('number' => '9569101', 'name' => '测试五', 'entrytime' => '1998-05-05'));
+		pdo_insert('xy_bank', array('number' => '9569102', 'name' => '测试六', 'entrytime' => '2016-05-05'));
+		pdo_insert('xy_bank', array('number' => '9569103', 'name' => '测试七', 'entrytime' => '2008-05-05'));
+		pdo_insert('xy_bank', array('number' => '9569104', 'name' => '测试八', 'entrytime' => '1993-05-05'));
+		pdo_insert('xy_bank', array('number' => '9569105', 'name' => '测试九', 'entrytime' => '2010-05-05'));
+		pdo_insert('xy_bank', array('number' => '9569106', 'name' => '测试十', 'entrytime' => '1996-05-05'));
+		pdo_update('xy_bank', array('name' => '测试一', 'entrytime' => '2005-05-05'), array('number' => '9568997'));
+		pdo_update('xy_bank', array('name' => '测试二', 'entrytime' => '1992-05-05'), array('number' => '9568998'));
+		pdo_update('xy_bank', array('name' => '测试三', 'entrytime' => '2015-05-05'), array('number' => '9568999'));*/
+		/*$res = pdo_fetchall('SELECT * FROM ' . tablename('xy_hit_nt'));
+ 		var_dump($res);*/
 	}
 
 	public function doMobileEntry() {
@@ -49,7 +53,7 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 			mc_oauth_userinfo();
 		}
 		
-		$was_message = pdo_fetch('SELECT * FROM ' . tablename('xy_message') . ' WHERE openid=:openid', array(':openid' => $_W['member']['uid']));
+		$was_message = pdo_fetch('SELECT * FROM ' . tablename('xy_message_nt') . ' WHERE openid=:openid', array(':openid' => $_W['member']['uid']));
 		$op = trim($_GPC['op']) ? trim($_GPC['op']) : 'index';
 		// if ($was_message && empty($_GPC['page']) && $op == 'index') {
 		// 	header('Location:' . $this->createMobileUrl('image', array('op' => 'share', 'id' => $was_message['staffid'])));
@@ -89,9 +93,9 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 				'content' => trim($_GPC['content']),
 				'time' => time()
 				);
-			$was_message = pdo_fetch('SELECT * FROM ' . tablename('xy_message') . ' WHERE staffid=:id', array(':id' => $id));
+			$was_message = pdo_fetch('SELECT * FROM ' . tablename('xy_message_nt') . ' WHERE staffid=:id', array(':id' => $id));
 			if (!$was_message) {
-				$res = pdo_insert('xy_message', $data);
+				$res = pdo_insert('xy_message_nt', $data);
 				if ($res) {
 					exit(json_encode(array('status' => 1)));
 				} else {
@@ -103,7 +107,7 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 					'content' => $data['content'],
 					'time' => time()
 					);
-				$res = pdo_update('xy_message', $update, array('staffid' => $info['id']));
+				$res = pdo_update('xy_message_nt', $update, array('staffid' => $info['id']));
 				if ($res) {
 					exit(json_encode(array('status' => 1)));
 				} else {
@@ -112,9 +116,9 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 			}
 		}
 		if (in_array($op, array('choose', 'share', 'show'))) {
-			$info['message'] = pdo_fetch('SELECT * FROM ' . tablename('xy_message') . ' WHERE staffid=:staffid', array(':staffid' => $id));
+			$info['message'] = pdo_fetch('SELECT * FROM ' . tablename('xy_message_nt') . ' WHERE staffid=:staffid', array(':staffid' => $id));
 			$years = date('Y-m-d', time()) - $info['entrytime'];
-			$was_hit = pdo_fetch('SELECT * FROM ' . tablename('xy_hit') . ' WHERE uniacid = :uniacid AND fromuid = :fromuid AND msgid = :msgid', array(':uniacid' => $_W['uniacid'], ':fromuid' => $_W['member']['uid'], ':msgid' => $info['message']['id']));
+			$was_hit = pdo_fetch('SELECT * FROM ' . tablename('xy_hit_nt') . ' WHERE uniacid = :uniacid AND fromuid = :fromuid AND msgid = :msgid', array(':uniacid' => $_W['uniacid'], ':fromuid' => $_W['member']['uid'], ':msgid' => $info['message']['id']));
 			if ($years < 3) {
 				$level = 'new';
 			} elseif ($years >= 3 && $years < 10) {
@@ -126,11 +130,11 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 			}
 		}
 		if ($op == 'addtemp') {
-			$lasttemp = pdo_fetchcolumn('SELECT temp FROM ' . tablename('xy_message') . ' WHERE staffid=:staffid', array(':staffid' => $id));
+			$lasttemp = pdo_fetchcolumn('SELECT temp FROM ' . tablename('xy_message_nt') . ' WHERE staffid=:staffid', array(':staffid' => $id));
 			if ($lasttemp == intval($_GPC['temp'])) {
 				exit(json_encode(array('status' => 1)));
 			}
-			$res = pdo_update('xy_message', array('temp' => intval($_GPC['temp'])), array('staffid' => $id));
+			$res = pdo_update('xy_message_nt', array('temp' => intval($_GPC['temp'])), array('staffid' => $id));
 			if ($res) {
 				exit(json_encode(array('status' => 1)));
 			} else {
@@ -145,17 +149,17 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 	 */
 	public function doMobileHit() {
 		global $_W, $_GPC;
-		$msgid = pdo_fetchcolumn('SELECT id FROM ' . tablename('xy_message') . ' WHERE staffid=:staffid', array(':staffid' => intval($_GPC['id'])));
+		$msgid = pdo_fetchcolumn('SELECT id FROM ' . tablename('xy_message_nt') . ' WHERE staffid=:staffid', array(':staffid' => intval($_GPC['id'])));
 		$data = array(
 			'uniacid' => $_W['uniacid'],
 			'fromuid' => $_W['member']['uid'],
 			'msgid' => $msgid,
 			'time' => time()
 			);
-		$was_hit = pdo_fetch('SELECT * FROM ' . tablename('xy_hit') . ' WHERE uniacid = :uniacid AND fromuid = :fromuid AND msgid = :msgid', array(':uniacid' => $data['uniacid'], ':fromuid' => $data['fromuid'], ':msgid' => $data['msgid']));
+		$was_hit = pdo_fetch('SELECT * FROM ' . tablename('xy_hit_nt') . ' WHERE uniacid = :uniacid AND fromuid = :fromuid AND msgid = :msgid', array(':uniacid' => $data['uniacid'], ':fromuid' => $data['fromuid'], ':msgid' => $data['msgid']));
 		if (!$was_hit && $_W['member']['uid']) {
-			pdo_update('xy_message', 'hit=hit+1', array('id' => $data['msgid'], 'uniacid' => $_W['uniacid']));
-			pdo_insert('xy_hit', $data);
+			pdo_update('xy_message_nt', 'hit=hit+1', array('id' => $data['msgid'], 'uniacid' => $_W['uniacid']));
+			pdo_insert('xy_hit_nt', $data);
 			exit(json_encode(array('status' => 1)));
 		} else {
 			exit(json_encode(array('status' => 0)));
@@ -169,7 +173,7 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 		global $_W, $_GPC;
 		$id = intval($_GPC['id']);
 		$info = pdo_fetch('SELECT * FROM ' . tablename('xy_bank') . ' WHERE id=:id', array(':id' => $id));
-		$info['message'] = pdo_fetch('SELECT * FROM ' . tablename('xy_message') . ' WHERE staffid=:id', array('id' => $id));
+		$info['message'] = pdo_fetch('SELECT * FROM ' . tablename('xy_message_nt') . ' WHERE staffid=:id', array('id' => $id));
 		$days = floor((time() - strtotime($info['entrytime'])) / 86400);
 		$years = date('Y-m-d', time()) - $info['entrytime'];
 		if ($years < 3) {
@@ -183,7 +187,7 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 		}
 		$bg_path = dirname(__FILE__) . '/resource/template/bg-' . intval($info['message']['temp']) . '.jpg';
 		$level_path = dirname(__FILE__) . '/resource/template/' . $level . '.png';
-		$url = $_W['siteroot'] . 'index.php?i=2&c=entry&op=share&id=' . $id . '&do=image&m=viva_xyyh';
+		$url = $_W['siteroot'] . 'index.php?i=2&c=entry&op=share&id=' . $id . '&do=image&m=vivaxyyh_nt7';
 		$info['message']['content'] = str_replace("\n", ' ', $info['message']['content']);
 		$this->createImg($bg_path, $info['message']['avatar'], $level_path, $url, $days, $info['name'], $info['message']['content']);
 	}
@@ -295,17 +299,17 @@ class Vivaxyyh_nt7ModuleSite extends WeModuleSite {
 		$op = trim($_GPC['op']) ? trim($_GPC['op']) : 'index';
 		$pindex = max(1, intval($_GPC['page']));
 		$psize = '15';
-		$total = pdo_fetchcolumn('SELECT * FROM ' . tablename('xy_message') . ' ORDER BY time DESC');
-		$list = pdo_fetchall('SELECT * FROM ' . tablename('xy_message') . ' ORDER BY time DESC LIMIT ' . ($pindex - 1) * $psize . ', ' . $psize);
+		$total = pdo_fetchcolumn('SELECT * FROM ' . tablename('xy_message_nt') . ' ORDER BY time DESC');
+		$list = pdo_fetchall('SELECT * FROM ' . tablename('xy_message_nt') . ' ORDER BY time DESC LIMIT ' . ($pindex - 1) * $psize . ', ' . $psize);
 		foreach ($list as $k => $v) {
 			$list[$k]['info'] = pdo_fetch('SELECT * FROM ' . tablename('xy_bank') . ' WHERE id=:id', array(':id' => $v['staffid']));
 		}
 		$page = pagination($total, $pindex, $psize);
 		if ($op == 'del') {
 			$id = intval($_GPC['id']);
-			$res = pdo_delete('xy_message', array('id' => $id));
+			$res = pdo_delete('xy_message_nt', array('id' => $id));
 			if ($res) {
-				pdo_delete('xy_hit', array('msgid' => $id));
+				pdo_delete('xy_hit_nt', array('msgid' => $id));
 				exit(json_encode(array('status' => 1)));
 			} else {
 				exit(json_encode(array('status' => 0)));
