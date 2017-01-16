@@ -53,7 +53,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/templat
 			if($foto)$data['proof'] = implode(",",$foto);
 			$data['recordnum'] = 'NO-'.time();
 			$data['acctime'] = time();
-			$accadd = pdo_insert("vivawjw_accident",$data);
+			$accadd = pdo_insert("vivawjw_sgkc",$data);
                 if ($accadd){
                         echo $data['recordnum'];
                 }
@@ -78,14 +78,14 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/templat
                 $params[':status'] = $status;
                 $pindex =max(1, intval($_GPC['page']));
                 $psize =10;
-                $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivawjw_accident'). ' WHERE uniacid = :uniacid AND status = :status', $params);
-                $list = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_accident').' WHERE uniacid = :uniacid AND status = :status  ORDER BY sittime desc LIMIT '.($pindex - 1) * $psize.','.$psize,$params);
+                $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivawjw_sgkc'). ' WHERE uniacid = :uniacid AND status = :status', $params);
+                $list = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc').' WHERE uniacid = :uniacid AND status = :status  ORDER BY sittime desc LIMIT '.($pindex - 1) * $psize.','.$psize,$params);
                 $pager =pagination($total, $pindex, $psize);
             }
             if($op == 'view'){
                 $id =intval($_GPC['id']);
-                $quhua =pdo_fetchall('SELECT * FROM ' . tablename('vivawjw_accident') . " where uniacid = :uniacid",array(":uniacid"=>$_W['uniacid'])); //' WHERE ' . $condition
-                $info =pdo_fetch('SELECT a.*,b.fanid FROM ' . tablename('vivawjw_accident'). ' as a left join ' . tablename('mc_mapping_fans'). ' as b on (a.uid = b.uid)  WHERE a.uniacid = :aid AND a.id = :id', array(':aid' => $_W['uniacid'], ':id' => $id));
+                $quhua =pdo_fetchall('SELECT * FROM ' . tablename('vivawjw_sgkc') . " where uniacid = :uniacid",array(":uniacid"=>$_W['uniacid'])); //' WHERE ' . $condition
+                $info =pdo_fetch('SELECT a.*,b.fanid FROM ' . tablename('vivawjw_sgkc'). ' as a left join ' . tablename('mc_mapping_fans'). ' as b on (a.uid = b.uid)  WHERE a.uniacid = :aid AND a.id = :id', array(':aid' => $_W['uniacid'], ':id' => $id));
                 $info['proof'] = explode(",",$info['proof']);
                 $v = array();
                 foreach($info['proof'] as $k){
@@ -106,11 +106,11 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/templat
                 $data['turndown'] = trim($_GPC['failreason']);
                 $data['sittime'] = time();
                 if($data['status'] == 1){
-                    $data = pdo_update('vivawjw_accident', array('status'=>1,'sittime' =>time()), array('uniacid' => $_W['uniacid'], 'id' => $id));
+                    $data = pdo_update('vivawjw_sgkc', array('status'=>1,'sittime' =>time()), array('uniacid' => $_W['uniacid'], 'id' => $id));
                     echo 200;exit;
                 }
                 if($data['status'] == 3){
-                    $data = pdo_update('vivawjw_accident', $data, array('uniacid' => $_W['uniacid'], 'id' => $id));
+                    $data = pdo_update('vivawjw_sgkc', $data, array('uniacid' => $_W['uniacid'], 'id' => $id));
                     echo 300;exit;
                 }
 

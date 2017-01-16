@@ -43,8 +43,8 @@
 	<permissions>
 
 	</permissions>
-	<install><![CDATA[DROP TABLE IF EXISTS `ims_vivawjw_accident`;
-CREATE TABLE `ims_vivawjw_accident` (
+	<install><![CDATA[DROP TABLE IF EXISTS `ims_vivawjw_sgkc`;
+CREATE TABLE `ims_vivawjw_sgkc` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT NULL,
   `uid` int(11) DEFAULT NULL,

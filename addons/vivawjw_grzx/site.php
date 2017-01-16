@@ -211,7 +211,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		/*---------------------------------------------------------------------------------------------------------------------------------*/
 		$data['uid'] = $_W['member']['uid'];
 		//$uid = $data['uid'] = 2;
-		$kcdata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_accident').' WHERE uid = :uid AND uniacid = :uniacid',array(':uid'=>$uid,'uniacid'=>$_W['uniacid']));
+		$kcdata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc').' WHERE uid = :uid AND uniacid = :uniacid',array(':uid'=>$uid,'uniacid'=>$_W['uniacid']));
 		include $this->template('user_dispose');
 	}
 
