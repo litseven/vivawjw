@@ -17,7 +17,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		if ($data['status'] == 1){$dataone = $data;}
 		$title = $_W['current_module']['config']['title'];
 		$footer = $_W['current_module']['config']['footer'];
-		$iocimg = $_W['attachurl'].$_W['current_module']['config']['iocimg'];
+		$iconimg = $_W['attachurl'].$_W['current_module']['config']['iconimg'];
 		//var_dump($_W);
 		include $this->template('bank');
 	}
