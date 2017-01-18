@@ -1,0 +1,94 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li{if $op == 'list'} class="active" {/if}><a href="{php echo $this->createWebUrl('admin',array('op'=>'list'))}">留言列表</a></li>
+    {if $op == 'view'}<li class="active" ><a href="">留言信息</a></li>{/if}
+</ul>
+{if $op == 'list'}
+<!--列表-->
+<div class="list_page">
+    <form action="" method="post" id="form1">
+        <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:10%;text-align: center">序号</th>
+                        <th style="width:40%;text-align: center">姓名</th>
+                        <th style="width:25%;text-align: center">手机号</th>
+                        <th style="width:25%;text-align: center">时间</th>
+                        <th style="width:25%;text-align: center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $item}
+                    <tr>
+                        <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['name']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['phone']}</td>
+                        <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d',$item['time'])}</td>
+                        <td id="update_{$item['id']}" style="text-align: center">
+                            <a href="{php echo $this->createWebUrl('admin',array('op'=>'view','id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
+                            <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {$pager}
+    </form>
+</div>
+<script>
+    $(function(){
+        /*删除*/
+        $('.btn-danger').click(function(){
+            var id = $(this).attr('data-id');
+            if(confirm('确定要删除吗？')){
+                $.post("{php echo $this->createWebUrl('guidedelete',array('op'=>'admin'))}",{'id':id},function(data){
+                    if (data == 200){
+                        alert('删除成功！');
+                        window.location.href = "{php echo $this->createWebUrl('admin',array('op'=>'list'))}";
+                    }
+                });
+            }
+        });
+    });
+</script>
+{/if}
+{if $op == 'view'}
+<!--添加-->
+<div class="panel panel-default">
+    <div class="panel-heading">留言信息</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{$dataone['name']}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">电话:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{$dataone['phone']}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">留言内容:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{$dataone['content']}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{php echo date('Y-d-m H:i:s',$dataone['time'])}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group" style="padding-bottom:100px;margin-left: 2px">
+    <a href="{php echo $this->createWebUrl('admin',array('op' => 'list'))}" class="btn btn-primary">返回列表</a>
+</div>
+{/if}
+{template 'common/footer'}

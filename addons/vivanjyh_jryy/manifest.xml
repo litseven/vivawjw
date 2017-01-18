@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[金融预约]]></name>
+		<identifie><![CDATA[vivanjyh_jryy]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[金融预约]]></ability>
+		<description><![CDATA[南京银行-金融预约]]></description>
+		<author><![CDATA[litseven]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="bank" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="文章管理" do="manage" state="" direct="false" />
+			<entry title="留言管理" do="admin" state="" direct="false" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[
+DROP TABLE IF EXISTS `ims_viva_jryy`;
+CREATE TABLE `ims_viva_jryy` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL COMMENT '//作者',
+  `content` text,
+  `time` int(11) DEFAULT NULL,
+  `sharetitle` varchar(255) DEFAULT NULL,
+  `sharedes` varchar(255) DEFAULT NULL,
+  `shareimg` varchar(255) DEFAULT NULL,
+  `shareurl` varchar(255) DEFAULT NULL,
+  `status` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `ims_viva_jryy_message`;
+CREATE TABLE `ims_viva_jryy_message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` int(11) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+		]]></install>
+</manifest>

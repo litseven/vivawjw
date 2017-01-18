@@ -1,0 +1,349 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li{if $op == 'list'} class="active"{/if}><a href="{php echo $this->createWebUrl('manage',array('op'=>'list'))}">文章列表</a></li>
+    <li{if $op == 'add'} class="active"{/if}><a href="{php echo $this->createWebUrl('manage',array('op'=>'add'))}">添加文章</a></li>
+    {if $op == 'view'}<li class="active"><a href="{php echo $this->createWebUrl('manage',array('op'=>'view'))}">编辑文章</a></li>{/if}
+
+</ul>
+<style>
+    /* 复制提示 */
+    .copy-tips{position:fixed;z-index:999;bottom:50%;left:50%;margin:0 0 -20px -80px;background-color:rgba(0, 0, 0, 0.2);filter:progid:DXImageTransform.Microsoft.Gradient(startColorstr=#30000000, endColorstr=#30000000);padding:6px;}
+    .copy-tips-wrap{padding:10px 20px;text-align:center;border:1px solid #F4D9A6;background-color:#FFFDEE;font-size:14px;}
+</style>
+{if $op == 'list'}
+<!--列表-->
+<div class="list_page">
+    <form action="" method="post" id="form1">
+        <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:10%;text-align: center">ID</th>
+                        <th style="width:40%;text-align: center">标题</th>
+                        <th style="width:25%;text-align: center">时间</th>
+                        <th style="width:25%;text-align: center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $item}
+                    <tr>
+                        <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['title']}</td>
+                        <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d',$item['time'])}</td>
+                        <td id="update_{$item['id']}" style="text-align: center">
+                            <a href="{php echo $this->createWebUrl('manage',array('op'=>'view','id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
+                            {if $item['status'] == 1}
+                            <span class="btn btn-sm btn-success status-toggle" id="{$item['id']}" data-toggle="0" title="点击修改">显示</span>
+                            {else}
+                            <span class="btn btn-sm btn-warning status-toggle" id="{$item['id']}" data-toggle="1" title="点击修改">隐藏</span>
+                            {/if}
+                            <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
+                            <a href="javascript:;"  class="btn btn-primary btn-sm js-clip" style="position: relative" data-value="{php echo murl('entry', array('m' => 'vivanjyh_jryy', 'do' => 'bank','id'=>$item['id']), true, true);}"  title="点击复制">复制链接</a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {$pager}
+    </form>
+</div>
+<script>
+    //复制
+    require(['jquery.zclip'], function(){
+        $('.js-clip').each(function(){
+            var copy_button = this;
+            $(copy_button).zclip({
+                path: '{S_URL}js/ZeroClipboard.swf',
+                copy: function(){
+                    return $(this).data('value');
+                },
+                beforeCopy:function(){/* 按住鼠标时的操作 */
+                    $(this).css("color","orange");
+                },
+                afterCopy:function(){/* 复制成功后的操作 */
+                    var $copysuc = $("<div class='copy-tips'><div class='copy-tips-wrap'>复制成功</div></div>");
+                    $("body").find(".copy-tips").remove().end().append($copysuc);
+                    $(".copy-tips").fadeOut(3000);
+                }
+            });
+        });
+    });
+
+    $(function(){
+        //显示
+        $('.status-toggle').click(function(){
+            var id = $(this).attr('id');
+            var dvalue = $(this).attr('data-toggle');
+            $.post("{php echo $this->createWebUrl('status')}", {'id':id, 'display':dvalue}, function(data){
+                if(data == ' success') {
+                    if(dvalue==1){
+                        $("#update_"+id+" span").text('显示').removeClass('btn-warning').addClass('btn-success').attr("data-toggle","0");
+                    }
+                    else{
+                        $("#update_"+id+" span").text('隐藏').removeClass('btn-success').addClass('btn-warning').attr("data-toggle","1");
+                    }
+                }
+            });
+        });
+        /*删除*/
+        $('.btn-danger').click(function(){
+            var id = $(this).attr('data-id');
+            if(confirm('确定要删除吗？')){
+                $.post("{php echo $this->createWebUrl('guidedelete',array('op'=>'manage'))}",{'id':id},function(data){
+                    if (data == 200){
+                        alert('删除成功！');
+                        window.location.href = "{php echo $this->createWebUrl('manage',array('op'=>'list'))}";
+                    }
+                });
+            }
+        });
+    });
+</script>
+{/if}
+{if $op == 'add'}
+<!--添加-->
+<div class="clearfix add_page" >
+    <div class="form-horizontal form">
+        <form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    添加
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">标题：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="title">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">作者：</label>
+                        <div class="col-sm-3 col-xs-12">
+                            <input type="text" class="form-control" name="author">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">时间：</label>
+                        <div class="col-sm-5 col-xs-12">
+                            <input type="date" class="form-control" name="time">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">内容：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_ueditor('content');}
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享标题：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="sharetitle" placeholder="不填默认为文章标题">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享描述：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="sharedes" placeholder="不填为默认文章内容">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享连接：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="shareurl" placeholder="不填默认分享本页链接">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享图标：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_form_field_image('shareimg', $value = '', $default = '', $options = array())}
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="padding-bottom:100px;margin-left: 2px">
+                <a href="{php echo $this->createWebUrl('manage',array('op' => 'list'))}" class="btn btn-primary">返回列表</a>
+                <input type="button"  class="btn btn-success sub_up"  title="点击提交" value="点击提交"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function(){
+        $('.sub_up').click(function(){
+            var title = $("[name = 'title']").val();
+            var author = $("[name = 'author']").val();
+            var time = $("[name = 'time']").val();
+            var content = $("[name = 'content']").val();
+            var sharetitle = $("[name = 'sharetitle']").val();
+            var sharedes = $("[name = 'sharedes']").val();
+            var shareimg = $("[name = 'shareimg']").val();
+            var shareurl = $("[name = 'shareurl']").val();
+            if (title == ''){
+                alert('标题不能为空！');return false;
+            }
+            if (time == ''){
+                alert('请填写日期！');return false;
+            }
+            if (content == ''){
+                alert('内容不能为空！');return false;
+            }
+            $.post("{php echo $this->createWebUrl('postadd')}",{'author':author,'shareurl':shareurl,'title' : title, 'content' : content ,'title' : title ,'sharetitle' : sharetitle,'time':time, 'sharedes':sharedes,'shareimg':shareimg},function(data){
+                if (data == 200){
+                    alert('添加成功！');
+                    window.location.href = "{php echo $this->createWebUrl('manage',array('op'=>'list'))}";
+                }
+            });
+        });
+    });
+</script>
+{/if}
+{if $op == 'view'}
+<!--办事编辑-->
+<div class="clearfix add_page" >
+    <div class="form-horizontal form">
+        <form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    编辑
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">标题：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="title" value="{$dataone['title']}">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">作者：</label>
+                        <div class="col-sm-3 col-xs-12">
+                            <input type="text" class="form-control" name="author" value="{$dataone['author']}">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">时间：</label>
+                        <div class="col-sm-5 col-xs-12">
+                            <input type="date" class="form-control" name="time" value="{php echo date('Y-m-d H:i:s',$dataone['time'])}">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">内容：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_ueditor('content',$dataone['content']);}
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享标题：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="sharetitle" value="{$dataone['sharetitle']}" placeholder="不填默认为文章标题">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享描述：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="sharedes" value="{$dataone['sharedes']}" placeholder="不填默认为文章内容">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享连接：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="shareurl" value="{$dataone['shareurl']}" placeholder="不填默认分享本页链接">
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">分享图标：</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_form_field_image('shareimg', $value = $dataone['shareimg'], $default = '', $options = array())}
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">复制链接：</label>
+                        <div class="input-group col-sm-8 col-xs-12">
+                            <input type="text" class="form-control copy_val" name="linkurl" readonly="readonly" value="{php echo murl('entry', array('m' => 'vivanjyh_jryy', 'do' => 'bank','id'=>$dataone['id']), true, true);}">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default copy_btn">点击复制</button>
+                            </span>
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="padding-bottom:100px;margin-left: 2px">
+                <a href="{php echo $this->createWebUrl('manage',array('op' => 'list'))}" class="btn btn-primary">返回列表</a>
+                <input type="button"  class="btn btn-success sub_up"  title="点击修改" value="点击修改"/>
+                <input type="hidden" value="{$dataone['id']}" name="id">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    //复制
+    require(['jquery.zclip'], function(){
+        $('.copy_btn').zclip({
+            path: '{S_URL}js/ZeroClipboard.swf',
+            copy: function(){
+                return $('.copy_val').val();
+            },
+            beforeCopy:function(){/* 按住鼠标时的操作 */
+                $(this).css("color","orange");
+            },
+            afterCopy:function(){/* 复制成功后的操作 */
+                var $copysuc = $("<div class='copy-tips'><div class='copy-tips-wrap'>复制成功</div></div>");
+                $("body").find(".copy-tips").remove().end().append($copysuc);
+                $(".copy-tips").fadeOut(3000);
+            }
+        });
+
+    });
+    $(function(){
+        $('.sub_up').click(function(){
+            var id = $("[name = 'id']").val();
+            var title = $("[name = 'title']").val();
+            var author = $("[name = 'author']").val();
+            var time = $("[name = 'time']").val();
+            var content = $("[name = 'content']").val();
+            var sharetitle = $("[name = 'sharetitle']").val();
+            var sharedes = $("[name = 'sharedes']").val();
+            var shareimg = $("[name = 'shareimg']").val();
+            var shareurl = $("[name = 'shareurl']").val();
+            if (title == ''){
+                alert('标题不能为空！');return false;
+            }
+            if (time == ''){
+                alert('请填写日期！');return false;
+            }
+            if (content == ''){
+                alert('内容不能为空！');return false;
+            }
+            $.post("{php echo $this->createWebUrl('review')}", {'author':author,'shareurl':shareurl,'id':id,'shareimg':shareimg,'sharetitle' : sharetitle, 'content' : content ,'title' : title ,'sharedes' : sharedes,'time':time},function(data){
+                if (data == 200){
+                    alert('修改成功！');
+                    window.location.href = "{php echo $this->createWebUrl('manage',array('op'=>'list'))}";
+                }
+            });
+        });
+    });
+</script>
+{/if}
+
+{template 'common/footer'}
