@@ -18,7 +18,7 @@ class Vivanjyh_jryyModule extends WeModule {
 				);
 
 			if ($this->saveSettings($dat)) {
-                message('保存成功', 'refresh');
+                message('配置参数更新成功！', referer(), 'success');
             }
 
 
