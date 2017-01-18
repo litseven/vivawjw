@@ -51,35 +51,15 @@
     </form>
 </div>
 <script>
-    //复制
-    require(['jquery.zclip'], function(){
-        $('.js-clip').each(function(){
-            var copy_button = this;
-            $(copy_button).zclip({
-                path: '{S_URL}js/ZeroClipboard.swf',
-                copy: function(){
-                    return $(this).data('value');
-                },
-                beforeCopy:function(){/* 按住鼠标时的操作 */
-                    $(this).css("color","orange");
-                },
-                afterCopy:function(){/* 复制成功后的操作 */
-                    var $copysuc = $("<div class='copy-tips'><div class='copy-tips-wrap'>复制成功</div></div>");
-                    $("body").find(".copy-tips").remove().end().append($copysuc);
-                    $(".copy-tips").fadeOut(3000);
-                }
-            });
-        });
-    });
-
     $(function(){
         //显示
         $('.status-toggle').click(function(){
             var id = $(this).attr('id');
             var dvalue = $(this).attr('data-toggle');
             $.post("{php echo $this->createWebUrl('status')}", {'id':id, 'display':dvalue}, function(data){
-                if(data == ' success') {
-                    if(dvalue==1){
+                data = JSON.parse(data);
+                if(data == 'success') {
+                    if(dvalue == 1){
                         $("#update_"+id+" span").text('显示').removeClass('btn-warning').addClass('btn-success').attr("data-toggle","0");
                     }
                     else{
@@ -101,6 +81,28 @@
             }
         });
     });
+    //复制
+    require(['jquery.zclip'], function(){
+        $('.js-clip').each(function(){
+            var copy_button = this;
+            $(copy_button).zclip({
+                path: '{S_URL}js/ZeroClipboard.swf',
+                copy: function(){
+                    return $(this).data('value');
+                },
+                beforeCopy:function(){/* 按住鼠标时的操作 */
+                    $(this).css("color","orange");
+                },
+                afterCopy:function(){/* 复制成功后的操作 */
+                    var $copysuc = $("<div class='copy-tips'><div class='copy-tips-wrap'>复制成功</div></div>");
+                    $("body").find(".copy-tips").remove().end().append($copysuc);
+                    $(".copy-tips").fadeOut(3000);
+                }
+            });
+        });
+    });
+
+
 </script>
 {/if}
 {if $op == 'add'}

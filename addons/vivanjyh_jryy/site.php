@@ -61,7 +61,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 				//"mobile"=>"18862801582,13771471058",
 				"text"=>"【维瓦互动】您收到一条来自 “".$_GPC['title']."” 的预约信息，姓名:".$data['name']." 电话:".$data['phone']." 留言:".$data['content']."，请尽快回复处理回T退订"
 			);
-			//$sr = ihttp_post($smsUri,$postarray);
+			$sr = ihttp_post($smsUri,$postarray);
 			//exit(json_encode($sr));
 		}
 	}
@@ -167,7 +167,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$id =intval($_GPC['id']);
 		$display =intval($_GPC['display']);
 		$state =pdo_update('viva_jryy', array('status' => $display), array('uniacid' => $_W['uniacid'], 'id' => $id));
-		if($state !== false){exit('success');}exit("error");
+		if($state !== false){exit(json_encode('success'));}exit(json_encode("error"));
 	}
 
 }
