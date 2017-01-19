@@ -212,8 +212,9 @@
                if (accothername == ''){
                     alert('请正确输入对方人的姓名');return false;
                }
-               if (accotherphone == ''){
-                    alert('请正确输入对方人的手机号码');return false;
+               var pattern = /^1[34578]\d{9}$/;
+               if (!pattern.test(accotherphone)){
+                    alert('手机号码有误！');return false;
                }
                reg=/^苏B[0-9A-Z]{5}$/;
                if (!reg.test(accnum)){
