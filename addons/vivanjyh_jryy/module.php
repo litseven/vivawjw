@@ -14,7 +14,8 @@ class Vivanjyh_jryyModule extends WeModule {
 				'uniacid' => $_W['uniacid'], 
 				'title' => $_GPC['title'],
                 'footer' => $_GPC['footer'],
-                'iconimg' => $_GPC['iconimg'],
+                'logoimg' => $_GPC['logoimg'],
+                'bgimg' => $_GPC['bgimg'],
 				);
 
 			if ($this->saveSettings($dat)) {

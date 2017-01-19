@@ -17,7 +17,8 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		if ($data['status'] == 1){$dataone = $data;}
 		$title = $_W['current_module']['config']['title'];
 		$footer = $_W['current_module']['config']['footer'];
-		$iconimg = $_W['attachurl'].$_W['current_module']['config']['iconimg'];
+		$logoimg = $_W['attachurl'].$_W['current_module']['config']['logoimg'];
+		$bgimg = $_W['attachurl'].$_W['current_module']['config']['bgimg'];
 		//var_dump($_W);
 		include $this->template('bank');
 	}
@@ -41,9 +42,8 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 
 		//$data['uid'] = 2;
 		$data['uid'] = $_W['member']['uid'];
-		$seldata = pdo_fetchall('SELECT * FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid AND uid = :uid',array(':uniacid'=>$_W['uniacid'],':uid'=>$data['uid']));
-		if ($seldata){
-			echo 400;exit;
+		if(!$data['uid']){
+			echo 300;exit;
 		}
 		$data['uniacid'] = trim($_W['uniacid']);
 		$data['name'] = trim($_GPC['name']);
@@ -61,7 +61,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 				//"mobile"=>"18862801582,13771471058",
 				"text"=>"【维瓦互动】您收到一条来自 “".$_GPC['title']."” 的预约信息，姓名:".$data['name']." 电话:".$data['phone']." 留言:".$data['content']."，请尽快回复处理回T退订"
 			);
-			$sr = ihttp_post($smsUri,$postarray);
+			//$sr = ihttp_post($smsUri,$postarray);
 			//exit(json_encode($sr));
 		}
 	}
