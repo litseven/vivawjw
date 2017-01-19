@@ -19,10 +19,8 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$footer = $_W['current_module']['config']['footer'];
 		$logoimg = $_W['attachurl'].$_W['current_module']['config']['logoimg'];
 		$bgimg = $_W['attachurl'].$_W['current_module']['config']['bgimg'];
-		//var_dump($_W);
 		include $this->template('bank');
 	}
-
 	/*public function doMobileSms() {
 		load()->func('communication');
 		$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
