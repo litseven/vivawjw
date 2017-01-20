@@ -16,6 +16,7 @@ class Vivanjyh_jryyModule extends WeModule {
                 'footer' => $_GPC['footer'],
                 'logoimg' => $_GPC['logoimg'],
                 'bgimg' => $_GPC['bgimg'],
+                'mobile' => $_GPC['mobile'],
 				);
 
 			if ($this->saveSettings($dat)) {

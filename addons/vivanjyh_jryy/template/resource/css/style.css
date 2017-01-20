@@ -45,7 +45,7 @@ img{display:block;}
 .form1{width:92%; overflow: hidden; margin-left: 8%; margin-top:16px;}
 .form1_left{float:left; width:26%; overflow: hidden;padding-left:10%;}
 .form1_right{float: right;width:74%; }
-.form1_left div:nth-child(1){float:left; width:74%; height:20px; background-color:#e31a22; color:white; font-size:0.5rem; line-height:20px; text-align: center;}
+.form1_left div:nth-child(1){float:left; width:74%; height:20px; background-color:#e31a22; color:white; font-size:0.7rem; line-height:20px; text-align: center;}
 .form1_left div:nth-child(2){float:left; margin-top:-5px; margin-left:-4px; width:0; height:0; transform: rotate(45deg); border-top:8px solid transparent;border-bottom:8px solid transparent; border-right:8px solid #e31a22; }
 .form1_right input{width:80%; background: url(../img/icon1.png) no-repeat 5% center white; background-size:9.5%; height:36px; padding-left:14%; border-radius: 10px; border:solid 1px #cccccc;}
 input:focus::-webkit-input-placeholder{color:transparent;}
@@ -56,9 +56,9 @@ input:focus::-webkit-input-placeholder{color:transparent;}
 .form3 .form1_right input{background: url(../img/icon3.png) no-repeat 5% center white;background-size:8%;}
 
 #submit{border:none; margin:25px 0; color:white; width:100%;font-size:1.1rem; height:36px; background-color: #e31a22; border-radius: 10px;}
-.dibu{text-align: center;font-size: 0.8rem; margin-bottom: 20px; font-weight: bold;color: #666}
-.dibu span{display: inline-block;font-size: 1.2rem;}
 
+.dibu{overflow: hidden; margin:0 auto;margin-bottom: 20px; color:#666666;text-align: center}
+.dibu p {font-size:0.8rem;}
 
 
 /*加载*/

@@ -19,6 +19,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$footer = $_W['current_module']['config']['footer'];
 		$logoimg = $_W['attachurl'].$_W['current_module']['config']['logoimg'];
 		$bgimg = $_W['attachurl'].$_W['current_module']['config']['bgimg'];
+		$mobile = $_W['attachurl'].$_W['current_module']['config']['mobile'];
 		include $this->template('bank');
 	}
 	/*public function doMobileSms() {
@@ -38,8 +39,8 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		global $_W,$_GPC;
 		load()->func('communication');
 
-		//$data['uid'] = 2;
-		$data['uid'] = $_W['member']['uid'];
+		$data['uid'] = 2;
+		//$data['uid'] = $_W['member']['uid'];
 		if(!$data['uid']){
 			echo 300;exit;
 		}
@@ -54,7 +55,8 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 			$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
 			$postarray = array(
 				"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
-				"mobile"=>"15651635323",
+				"mobile" => $_W['attachurl'].$_W['current_module']['config']['mobile'],
+				//"mobile"=>"15651635323",
 				//"mobile"=>"17312230681",
 				//"mobile"=>"18862801582,13771471058",
 				"text"=>"【维瓦互动】您收到一条来自 “".$_GPC['title']."” 的预约信息，姓名:".$data['name']." 电话:".$data['phone']." 留言:".$data['content']."，请尽快回复处理回T退订"
