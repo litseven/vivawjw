@@ -25,6 +25,48 @@
 			<entry title="管理" do="manage" state="" direct="false" />
 		</menu>
 	</bindings>
+	<install><![CDATA[
+DROP TABLE IF EXISTS `ims_vivawjw_bszn_guide`;
+CREATE TABLE `ims_vivawjw_bszn_guide` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `fid` int(11) DEFAULT NULL COMMENT '//父级id',
+  `ioc` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `content` longtext,
+  `time` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of ims_vivawjw_bszn_guide
+-- ----------------------------
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('6', '3', '0', '&#xe625;', '常见交通违法行为处罚标准查询', null, '1482336000', '1');
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('1', '3', '0', '&#xe627;', '机动车常用业务', null, '1482336000', '1');
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('3', '3', '0', '&#xe6bf;', '非机动车常用业务', null, '1482336000', '1');
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('4', '3', '0', '&#xe67c;', '交通事故快速理赔点', '', '1482336000', '1');
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('5', '3', '0', '&#xe614;', '秩序服务指南查询', '', '1482336000', '1');
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('7', '3', '1', null, '新车注册(上牌)', '&lt;p&gt;一、明确车主户籍：&lt;/p&gt;&lt;p&gt;1、非无锡户籍人士需要有无锡有效暂住证（居住证）、在无锡连续暂住满三个月，并经车管所一号窗口（或者车管所驻二手车市场登记服务站窗口）审核确认。&lt;/p&gt;&lt;p&gt;2、上海户籍人士，需要提供无锡有效暂住证（居住证）及其名下在无锡的房产证，并且需本人到场办理。&lt;/p&gt;&lt;p&gt;3、“530”等无锡市高端引进人才，提交“530”办公室开具的相关证明不需核查：&lt;/p&gt;&lt;p&gt;二、申报材料&lt;/p&gt;&lt;p&gt;1、《机动车注册、转移、注销登记/转入申请表》、《机动车查验记录表》、车辆识别代号（车架号）拓印膜；&lt;/p&gt;&lt;p&gt;2、机动车所有人身份证明原件及复印件：个人为居民身份证或临时居民身份证，暂住人员同时提交公安机关核发的居住或暂住证明。单位为组织机构代码证书，并提交单位加盖公章的委托书和被委托人的身份证明。属于委托代理的应提交委托人签字或盖章的授权委托书原件及代理人的身份证明原件及复印件；&lt;/p&gt;&lt;p&gt;3、机动车来历证明（其中机动车销售发票、《协助执行通知书》和国家机关、企业、事业单位或者社会团体出具的调拨证明必须是原件）；&lt;/p&gt;&lt;p&gt;4、在无锡缴纳车辆购置税的完税证明或者免税凭证副联原件；（购置税办理时间：周一到周五）&lt;/p&gt;&lt;p&gt;5、交强险保单第三联原件（原件遗失的交其他任一联复印件并加盖保险公司印章）。&lt;/p&gt;&lt;p&gt;6、机动车合格证原件；&lt;/p&gt;&lt;p&gt;7、属于进口机动车的提交进口凭证原件、商检单；&lt;/p&gt;&lt;p&gt;8、属于警车的提交《苏O警用车辆号牌申请审批表》、《江苏省公安系统购置车辆审批表》；&lt;/p&gt;&lt;p&gt;9、属于救护车、消防车、工程救险车应提供车辆使用性质证明原件；&lt;/p&gt;&lt;p&gt;10、属于行政事业单位的小客车应提供市财政局出具的《无锡市财政局采购集控单》；&lt;/p&gt;&lt;p&gt;11、属于危险品车的提供《机动车使用性质核准申请表》（车管所安全科车管民警签字）、无锡市道路危险货物运输车辆《道路运输证》申请审批表》（复印件运管处开具），运输汽、柴油的油罐车还需要提供质监部门核发的罐体委托检验报告、检定证书。&lt;/p&gt;&lt;p&gt;12、属于校车的提供《机动车使用性质核准申请表》（所属交警大队车管民警签字）、在广厦二手车市场办理注册上牌。申请校车专用标识，需教育局出具的证明，在东亭综合科办理。&lt;/p&gt;&lt;p&gt;13、属于工程车（渣士车、混凝土搅拌车）的要提供《工程车送检单》、《机动车使用性质核准申请表》（均由所属交警大队车管民警签字）在广厦二手车市场办理注册上牌；&lt;/p&gt;&lt;p&gt;14、属于营运性货车、公路客运、旅游客运客车还需提供运管处的《工作联系单》《机动车使用性质核准申请表》（均由所属交警大队车管民警签字）在广厦二手车市场办理注册上牌；&lt;/p&gt;&lt;p&gt;15、属于专项作业车（采血车、洒水车、垃圾车、粪车）的提供上级部门批件，其他正常上牌手续，在广厦二手车市场注册上牌。&lt;/p&gt;&lt;p&gt;15、属于非国家免检车型要上线检测，需上检测线检测取得《安全技术检验合格证明》；&lt;/p&gt;&lt;p&gt;三、相关说明：&lt;/p&gt;&lt;p&gt;1、无锡车管所办理小型载客汽车、进口机动车、警用车辆。&lt;/p&gt;&lt;p&gt;2、东方汽车城机动车登记服务站办理国产小型汽车注册业务。&lt;/p&gt;&lt;p&gt;3、广厦机动车登记服务站办理国产中型以上客车、国产货车、危险品车注册登记业务。&lt;/p&gt;&lt;p&gt;4、无锡城南二手车交易市场办理小型汽车注册业务。&lt;/p&gt;&lt;p&gt;5、无锡市神州二手车交易市场办理小型汽车。&lt;/p&gt;&lt;p&gt;6、江阴、宜兴车管所办理本辖区内的机动车注册业务。&lt;/p&gt;&lt;p&gt;四、收费标准：&lt;/p&gt;&lt;p&gt;无锡车管所收取号牌费100元/付，行驶证工本费15元/本，登记证书工本费10元/本&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;', '1482336000', '1');
+INSERT INTO `ims_vivawjw_bszn_guide` VALUES ('2', '3', '0', '&#xe6ff;', '驾驶证常用业务', null, '1482336000', '1');
+DROP TABLE IF EXISTS `ims_vivawjw_bszn_hotkey`;
+CREATE TABLE `ims_vivawjw_bszn_hotkey` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `hotkey` varchar(255) DEFAULT NULL,
+  `status` int(1) DEFAULT '0',
+  `uniacid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ims_vivawjw_bszn_hotkey
+-- ----------------------------
+INSERT INTO `ims_vivawjw_bszn_hotkey` VALUES ('1', '机动车', '1', '3');
+INSERT INTO `ims_vivawjw_bszn_hotkey` VALUES ('2', '验车', '1', '3');
+INSERT INTO `ims_vivawjw_bszn_hotkey` VALUES ('3', '12分', '1', '3');
+INSERT INTO `ims_vivawjw_bszn_hotkey` VALUES ('4', '换证', '1', '3');
+INSERT INTO `ims_vivawjw_bszn_hotkey` VALUES ('6', '检验合格标志', '1', '3');
+INSERT INTO `ims_vivawjw_bszn_hotkey` VALUES ('7', '免检', '1', '3');
+		]]></install>
 
 </manifest>

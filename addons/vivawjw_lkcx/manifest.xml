@@ -42,7 +42,20 @@
 
 	</permissions>
 	<install><![CDATA[
-	
+	DROP TABLE IF EXISTS `ims_vivawjw_lkcx`;
+CREATE TABLE `ims_vivawjw_lkcx` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `uniacid` int(11) DEFAULT NULL,
+  `proof` text,
+  `pictinfo` varchar(255) DEFAULT NULL,
+  `sittime` int(11) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT '2',
+  `turndown` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 		]]></install>
 	<uninstall><![CDATA[
 
