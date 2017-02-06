@@ -70,7 +70,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	public function doMobileCarpost(){
 		global $_W,$_GPC;
 		$data['uniacid'] = $_W['uniacid'];
-		$data['uid'] = trim(23);
+		$data['uid'] = trim($_W['member']['uid']);
 		$data['carname'] = trim($_GPC['carname']);
 		$data['cartype'] = trim($_GPC['cartype']);
 		$data['carnum'] = trim($_GPC['carnum']);
