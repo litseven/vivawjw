@@ -16,7 +16,14 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		if (empty($_W['fans']['nickname'])) {
 			mc_oauth_userinfo();
 		}
-		$user = $_W['member']['uid'];
+		//驾驶证号、证芯编号
+		$drivernum = trim($_GPC['drivernum']);
+		$driverpapers = trim($_GPC['driverpapers']);
+
+		//车辆类型车牌、证芯编号
+		$chcartype = trim($_GPC['chcartype']);
+		$chcarnum = trim($_GPC['chcarnum']);
+		$chcarpapers = trim($_GPC['chcarpapers']);
 		include $this->template('infochange');
 	}
 	//驾驶人接受数据验证
@@ -32,9 +39,9 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	//机动车接受数据验证
 	public function doMobileCarmanage(){
 		global $_W,$_GPC;
-		$cartype = $_GPC['cartype'];
-		$carnum = trim($_GPC['carnum']);
-		$carpapers = trim($_GPC['carpapers']);
+		$chcartype = $_GPC['chcartype'];
+		$chcarnum = trim($_GPC['chcarnum']);
+		$chcarpapers = trim($_GPC['chcarpapers']);
 
 		//提交接口对比数据
 
@@ -44,13 +51,15 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	public function doMobileDrpost(){
 		global $_W,$_GPC;
 		$data['uniacid'] = $_W['uniacid'];
-		$data['uid'] = trim($_GPC['userid']);
+		$data['uid'] = trim($_W['member']['uid']);
 		$data['drname'] = trim($_GPC['drname']);
 		$data['drcard'] = trim($_GPC['drcard']);
 		$data['drnum'] = trim($_GPC['drnum']);
 		$data['draddr'] = trim($_GPC['draddr']);
 		$data['drphone'] = trim($_GPC['drphone']);
 		$data['drtime'] = time();
+		$data['drivernum'] = trim($_GPC['drivernum']);
+		$data['driverpapers'] = trim($_GPC['driverpapers']);
 		$drdata = pdo_insert('vivawjw_change_driver',$data);
 		if ($drdata){
 			echo 200;exit;
@@ -61,13 +70,16 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	public function doMobileCarpost(){
 		global $_W,$_GPC;
 		$data['uniacid'] = $_W['uniacid'];
-		$data['uid'] = trim($_GPC['userid']);
+		$data['uid'] = trim(23);
 		$data['carname'] = trim($_GPC['carname']);
 		$data['cartype'] = trim($_GPC['cartype']);
 		$data['carnum'] = trim($_GPC['carnum']);
 		$data['caraddr'] = trim($_GPC['caraddr']);
 		$data['carphone'] = trim($_GPC['carphone']);
 		$data['cartime'] = time();
+		$data['chcartype'] = trim($_GPC['chcartype']);
+		$data['chcarnum']= trim($_GPC['chcarnum']);
+		$data['chcarpapers'] = trim($_GPC['chcarpapers']);
 		$cardata = pdo_insert('vivawjw_change_car',$data);
 		if ($cardata){
 			echo 200;eixt;

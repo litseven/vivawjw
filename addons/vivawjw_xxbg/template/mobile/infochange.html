@@ -76,11 +76,11 @@
             <div class="query_box" >
                 <div class="car_style">
                     <div>驾驶证号</div>
-                    <input type="text" name="drivernum" id="car_number1" placeholder="请输入驾驶证号" onFocus="this.placeholder=''" onBlur="this.placeholder='请输入驾驶证号'">
+                    <input type="text" name="drivernum" id="car_number1" placeholder="请输入驾驶证号" >
                 </div>
                 <div class="car_style">
                     <div>证芯编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" name="driverpapers" placeholder="请输入证芯编号后六位或档案编号后六位" id="car_fa1" onFocus="this.placeholder=''" onBlur="this.placeholder='请输入证芯编号后六位或档案编号后六位'">
+                    <input type="text" name="driverpapers" placeholder="请输入证芯编号后六位或档案编号后六位" id="car_fa1">
                 </div>
                 <a id="query1">下一步</a>
             </div>
@@ -89,19 +89,18 @@
             <div class="query_box">
                 <div class="car_style">
                     <div>车辆类型</div>
-                    <select name="cartype">
+                    <select name="chcartype">
                         <option value="1">小型车辆</option>
                         <option value="2">大型车辆</option>
-                        <option value="3">小型车辆</option>
                     </select>
                 </div>
                 <div class="car_style">
                     <div>车牌号码</div>
-                    <input type="text" name="carnum" id="car_number" value="苏B">
+                    <input type="text" name="chcarnum" id="car_number" value="苏B">
                 </div>
                 <div class="car_style">
-                    <div>证件号码</div>
-                    <input type="text" name="carpapers" placeholder="请输入身份证后六位或机构代码证前六位" id="car_fa" onFocus="this.placeholder=''" onBlur="this.placeholder='请输入身份证后六位或机构代码证前六位'">
+                    <div>证芯编号</div>
+                    <input type="text" name="chcarpapers" placeholder="请输入身份证后六位或机构代码证前六位" id="car_fa" onFocus="this.placeholder=''" onBlur="this.placeholder='请输入身份证后六位或机构代码证前六位'">
                 </div>
                 <a id="query">下一步</a>
             </div>
@@ -134,7 +133,7 @@
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('drivermanage')}",{'drivernum':drivernum,'driverpapers':driverpapers},function(data){
                 if (data == 200){
-                    window.location.href = "{php echo $this->createMobileUrl('infochange',array('op' => 'subdata','block'=>'driver'))}";
+                    window.location.href = "{php echo $this->createMobileUrl('infochange',array('op' => 'subdata','block'=>'driver'))}&drivernum="+drivernum+"&driverpapers="+driverpapers;
                 }
             });
             process = true;
@@ -143,23 +142,23 @@
         //机动车信息
         $('#query').click(function(){
             if(process)return false;
-            var cartype = $("[name = 'cartype']").val();
-            var carnum = $("[name = 'carnum']").val();
-            var carpapers = $("[name = 'carpapers']").val();
+            var chcartype = $("[name = 'chcartype']").val();
+            var chcarnum = $("[name = 'chcarnum']").val();
+            var chcarpapers = $("[name = 'chcarpapers']").val();
             reg=/^苏B[0-9A-Z]{5}$/;
-            if (!reg.test(carnum)){
+            if (!reg.test(chcarnum)){
                 alert('请正确输入车牌号');return false;
             }
-            if (carpapers == ''){
+            if (chcarpapers == ''){
                 alert('证件号码不能为空！');return false;
             }
-            if(carpapers.length != 6){
+            if(chcarpapers.length != 6){
                 alert('证件号码输入有误！');return false;
             }
             $("#loading-fs").show();
-            $.post("{php echo $this->createMobileUrl('carmanage')}",{'cartype':cartype,'carnum':carnum,'carpapers':carpapers},function(data){
+            $.post("{php echo $this->createMobileUrl('carmanage')}",{'chcartype':chcartype,'chcarnum':chcarnum,'chcarpapers':chcarpapers},function(data){
                 if (data == 200){
-                    window.location.href = "{php echo $this->createMobileUrl('infochange',array('op' => 'subdata','block'=>'car'))}";
+                    window.location.href = "{php echo $this->createMobileUrl('infochange',array('op' => 'subdata','block'=>'car'))}&chcartype="+chcartype+"&chcarnum="+chcarnum+"&chcarpapers="+chcarpapers;
                 }
             });
             process = true;
@@ -206,7 +205,8 @@
                     <div>手机号码</div>
                     <input type="text" name="drphone" placeholder="请输入手机号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'">
                 </div>
-                <input type="hidden" value="{$user}" name="userid">
+                <input type="hidden" value="{$drivernum}" name="drivernum">
+                <input type="hidden" value="{$driverpapers}" name="driverpapers">
                 <a id="submit">提交</a>
             </div>
             </form>
@@ -218,12 +218,13 @@
         $(function(){
             $('#submit').click(function(){
                 if(process)return false;
+                var drivernum = $("[name = 'drivernum']").val();
+                var driverpapers = $("[name = 'driverpapers']").val();
                 var drname = $("[name = 'drname']").val();
                 var drcard = $("[name = 'drcard']").val();
                 var drnum =  $("[name = 'drnum']").val();
                 var draddr =  $("[name = 'draddr']").val();
                 var drphone =  $("[name = 'drphone']").val();
-                var userid =  $("[name = 'userid']").val();
                 if (drname == ''){
                     alert('请填写您姓名！');return false;
                 }
@@ -279,8 +280,8 @@
                     <div class="info_icon2"><i>&#xe627;</i></div>
                     <div>号牌种类</div>
                     <select name="cartype">
-                        <option value="1">大型汽车</option>
-                        <option value="2">小型汽车</option>
+                        <option value="1">小型汽车</option>
+                        <option value="2">大型汽车</option>
                     </select>
                 </div>
                 <div class="driv_info">
@@ -294,7 +295,9 @@
                     <div>手机号码</div>
                     <input type="text" name="carphone" placeholder="请输入手机号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'">
                 </div>
-                <input type="hidden" value="{$user}" name="userid">
+                <input type="hidden" value="{$chcartype}" name="chcartype">
+                <input type="hidden" value="{$chcarnum}" name="chcarnum">
+                <input type="hidden" value="{$chcarpapers}" name="chcarpapers">
                 <a id="submit">提交</a>
             </div>
             </form>
@@ -306,11 +309,13 @@
         $(function(){
             $('#submit').click(function(){
                 if(process)return false;
+                var chcartype = $("[name = 'chcartype']").val();
+                var chcarnum = $("[name = 'chcarnum']").val();
+                var chcarpapers = $("[name = 'chcarpapers']").val();
                 var carname = $("[name = 'carname']").val();
                 var carnum = $("[name = 'carnum']").val();
                 var caraddr = $("[name = 'caraddr']").val();
                 var carphone = $("[name = 'carphone']").val();
-                var userid = $("[name = 'userid']").val();
                 if (carname == ''){
                     alert('请填写您姓名！');return false;
                 }
