@@ -55,6 +55,32 @@
                             <input type="text" placeholder="请输入您的电话" name="phone">
                         </div>
                     </div>
+                    <div class="form1 form4">
+                        <div class="form1_left">
+                            <div>必填</div>
+                            <div></div>
+                        </div>
+                        <div class="form1_right se_right">
+                            <select class="zhihang" name="zhihang">
+                                <option>请选择分行营业部</option>
+                                {loop $zhihang $item}
+                                <option value="{$item}">{$item}</option>
+                                {/loop}
+                                <!--<option value="0">万寿路支行</option>
+                                <option value="1">车公庄支行</option>
+                                <option value="2">万柳支行</option>
+                                <option value="3">中关村支行</option>
+                                <option value="4">北辰支行</option>
+                                <option value="5">西坝河支行</option>
+                                <option value="6">呼家楼支行</option>
+                                <option value="7">朝阳门支行</option>
+                                <option value="8">顺义支行</option>
+                                <option value="9">通州支行</option>
+                                <option value="10">方庄支行</option>
+                                <option value="11">西客站支行</option>-->
+                            </select>
+                        </div>
+                    </div>
                     <div class="form1 form3">
                         <div class="form1_left">
                             <div>选填</div>
@@ -68,7 +94,6 @@
                 </div>
             </div>
         </div>
-
        <div class="dibu">
             <p>© {$footer}</p>
        </div>
@@ -91,6 +116,7 @@ Access Denied
             var title = $("[name = 'title']").val();
             var phone = $("[name = 'phone']").val();
             var content = $("[name = 'content']").val();
+            var zhihang = $(".zhihang option:selected").val();
             if(name == ''){
                 alert('请输入您的姓名！');return false;
             }
@@ -98,8 +124,9 @@ Access Denied
             if (!pattern.test(phone)){
                 alert('手机号码有误！');return false;
             }
+
             $("#loading-fs").show();
-            $.post("{php echo $this->createMobileUrl('messagepost')}",{'name':name,'title':title,'phone':phone,'content':content},function(data){
+            $.post("{php echo $this->createMobileUrl('messagepost')}",{'name':name,'title':title,'phone':phone,'content':content,'zhihang':zhihang},function(data){
               /*  data = JSON.parse(data);
                 console.log(data);*/
                 if (data == 200){

@@ -17,6 +17,7 @@ class Vivanjyh_jryyModule extends WeModule {
                 'logoimg' => $_GPC['logoimg'],
                 'bgimg' => $_GPC['bgimg'],
                 'mobile' => $_GPC['mobile'],
+                'zhihang' => $_GPC['zhihang']
 				);
 
 			if ($this->saveSettings($dat)) {

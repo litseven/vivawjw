@@ -14,7 +14,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			mc_oauth_userinfo();
 		}
 		/*---------------------------------------------------------------------------------------------------------------------------------*/
-		$userid = $_W['member']['uid'];
+		$uid = $_W['member']['uid'];
 		//$uid = $data['uid'] = 2;
 		if ($op == 'list'){
 			//所有推送的消息

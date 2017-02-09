@@ -96,7 +96,8 @@ input:focus::-webkit-input-placeholder{color:transparent;}
   0%{transform:rotate(0deg);}	100%{transform:rotate(360deg);}}
 /*加载*/
 
-
+/*新增*/
+.se_right select{width:80%; height:36px; padding-left:14%; color:#999999; border-radius: 10px; border:solid 1px #cccccc;}
 
 
 

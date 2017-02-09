@@ -62,6 +62,12 @@
     <div class="panel-heading">留言信息</div>
     <div class="panel-body">
         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">预约文章:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{$dataone['article']}</p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
                 <p class="form-control-static">{$dataone['name']}</p>
@@ -74,9 +80,16 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">电话:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{$dataone['zhihang']}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">留言内容:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{$dataone['content']}</p>
+                <p class="form-control-static">{if $dataone['content']} {$dataone['content']}{else}无留言{/if}</p>
             </div>
         </div>
         <div class="form-group">

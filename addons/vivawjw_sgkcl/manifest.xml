@@ -54,7 +54,7 @@ CREATE TABLE `ims_vivawjw_sgkc` (
   `accothername` varchar(255) DEFAULT NULL COMMENT '//对方姓名',
   `accnum` varchar(10) DEFAULT NULL COMMENT '//车牌号',
   `accothernum` varchar(10) DEFAULT NULL,
-  `accotherphone` int(11) DEFAULT NULL,
+  `accotherphone` varchar(11) DEFAULT NULL,
   `accserve` varchar(255) DEFAULT NULL COMMENT '//理赔服务点',
   `recordnum` varchar(255) DEFAULT NULL COMMENT '//报警记录号',
   `acctime` int(11) DEFAULT NULL,

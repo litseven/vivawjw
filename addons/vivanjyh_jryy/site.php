@@ -19,7 +19,9 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$footer = $_W['current_module']['config']['footer'];
 		$logoimg = $_W['attachurl'].$_W['current_module']['config']['logoimg'];
 		$bgimg = $_W['attachurl'].$_W['current_module']['config']['bgimg'];
-		$mobile = $_W['attachurl'].$_W['current_module']['config']['mobile'];
+		$zhihang = $_W['current_module']['config']['zhihang'];
+		$zhihang = str_replace('，', ',', $zhihang); //替换全角空格为半角
+		$zhihang = explode(",",$zhihang);
 		include $this->template('bank');
 	}
 	/*public function doMobileSms() {
@@ -27,7 +29,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
 		$postarray = array(
 			"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
-			"mobile"=>"13771471058",
+			"mobile"=>"17312230681",
 			//"mobile"=>"18862801582,13771471058",
 			"text"=>"【维瓦互动】您收到一条来自“南京银行文章1”的预约信息，姓名:张三电话:13813131333留言:呵呵哈哈，请尽快回复处理回T退订"
 		);
@@ -38,7 +40,6 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 	public function doMobileMessagepost(){
 		global $_W,$_GPC;
 		load()->func('communication');
-
 		$data['uid'] = 2;
 		//$data['uid'] = $_W['member']['uid'];
 		if(!$data['uid']){
@@ -48,6 +49,8 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$data['name'] = trim($_GPC['name']);
 		$data['phone'] = trim($_GPC['phone']);
 		$data['content'] = trim($_GPC['content']);
+		$data['article'] = trim($_GPC['title']);
+		$data['zhihang'] = trim($_GPC['zhihang']);
 		$data['time'] = time();
 		$res = pdo_insert('viva_jryy_message',$data);
 		if($res){
@@ -55,13 +58,13 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 			$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
 			$postarray = array(
 				"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
-				"mobile" => $_W['attachurl'].$_W['current_module']['config']['mobile'],
+				"mobile" => $_W['current_module']['config']['mobile'],
 				//"mobile"=>"15651635323",
 				//"mobile"=>"17312230681",
 				//"mobile"=>"18862801582,13771471058",
-				"text"=>"【维瓦互动】您收到一条来自 “".$_GPC['title']."” 的预约信息，姓名:".$data['name']." 电话:".$data['phone']." 留言:".$data['content']."，请尽快回复处理回T退订"
+				"text"=>"【维瓦互动】您收到一条来自“".$_GPC['title']."”的预约信息，姓名:".$data['name']."电话:".$data['phone']."留言:".$data['content']."，请尽快回复处理回T退订"
 			);
-			//$sr = ihttp_post($smsUri,$postarray);
+			$sr = ihttp_post($smsUri,$postarray);
 			//exit(json_encode($sr));
 		}
 	}
