@@ -39,7 +39,7 @@ body{color:#3f3f3f; font-size:16px;}
 .nan1_box div:nth-child(1) {width:100%;}
 .nan1_box div:nth-child(2) {width: 100%;margin-top: -14%;margin-left: 0;}
 .nan1_box div:nth-child(3){margin-top:-52%; font-size:1.2rem; margin-left:12%; font-weight:bold;}
-.nan1_box span{font-size:1rem;position:margin-top:30%;margin-left:20%;}
+/*.nan1_box span{font-size:1rem;position:margin-top:30%;margin-left:20%;}*/
 
 .page2_btn{width:100%; position:absolute; top:67%;}
 .page2_btn img{width:100%;}
