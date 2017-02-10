@@ -117,6 +117,23 @@
 <?php  } ?>
 <?php  if($op == 'drinfo') { ?>
 <div class="panel panel-default">
+    <div class="panel-heading">驾驶人变更信息</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">驾驶证:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $drinfo['drivernum'];?></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">证芯编号:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $drinfo['driverpapers'];?></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading">驾驶人信息</div>
     <div class="panel-body">
         <div class="form-group">
@@ -224,6 +241,29 @@
 <?php  } ?>
 <?php  if($op == 'carinfo') { ?>
 <div class="panel panel-default">
+    <div class="panel-heading">机动车变更信息</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">车辆类型:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  if($carinfo['chcartype'] == 1) { ?>小型车<?php  } else if($carinfo['chcartype'] == 2) { ?>大型车<?php  } ?></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">车牌号码:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $carinfo['chcarnum'];?></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">证芯编号:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $carinfo['chcarpapers'];?></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading">机动车信息</div>
     <div class="panel-body">
         <div class="form-group">
@@ -239,9 +279,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">好牌类型:</label>
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">车牌类型:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static"><?php  echo $carinfo['cartype'];?></p>
+                <p class="form-control-static"><?php  if($carinfo['cartype'] == 1) { ?>小型车<?php  } else if($carinfo['cartype'] == 2) { ?>大型车<?php  } ?></p>
             </div>
         </div>
         <div class="form-group">

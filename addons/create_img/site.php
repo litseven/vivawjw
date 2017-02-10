@@ -6,7 +6,7 @@
  * @url 
  */
 defined('IN_IA') or exit('Access Denied');
-define('S_URL','http://lab.scienmedia.com/addons/'.$_GET['m'].'/template/mobile');
+define('S_URL','http://www.vivawjw.com/addons/'.$_GET['m'].'/template/mobile');
 class Create_imgModuleSite extends WeModuleSite {
     /**
      * 男用模板

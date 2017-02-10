@@ -130,17 +130,17 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 	//留言列表
 	public function doWebAdmin(){
 		global $_W,$_GPC;
-		$op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
+		//$op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
 		//获取页码
 		$pindex =max(1, intval($_GPC['page']));
 		$psize =10;
 		$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid',array(':uniacid' => $_W['uniacid']));
 		$list = pdo_fetchall('SELECT * FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid  ORDER BY id asc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' => $_W['uniacid']));
 		$pager =pagination($total, $pindex, $psize);
-		if($op == 'view'){
+		/*if($op == 'view'){
 			$id = $_GPC['id'];
 			$dataone = pdo_fetch('SELECT * FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid AND id = :id',array(':uniacid'=>$_W['uniacid'],':id'=>$_GPC['id']));
-		}
+		}*/
 
 		include $this->template('admin');
 	}
@@ -171,6 +171,48 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$display =intval($_GPC['display']);
 		$state =pdo_update('viva_jryy', array('status' => $display), array('uniacid' => $_W['uniacid'], 'id' => $id));
 		if($state !== false){exit(json_encode('success'));}exit(json_encode("error"));
+	}
+
+	/**
+	 * 数据导出 Excel 文件
+	 */
+	public function doWebExport() {
+		include IA_ROOT . '/framework/library/phpexcel/PHPExcel.php';
+		$list = pdo_fetchall('SELECT * FROM ' . tablename('viva_jryy_message'));
+		foreach ($list as $k => $v) {
+			$data[$k]['id'] = $v['id'];
+			$data[$k]['name'] = $v['name'];
+			$data[$k]['phone'] = $v['phone'];
+			$data[$k]['content'] = $v['content'];
+			$data[$k]['article'] = $v['article'];
+			$data[$k]['zhihang'] = $v['zhihang'];
+			$data[$k]['time'] = date('Y-m-d',$v['time']);
+		}
+		$excel = new PHPExcel();
+		$letter = array('A', 'B', 'C', 'D','E','F','G');
+		$tableheader = array('序号', '姓名', '手机号码', '留言','预约文章','支行','时间');
+		for($i = 0; $i < count($tableheader); $i++) {
+			$excel->getActiveSheet()->setCellValue($letter[$i] . '1', $tableheader[$i]);
+		}
+		for ($i = 0; $i < count($data); $i++) {
+			$j = 0;
+			foreach ($data[$i] as $k => $v) {
+				$excel->getActiveSheet()->setCellValue($letter[$j] . ($i + 2), $v);
+				$j++;
+			}
+		}
+		$write = new PHPExcel_Writer_Excel5($excel);
+		ob_end_clean();//清除缓冲区,避免乱码
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+		header("Content-Type:application/force-download");
+		header("Content-Type:application/vnd.ms-execl");
+		header("Content-Type:application/octet-stream");
+		header("Content-Type:application/download");
+		header('Content-Disposition:attachment;filename="' . date('Y-m-d',time()) . '.xls"');
+		header("Content-Transfer-Encoding:binary");
+		$write->save('php://output');
 	}
 
 }

@@ -1,9 +1,8 @@
 {template 'common/header'}
+<input type="button" class="btn btn-success excel" value="导出Excel表" style="margin-bottom: 20px">
 <ul class="nav nav-tabs">
-    <li{if $op == 'list'} class="active" {/if}><a href="{php echo $this->createWebUrl('admin',array('op'=>'list'))}">留言列表</a></li>
-    {if $op == 'view'}<li class="active" ><a href="">留言信息</a></li>{/if}
+    <li class="active" ><a href="">留言列表</a></li>
 </ul>
-{if $op == 'list'}
 <!--列表-->
 <div class="list_page">
     <form action="" method="post" id="form1">
@@ -12,11 +11,14 @@
                 <table class="table table-hover">
                     <thead class="navbar-inner">
                     <tr>
-                        <th style="width:10%;text-align: center">序号</th>
-                        <th style="width:40%;text-align: center">姓名</th>
-                        <th style="width:25%;text-align: center">手机号</th>
-                        <th style="width:25%;text-align: center">时间</th>
-                        <th style="width:25%;text-align: center">操作</th>
+                        <th style="text-align: center">序号</th>
+                        <th style="text-align: center">姓名</th>
+                        <th style="text-align: center">预约文章</th>
+                        <th style="text-align: center">支行</th>
+                        <th style="text-align: center">手机号</th>
+                        <th style="text-align: center">留言</th>
+                        <th style="text-align: center">时间</th>
+                        <th style="text-align: center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,10 +26,12 @@
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['name']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['article']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['zhihang']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['phone']}</td>
-                        <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d',$item['time'])}</td>
+                        <td style="vertical-align:middle;text-align: center" title="{$item['content']}">{$item['content']}</td>
+                        <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
                         <td id="update_{$item['id']}" style="text-align: center">
-                            <a href="{php echo $this->createWebUrl('admin',array('op'=>'view','id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
                         </td>
                     </tr>
@@ -53,55 +57,9 @@
                 });
             }
         });
+        $('.excel').click(function(){
+            window.location.href = "{php echo $this->createWebUrl('export')}";
+        });
     });
 </script>
-{/if}
-{if $op == 'view'}
-<!--添加-->
-<div class="panel panel-default">
-    <div class="panel-heading">留言信息</div>
-    <div class="panel-body">
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">预约文章:</label>
-            <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{$dataone['article']}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名:</label>
-            <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{$dataone['name']}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">电话:</label>
-            <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{$dataone['phone']}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">电话:</label>
-            <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{$dataone['zhihang']}</p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">留言内容:</label>
-            <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{if $dataone['content']} {$dataone['content']}{else}无留言{/if}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
-            <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{php echo date('Y-d-m H:i:s',$dataone['time'])}</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="form-group" style="padding-bottom:100px;margin-left: 2px">
-    <a href="{php echo $this->createWebUrl('admin',array('op' => 'list'))}" class="btn btn-primary">返回列表</a>
-</div>
-{/if}
 {template 'common/footer'}

@@ -21,7 +21,7 @@
 			<message type="trace" />
 			<message type="text" />
 		</handles>
-		<rule embed="true" />
+		<rule embed="false" />
 		<card embed="false" />
 	</platform>
 	<bindings>

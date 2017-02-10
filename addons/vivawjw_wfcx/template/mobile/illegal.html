@@ -1,12 +1,12 @@
-<?php defined('IN_IA') or exit('Access Denied');?><!doctype html>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="<?php echo S_URL;?>css/index.css" rel="stylesheet">
-    <script src="<?php echo S_URL;?>js/jquery-3.0.0.js"></script>
+    <link href="{S_URL}css/index.css" rel="stylesheet">
+    <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <title>违法查询</title>
 </head>
 <body >
@@ -78,7 +78,7 @@
                 alert('发动机号码输入有误！');return false;
             }
             $("#loading-fs").show();
-            $.post("<?php  echo $this->createMobileUrl('apipostcl')?>",{'cartype':cartype,'carnum':carnum,'enginenum':enginenum},function(data){
+            $.post("{php echo $this->createMobileUrl('apipostcl')}",{'cartype':cartype,'carnum':carnum,'enginenum':enginenum},function(data){
                 console.log(data);
                 if (data.State == 0){
                     var list = data.WFXXList.WFXX;
@@ -153,7 +153,7 @@
                         var wfmoney = list[j].FKJE;//处罚金额
                         //  data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'"
                         //  data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'"
-                        $('.wflist').append('<div class="query_info"><div class="query_info1"><div class="arrow_left"><img src="<?php echo S_URL;?>img/jiant.png"></div> <div class="info_right"><a href="javascript:;" class="shensu" data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'" data-wfcjjg="'+wfcjjg+'" data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'">申诉</a> <div class="chu" data-to="0"><div>违法时间:<span>'+list[j].WFSJ+'</span></div><div>违法地点:<span>'+list[j].WFDD+'</span></div> </div> </div> </div><div class="info_detail hide" ><div class="detail_box"><div>违法行为:<span>'+list[j].WFXW+'</span></div> <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div><div>处理状态:<span>'+a+'</span></div><div>罚款金额:<span>'+list[j].FKJE+'</span></div></div></div></div>');
+                        $('.wflist').append('<div class="query_info"><div class="query_info1"><div class="arrow_left"><img src="{S_URL}img/jiant.png"></div> <div class="info_right"><a href="javascript:;" class="shensu" data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'" data-wfcjjg="'+wfcjjg+'" data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'">申诉</a> <div class="chu" data-to="0"><div>违法时间:<span>'+list[j].WFSJ+'</span></div><div>违法地点:<span>'+list[j].WFDD+'</span></div> </div> </div> </div><div class="info_detail hide" ><div class="detail_box"><div>违法行为:<span>'+list[j].WFXW+'</span></div> <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div><div>处理状态:<span>'+a+'</span></div><div>罚款金额:<span>'+list[j].FKJE+'</span></div></div></div></div>');
                     }
                     $('.chu').click(function(){
                         if($(this).data('to') == 0){
@@ -206,7 +206,7 @@
                 alert('发动机号码输入有误！');return false;
             }
             $("#loading-fs").show();
-            $.post("<?php  echo $this->createMobileUrl('apipostjsr')?>",{'drnunum':drnunum,'filenum':filenum},function(data){
+            $.post("{php echo $this->createMobileUrl('apipostjsr')}",{'drnunum':drnunum,'filenum':filenum},function(data){
                 console.log(data);
                 if (data){
                     switch (data.ZT) {
@@ -282,7 +282,7 @@
                 <div class="query_box">
                     <div class="license">
                         <div class="licen_img">
-                            <img src="<?php echo S_URL;?>img/lisence.png">
+                            <img src="{S_URL}img/lisence.png">
                             <div class="cphm"></div>
                         </div>
                         <div class="licen_mon">共<span class="wfts"></span>条违法信息<br>罚款<span class="fkje"></span>元</div>
@@ -290,7 +290,7 @@
                     <div style="margin-top:18px;" class="wflist">
 
                     </div>
-                    <div class="query_word4"><a href="<?php  echo $this->createMobileUrl('illegal',array('op'=>'start'))?>" style="color: #2ecc71">查询其他车辆违法信息</a></div>
+                    <div class="query_word4"><a href="{php echo $this->createMobileUrl('illegal',array('op'=>'start'))}" style="color: #2ecc71">查询其他车辆违法信息</a></div>
                 </div>
                 <div class="binding">
                     <div class="binding_box">
@@ -329,7 +329,7 @@
         </div>
     </div>
 </div>
-<?php (!empty($this) && $this instanceof WeModuleSite) ? (include $this->template('wxsdk', TEMPLATE_INCLUDEPATH)) : (include template('wxsdk', TEMPLATE_INCLUDEPATH));?>
+{template 'wxsdk'}
 <script>
     $(function(){
         $('.show_car').click(function(){
@@ -388,7 +388,7 @@
                 <div class="appeal_name">
                     <div>姓名:</div>
                     <input type="text" name="appeal_name" placeholder="请输入您的姓名" >
-                    <input type="hidden" value="<?php  echo $userid;?>" name="userid">
+                    <input type="hidden" value="{$userid}" name="userid">
                 </div>
                 <div class="appeal_phone">
                     <div>联系方式:</div>
@@ -396,7 +396,7 @@
                 </div>
                 <div class="appeal_why">
                     <div>申诉原因:</div>
-                    <textarea placeholder="请输入申诉原因(100字)" name="appeal_why"></textarea>
+                    <textarea placeholder="请输入申诉原因(100字以内)" name="appeal_why"></textarea>
                 </div>
             </div>
             <input type="hidden" class="wfcjjg" value="">
@@ -418,8 +418,6 @@
     $("#loading-fs").hide();
     $(function(){
         $('#appeal_sub').click(function(){
-            if(process)return false;
-            process = true;
             var appeal_name = $("[name = 'appeal_name']").val();
             var appeal_phone = $("[name = 'appeal_phone']").val();
             var appeal_why = $("[name = 'appeal_why']").val();
@@ -448,15 +446,28 @@
             if (appeal_why.length > 100){
                 alert('您字数过多，我看不过来，请在100字符之内！');return false;
             }
+            if(process)return false;
+            process = true;
             $("#loading-fs").show();
-            $.post("<?php  echo $this->createMobileUrl('appealpost')?>",{'wfcph':wfcph,'wfmoney':wfmoney,'wffkjf':wffkjf,'wfrksj':wfrksj,'wfclbj':wfclbj,'wfjkxh':wfjkxh,'wfcontent':wfcontent,'wfaddr':wfaddr,'wftime':wftime,'wfcjjg':wfcjjg,'appeal_why':appeal_why,'appeal_phone':appeal_phone,'appeal_name':appeal_name},function(data){
+            $.post("{php echo $this->createMobileUrl('appealpost')}",{'wfcph':wfcph,'wfmoney':wfmoney,'wffkjf':wffkjf,'wfrksj':wfrksj,'wfclbj':wfclbj,'wfjkxh':wfjkxh,'wfcontent':wfcontent,'wfaddr':wfaddr,'wftime':wftime,'wfcjjg':wfcjjg,'appeal_why':appeal_why,'appeal_phone':appeal_phone,'appeal_name':appeal_name},function(data){
                 if(data == 200){
-                    alert('ok');
+                    $('.succees').show();
+                    $('.chaxun').hide();
+                    $('.susub').hide();
                 }
                 process = false;
             });
         });
     });
 </script>
+<div class="content succees" style="display: none">
+    <div class="content_box">
+        <div class="appeal1_box">
+            <i class="appeal_suc">&#xe60d;</i>
+            <div>您的申诉信息我们已经收到，将尽快为您处理。</div>
+        </div>
+        <a id="appeal_back" href="{php echo $this->createMobileUrl('illegal')}" style="text-decoration: none">返回</a>
+    </div>
+</div>
 </body>
 </html>

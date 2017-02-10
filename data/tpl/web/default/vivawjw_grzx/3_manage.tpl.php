@@ -147,7 +147,7 @@
         </div>
         <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
         <div class="col-sm-9 col-xs-9 col-md-9">
-            <p class="form-control-static"><?php  echo date('Y-d-m H:i:s',$wxone['time'])?></p>
+            <p class="form-control-static"><?php  echo date('Y-m-d H:i:s',$wxone['time'])?></p>
         </div>
     </div>
 </div>
@@ -243,7 +243,7 @@
         <div class="form-group">
         <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
         <div class="col-sm-9 col-xs-9 col-md-9">
-            <p class="form-control-static"><?php  echo date('Y-d-m H:i:s',$wdone['time'])?></p>
+            <p class="form-control-static"><?php  echo date('Y-m-d H:i:s',$wdone['time'])?></p>
         </div>
     </div>
     </div>
@@ -394,7 +394,7 @@
         <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static"><?php  echo date('Y-d-m H:i:s',$wxdriving['time'])?></p>
+                <p class="form-control-static"><?php  echo date('Y-m-d H:i:s',$wxdriving['time'])?></p>
             </div>
         </div>
     </div>
@@ -540,7 +540,7 @@
         <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static"><?php  echo date('Y-d-m H:i:s',$wddriving['time'])?></p>
+                <p class="form-control-static"><?php  echo date('Y-m-d H:i:s',$wddriving['time'])?></p>
             </div>
         </div>
     </div>
@@ -686,7 +686,7 @@
         <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">时间:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static"><?php  echo date('Y-d-m H:i:s',$feedone['time'])?></p>
+                <p class="form-control-static"><?php  echo date('Y-m-d H:i:s',$feedone['time'])?></p>
             </div>
         </div>
     </div>
