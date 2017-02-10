@@ -13,6 +13,7 @@
                     <tr>
                         <th style="width:5%;text-align: center">序号</th>
                         <th style="width:30%;text-align: center">姓名</th>
+                        <th style="width:30%;text-align: center">车牌号</th>
                         <th style="width:15%;text-align: center">提交时间</th>
                         <th style="width:15%;text-align: center">状态</th>
                         <th style="width:15%;text-align: center">受理时间</th>
@@ -24,6 +25,7 @@
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['appeal_name']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['wfcph']}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
                         <td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">未受理</span>{elseif $item['status'] == 1} <span style="color:green;">通过</span>{else} <span style="color:red;">驳回</span>{/if}</td>
                         <td style="vertical-align:middle;text-align: center" >{if $item['status'] != 2}{php echo date('Y-m-d H:i:s',$item['sittime'])}{/if}</td>
@@ -73,6 +75,12 @@
                     <p class="form-control-static">{$dataone['appeal_name']}</p>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">车牌号码:</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <p class="form-control-static">{$dataone['wfcph']}</p>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系方式:</label>
@@ -103,23 +111,53 @@
                     <p class="form-control-static">{php echo date('Y-m-d H:i:s',$dataone['wftime'])}</p>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">采集机关名称:</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <p class="form-control-static">{php echo $dataone['wfcjjg']}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">监控序号:</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <p class="form-control-static">{php echo $dataone['wfjkxh']}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">违法处理标记:</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <p class="form-control-static">{if $dataone['wfclbj'] == 2}处理完成{elseif $dataone['wfclbj'] ==1}未缴款{else}未处理{/if}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">违法入录时间:</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <p class="form-control-static">{php echo date('Y-m-d H:i:s',$dataone['wfrksj'])}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">违法罚款记分:</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <p class="form-control-static">{php echo $dataone['wffkjf']}</p>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">违法地点:</label>
                 <div class="col-sm-9 col-xs-9 col-md-9">
-                    <p class="form-control-static">{$dataone['wfaddr']}1</p>
+                    <p class="form-control-static">{$dataone['wfaddr']}</p>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-12 col-sm-3 col-md-2 control-label">违法行为:</label>
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">违法行为（编号）:</label>
                 <div class="col-sm-9 col-xs-9 col-md-9">
-                    <p class="form-control-static">{$dataone['wfcontent']}2</p>
+                    <p class="form-control-static">{$dataone['wfcontent']}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-3 col-md-2 control-label">罚款金额:</label>
                 <div class="col-sm-9 col-xs-9 col-md-9">
-                    <p class="form-control-static">{$dataone['wfmoney']}3</p>
+                    <p class="form-control-static">{$dataone['wfmoney']}</p>
                 </div>
             </div>
             <!--<div class="form-group">

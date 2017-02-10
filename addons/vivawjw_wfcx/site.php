@@ -2,7 +2,7 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
 	/*
@@ -10,13 +10,11 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	 */
 	public function doMobileIllegal(){
 		global $_W,$_GPC;
-		$op =trim($_GPC['op'])? trim($_GPC['op']): 'start';
-		$show =trim($_GPC['show'])? trim($_GPC['show']): 'car';
 		if (empty($_W['fans']['nickname'])) {
 			mc_oauth_userinfo();
 		}
 		$userid = $_W['member']['uid'];
-
+		//var_dump($_W['member']);
 		include $this->template('illegal');
 	}
 	//申请信息
@@ -40,6 +38,17 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$data['uniacid'] = $_W['uniacid'];
 		$data['uid'] = $_GPC['userid'];
 		$data['time'] = time();
+
+		$data['wfcjjg'] = $_GPC['wfcjjg'];
+		$data['wftime'] = strtotime($_GPC['wftime']);
+		$data['wfaddr'] = $_GPC['wfaddr'];
+		$data['wfcontent'] = $_GPC['wfcontent'];
+		$data['wfjkxh'] = $_GPC['wfjkxh'];
+		$data['wfclbj'] = $_GPC['wfclbj'];
+		$data['wfrksj'] = strtotime($_GPC['wfrksj']);
+		$data['wffkjf'] = $_GPC['wffkjf'];
+		$data['wfmoney'] = $_GPC['wfmoney'];
+		$data['wfcph'] = $_GPC['wfcph'];
 		if(!empty($data['appeal_name']) && !empty($data['appeal_phone']) && !empty($data['appeal_why'])){
 			$insert_data = pdo_insert('vivawjw_wfcx',$data);
 			if ($insert_data){
@@ -48,6 +57,43 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		}
 	}
 
+	//车辆违法查询接口
+	public function doMobileApipostcl(){
+		global $_W,$_GPC;
+		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$_GPC['cartype'],$_GPC['carnum'],$_GPC['enginenum']);
+		echo json_encode($data);
+	}
+	//驾驶人违法查询
+	public function doMobileApipostjsr(){
+		global $_W,$_GPC;
+		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$_GPC['drnunum'],$_GPC['filenum']);
+		echo json_encode($data);
+	}
+	//接口
+	public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
+		libxml_disable_entity_loader(false);
+		$opts = array(
+			'ssl'   => array(
+				'verify_peer'          => false
+			),
+			'https' => array(
+				'curl_verify_ssl_peer'  => false,
+				'curl_verify_ssl_host'  => false
+			)
+		);
+		$streamContext = stream_context_create($opts);
+		try {
+			$url = 'http://192.168.11.51:5028/WXWC/wcservice.asmx?wsdl';
+			$c = new SoapClient($url,['stream_context' => $streamContext]);
+			//echo '<pre>';
+			//var_dump($c->register('wxzhcs','wxzhcs123456'));
+			//C81DD8605F0531F0B6C717D07A8979F4
+			return $c->$api($sign,$wx,$typt,$carnum,$engnum);
+
+		} catch (SOAPFault $e) {
+			print_r($e);
+		}
+	}
 
 
 	/*

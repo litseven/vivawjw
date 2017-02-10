@@ -50,11 +50,11 @@
 </div>
 </body>
 <script>
-    var process = false;
+
     $("#loading-fs").hide();
     $(function(){
         $('#appeal_sub').click(function(){
-            if(process)return false;
+
             var appeal_name = $("[name = 'appeal_name']").val();
             var appeal_phone = $("[name = 'appeal_phone']").val();
             var appeal_why = $("[name = 'appeal_why']").val();
@@ -78,7 +78,7 @@
             $.post("{php echo $this->createMobileUrl('appealpost')}&" + data,function(data){
                 window.location.href = "{php echo $this->createMobileUrl('wxappeal',array('op'=>'success'))}";
             });
-            process = true;
+
         });
     });
 </script>

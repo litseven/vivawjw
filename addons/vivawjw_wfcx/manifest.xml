@@ -29,8 +29,8 @@
 DROP TABLE IF EXISTS `ims_vivawjw_wfcx`;
 CREATE TABLE `ims_vivawjw_wfcx` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT NULL,
-  `uniacid` int(11) DEFAULT NULL,
+  `uid` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
   `appeal_name` varchar(255) DEFAULT NULL,
   `appeal_phone` varchar(255) DEFAULT NULL,
   `appeal_why` varchar(255) DEFAULT NULL,
@@ -41,10 +41,16 @@ CREATE TABLE `ims_vivawjw_wfcx` (
   `wftime` int(11) DEFAULT NULL COMMENT '//违法时间',
   `wfaddr` varchar(255) DEFAULT NULL COMMENT '//违法地点',
   `wfcontent` varchar(255) DEFAULT NULL COMMENT '//违法行为',
-  `wfimage` varchar(255) DEFAULT NULL COMMENT '//违法图片',
-  `wfmoney` int(11) DEFAULT NULL COMMENT '//罚款金额',
+  `wfimage` varchar(255) DEFAULT NULL,
+  `wfmoney` int(11) DEFAULT NULL COMMENT '//违法金额',
+  `wfcjjg` varchar(255) DEFAULT NULL COMMENT '//违法采集机关',
+  `wfjkxh` varchar(100) DEFAULT NULL COMMENT '//监控序号',
+  `wfclbj` int(1) DEFAULT NULL COMMENT '//违法处理标记',
+  `wfrksj` int(11) DEFAULT NULL COMMENT '//违法入录时间',
+  `wffkjf` int(2) DEFAULT NULL COMMENT '//违法罚款记分',
+  `wfcph` varchar(10) DEFAULT NULL COMMENT '//违法车牌',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 		]]></install>
 
 </manifest>
