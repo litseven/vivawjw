@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="{S_URL}/css/index.css" rel="stylesheet">
+<script src="{S_URL}/js/jquery-3.0.0.js"></script>
+<script src="{S_URL}/js/index.js"></script>
+<title>无标题文档</title>
+</head>
+
+<body>
+	<!--首页-->
+{if $op == 'index'}
+     <div class="content" id="content" style="display:black">
+          <div class="logo_box">
+               <div><img src="{S_URL}/img/logo.png"></div>
+               <div><img src="{S_URL}/img/icon.png"></div>
+          </div>
+          <div class="title_box">
+               <img src="{S_URL}/img/title.png">
+          </div>
+         <form onsubmit="return false;">
+          <div class="input_box">
+               <div>输入名字试试看呢</div>
+               <input type="text" name="name" id="nameTitle">
+                <input type="hidden" name="key" value="{$key}" id="userName">
+          </div>
+          <div class="radio_box">
+               <div class="radio1_box" id="radio1_box">
+                    <input type="radio" id="male" name="sex" checked="checked" value="meale">
+                    <label for="male" class="checked"><span style="opacity:0; display:inline-block; width:14%;">我</span></label>
+                    <div>我是男生</div>
+               </div>
+               <div class="radio2_box">     
+                    <input type="radio" id="female" name="sex" value="female">
+                    <label for="female"><span style="opacity:0; display:inline-block; width:14%;">我</span></label>
+                    <div>我是女生</div>
+               </div>
+          </div>
+         </form>
+          <a id="btn" ><img src="{S_URL}/img/create-btn.png"></a>
+     </div>
+
+     <!--生成页-->
+    <div class="page2" id="page2" style="display:none">
+          <div class="logo_box">
+               <div><img src="{S_URL}/img/logo.png"></div>
+               <div><img src="{S_URL}/img/icon.png"></div>
+          </div>		  
+          <div id="save_box" class="save_box">
+				<!--生成页显示的title-->
+				<img id="saveTitle" src="{S_URL}/img/save.png">
+		  </div>
+		  
+          <div class="cont_box">
+              <div class="bg_area" style="width: 90%;margin: 0 auto">
+                <img src="" class="show_img" >
+              </div>
+               <!--<div class="bg_area"><img src="{S_URL}/img/context.png"></div>
+               <div class="cont_area">
+                    &lt;!&ndash;男1&ndash;&gt;
+                    <div class="nan1_box">
+						&lt;!&ndash;<span id="cont-name">XXX</span>&ndash;&gt;
+                         <div><img src="{S_URL}/img/message-m1.png"></div>
+                    </div>                                      
+               </div>-->
+          </div>
+          <!--第二页显示的按钮-->
+          <div class="page2_btn" id="page2_btn">
+               <a class="again" id="again" ><img src="{S_URL}/img/again.png"></a>
+               <a class="share" id="share" ><img src="{S_URL}/img/share-btn.png"></a>
+          </div>          
+          <div class="know_box" id="know_box">
+               <a class="realize" id="realize" onclick=""><img src="{S_URL}/img/realize.png"></a>			    
+          </div>          
+    </div>
+
+    <script>
+            $('label').click(function(){
+				var radioId = $(this).attr('name');
+				$('label').removeAttr('class') && $(this).attr('class','checked');
+				$('input[type="radio"]').removeAttr('checked') && $('#' + radioId).attr('checked','checked');
+				});
+
+            $(function(){
+                $('#btn').click(function(){
+                    var src = $("form").serialize();
+                    src = "{php echo $this->createMobileUrl('ShowImg')}&"+src;
+                    $('.show_img').attr('src',src);
+                    $('#content').hide();
+                    $('#page2').show();
+                });
+                $('#again,#play').click(function(){
+                    window.location.reload();
+                });
+                $('#share').click(function(){
+                    var src = $("form").serialize();
+                    window.location.href="{php echo $this->createMobileUrl('indexx',array('op'=>'page3','key'=>"+$key+"))}&"+src;
+                });
+
+            });
+
+    </script>
+    {/if}
+    <!--分享页-->
+    {if $op == 'page3'}
+    {template 'wxsdk'}
+    <div class="page3" id="page3">
+        <div class="logo_box">
+            <div><img src="{S_URL}/img/logo.png"></div>
+            <div><img src="{S_URL}/img/icon.png"></div>
+        </div>
+        <div id="save2_box" class="save2_box">
+            <!--分享页显示的title-->
+            <div id="shareTitle" class="shareTitle"><span id="name">{$_GPC['name']}</span>年底的烦恼是</div>
+        </div>
+
+        <div class="cont_box">
+            <div class="bg_area" style="width: 90%;margin: 0 auto">
+                <img src="" class="show_img" >
+            </div>
+            <!--<div class="bg_area"><img src="{S_URL}/img/context.png"></div>
+            <div class="cont_area">
+                 &lt;!&ndash;男1&ndash;&gt;
+                 <div class="nan1_box">
+                     &lt;!&ndash;<span id="cont-name">XXX</span>&ndash;&gt;
+                      <div><img src="{S_URL}/img/message-m1.png"></div>
+                 </div>
+            </div>-->
+        </div>
+        <div class="page3_btn" id="page3_btn">
+            <!--第三页显示的按钮-->
+            <a class="play" id="play" ><img src="{S_URL}/img/play-btn.png"></a>
+        </div>
+        <div class="know_box" id="know_box">
+            <!--第三页显示的按钮-->
+            <a class="about" id="about" onclick=""><img src="{S_URL}/img/about.png"></a>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            src = "{php echo $this->createMobileUrl('ShowImg',array('name'=>$_GPC['name'],'sex'=>$_GPC['sex'],'key'=>$_GPC['key']))}";
+            $('.show_img').attr('src',src);
+            $('#play').click(function(){
+                window.location.href="{php echo $this->createMobileUrl('indexx')}";
+            });
+        });
+        wx.ready(function(){
+            _title = "{$_GPC['name']}正向你诉说TA的年底烦恼你的呢？";
+            _link = "{$_W['siteurl']}";
+            _imgUrl = "";
+            _desc = "快来留下你想说的话吧";
+            wx.onMenuShareTimeline({
+                title: _title,
+                link: _link,
+                imgUrl: _imgUrl,
+                success: function () {
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: _title,
+                link: _link,
+                desc: _desc,
+                imgUrl: _imgUrl,
+                success: function () {
+                }
+            });
+        });
+    </script>
+    {/if}
+</body>
+</html>
+
