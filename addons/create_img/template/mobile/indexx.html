@@ -88,7 +88,6 @@
     </script>
 {/if}
     {if $op == 'page2'}
-    {template 'wxsdk'}
     <!--生成页-->
     <div class="page2" id="page2" style="display: block">
         <div class="cont_box">
@@ -113,11 +112,14 @@
             </div>
         </div>
     </div>
-
+    {template 'wxsdk'}
     <script>
         $(function(){
             $('.realize').click(function(){
                 $('.page4').show();
+            });
+            $('.page4').click(function(){
+                $('.page4').hide();
             });
             $('#again').click(function(){
                 window.location.href="{php echo $this->createMobileUrl('indexx')}";
@@ -156,43 +158,29 @@
     {/if}
     <!--分享页-->
     {if $op == 'page3'}
-    {template 'wxsdk'}
     <div class="page3" id="page3">
-        <div class="logo_box">
-            <div><img src="{S_URL}/img/logo.png"></div>
-            <div><img src="{S_URL}/img/icon.png"></div>
-        </div>
-        <div id="save2_box" class="save2_box">
-            <!--分享页显示的title-->
-            <div id="shareTitle" class="shareTitle"><span id="name">{$_GPC['name']}</span>年底的烦恼是</div>
-        </div>
-
         <div class="cont_box">
             <div class="bg_area" style="width: 90%;margin: 0 auto">
                 <img src="" class="show_img" >
             </div>
-            <!--<div class="bg_area"><img src="{S_URL}/img/context.png"></div>
-            <div class="cont_area">
-                 &lt;!&ndash;男1&ndash;&gt;
-                 <div class="nan1_box">
-                     &lt;!&ndash;<span id="cont-name">XXX</span>&ndash;&gt;
-                      <div><img src="{S_URL}/img/message-m1.png"></div>
-                 </div>
-            </div>-->
         </div>
         <div class="page3_btn" id="page3_btn">
             <!--第三页显示的按钮-->
-            <a class="play" id="play" ><img src="{S_URL}/img/play-btn.png"></a>
+            <a class="play" id="play"><img src="{S_URL}/img/play-btn.png"></a>
         </div>
-        <div class="know_box" id="know_box">
+        <div class="know_box" id="know_boxId">
             <!--第三页显示的按钮-->
-            <a class="about" id="about"><img src="{S_URL}/img/about.png"></a>
+            <a class="about" id="about" onclick=""><img src="{S_URL}/img/about.png"></a>
         </div>
     </div>
+    {template 'wxsdk'}
     <script>
         $(function(){
             $('.about').click(function(){
                 $('.page4').show();
+            });
+            $('.page4').click(function(){
+                $('.page4').hide();
             });
             src = "{php echo $this->createMobileUrl('ShowImg',array('name'=>$_GPC['name'],'sex'=>$_GPC['sex'],'key'=>$_GPC['key']))}";
             $('.show_img').attr('src',src);

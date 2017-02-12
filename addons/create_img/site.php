@@ -6,7 +6,8 @@
  * @url 
  */
 defined('IN_IA') or exit('Access Denied');
-define('S_URL','http://www.vivawjw.com/addons/'.$_GET['m'].'/template/mobile');
+//define('S_URL','http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/mobile');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/mobile');
 class Create_imgModuleSite extends WeModuleSite {
     /**
      * 男用模板
@@ -50,29 +51,29 @@ class Create_imgModuleSite extends WeModuleSite {
     protected $female = array(
         '0' => array(
             'file' => 'female1',
-            'x_axis' => 380,
-            'y_line' => 282,
+            'x_axis' => 260,
+            'y_line' =>290,
             'w' => 150,
             'h' => 50
         ),
         '1' => array(
             'file' => 'female2',
-            'x_axis' => 160,
-            'y_line' => 280,
+            'x_axis' => 140,
+            'y_line' => 275,
             'w' => 150,
             'h' => 45
         ),
         '2' => array(
             'file' => 'female3',
-            'x_axis' => 345,
+            'x_axis' => 330,
             'y_line' => 230,
             'w' => 88,
             'h' => 40
         ),
         '3' => array(
             'file' => 'female4',
-            'x_axis' => 270,
-            'y_line' => 273,
+            'x_axis' => 280,
+            'y_line' => 280,
             'w' => 250,
             'h' => 50
         ),
@@ -85,8 +86,8 @@ class Create_imgModuleSite extends WeModuleSite {
     protected $global = array(
         '0' => array(
             'file' => 'global1',
-            'x_axis' => 410,
-            'y_line' => 108,
+            'x_axis' => 430,
+            'y_line' => 112,
             'w' => 130,
             'h' => 32
         ),
@@ -106,22 +107,22 @@ class Create_imgModuleSite extends WeModuleSite {
         ),
         '3' => array(
             'file' => 'global4',
-            'x_axis' => 300,
-            'y_line' => 175,
+            'x_axis' => 130,
+            'y_line' => 195,
             'w' => 100,
             'h' => 42
         ),
         '4' => array(
             'file' => 'global5',
-            'x_axis' => 225,
-            'y_line' => 298,
+            'x_axis' => 100,
+            'y_line' => 263,
             'w' => 120,
             'h' => 36
         ),
         '5' => array(
             'file' => 'global6',
-            'x_axis' => 290,
-            'y_line' => 273,
+            'x_axis' => 280,
+            'y_line' => 285,
             'w' => 105,
             'h' => 50
         ),
@@ -139,23 +140,23 @@ class Create_imgModuleSite extends WeModuleSite {
             $key = $_GPC['key'];
         }
         include $this->template('indexx');
-
-
 	}
 	public function doMobileShowImg(){
         global $_W,$_GPC;
         $op = $_GPC['op'];
         $key = $_GPC['key'];
         $sex = $_GPC['sex'];
+        //设置没张模板名字位置
+//        $key = 8;
+//        $sex = 'female';
         if ($sex == 'meale'){
             $file = array_merge($this->male,$this->global);
         }elseif ($sex == 'female'){
             $file = array_merge($this->female,$this->global);
         }
-        //$key =array_rand($file);
         $file = $file[$key];
-        //var_dump($sex);
-        $name = $_GPC['name'];
+        $name = trim($_GPC['name']);
+
         $src_path = dirname(__FILE__) . '/template/resource/bgimg/'. $file['file'].'.png';
         $this->createImg($name,$src_path,$file['x_axis'], $file['y_line'], $file['w'], $file['h']);
         if ($op = 'page2'){
