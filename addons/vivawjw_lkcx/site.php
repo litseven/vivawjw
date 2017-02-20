@@ -1,21 +1,127 @@
 <?php
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
+//ini_set('display_errors', 0);
+//error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
 
 		public function doMobileRoadsel(){
 			global $_W, $_GPC;
             $op = $op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
-            if (empty($_W['fans']['nickname'])) {
-                mc_oauth_userinfo();
-            }
             $user = $_W['member']['uid'];
+            //提交接口对比数据
+            $data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+            //var_dump($data);
+            $data = $this->object2array($data);
+            $data = $data['ZGDLKResult'];
+            $arr = array(
+                0 => array('name' => '梁溪区'),
+                1 => array('name' => '滨湖区'),
+                2 => array('name' => '新吴区'),
+                3 => array('name' => '锡山区'),
+                4 => array('name' => '惠山区'),
+                5 => array('name' => '高架道路'),
+                6 => array('name' => '高速公路'),
+                7 => array('name' => '主要景区周边'),
+                8 => array('name' => '灵山景区周边'),
+                9 => array('name' => '鼋头渚景区周边'),
+                10 => array('name' => '地铁3号线施工周边'),
+            );
+            $i = 0;
+            $child = array();
+            foreach ($arr as $k => $v) {
+                foreach ($data as $key => $value){
+                    if ($v['name'] == $value['ZGDID']) {
+                        $child[$i] = $value;
+                        $i++;
+                    }
+                }
+                $arr[$k]['child'] = $child;
+                unset($child);
+            }
 
+
+            //查询
+            if($op == 'search'){
+                $keyword = $_GPC['keyword'];
+                foreach ($data as $key => $value){
+                    //echo $key.'---'.$value['DWBH'].'---'.$value['WZMS'].'<br/>';
+                    $arr[$key]['DWBH'] = $value['DWBH'];
+                    $arr[$key]['WZMS'] = $value['WZMS'];
+                }
+                foreach ($arr as $kk => $vv) {
+                    if (strpos($vv['WZMS'],$keyword) !== false) {
+                        $return[$kk] = $vv;
+                    }
+                }
+            }
+
+
+            //echo '<pre>';
+            //var_dump($keyword);
 			include $this->template('roadsel');
-			}
+        }
 
+
+        //调取图片接口
+        public function doMobileSeltp(){
+            global $_W, $_GPC;
+            //提交接口对比数据
+            $dwbh = $_GPC['dwbh'];
+            $data = $this->wxapi('LKTPCX','C81DD8605F0531F0B6C717D07A8979F4',$dwbh);
+            $data = $this->object2array($data);
+            $data = $data['LKKZ'];
+            $data = base64_encode($data);
+            echo $data;
+            //echo '<img src="data:image/png;base64,'.$data.'"/>';
+        }
+        //搜索关键字查询
+        public function doMobileSearchkey(){
+            global $_W, $_GPC;
+            $keyword = $_GPC['keyword'];
+            $data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+            $data = $this->object2array($data);
+            foreach ($data['ZGDLKResult'] as $key => $value){
+                //echo $key.'---'.$value['DWBH'].'---'.$value['WZMS'].'<br/>';
+                $arr[$key]['DWBH'] = $value['DWBH'];
+                $arr[$key]['WZMS'] = $value['WZMS'];
+            }
+            foreach ($arr as $k => $v) {
+                if (strpos($v['WZMS'], $keyword) !== false) {
+                    $return[$k] = $v;
+                }
+            }
+            //echo '<pre>';
+            //var_dump($return);
+            //var_dump($arr);
+        }
+        //接口
+        public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
+            libxml_disable_entity_loader(false);
+            $opts = array(
+                'ssl'   => array(
+                    'verify_peer'          => false
+                ),
+                'https' => array(
+                    'curl_verify_ssl_peer'  => false,
+                    'curl_verify_ssl_host'  => false
+                )
+            );
+            $streamContext = stream_context_create($opts);
+            try {
+                $url = 'http://192.168.11.51:5028/WXWC/wcservice.asmx?wsdl';
+                $c = new SoapClient($url,['stream_context' => $streamContext]);
+                //echo '<pre>';
+                //var_dump($c->register('wxzhcs','wxzhcs123456'));
+                //C81DD8605F0531F0B6C717D07A8979F4
+                return $c->$api($sign,$wx,$typt,$carnum,$engnum);
+
+            } catch (SOAPFault $e) {
+                print_r($e);
+            }
+        }
+        //提交路况信息
 		public function doMobileRoadpost(){
 			global $_W,$_GPC;
             $data['uid'] = trim($_GPC['uid']);
@@ -98,6 +204,17 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/templat
             }
 
             include $this->template('manage');
+        }
+        //对象转数组
+        public function object2array($object) {
+            foreach ($object as $k => $v) {
+                if (is_array($v) || is_object($v)) {
+                    $arr[$k] = $this->object2array($v);
+                } else {
+                    $arr[$k] = $v;
+                }
+            }
+            return $arr;
         }
 
     }

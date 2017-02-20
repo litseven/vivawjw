@@ -76,9 +76,11 @@
             var data = $('form').serialize();
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('appealpost')}&" + data,function(data){
+                $("#loading-fs").hide();
                 window.location.href = "{php echo $this->createMobileUrl('wxappeal',array('op'=>'success'))}";
+                process = true;
             });
-            process = true;
+
         });
     });
 </script>

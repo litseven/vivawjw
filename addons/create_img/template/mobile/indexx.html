@@ -25,11 +25,11 @@
         <div class="radio-box">
             <div class="radio-m-box">
                 <input type="radio" id="male" name="sex" value="meale" checked/>
-                <label for="male" class="checked"><span style="opacity: 0; display: inline-block; width: 16%;">男</span></label>
+                <label for="male" class="checked"><img class="sexImg" src="{S_URL}/img/sex-m.png" /></label>
             </div>
             <div class="radio-w-box">
                 <input type="radio" id="female" name="sex" value="female"/>
-                <label for="female"><span style="opacity: 0; display: inline-block; width: 16%;">女</span></label>
+                <label for="female"><img class="sexImg" src="{S_URL}/img/sex-w.png"/></label>
             </div>
         </div>
         </form>
@@ -90,6 +90,11 @@
     {if $op == 'page2'}
     <!--生成页-->
     <div class="page2" id="page2" style="display: block">
+        <div  class="save_box">
+            <!--生成页显示的title-->
+            <img id="saveTitle" src="{S_URL}/img/save.png">
+            <!--分享页显示的title-->
+        </div>
         <div class="cont_box">
             <div class="bg_area" style="width: 90%;margin: 0 auto">
                 <img src="" class="show_img" >
@@ -134,7 +139,7 @@
             $('.show_img').attr('src',src);
         });
         wx.ready(function(){
-            _title = "{$_GPC['name']}正向你诉说TA的烦恼,你的呢？";
+            _title = "{$_GPC['name']}正向你诉说2017年TA的烦恼，你的呢？";
             _link = "{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&c=entry&do=indexx&m=create_img&op=page3&name={$_GPC['name']}&sex={$_GPC['sex']}&key={$_GPC['key']}";
             _imgUrl = "{S_URL}/img/share_img.jpg";
             _desc = "说不定点进来就有人帮你解决了呢";
@@ -159,6 +164,9 @@
     <!--分享页-->
     {if $op == 'page3'}
     <div class="page3" id="page3">
+        <div  class="save_box">
+            <div  class="shareTitle"><span id="name">{$_GPC['name']}</span>2017年的烦恼是</div>
+        </div>
         <div class="cont_box">
             <div class="bg_area" style="width: 90%;margin: 0 auto">
                 <img src="" class="show_img" >
@@ -189,7 +197,7 @@
             });
         });
         wx.ready(function(){
-            _title = "{$_GPC['name']}正向你诉说TA的烦恼,你的呢？";
+            _title = "{$_GPC['name']}正向你诉说2017年TA的烦恼，你的呢？";
             _link = "{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&c=entry&do=indexx&m=create_img&op=page3&name={$_GPC['name']}&sex={$_GPC['sex']}&key={$_GPC['key']}";
             _imgUrl = "{S_URL}/img/share_img.jpg";
             _desc = "说不定点进来就有人帮你解决了呢";

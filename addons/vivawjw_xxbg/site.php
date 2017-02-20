@@ -2,7 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
 class vivawjw_xxbgModuleSite extends WeModuleSite
 {
 	/*
@@ -13,29 +14,21 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$op =trim($_GPC['op'])? trim($_GPC['op']): 'notice';
 		$block =trim($_GPC['block'])? trim($_GPC['block']): 'driver';
 		$show =trim($_GPC['show'])? trim($_GPC['show']): 'driver';
-		if (empty($_W['fans']['nickname'])) {
-			mc_oauth_userinfo();
-		}
-		//驾驶证号、证芯编号
-		$drivernum = trim($_GPC['drivernum']);
-		$driverpapers = trim($_GPC['driverpapers']);
 
-		//车辆类型车牌、证芯编号
-		$chcartype = trim($_GPC['chcartype']);
-		$chcarnum = trim($_GPC['chcarnum']);
-		$chcarpapers = trim($_GPC['chcarpapers']);
+		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
 		include $this->template('infochange');
 	}
-	//驾驶人接受数据验证
+	//驾驶证信息查询验证
 	public function doMobileDrivermanage(){
 		global $_W,$_GPC;
 		$drivernum = trim($_GPC['drivernum']);
 		$driverpapers = trim($_GPC['driverpapers']);
 
 		//提交接口对比数据
-
-		echo 200;exit;
+		$data = $this->wxapi('JSZXXCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$drivernum,$driverpapers);
+		echo json_encode($data);
 	}
+
 	//机动车接受数据验证
 	public function doMobileCarmanage(){
 		global $_W,$_GPC;
@@ -43,47 +36,61 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$chcarnum = trim($_GPC['chcarnum']);
 		$chcarpapers = trim($_GPC['chcarpapers']);
 
-		//提交接口对比数据
-
-		echo 200;exit;
+        //提交接口对比数据
+        $data = $this->wxapi('CLXXCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$chcartype,$chcarnum,$chcarpapers);
+        echo json_encode($data);
 	}
+    //接口
+    public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
+        libxml_disable_entity_loader(false);
+        $opts = array(
+            'ssl'   => array(
+                'verify_peer'          => false
+            ),
+            'https' => array(
+                'curl_verify_ssl_peer'  => false,
+                'curl_verify_ssl_host'  => false
+            )
+        );
+        $streamContext = stream_context_create($opts);
+        try {
+            $url = 'http://192.168.11.51:5028/WXWC/wcservice.asmx?wsdl';
+            $c = new SoapClient($url,['stream_context' => $streamContext]);
+            //echo '<pre>';
+            //var_dump($c->register('wxzhcs','wxzhcs123456'));
+            //C81DD8605F0531F0B6C717D07A8979F4
+            return $c->$api($sign,$wx,$typt,$carnum,$engnum);
+
+        } catch (SOAPFault $e) {
+            print_r($e);
+        }
+    }
 	//变更驾驶人信息
 	public function doMobileDrpost(){
 		global $_W,$_GPC;
-		$data['uniacid'] = $_W['uniacid'];
-		$data['uid'] = trim($_W['member']['uid']);
-		$data['drname'] = trim($_GPC['drname']);
-		$data['drcard'] = trim($_GPC['drcard']);
-		$data['drnum'] = trim($_GPC['drnum']);
-		$data['draddr'] = trim($_GPC['draddr']);
-		$data['drphone'] = trim($_GPC['drphone']);
-		$data['drtime'] = time();
-		$data['drivernum'] = trim($_GPC['drivernum']);
-		$data['driverpapers'] = trim($_GPC['driverpapers']);
-		$drdata = pdo_insert('vivawjw_change_driver',$data);
-		if ($drdata){
-			echo 200;exit;
-		}
+		$drivernum = $_GPC['drivernum'];
+		$driverpapers = $_GPC['driverpapers'];
+		$lxdh = $_GPC['lxdh'];
+		$sjhm = $_GPC['sjhm'];
+		$lsdz = $_GPC['lsdz'];
+		//提交接口对比数据
+		$data = $this->wxapi('JSZXXBG','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$driverpapers,$drivernum,$lxdh,$sjhm,$lsdz);
+		echo json_encode($data);
+
 
 	}
 	//变更机动车信息
 	public function doMobileCarpost(){
 		global $_W,$_GPC;
-		$data['uniacid'] = $_W['uniacid'];
-		$data['uid'] = trim($_W['member']['uid']);
-		$data['carname'] = trim($_GPC['carname']);
-		$data['cartype'] = trim($_GPC['cartype']);
-		$data['carnum'] = trim($_GPC['carnum']);
-		$data['caraddr'] = trim($_GPC['caraddr']);
-		$data['carphone'] = trim($_GPC['carphone']);
-		$data['cartime'] = time();
-		$data['chcartype'] = trim($_GPC['chcartype']);
-		$data['chcarnum']= trim($_GPC['chcarnum']);
-		$data['chcarpapers'] = trim($_GPC['chcarpapers']);
-		$cardata = pdo_insert('vivawjw_change_car',$data);
-		if ($cardata){
-			echo 200;eixt;
-		}
+		$chcartype = $_GPC['chcartype'];
+		$chcarnum = $_GPC['chcarnum'];
+		$chcarpapers = $_GPC['chcarpapers'];
+		$lxdh = $_GPC['lxdh'];
+		$sjhm = $_GPC['sjhm'];
+		$lsdz = $_GPC['lsdz'];
+		//提交接口对比数据
+		$data = $this->wxapi('CLXXBG','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$chcartype,$chcarnum,$chcarpapers,$lxdh,$sjhm,$lsdz);
+		echo json_encode($data);
 	}
 
 

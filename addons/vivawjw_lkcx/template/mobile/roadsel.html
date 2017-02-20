@@ -6,8 +6,7 @@
      <meta name="apple-mobile-web-app-capable" content="yes">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <link href="{S_URL}css/style.css" rel="stylesheet">
-     <script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
-     <script src="http://imgcdn.yimiaoxiao.com/jquery.form.min.js"></script>
+     <script src="{S_URL}js/jquery-3.0.0.js"></script>
      <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
      <title>路况查询</title>
 </head>
@@ -18,12 +17,11 @@
           <div class="search_box">
                <div class="search">
                     <input type="text" placeholder="道路关键词" id="search">
-                    <button><i>&#xe601;</i></button>
+                    <button class="sel_search"><i>&#xe601;</i></button>
                </div>
           </div>
 
           <div class="place_box">
-
                <div class="areas">
                     <!--梁溪区-->
                     <div class="area1" data-target="q_1">
@@ -38,85 +36,60 @@
                               <i>&#xe612;</i>
                               <div>滨湖区</div>
                          </div>
-
                     </div>
-
                </div>
                <!--详细信息-->
                <div class="detail_box" id="q_1" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
+                    {loop $arr $item}
+                         {if $item['name'] == '梁溪区'}
+                              {loop $item['child'] $v}
+                              <div>
+                                   <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                        <i class="detail_icon1">&#xe622;</i>
+                                        <div class="deta_addr">{$v['WZMS']}</div>
+                                        <div class="deta_collect">
+                                             <i>&#xe623;</i>
+                                             <span>收藏</span>
+                                        </div>
+                                   </div>
+                                   <div class="detail_boxes hide">
+                                        <img src="" style="display: block;" class="img{$v['DWBH']}">
+                                        <div class="detail11_box">
+                                             <div>注：图片每5分钟自动更新</div>
+                                             <div class="locaing">图片加载较慢，请耐心等待</div>
+                                        </div>
+                                   </div>
                               </div>
-                         </div>
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
-
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="detail_box" id="q_2" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春1申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
+                    {loop $arr $item}
+                         {if $item['name'] == '滨湖区'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>收藏</span>
+                                             </div>
+                                        </div>
 
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="areas">
@@ -140,79 +113,55 @@
                <!--详细信息-->
 
                <div class="detail_box" id="q_3" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春34申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>已收藏</span>
+                    {loop $arr $item}
+                         {if $item['name'] == '新吴区'}
+                              {loop $item['child'] $v}
+                              <div>
+                                   <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                        <i class="detail_icon1">&#xe622;</i>
+                                        <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                        <div class="deta_collect">
+                                             <i>&#xe623;</i>
+                                             <span>已收藏</span>
+                                        </div>
+                                   </div>
+                                   <div class="detail_boxes hide">
+                                        <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                        <div class="detail11_box">
+                                             <div>注：图片每5分钟自动更新</div>
+                                             <div  class="locaing">图片加载较慢，请耐心等待</div>
+                                        </div>
+                                   </div>
                               </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>已收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="detail_box" id="q_4" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春3申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春5申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
+                    {loop $arr $item}
+                         {if $item['name'] == '锡山区'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div  class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="areas">
@@ -237,79 +186,55 @@
                <!--详细信息-->
 
                <div class="detail_box" id="q_5" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">惠山区申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
+                    {loop $arr $item}
+                         {if $item['name'] == '惠山区'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="detail_box" id="q_6" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">高架道路申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春5申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-
-                    </div>
+                    {loop $arr $item}
+                         {if $item['name'] == '高架道路'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="areas">
@@ -334,79 +259,55 @@
                <!--详细信息-->
 
                <div class="detail_box" id="q_7" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">高速公路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
+                    {loop $arr $item}
+                         {if $item['name'] == '高速公路'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="detail_box" id="q_8" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">主要景区周边申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">春5申路北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
-
+                    {loop $arr $item}
+                         {if $item['name'] == '主要景区周边'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
 
@@ -422,23 +323,29 @@
                </div>
 
                <div class="detail_box" id="q_9" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">灵山景区北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
+                    {loop $arr $item}
+                         {if $item['name'] == '灵山景区周边'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="areas">
@@ -446,30 +353,36 @@
                     <div class="area1" data-target="q_10" id="area1">
                          <div class="area_1" >
                               <i style="padding-left:5%;">&#xe612;</i>
-                              <div style="margin-left:21%;">鼋头渚竞速周边</div>
+                              <div style="margin-left:21%;">鼋头渚景区周边</div>
                          </div>
                     </div>
 
                </div>
 
                <div class="detail_box" id="q_10" style="display:none;">
-                    <div>
-                         <div class="detail1" data-ti='0'>
-                              <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">鼋头渚竞速周边北大街路口</div>
-                              <div class="deta_collect">
-                                   <i>&#xe623;</i>
-                                   <span>收藏</span>
-                              </div>
-                         </div>
-
-                         <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
-                              <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                              </div>
-                         </div>
-                    </div>
+                    {loop $arr $item}
+                         {if $item['name'] == '鼋头渚景区周边'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
                </div>
 
                <div class="areas">
@@ -484,74 +397,131 @@
                </div>
 
                <div class="detail_box" id="q_11" style="display:none;">
+                    {loop $arr $item}
+                         {if $item['name'] == '地铁3号线施工周边'}
+                              {loop $item['child'] $v}
+                                   <div>
+                                        <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                             <i class="detail_icon1">&#xe622;</i>
+                                             <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                             <div class="deta_collect">
+                                                  <i>&#xe623;</i>
+                                                  <span>已收藏</span>
+                                             </div>
+                                        </div>
+                                        <div class="detail_boxes hide">
+                                             <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                             <div class="detail11_box">
+                                                  <div>注：图片每5分钟自动更新</div>
+                                                  <div class="locaing">图片加载较慢，请耐心等待</div>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {/loop}
+                         {/if}
+                    {/loop}
+               </div>
+          </div>
+          <a id="road" href="{php echo $this->createMobileUrl('roadsel',array('op'=>'roadpsot'))}" style="text-decoration: none">我要报路况</a>
+     </div>
+</div>
+{/if}
+{if $op == 'search'}
+<body  style="background-color:#eeeeee;">
+<div class="content" >
+     <div class="content_box">
+          <div class="search_box">
+               <div class="search">
+                    <p>关键字：<span class="keyword">{$_GPC['keyword']}</span></p>
+               </div>
+          </div>
+
+          <div class="place_box">
+               <div class="detail_box">
+                    {loop $return $it}
                     <div>
-                         <div class="detail1" data-ti='0'>
+                         <div class="detail1" data-ti='0' data-dwbh="{$it['DWBH']}">
                               <i class="detail_icon1">&#xe622;</i>
-                              <div class="deta_addr">地铁3号线施工周边边北大街路口</div>
+                              <div class="deta_addr" data-dwbh="{$it['DWBH']}">{$it['WZMS']}</div>
                               <div class="deta_collect">
                                    <i>&#xe623;</i>
-                                   <span>收藏</span>
+                                   <span>已收藏</span>
                               </div>
                          </div>
-
                          <div class="detail_boxes hide">
-                              <img src="{S_URL}img/sy.jpg" style="display: block;">
+                              <img src="" style="display: block;"  class="img{$it['DWBH']}">
                               <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
+                                   <div>注：图片每5分钟自动更新</div>
+                                   <div class="locaing">图片加载较慢，请耐心等待</div>
                               </div>
                          </div>
                     </div>
+                    {/loop}
                </div>
-
           </div>
-
-          <a id="road" href="{php echo $this->createMobileUrl('roadsel',array('op'=>'roadpsot'))}" style="text-decoration: none">我要报路况</a>
-
+          <a class="road" href="{php echo $this->createMobileUrl('roadsel')}" style="text-decoration: none">点击返回列表</a>
      </div>
+
 </div>
-<script>
-     //展开样式
-     $('.area1').click(function(){
-          if($(this).hasClass('area_current')){
-               $('.area1').removeClass('area_current');
-               $('.detail_box').hide();
-               return false;
-          }else{
-               $('.area1').removeClass('area_current');
-               $(this).addClass('area_current');
-               _t = $(this).attr('data-target');
-               $('.detail_box').hide();
-               $("#"+_t).show();
-          }
-     });
-     $('.deta_collect i').click(function(){
-          if($(this).hasClass('star')){
-               $(this).removeClass('star');
-               $(this).siblings('.deta_collect span').text('收藏');
-               return;
-          }else{
-               /*$('.deta_collect i').removeClass('star');*/
-               $(this).addClass('star');
-               /*$('.deta_collect span').text('收藏');*/
-               $(this).siblings('.deta_collect span').text('已收藏');
-          }
-     })
-     $('.detail1').click(function(){
-
-          if($(this).data('ti')== 0){
-               $(this).data('ti',1);
-               $(this).siblings('.detail_boxes').show();
-               $(this).find('.detail_icon1').css('transform','rotate(90deg)');
-
-          }else{
-               $(this).data('ti',0);
-               $(this).siblings('.detail_boxes').hide();
-               $(this).find('.detail_icon1').css('transform','rotate(0deg)');
-
-          }
-     })
-</script>
 {/if}
+<script>
+     $(function(){
+          //展开样式
+          $('.area1').click(function(){
+               if($(this).hasClass('area_current')){
+                    $('.area1').removeClass('area_current');
+                    $('.detail_box').hide();
+                    return false;
+               }else{
+                    $('.area1').removeClass('area_current');
+                    $(this).addClass('area_current');
+                    _t = $(this).attr('data-target');
+                    $('.detail_box').hide();
+                    $("#"+_t).show();
+               }
+          });
+          $('.detail1 i').click(function(){
+               if($(this).hasClass('star')){
+                    $(this).removeClass('star');
+                    $(this).siblings('.deta_collect span').text('收藏');
+                    return;
+               }else{
+                    /*$('.deta_collect i').removeClass('star');*/
+                    $(this).addClass('star');
+                    /*$('.deta_collect span').text('收藏');*/
+                    $(this).siblings('.deta_collect span').text('已收藏');
+               }
+          });
+          //查询
+          $('.sel_search').click(function(){
+               var keyword = $('#search').val();
+               window.location.href = "{php echo $this->createMobileUrl('roadsel',array('op' => 'search'))}&keyword="+keyword;
+               //$.post("{php echo $this->createMobileUrl('roadsel')}",{keyword:keyword},function(data){
+                    //console.log(data);
+               //});
+          });
+          $('.detail1').click(function(){
+               var dwbh = $(this).attr("data-dwbh");
+               var _this = $(this);
+               $.post("{php echo $this->createMobileUrl('seltp')}",{'dwbh':dwbh},function(data){
+                    $('.img'+ dwbh).attr('src','data:image/png;base64,'+data);
+                    _this.siblings().find('.locaing').hide();
+                    //console.log(data);
+               });
+               if($(this).data('ti')== 0){
+                    $(this).data('ti',1);
+                    $(this).siblings('.detail_boxes').show();
+                    $(this).find('.detail_icon1').css('transform','rotate(90deg)');
+
+               }else{
+                    $(this).data('ti',0);
+                    $(this).siblings('.detail_boxes').hide();
+                    $(this).find('.detail_icon1').css('transform','rotate(0deg)');
+
+               }
+          })
+     });
+</script>
 {if $op == 'roadpsot'}
 <body>
 <div class="content">
@@ -572,8 +542,6 @@
           <a class="picture_btn">确认</a>
      </div>
 </div>
-
-
 {template 'wxsdk'}
 <script>
      //上传图片
@@ -625,9 +593,9 @@
                          $("#loading-fs").hide();
                          alert('提交失败！');
                     }
-
+                   process = true;
                });
-               process = true;
+
           });
      });
 </script>

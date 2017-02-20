@@ -6,8 +6,7 @@
      <meta name="apple-mobile-web-app-capable" content="yes">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <link href="<?php echo S_URL;?>css/style.css" rel="stylesheet">
-     <script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
-     <script src="http://imgcdn.yimiaoxiao.com/jquery.form.min.js"></script>
+     <script src="<?php echo S_URL;?>js/jquery-3.0.0.js"></script>
      <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
      <title>路况查询</title>
 </head>

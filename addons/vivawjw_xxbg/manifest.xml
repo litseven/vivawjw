@@ -22,49 +22,11 @@
 			<entry title="入口" do="infochange" state="" direct="false" />
 		</cover>
 		<menu>
-			<entry title="管理" do="manage" state="" direct="false" />
+			<!--<entry title="管理" do="manage" state="" direct="false" />-->
 		</menu>
 	</bindings>
 	<install><![CDATA[
-DROP TABLE IF EXISTS `ims_vivawjw_change_car`;
-CREATE TABLE `ims_vivawjw_change_car` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `uniacid` int(11) DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
-  `carname` varchar(255) DEFAULT NULL,
-  `carnum` varchar(15) DEFAULT NULL,
-  `cartype` int(2) DEFAULT NULL,
-  `caraddr` varchar(255) DEFAULT NULL,
-  `carphone` varchar(11) DEFAULT NULL,
-  `cartime` int(11) DEFAULT NULL,
-  `status` int(1) DEFAULT '2',
-  `turndown` varchar(255) DEFAULT NULL,
-  `sittime` int(11) DEFAULT NULL,
-  `chcartype` int(2) DEFAULT NULL,
-  `chcarnum` varchar(15) DEFAULT NULL,
-  `chcarpapers` varchar(6) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-DROP TABLE IF EXISTS `ims_vivawjw_change_driver`;
-CREATE TABLE `ims_vivawjw_change_driver` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `uniacid` int(11) DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
-  `drname` varchar(255) DEFAULT NULL,
-  `drcard` varchar(18) DEFAULT NULL,
-  `drivernum` varchar(18) DEFAULT NULL,
-  `driverpapers` varchar(6) DEFAULT NULL,
-  `drnum` varchar(255) DEFAULT NULL,
-  `draddr` varchar(255) DEFAULT NULL,
-  `drphone` varchar(11) DEFAULT NULL,
-  `drtime` int(11) DEFAULT NULL,
-  `status` int(1) DEFAULT '2',
-  `turndown` varchar(255) DEFAULT NULL,
-  `sittime` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
 		]]></install>
 
 </manifest>

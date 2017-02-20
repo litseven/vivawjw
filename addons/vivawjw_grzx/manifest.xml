@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `ims_vivawjw_user_bound_car`;
 CREATE TABLE `ims_vivawjw_user_bound_car` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` int(11) DEFAULT NULL,
   `wx_type` varchar(255) DEFAULT NULL,
   `wx_car_num` varchar(18) DEFAULT NULL,
   `wx_car_engine` varchar(6) DEFAULT NULL,
@@ -45,30 +45,32 @@ CREATE TABLE `ims_vivawjw_user_bound_car` (
   `wd_car_num` varchar(18) DEFAULT NULL,
   `wd_car_engine` varchar(6) DEFAULT NULL,
   `distinction` int(1) DEFAULT NULL COMMENT '//1为无锡，0为外地',
-  `status` int(1) DEFAULT '2' COMMENT '//1通过，2待受理，3驳回',
+  `status` int(1) DEFAULT NULL,
   `turndown` varchar(255) DEFAULT NULL COMMENT '//驳回原因',
   `time` int(11) NOT NULL,
   `sittime` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `bound` int(1) DEFAULT NULL COMMENT '//是否绑定1为绑定0没绑定',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `ims_vivawjw_user_bound_driving`;
 CREATE TABLE `ims_vivawjw_user_bound_driving` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` int(11) DEFAULT NULL,
   `wx_driv_num` varchar(18) DEFAULT NULL,
   `wx_driv_record` varchar(6) DEFAULT NULL,
   `wd_driv_num` varchar(18) DEFAULT NULL,
   `wd_driv_record` varchar(6) DEFAULT NULL,
   `distinction` int(1) DEFAULT NULL COMMENT '//1为无锡，0为外地',
-  `status` int(1) DEFAULT '2' COMMENT '//1通过，2待受理，3驳回',
+  `status` int(1) DEFAULT NULL,
   `turndown` varchar(255) DEFAULT NULL COMMENT '//驳回原因',
   `time` int(11) NOT NULL,
   `sittime` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `bound` int(1) DEFAULT NULL COMMENT '//是否绑定1为绑定0没绑定',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `ims_vivawjw_user_feedback`;
 CREATE TABLE `ims_vivawjw_user_feedback` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -78,7 +80,7 @@ CREATE TABLE `ims_vivawjw_user_feedback` (
   `content` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
-  `status` int(1) DEFAULT '2',
+  `status` int(1) DEFAULT NULL,
   `turndown` varchar(255) DEFAULT NULL,
   `sittime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -124,6 +126,74 @@ CREATE TABLE `ims_vivawjw_user_warn_status` (
   `title_key` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_vivawjw_cartype`;
+CREATE TABLE `ims_vivawjw_cartype` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `carnum` varchar(3) DEFAULT NULL,
+  `cartype` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ims_vivawjw_cartype
+-- ----------------------------
+INSERT INTO `ims_vivawjw_cartype` VALUES ('1', '02', '小型汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('2', '01', '大型汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('3', '03', '使馆汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('4', '04', '领馆汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('5', '05', '境外汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('6', '06', '外籍汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('7', '07', '普通摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('8', '08', '轻便摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('9', '09', '使馆摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('10', '10', '领馆摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('11', '11', '境外摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('12', '12', '外籍摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('13', '13', '低速车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('14', '14', '拖拉机');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('15', '15', '挂车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('16', '16', '教练汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('17', '17', '教练摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('18', '18', '试验汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('19', '19', '试验摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('20', '20', '临时入境汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('21', '21', '临时入境摩托车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('22', '22', '临时行驶车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('23', '23', '警用汽车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('24', '24', '警用摩托');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('25', '25', '原农机号牌');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('26', '26', '香港入出境车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('27', '27', '澳门入出境车');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('28', '31', '武警号牌');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('29', '32', '军队号牌');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('30', '41', '无号牌');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('31', '42', '假号牌');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('32', '43', '挪用号牌');
+INSERT INTO `ims_vivawjw_cartype` VALUES ('33', '99', '其他号牌');
+
+DROP TABLE IF EXISTS `ims_vivawjw_autopush_lists`;
+CREATE TABLE `ims_vivawjw_autopush_lists` (
+  `id` int(13) NOT NULL AUTO_INCREMENT,
+  `xh` varchar(30) NOT NULL,
+  `openid` varchar(60) NOT NULL,
+  `uid` int(13) NOT NULL,
+  `fwdm` varchar(6) NOT NULL,
+  `hpzl` varchar(60) NOT NULL,
+  `hphm` varchar(16) NOT NULL,
+  `wfdz` varchar(128) NOT NULL,
+  `wfsj` datetime NOT NULL,
+  `wfxw` varchar(128) DEFAULT NULL,
+  `xm` varchar(20) DEFAULT NULL,
+  `jszh` varchar(18) DEFAULT NULL,
+  `rksj` datetime NOT NULL,
+  `addtime` datetime NOT NULL,
+  `uniacid` int(13) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未遍历 1成功 2失败',
+  `needpush` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 不需要发送 1 需要发送 与个人信息设置有关',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=275 DEFAULT CHARSET=utf8;
+
 		]]></install>
 
 </manifest>

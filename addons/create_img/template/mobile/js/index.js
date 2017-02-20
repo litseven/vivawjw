@@ -27,15 +27,15 @@ $(function () {
         //alert($(window).height());
         if ($(window).height() < 400) {
             $('#btn').css('display', 'none');
-            $('#nameTitle').css('display', 'none');
-            $('.input_box').css('top', '60%');
-            $('.radio_box').css('top', '85%');
+            $('.input_box').css('top', '46%');
+            $('.input_box p').css('display', 'none');
+            $('.radio-box').css('top', '75%');
             $('#userName').attr('placeholder','输入名字试试看呢');
         }else{
             $('#btn').css('display', 'block');
-            $('#nameTitle').css('display', 'block');
-            $('.radio_box').css('top', '58.9%');
+            $('.radio-box').css('top', '57.9%');
             $('.input_box').css('top', '43%');
+            $('.input_box p').css('display', 'block');
             $('#userName').removeAttr('placeholder');
         }
     });

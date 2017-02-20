@@ -25,17 +25,18 @@
                 <div class="car_style">
                     <div>车辆类型</div>
                     <select name="cartype">
-                        <option value="02">小型车辆</option>
-                        <option value="01">大型车辆</option>
+                        {loop $cartype $tiem}
+                        <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
+                        {/loop}
                     </select>
                 </div>
                 <div class="car_style">
                     <div>车牌号码</div>
-                    <input type="text" name="carnum" id="car_number" value="苏BV286Z">
+                    <input type="text" name="carnum" id="car_number" value="苏B">
                 </div>
                 <div class="car_style">
                     <div>发动机号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" name="enginenum" placeholder="请输入发动机号后六位" id="car_fa" value="101923">
+                    <input type="text" name="enginenum" placeholder="请输入发动机号后六位" id="car_fa" >
                 </div>
                 <a id="query">查询</a>
                 <div class="query_word1">视频及外地违法图片请到各违法处理点查看</div>
@@ -45,11 +46,11 @@
             <div class="query_box jszwf" style="display:none">
                 <div class="car_style">
                     <div>驾驶证编号</div>
-                    <input type="text" name="drnunum" id="car_number1" placeholder="请输入驾驶证编号" value="320201197601293018">
+                    <input type="text" name="drnunum" id="car_number1" placeholder="请输入驾驶证编号" >
                 </div>
                 <div class="car_style">
                     <div>档案编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" name="filenum" placeholder="请输入档案编号后六位" id="car_fa1" value="243509">
+                    <input type="text" name="filenum" placeholder="请输入档案编号后六位" id="car_fa1" >
                 </div>
                 <a id="query1">查询</a>
                 <div class="query_word3">查看我绑定驾驶证的违法信息</div>
@@ -63,7 +64,6 @@
     $(function(){
         $('#query').click(function(){
             if(process)return false;
-            process = true;
             var cartype = $("[name = 'cartype']").val();
             var carnum = $("[name = 'carnum']").val();
             var enginenum = $("[name = 'enginenum']").val();
@@ -79,7 +79,7 @@
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('apipostcl')}",{'cartype':cartype,'carnum':carnum,'enginenum':enginenum},function(data){
-                console.log(data);
+                //console.log(data);
                 if (data.State == 0){
                     var list = data.WFXXList.WFXX;
                     var fkje = 0;
@@ -184,7 +184,7 @@
                     $('.endjsyxx').hide();
                     $('.endclwf').show();
                 }
-                process = false;
+                process = true;
 
             },'JSON');
 
@@ -193,7 +193,6 @@
 
         $('#query1').click(function(){
             if(process)return false;
-            process = true;
             var drnunum = $("[name = 'drnunum']").val();
             var filenum = $("[name = 'filenum']").val();
             if (drnunum == ''){
@@ -207,7 +206,7 @@
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('apipostjsr')}",{'drnunum':drnunum,'filenum':filenum},function(data){
-                console.log(data);
+                //console.log(data);
                 if (data){
                     switch (data.ZT) {
                         case 'A':
@@ -265,7 +264,7 @@
                     $('.yxqz').text(data.YXQZ);
                     $('.jsrzt').text(a);
                 }
-                process = false;
+                process = true;
             },'JSON');
 
             $("#loading-fs").hide();
@@ -447,7 +446,6 @@
                 alert('您字数过多，我看不过来，请在100字符之内！');return false;
             }
             if(process)return false;
-            process = true;
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('appealpost')}",{'wfcph':wfcph,'wfmoney':wfmoney,'wffkjf':wffkjf,'wfrksj':wfrksj,'wfclbj':wfclbj,'wfjkxh':wfjkxh,'wfcontent':wfcontent,'wfaddr':wfaddr,'wftime':wftime,'wfcjjg':wfcjjg,'appeal_why':appeal_why,'appeal_phone':appeal_phone,'appeal_name':appeal_name},function(data){
                 if(data == 200){
@@ -455,7 +453,7 @@
                     $('.chaxun').hide();
                     $('.susub').hide();
                 }
-                process = false;
+                process = true;
             });
         });
     });

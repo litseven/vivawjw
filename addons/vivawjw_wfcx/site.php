@@ -15,6 +15,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		}
 		$userid = $_W['member']['uid'];
 		//var_dump($_W['member']);
+		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
 		include $this->template('illegal');
 	}
 	//申请信息
@@ -36,7 +37,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$data['appeal_phone'] = $_GPC['appeal_phone'];
 		$data['appeal_why'] = $_GPC['appeal_why'];
 		$data['uniacid'] = $_W['uniacid'];
-		$data['uid'] = $_GPC['userid'];
+		$data['uid'] = $_W['member']['uid'];
 		$data['time'] = time();
 
 		$data['wfcjjg'] = $_GPC['wfcjjg'];

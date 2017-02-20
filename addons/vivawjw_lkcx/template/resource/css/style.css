@@ -70,7 +70,7 @@ a{text-decoration: none}
 .upload1 {  width: 22%;  float: left;  margin: 0 1.5%;  height: 66px;  line-height: 61px;  border: solid 1px #dddddd;  }
 .upload_tip{font-size:0.8rem; text-align:center; margin:0 auto; width:82%; margin-top:4%;}
 .pict_intro{width:80%; border-radius:10px; padding-left:3%; padding-top:2%;height:100px; margin-top:10%; margin-left:10%; border:solid 1px #b3b3b3; resize:none;}
-.picture_btn ,#road ,#appeal_back ,.acc_step ,#certain ,#submit ,#remind_back ,#feed_sub ,#feed_btn{display:block; width:40%; margin:0 auto; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
+.picture_btn ,#road ,#appeal_back ,.acc_step ,#certain ,#submit ,#remind_back ,#feed_sub ,#feed_btn,.road{display:block; width:40%; margin:0 auto; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
 
 /*路况查询*/
 .place_box{width:100%; background-color:white; margin-top:4%;}
@@ -87,11 +87,11 @@ a{text-decoration: none}
 
 .detail_area{width:100%;}
 .detail_box{width:100%;}
-.detail1{width:100%; overflow:hidden; height:50px; border-bottom:solid 1px #b2b2b2;}
-.detail_icon1{color:#a8a8a8; margin-left:3%; line-height:50px; float:left; font-size:16px; font-family:"iconfont" !important; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
-.deta_addr{float:left; line-height:50px; font-size:0.9rem; margin-left:3%;}
+.detail1{width:100%; overflow:hidden;/* height:50px;*/padding-top:12px;padding-bottom:12px; border-bottom:solid 1px #b2b2b2;}
+.detail_icon1{color:#a8a8a8; margin-left:3%; /*line-height:50px;*/ float:left; font-size:16px; font-family:"iconfont" !important; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.deta_addr{float:left;/*line-height:50px;*/ font-size:0.9rem; margin-left:3%;/*margin-top: 14px;*/width:60%;}
 .deta_collect{float:right;/* margin-right:2%;*/ width:23%;}
-.deta_collect i{color:#999999; line-height:50px; font-family:"iconfont" !important; font-size:18px; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.deta_collect i{color:#999999; /*line-height:50px;*/ font-family:"iconfont" !important; font-size:18px; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
 .deta_collect .star{color:#ffda0e;}
 .deta_collect span{font-size:0.9rem;}
 
@@ -103,7 +103,7 @@ a{text-decoration: none}
 
 .detail_boxes{ width:100%;}
 .detail_boxes img{width:100%;}
-.detail11_box{background-color:#cfcfcf; font-size:0.8rem; height:65px; text-align: center; line-height: 65px; color:white;}
+.detail11_box{background-color:#cfcfcf; font-size:0.8rem; height:50px; line-height: 20px; color:white;padding:6px 0 0 3%;}
 .hide{display:none;}
 
 /*事故快处*/

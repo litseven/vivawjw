@@ -2,7 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
 	class Vivawjw_sgkclModuleSite extends WeModuleSite {
 
 
@@ -15,7 +16,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/templat
             $userid = $_W['member']['uid'];
             //报警编号
             $renum = $_GPC['renum'];
-            $lpaddr = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc_addr').' WHERE uniacid=:uniacid',array(':uniacid'=>$_W['uniacid']));
+            $lpaddr = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc_addr'));
             if($op == 'lp'){
                 $id = $_GPC['id'];
                 $lpaddrone = pdo_fetch('SELECT * FROM '.tablename('vivawjw_sgkc_addr').' WHERE uniacid=:uniacid AND id=:id',array(':uniacid'=>$_W['uniacid'],':id'=>$id));
@@ -31,7 +32,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/templat
 
 		public function doMobilePostacc(){
 			global $_W,$_GPC;
-			$data['uid'] = $_GPC['userid'];
+			$data['uid'] =  $_W['member']['uid'];
 			$data['uniacid'] = $_W['uniacid'];
 			$data['accaddr'] = trim($_GPC['accaddr']);
 			$data['accname'] = trim($_GPC['accname']);

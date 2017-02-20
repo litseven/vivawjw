@@ -24,8 +24,8 @@
                         <th style="width:5%;text-align: center">序号</th>
                         <th style="width:30%;text-align: center">车牌号码</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <th style="width:15%;text-align: center">状态</th>
-                        <th style="width:15%;text-align: center">受理时间</th>
+                        <!--<th style="width:15%;text-align: center">状态</th>-->
+                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -35,8 +35,8 @@
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['id'];?></td>
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['wx_car_num'];?></td>
                         <td style="vertical-align:middle;text-align: center" ><?php  echo date('Y-m-d H:i:s',$item['time'])?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>-->
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>-->
                         <td id="update_<?php  echo $item['id'];?>" style="text-align: center">
                             <a href="<?php  echo $this->createWebUrl('manage',array('op'=>wx_car_info,'id'=>$item['id']))?>" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="<?php  echo $item['id'];?>"  title="点击删除">删除</a>
@@ -79,8 +79,8 @@
                         <th style="width:5%;text-align: center">序号</th>
                         <th style="width:30%;text-align: center">车牌号码</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <th style="width:15%;text-align: center">状态</th>
-                        <th style="width:15%;text-align: center">受理时间</th>
+                        <!--<th style="width:15%;text-align: center">状态</th>-->
+                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -90,8 +90,8 @@
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['id'];?></td>
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['wd_car_num'];?></td>
                         <td style="vertical-align:middle;text-align: center" ><?php  echo date('Y-m-d H:i:s',$item['time'])?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>-->
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>-->
                         <td id="update_<?php  echo $item['id'];?>" style="text-align: center">
                             <a href="<?php  echo $this->createWebUrl('manage',array('op'=>wd_car_info,'id'=>$item['id']))?>" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="<?php  echo $item['id'];?>"  title="点击删除">删除</a>
@@ -128,6 +128,12 @@
     <div class="panel-heading">驾驶人信息</div>
     <div class="panel-body">
         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定用户ID:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $wdone['uid'];?></p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">车辆型号:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
                 <p class="form-control-static"><?php  if($wxone['wx_type'] == 1) { ?>小型车<?php  } else if($wxone['wx_type'] == 2) { ?>大型车<?php  } ?></p>
@@ -151,7 +157,7 @@
         </div>
     </div>
 </div>
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">受理操作</div>
     <div class="panel-body" style="padding-bottom: 0;">
         <div class="form-group">
@@ -193,9 +199,9 @@
             <?php  } ?>
         </div>
     </div>
-</div>
+</div>-->
 <a href="javascript:history.go(-1);" class="btn btn-primary">返回列表</a>
-<?php  if($wxone['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px">确认修改</button><?php  } ?>
+<?php  if($wxone['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px;display: none;">确认修改</button><?php  } ?>
 <script>
     $(function(){
         $('.btn-success').click(function(){
@@ -223,6 +229,12 @@
     <div class="panel-heading">机动车信息</div>
     <div class="panel-body">
         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定用户ID:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $wdone['uid'];?></p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">车辆类型:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
                 <p class="form-control-static"><?php  if($wdone['wd_type'] == 1) { ?>小型车<?php  } else if($wdone['wd_type'] == 2) { ?>大型车<?php  } ?></p>
@@ -248,7 +260,7 @@
     </div>
     </div>
 </div>
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">受理操作</div>
     <div class="panel-body" style="padding-bottom: 0;">
         <div class="form-group">
@@ -290,9 +302,9 @@
             <?php  } ?>
         </div>
     </div>
-</div>
+</div>-->
 <a href="javascript:history.go(-1);" class="btn btn-primary">返回列表</a>
-<?php  if($wdone['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px">确认修改</button><?php  } ?>
+<?php  if($wdone['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px;display: none;">确认修改</button><?php  } ?>
 <script>
     $(function(){
         $('.btn-success').click(function(){
@@ -331,8 +343,8 @@
                         <th style="width:5%;text-align: center">序号</th>
                         <th style="width:30%;text-align: center">驾驶证号</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <th style="width:15%;text-align: center">状态</th>
-                        <th style="width:15%;text-align: center">受理时间</th>
+                        <!--<th style="width:15%;text-align: center">状态</th>-->
+                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -342,8 +354,8 @@
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['id'];?></td>
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['wx_driv_num'];?></td>
                         <td style="vertical-align:middle;text-align: center" ><?php  echo date('Y-m-d H:i:s',$item['time'])?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>-->
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>-->
                         <td id="update_<?php  echo $item['id'];?>" style="text-align: center">
                             <a href="<?php  echo $this->createWebUrl('manage',array('op'=>wx_driv_info,'id'=>$item['id']))?>" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="<?php  echo $item['id'];?>"  title="点击删除">删除</a>
@@ -380,6 +392,12 @@
     <div class="panel-heading">驾驶证信息</div>
     <div class="panel-body">
         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定用户ID:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $wxdriving['uid'];?></p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">驾驶证号:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
                 <p class="form-control-static"><?php  echo $wxdriving['wx_driv_num'];?></p>
@@ -399,7 +417,7 @@
         </div>
     </div>
 </div>
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">受理操作</div>
     <div class="panel-body" style="padding-bottom: 0;">
         <div class="form-group">
@@ -441,9 +459,9 @@
             <?php  } ?>
         </div>
     </div>
-</div>
+</div>-->
 <a href="javascript:history.go(-1);" class="btn btn-primary">返回列表</a>
-<?php  if($wxdriving['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px">确认修改</button><?php  } ?>
+<?php  if($wxdriving['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px;display: none;">确认修改</button><?php  } ?>
 <script>
     $(function(){
         $('.btn-success').click(function(){
@@ -465,7 +483,7 @@
 </script>
 <?php  } ?>
 
-<!--无锡绑定驾驶证列表-->
+<!--外地绑定驾驶证列表-->
 <?php  if($op == 'wd_driving') { ?>
 <div class="list_page">
     <form action="" method="post" id="form1">
@@ -477,8 +495,8 @@
                         <th style="width:5%;text-align: center">序号</th>
                         <th style="width:30%;text-align: center">驾驶证号</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <th style="width:15%;text-align: center">状态</th>
-                        <th style="width:15%;text-align: center">受理时间</th>
+                        <!--<th style="width:15%;text-align: center">状态</th>-->
+                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -488,8 +506,8 @@
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['id'];?></td>
                         <td style="vertical-align:middle;text-align: center"><?php  echo $item['wd_driv_num'];?></td>
                         <td style="vertical-align:middle;text-align: center" ><?php  echo date('Y-m-d H:i:s',$item['time'])?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>
-                        <td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] == 2) { ?><span style="color:orange;">未受理</span><?php  } else if($item['status'] == 1) { ?> <span style="color:green;">通过</span><?php  } else { ?> <span style="color:red;">驳回</span><?php  } ?></td>-->
+                        <!--<td style="vertical-align:middle;text-align: center" ><?php  if($item['status'] != 2) { ?><?php  echo date('Y-m-d H:i:s',$item['sittime'])?><?php  } ?></td>-->
                         <td id="update_<?php  echo $item['id'];?>" style="text-align: center">
                             <a href="<?php  echo $this->createWebUrl('manage',array('op'=>'wd_driv_info','id'=>$item['id']))?>" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="<?php  echo $item['id'];?>"  title="点击删除">删除</a>
@@ -520,11 +538,17 @@
     });
 </script>
 <?php  } ?>
-<!--无锡绑定驾驶证信息-->
+<!--外地绑定驾驶证信息-->
 <?php  if($op == 'wd_driv_info') { ?>
 <div class="panel panel-default">
     <div class="panel-heading">驾驶证信息</div>
     <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定用户ID:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static"><?php  echo $wddriving['uid'];?></p>
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label">驾驶证号:</label>
             <div class="col-sm-9 col-xs-9 col-md-9">
@@ -545,7 +569,7 @@
         </div>
     </div>
 </div>
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">受理操作</div>
     <div class="panel-body" style="padding-bottom: 0;">
         <div class="form-group">
@@ -587,9 +611,9 @@
             <?php  } ?>
         </div>
     </div>
-</div>
+</div>-->
 <a href="javascript:history.go(-1);" class="btn btn-primary">返回列表</a>
-<?php  if($wddriving['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px">确认修改</button><?php  } ?>
+<?php  if($wddriving['status'] == 2) { ?><button class="btn btn-success" style="margin-left: 20px;display: none;">确认修改</button><?php  } ?>
 <script>
     $(function(){
         $('.btn-success').click(function(){

@@ -150,7 +150,6 @@
                });
           });*/
      });
-     //上传图片
      var process = false;
      $(function(){
           //选择理赔服务点
@@ -171,6 +170,7 @@
                var _title = $('.lptitle option:selected').val();
                window.location.href = 'http://apis.map.qq.com/uri/v1/marker?marker=coord:'+_lat+','+_lng+';title:'+_title+';addr:'+_addr+'&referer=myapp'
           });
+          //上传图片
           $('.upload_img>div').click(function(){
                var _this = $(this);
                wx.chooseImage({

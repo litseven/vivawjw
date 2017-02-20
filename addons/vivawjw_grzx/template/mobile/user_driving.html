@@ -13,18 +13,18 @@
 <body>
 {template 'wxsdk'}
 {if $op == 'wx_driving'}
-<div class="content">
+<div class="content wx_driving">
     <div class="content_box">
         <div class="bind_car">添加绑定本地驾驶证</div>
         <form>
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>驾驶证号</div>
-                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号">
+                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" value="320681199407246632">
             </div>
             <div class="car_style">
                 <div>档案编号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record">
+                <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" value="378927">
             </div>
         </div>
         </form>
@@ -52,31 +52,40 @@
             var drivdata = $('form').serialize();
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_driving',array('op'=>'wx_drivpost'))}&" + drivdata,function (data) {
-                if (data == 200){
-                    window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'sub_driving'))}";
-                }else{
-                    alert('绑定失败！');
+                $("#loading-fs").hide();
+                console.log(data);
+                if(data == 100){
+                    alert('驾驶证已被绑定！');return false;
                 }
+                if(data == 400){
+                    alert('您已绑定驾驶证！');return false;
+                }
+                if (data == 300){
+                    alert('绑定失败');return false;
+                }
+                $('.wx_driving').hide();
+                $('.sub_driving').show();
+                process = true;
             });
-            $("#loading-fs").hide();
-            process = true;
+
+
         });
     });
 </script>
 {/if}
 {if $op == 'wd_driving'}
-<div class="content">
+<div class="content wd_driving">
     <div class="content_box">
         <div class="bind_car">添加绑定外地驾驶证</div>
         <form>
             <div class="query_box" style="margin-top:5%;">
                 <div class="car_style">
                     <div>驾驶证号</div>
-                    <input type="text" name="wd_driv_num" id="car_number1" placeholder="请输入驾驶证号">
+                    <input type="text" name="wd_driv_num" id="car_number1" placeholder="请输入驾驶证号" value="15040319871218251X">
                 </div>
                 <div class="car_style">
                     <div>档案编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wd_driv_record">
+                    <input type="text" placeholder="请输入完整的档案编号" id="car_fa1" name="wd_driv_record" value="150401099244">
                 </div>
             </div>
         </form>
@@ -94,26 +103,32 @@
             if(wd_driv_num == ''){
                 alert('驾驶证号不能为空！');return false;
             }
-            if(wd_driv_record.length != 6){
+            if(wd_driv_record.length != 12){
                 alert('档案编号输入有误！');return false;
             }
             var drivdata = $('form').serialize();
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_driving',array('op'=>'wd_drivpost'))}&" + drivdata,function (data) {
-                if (data == 200){
-                    window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'sub_driving'))}";
-                }else{
-                    alert('绑定失败！');
+                $("#loading-fs").hide();
+                console.log(data);
+                if(data == 100){
+                    alert('驾驶证已被绑定！');return false;
                 }
+                if(data == 400){
+                    alert('您已绑定驾驶证！');return false;
+                }
+                if (data == 300){
+                    alert('绑定失败');return false;
+                }
+                $('.wd_driving').hide();
+                $('.sub_driving').show();
+                process = true;
             });
-            $("#loading-fs").hide();
-            process = true;
         });
     });
 </script>
 {/if}
-{if $op == 'sub_driving'}
-<div class="content">
+<div class="content sub_driving" style="display: none;">
     <div class="content_box">
         <div class="appeal1_box">
             <i class="appeal_suc">&#xe60d;</i>
@@ -122,37 +137,46 @@
         <a id="appeal_back" href="{php echo $this->createMobileUrl('user_driving')}">返回</a>
     </div>
 </div>
-{/if}
 {if $op == 'success_driving'}
 <div class="content">
+    {loop $typedriving $item}
     <div class="content_box">
         <div class="query_box" style="margin-top:15%;">
             <div class="person_num1" style="border: none">
                 <div>驾驶证号</div>
-                <input type="text"  placeholder="{if $typedriving['distinction'] == 1}{$typedriving['wx_driv_num']}{else}{$typedriving['wd_driv_num']}{/if}" disabled="disabled"/>
+                <input type="text"  placeholder="{if $item['distinction'] == 1}{$item['wx_driv_num']}{else}{$item['wd_driv_num']}{/if}" disabled="disabled"/>
             </div>
             <div class="person_num1" style="height: 25px;line-height: 15px;">
                 <a href="" style="color:#2ecc71; font-size:14px ">(点击查看驾驶证违法信息)</a>
             </div>
             <div class="person_num1">
                 <div>状态</div>
-                <input type="text" placeholder="{if $typedriving['status'] == 2}注册申请中{elseif $typedriving['status'] == 1}注册成功{else}注册失败{/if}"  disabled="disabled">
+                {if $item['distinction']}
+                    <input type="text" placeholder="{if $item['status'] == 0}绑定成功{/if}"  disabled="disabled">
+                {else}
+                    <input type="text" placeholder="{if $item['status']}申请中...{else}绑定成功{/if}"  disabled="disabled">
+                {/if}
             </div>
-
         </div>
         <div class="person_btn">
             <div class="btn_box">
-                <a class="del_bound_dr">解除绑定</a>
-                <a href="javascript:history.go(-1);">返回</a>
+                <a class="del_bound_dr" id="{$item['id']}">解除绑定</a>
+                <!--<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wd_car'))}">添加绑定车辆</a>-->
             </div>
         </div>
     </div>
+    {/loop}
 </div>
 <script>
     $(function(){
+        var process = false;
         $('.del_bound_dr').click(function(){
+            if(process)return false;
+            var id = $(this).attr('id');
             if(confirm('解除绑定驾驶证后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
-                window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'del_bound_dr','id'=>$typedriving['id']))}";
+                $("#loading-fs").show();
+                window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'del_bound_dr'))}&id="+id;
+                process = true;
             }
         });
     });
@@ -165,7 +189,7 @@
             <i class="appeal_suc">&#xe60d;</i>
             <div>解除绑定{$info}</div>
         </div>
-        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_driving',array('op'=>'wx_driving'))}">返回</a>
+        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_driving')}">返回</a>
     </div>
 </div>
 {/if}

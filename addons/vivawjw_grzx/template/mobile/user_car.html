@@ -12,24 +12,25 @@
 <body>
 {template 'wxsdk'}
 {if $op == 'wx_car'}
-<div class="content">
+<div class="content wx_car">
     <div class="content_box">
         <div class="bind_car">添加绑定车辆</div>
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>车辆类型</div>
                 <select name="wx_type">
-                    <option value="1">小型车辆</option>
-                    <option value="2">大型车辆</option>
+                    {loop $cartype $tiem}
+                    <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
+                    {/loop}
                 </select>
             </div>
             <div class="car_style">
                 <div>车牌号码</div>
-                <input type="text" name="wx_car_num" id="car_number1" style="font-size:1rem;" value="苏B">
+                <input type="text" name="wx_car_num" id="car_number1" style="font-size:1rem;" value="苏BV286Z">
             </div>
             <div class="car_style">
                 <div>发动机号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入发动机号后六位" id="car_fa1" name="wx_car_engine">
+                <input type="text" placeholder="请输入发动机号后六位" id="car_fa1" name="wx_car_engine" value="101923">
             </div>
         </div>
         <a id="query1">立即绑定</a>
@@ -53,54 +54,62 @@
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car_post'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
-                if (data == 200){
-                    window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=> 'sub_car'))}";
-                }else{
-                    alert('绑定失败！');
+                $("#loading-fs").hide();
+                //console.log(data);return false;
+                if(data == 100){
+                    alert('最多只能绑定两辆车！');return false;
                 }
-            });
-            $("#loading-fs").hide();
-            process = true;
+                if(data == 400){
+                    alert('车辆已被绑定！');return false;
+                }
+                if(data == 300){
+                    alert('车辆绑定失败！');return false;
+                }
+                $('.wx_car').hide();
+                $('.sub_car').show();
+                process = true;
+            },'JSON');
         });
     });
 </script>
 {/if}
 {if $op == 'wd_car'}
-<div class="content">
+<div class="content wd_car">
     <div class="content_box">
         <div class="bind_car">添加绑定外地车辆</div>
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>车辆类型</div>
                 <select name="wd_type">
-                    <option value="1">小型车辆</option>
-                    <option value="2">大型车辆</option>
+                    {loop $cartype $tiem}
+                    <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
+                    {/loop}
                 </select>
             </div>
 
             <div class="car_style">
                 <div>车牌号码</div>
-                <input type="text" name="wd_car_num" id="car_number1" style="font-size:1rem;">
+                <input type="text" name="wd_car_num" id="car_number1" style="font-size:1rem;" value="蒙D3H793">
             </div>
             <div class="car_style">
                 <div>发动机号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入发动机号后六位" id="car_fa1" name="wd_car_engine">
+                <input type="text" placeholder="请输入发动机号后六位" id="car_fa1" name="wd_car_engine" value="180189">
             </div>
 
         </div>
-        <a id="query1">立即绑定</a>
+        <a id="query">立即绑定</a>
         <div class="bind">温馨提示：苏B车辆点击<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">这里绑定</a></div>
     </div>
 </div>
 <script>
     var process = false;
     $(function(){
-        $('#query1').click(function(){
+        $('#query').click(function(){
             if(process)return false;
             var wd_type = $("[name = 'wd_type']").val();
             var wd_car_num = $("[name = 'wd_car_num']").val();
             var wd_car_engine = $("[name = 'wd_car_engine']").val();
-            reg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+            reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
             if (!reg.test(wd_car_num)){
                 alert('请正确输入车牌号');return false;
             }
@@ -109,58 +118,157 @@
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wd_car_post'))}",{wd_type:wd_type,wd_car_num:wd_car_num,wd_car_engine:wd_car_engine},function(data){
-                if (data == 200){
-                    window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=> 'sub_car'))}";
-                }else{
-                    alert('绑定失败！');
+                $("#loading-fs").hide();
+                //console.log(data);return false;
+                if(data == 100){
+                    alert('最多只能绑定两辆车！');return false;
                 }
+                if(data == 400){
+                    alert('车辆已被绑定！');return false;
+                }
+                if (data == 300){
+                    alert('绑定失败');return false;
+                }
+                $('.wd_car').hide();
+                $('.sub_car').show();
+                process = true;
             });
-            $("#loading-fs").hide();
-            process = true;
+
+
         });
     });
 </script>
 {/if}
-{if $op == 'sub_car'}
-<div class="content">
+
+<div class="content sub_car" style="display: none;">
     <div class="content_box">
         <div class="appeal1_box">
             <i class="appeal_suc">&#xe60d;</i>
             <div>我们将尽快审核，请在24小时之后到个人中心，我的车辆中查看审核结果！</div>
         </div>
-        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car',array('op'=>'success_car'))}">返回</a>
+        <a id="appeal_back_car" href="{php echo $this->createMobileUrl('user_car')}">返回</a>
+    </div>
+</div>
+
+{if $op == 'success_car'}
+<!--只绑定辆车的信息-->
+{if $bdcarnum == 1}
+    {loop $typecar  $item}
+        {if $item['distinction'] == 0}
+            <div class="account_mana">
+                <div class="acc_person_car">
+                    <p>绑定车辆</p>
+                    <p>{$item['wd_car_num']}</p>
+                    {if $item['status'] != 2}
+                    <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
+                        <i>&#xe67f;</i>
+                        <span>移除</span>
+                    </p>
+                    {/if}
+                </div>
+                <div class="acc_person_car">
+                    <p>状态</p>
+                    <p>{if $item['status'] == 2}申请中...{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
+                </div>
+                <a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">添加绑定车辆</a>
+            </div>
+        {elseif $item['distinction'] == 1}
+            <div class="account_mana">
+                <div class="acc_person_car1" >
+                    <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">{$item['wx_car_num']}</p>
+                    <p>点击查看违法信息</p>
+                    <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
+                        <i>&#xe67f;</i>
+                        <span>移除</span>
+                    </p>
+                </div>
+                <div class="acc_person_car2">
+                    <p>违法状态</p>
+                    <p>违法未处理</p>
+                </div>
+                <div class="acc_person_car2">
+                    <p>检验有效期止</p>
+                    <p>{$item['YXQZ']}</p>
+                </div>
+                <div class="acc_person_car2" style="border: none;">
+                    <p>强制报废期止</p>
+                    <p>{$item['QZBFQZ']}</p>
+                </div>
+                <a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">添加绑定车辆</a>
+            </div>
+        {/if}
+    {/loop}
+<!--绑定两辆车的信息-->
+{elseif $bdcarnum == 2}
+{loop $typecar $k $item}
+{if $item['distinction'] == 0}
+<div class="account_mana">
+    <p class="mana_car_1">{if $k == 0}绑定车辆一{elseif $k == 1}绑定车辆二{/if}</p>
+    <div class="acc_person_car">
+        <p>绑定车辆</p>
+        <p>{$item['wd_car_num']}</p>
+        {if $item['status'] != 2}
+        <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
+            <i>&#xe67f;</i>
+            <span>移除</span>
+        </p>
+        {/if}
+    </div>
+    <div class="acc_person_car">
+        <p>状态</p>
+        <p>{if $item['status'] == 2}申请中...{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
+    </div>
+</div>
+{elseif $item['distinction'] == 1}
+<div class="account_mana">
+    <p class="mana_car_1">{if $k == 0}绑定车辆一{elseif $k == 1}绑定车辆二{/if}</p>
+    <div class="acc_person_car1" >
+        <a href="">{$item['wx_car_num']}</a>
+        <p>点击查看违法信息</p>
+        <p class="del_bound_car" id="{$item['id']}">
+            <i>&#xe67f;</i>
+            <span>移除</span>
+        </p>
+    </div>
+    <div class="acc_person_car2">
+        <p>违法状态</p>
+        <p>违法未处理</p>
+    </div>
+    <div class="acc_person_car2">
+        <p>检验有效期止</p>
+        <p>{$item['YXQZ']}</p>
+    </div>
+    <div class="acc_person_car2" style="border: none;">
+        <p>强制报废期止</p>
+        <p>{$item['QZBFQZ']}</p>
     </div>
 </div>
 {/if}
-{if $op == 'success_car'}
-<div class="content">
-    <div class="content_box">
-        <div class="query_box" style="margin-top:15%;">
-            <div class="person_num1">
-                <div>车牌号码</div>
-                <input type="text" name="number"  placeholder="{if $typecar['distinction'] == 1}{$typecar['wx_car_num']}{else}{$typecar['wd_car_num']}{/if}" disabled="disabled">
-            </div>
-            <div class="person_num1">
-                <div>状态</div>
-                <input type="text" placeholder="{if $typecar['status'] == 2}注册申请中{elseif $typecar['status'] == 1}注册成功{else}注册失败{/if}"  disabled="disabled">
-            </div>
+{/loop}
 
-        </div>
-        <div class="person_btn">
-            <div class="btn_box">
-                <a class="del_bound_car">解除绑定</a>
-                <a href="javascript:history.go(-1);">返回</a>
-            </div>
-        </div>
-    </div>
-</div>
+{/if}
 <script>
     $(function(){
+        var process = false;
         $('.del_bound_car').click(function(){
-            if(confirm('解除绑定驾驶证后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
-                window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'del_bound_car','id'=>$typecar['id']))}";
+            if(process)return false;
+            var id = $(this).attr('id');
+            if(confirm('解除绑定车辆后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
+                $("#loading-fs").show();
+                window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'del_bound_car'))}&id="+id;
+                process = true;
             }
         });
+        //挑转违法信息
+        $('.ckwfxx').click(function(){
+            var _this = $(this);
+            var wx_type = _this.attr('data-type');
+            var wx_car_name = _this.attr('data-num');
+            var wx_car_engine = _this.attr('data-engine');
+            window.location.href = "{}";
+
+        });
+
     });
 </script>
 {/if}
@@ -171,10 +279,61 @@
             <i class="appeal_suc">&#xe60d;</i>
             <div>解除绑定{$info}</div>
         </div>
-        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">返回</a>
+        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car')}">返回</a>
     </div>
 </div>
 {/if}
+<div class="query_box">
+    <div class="license">
+        <div class="licen_img">
+            <img src="{S_URL}img/lisence.png">
+            <div>苏BV286Z</div>
+        </div>
+        <div class="licen_mon">共<span>9</span>条违法信息<br>罚款<span>950</span>元</div>
+    </div>
+
+    <div style="margin-top:18px;">
+        <div class="query_info">
+            <div class="query_info1" data-to='0'>
+                <div class="arrow_left"><img src="{S_URL}img/jiant.png"></div>
+                <div class="info_right">
+                    <div>申诉</div>
+                    <div>违法时间:<span>2016-11-12 17:40</span></div>
+                    <div>违法地点:<span>新334省道宁通高速大桥东</span></div>
+                </div>
+            </div>
+
+            <div class="info_detail hide"  >
+                <div class="detail_box">
+                    <div>违法行为:<span>驾驶中型以上载客载货汽车、校车、危险物品运输车辆以外的其他机动车行驶超过规定时速20%以上未达到50%的</span></div>
+                    <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div>
+                    <div>处理状态:<span>未处理</span></div>
+                    <div>罚款金额:<span>200元</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="query_info">
+            <div class="query_info1" data-to='0'>
+                <div class="arrow_left"><img src="{S_URL}img/jiant.png"></div>
+                <div class="info_right">
+                    <div>申诉</div>
+                    <div>违法时间:<span>2016-11-12 17:40</span></div>
+                    <div>违法地点:<span>新334省道宁通高速大桥东</span></div>
+                </div>
+            </div>
+
+            <div class="info_detail hide" >
+                <div class="detail_box">
+                    <div>违法行为:<span>驾驶中型以上载客载货汽车、校车、危险物品运输车辆以外的其他机动车行驶超过规定时速20%以上未达到50%的</span></div>
+                    <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div>
+                    <div>处理状态:<span>未处理</span></div>
+                    <div>罚款金额:<span>200元</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     wx.ready(function(){
         $('.where').click(function(){
