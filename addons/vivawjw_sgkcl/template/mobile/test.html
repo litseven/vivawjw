@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="{S_URL}js/jquery-3.0.0.js"></script>
+    <title>事故快处</title>
+    <style>
+        .acc_example{width:100%; position:absolute; top:0; left:0;display: none;}
+        .acc_example img{display: block;width:100%;}
+    </style>
+</head>
+<body>
+    <div style="width: 200px;height: 200px;border: 1px solid #000;" class="add">+</div>
+</body>
+{template 'wxsdk'}
+<script>
+    $(".add").click(function() {
+        _this = $(this);
+        wx.chooseImage({
+            count: 1, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                localId = localIds[0];
+                _this.css('background-image', "url("+localId+")");
+            }
+        });
+    });
+</script>
+</html>
