@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/index.css" rel="stylesheet">
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <title>申诉信息填写</title>
@@ -59,19 +61,19 @@
             var appeal_phone = $("[name = 'appeal_phone']").val();
             var appeal_why = $("[name = 'appeal_why']").val();
             if (appeal_name == ''){
-                alert('请留下您的名字！');return false;
+                mui.alert('请留下您的名字！');return false;
             }
             if (appeal_phone == ''){
-                alert('手机号不能为空！');return false;
+                mui.alert('手机号不能为空！');return false;
             }
             if(!(/^1[34578]\d{9}$/.test(appeal_phone))){
-                alert("手机号码有误，请重填");return false;
+                mui.alert("手机号码有误，请重填");return false;
             }
             if (appeal_why == ''){
-                alert('请填写申诉原因,方便我们帮到您！');return false;
+                mui.alert('请填写申诉原因,方便我们帮到您！');return false;
             }
             if (appeal_why.length > 100){
-                alert('您字数过多，我看不过来，请在100字符之内！');return false;
+                mui.alert('您字数过多，我看不过来，请在100字符之内！');return false;
             }
             var data = $('form').serialize();
             $("#loading-fs").show();

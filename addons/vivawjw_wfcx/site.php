@@ -2,7 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_wfcx/template/resource/');
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
 	/*
@@ -16,6 +17,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$userid = $_W['member']['uid'];
 		//var_dump($_W['member']);
 		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
+
 		include $this->template('illegal');
 	}
 	//申请信息
@@ -61,14 +63,15 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	//车辆违法查询接口
 	public function doMobileApipostcl(){
 		global $_W,$_GPC;
-		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$_GPC['cartype'],$_GPC['carnum'],$_GPC['enginenum']);
+		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',trim($_GPC['cartype']),trim($_GPC['carnum']),trim($_GPC['enginenum']));
 		echo json_encode($data);
 	}
 	//驾驶人违法查询
 	public function doMobileApipostjsr(){
 		global $_W,$_GPC;
-		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$_GPC['drnunum'],$_GPC['filenum']);
-		echo json_encode($data);
+		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',trim($_GPC['drnunum']),trim($_GPC['filenum']));
+        echo json_encode($data);
+		//var_dump($data);
 	}
 	//接口
 	public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
@@ -95,7 +98,17 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 			print_r($e);
 		}
 	}
-
+    //对象转数组
+    public function object2array($object) {
+        foreach ($object as $k => $v) {
+            if (is_array($v) || is_object($v)) {
+                $arr[$k] = $this->object2array($v);
+            } else {
+                $arr[$k] = $v;
+            }
+        }
+        return $arr;
+    }
 
 	/*
 	 * 后台管理

@@ -61,7 +61,7 @@ CREATE TABLE `ims_vivawjw_user_bound_driving` (
   `wx_driv_num` varchar(18) DEFAULT NULL,
   `wx_driv_record` varchar(6) DEFAULT NULL,
   `wd_driv_num` varchar(18) DEFAULT NULL,
-  `wd_driv_record` varchar(6) DEFAULT NULL,
+  `wd_driv_record` varchar(15) DEFAULT NULL,
   `distinction` int(1) DEFAULT NULL COMMENT '//1为无锡，0为外地',
   `status` int(1) DEFAULT NULL,
   `turndown` varchar(255) DEFAULT NULL COMMENT '//驳回原因',

@@ -2,7 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_bszn/template/resource/');
 class vivawjw_bsznModuleSite extends WeModuleSite
 {
 	//入口
@@ -10,9 +11,7 @@ class vivawjw_bsznModuleSite extends WeModuleSite
 		global $_W,$_GPC;
 		load()->func('tpl');
 		$op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
-		if (empty($_W['fans']['nickname'])) {
-			mc_oauth_userinfo();
-		}
+
 
 		$data = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_bszn_guide').' WHERE uniacid = :uniacid AND status = :status AND fid =:fid ORDER BY id asc',array(':uniacid'=>$_W['uniacid'],':status'=>1,':fid'=>0	));
 		$keylist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_bszn_hotkey').' WHERE uniacid = :uniacid AND status= :status',array(':uniacid'=>$_W['uniacid'],':status'=>1));

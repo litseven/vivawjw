@@ -5,10 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <title>添加绑定驾驶证</title>
+    <style>
+        @font-face {
+            font-family: 'iconfont';  /* project id 202971 */
+            src: url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.eot');
+            src: url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.eot?#iefix') format('embedded-opentype'),
+            url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.woff') format('woff'),
+            url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.ttf') format('truetype'),
+            url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.svg#iconfont') format('svg');
+        }
+        .illegal_qu{width:100%; margin-bottom: 80px;}
+        .query_score{width:100%; border-bottom: solid 1px #dddddd; padding-left:6%; padding-top:15px; padding-bottom: 15px; overflow: hidden;}
+        .query_score_p1{float: left; color: #999999;}
+        .query_score_p2{float: left; margin-left: 3%;}
+        .query_score_div{float: right;width:30%;text-align: center; border-left: solid 1px #999999;}
+        .query_score_div span{color:#3cca74;}
+        .query_ill{width:100%; margin-top:10px;}
+        .query_ill_div{width:100%; background-color: #f9f9f9; padding-top:12px; padding-bottom: 12px;}
+        .query_ill_div p{color:#2ECC71; border-left: solid 3px #2ECC71; padding-left:3%;margin-left:3%;}
+        .query_ill_div1{width:100%; padding-left: 6%; padding-top:20px; padding-bottom: 15px; overflow: hidden; border-bottom:solid 1px #dddddd;}
+        .ill_div_left{float: left; color:#999999; width:90%;}
+        .ill_div_right{float: right; width:5%; margin-top: 16px; margin-right:5%;}
+        .ill_div_left p span{display:inline-block; color:#333333; margin-left:3%;}
+        .ill_div_right img{display: block; width:100%;}
+        .ill_div_left p:nth-child(2){margin-top:4px;}
+        .query_ill_div2{width:100%; padding-top: 10px; padding-bottom: 10px; background-color: #eefbf3; padding-left:6%; font-size:0.9rem;}
+        .query_ill_div2 p{margin-top: 10px;}
+        .query_ill_div2 p span{display: inline-block; margin-left: 1%;}
+        .others_car{text-align: center; font-size:0.9rem; color:#2ECC71; margin-top:28px;}
+        .close i{float:right; margin-right:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+        .binding_box div:nth-child(2){float:left; margin-left:6.7%;}
+    </style>
 </head>
 <body>
 {template 'wxsdk'}
@@ -20,11 +53,11 @@
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>驾驶证号</div>
-                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" value="320681199407246632">
+                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" >
             </div>
             <div class="car_style">
                 <div>档案编号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" value="378927">
+                <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" >
             </div>
         </div>
         </form>
@@ -41,13 +74,13 @@
             var wx_driv_record = $("[name = 'wx_driv_record']").val();
             reg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i;
             if(wx_driv_num == ''){
-                alert('驾驶证号不能为空！');return false;
+                mui.alert('驾驶证号不能为空！');return false;
             }
             if (!reg.test(wx_driv_num)){
-                alert('驾驶证号不正确！');return false;
+                mui.alert('驾驶证号不正确！');return false;
             }
             if(wx_driv_record.length != 6){
-                alert('档案编号输入有误！');return false;
+                mui.alert('档案编号输入有误！');return false;
             }
             var drivdata = $('form').serialize();
             $("#loading-fs").show();
@@ -55,13 +88,13 @@
                 $("#loading-fs").hide();
                 console.log(data);
                 if(data == 100){
-                    alert('驾驶证已被绑定！');return false;
+                    mui.alert('驾驶证已被绑定！');return false;
                 }
                 if(data == 400){
-                    alert('您已绑定驾驶证！');return false;
+                    mui.alert('您已绑定驾驶证！');return false;
                 }
                 if (data == 300){
-                    alert('绑定失败');return false;
+                    mui.alert('绑定失败');return false;
                 }
                 $('.wx_driving').hide();
                 $('.sub_driving').show();
@@ -81,11 +114,11 @@
             <div class="query_box" style="margin-top:5%;">
                 <div class="car_style">
                     <div>驾驶证号</div>
-                    <input type="text" name="wd_driv_num" id="car_number1" placeholder="请输入驾驶证号" value="15040319871218251X">
+                    <input type="text" name="wd_driv_num" id="car_number1" placeholder="请输入驾驶证号" >
                 </div>
                 <div class="car_style">
                     <div>档案编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" placeholder="请输入完整的档案编号" id="car_fa1" name="wd_driv_record" value="150401099244">
+                    <input type="text" placeholder="请输入完整的档案编号" id="car_fa1" name="wd_driv_record">
                 </div>
             </div>
         </form>
@@ -95,16 +128,17 @@
 </div>
 <script>
     var process = false;
+    $('#loading-fs').hide();
     $(function () {
         $('#query1').click(function () {
             if(process)return false;
             var wd_driv_num = $("[name = 'wd_driv_num']").val();
             var wd_driv_record = $("[name = 'wd_driv_record']").val();
             if(wd_driv_num == ''){
-                alert('驾驶证号不能为空！');return false;
+                mui.alert('驾驶证号不能为空！');return false;
             }
             if(wd_driv_record.length != 12){
-                alert('档案编号输入有误！');return false;
+                mui.alert('档案编号输入有误！');return false;
             }
             var drivdata = $('form').serialize();
             $("#loading-fs").show();
@@ -112,13 +146,13 @@
                 $("#loading-fs").hide();
                 console.log(data);
                 if(data == 100){
-                    alert('驾驶证已被绑定！');return false;
+                    mui.alert('驾驶证已被绑定！');return false;
                 }
                 if(data == 400){
-                    alert('您已绑定驾驶证！');return false;
+                    mui.alert('您已绑定驾驶证！');return false;
                 }
                 if (data == 300){
-                    alert('绑定失败');return false;
+                    mui.alert('绑定失败');return false;
                 }
                 $('.wd_driving').hide();
                 $('.sub_driving').show();
@@ -138,46 +172,206 @@
     </div>
 </div>
 {if $op == 'success_driving'}
-<div class="content">
-    {loop $typedriving $item}
-    <div class="content_box">
-        <div class="query_box" style="margin-top:15%;">
-            <div class="person_num1" style="border: none">
-                <div>驾驶证号</div>
-                <input type="text"  placeholder="{if $item['distinction'] == 1}{$item['wx_driv_num']}{else}{$item['wd_driv_num']}{/if}" disabled="disabled"/>
-            </div>
-            <div class="person_num1" style="height: 25px;line-height: 15px;">
-                <a href="" style="color:#2ecc71; font-size:14px ">(点击查看驾驶证违法信息)</a>
-            </div>
-            <div class="person_num1">
-                <div>状态</div>
-                {if $item['distinction']}
-                    <input type="text" placeholder="{if $item['status'] == 0}绑定成功{/if}"  disabled="disabled">
-                {else}
-                    <input type="text" placeholder="{if $item['status']}申请中...{else}绑定成功{/if}"  disabled="disabled">
-                {/if}
+<style>
+    .acc_manage{width:100%;}
+    .manage_box{width:100%; background-color: white;margin-top:15px;}
+    .manage_box_1{width:100%;overflow: hidden; padding-left: 7%;padding-top: 15px; padding-bottom: 15px; border-bottom: solid 1px #b3b3b3;}
+    .manage_box_p1{float:left; width:35%;}
+    .manage_box_div{float:left; color:#999999;}
+    .manage_box_p3{color:#51ca6e;}
+    .manage_btn{overflow: hidden;margin-top: 10%;}
+    .manage_btn a{display: block;color:white; text-align: center; line-height: 40px; width:40%; height:40px; border-radius: 5px; background-color:#51CA6E;margin: 0 auto;}
+
+</style>
+<!--无锡驾驶人-->
+{if $typedriving['distinction'] == 1}
+<div class="acc_manage">
+    <div class="manage_box">
+        <div class="manage_box_1">
+            <p class="manage_box_p1">驾驶证号</p>
+            <div class="manage_box_div" style="font-size:0.9rem;">
+                <p class="manage_box_p2 jszh">{$typedriving['wx_driv_num']}</p>
+                <input type="hidden" value="{$typedriving['wx_driv_record']}" class="dabh">
+                <p class="manage_box_p3 ckwfxx">点击驾驶证号查看违法信息</p>
             </div>
         </div>
-        <div class="person_btn">
-            <div class="btn_box">
-                <a class="del_bound_dr" id="{$item['id']}">解除绑定</a>
-                <!--<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wd_car'))}">添加绑定车辆</a>-->
+        <div class="manage_box_1">
+            <p class="manage_box_p1">累计积分</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{$wxwfdata['LJJF']}分</p>
+            </div>
+        </div>
+        <div class="manage_box_1">
+            <p class="manage_box_p1">积分周期止</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{$wxwfdata['JFZQZ']}</p>
+            </div>
+        </div>
+        <div class="manage_box_1">
+            <p class="manage_box_p1">状态</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{$zt}</p>
+            </div>
+        </div>
+        <div class="manage_box_1">
+            <p class="manage_box_p1">审验有效期止</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{$wxwfdata['SYRQ']}</p>
+            </div>
+        </div>
+        <div class="manage_box_1">
+            <p class="manage_box_p1">有效期限</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{$wxwfdata['CCDJRQ']} 至 {$wxwfdata['YXQZ']}</p>
             </div>
         </div>
     </div>
-    {/loop}
+    <div class="manage_btn">
+        <a class="del_bound_dr" id="{$typedriving['id']}">解除绑定</a>
+    </div>
 </div>
+{else}
+<div class="acc_manage">
+    <div class="manage_box">
+        <div class="manage_box_1">
+            <p class="manage_box_p1">驾驶证号</p>
+            <div class="manage_box_div" style="font-size:0.9rem;">
+                <p class="manage_box_p2">{$typedriving['wd_driv_num']}</p>
+                <p class="manage_box_p3">点击驾驶证号查看违法信息</p>
+            </div>
+        </div>
+        <div class="manage_box_1">
+            <p class="manage_box_p1">状态</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{if $typedriving['status'] == 2}申请中...{elseif $typedriving['status'] == 0}绑定成功{else}申请失败{/if}</p>
+            </div>
+        </div>
+    </div>
+    <div class="manage_btn">
+        <a class="del_bound_dr" id="{$typedriving['id']}">解除绑定</a>
+    </div>
+</div>
+{/if}
+
 <script>
     $(function(){
         var process = false;
         $('.del_bound_dr').click(function(){
-            if(process)return false;
             var id = $(this).attr('id');
             if(confirm('解除绑定驾驶证后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
                 $("#loading-fs").show();
                 window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'del_bound_dr'))}&id="+id;
-                process = true;
             }
+        });
+        $('.ckwfxx').click(function(){
+            var jszh = $('.jszh').text();
+            var dabh = $('.dabh').val();
+            $('#loading-fs').show();
+            $.post("{php echo $this->createMobileUrl('user_driving',array('op'=>'jsrwfcx'))}",{'jszh':jszh,'dabh':dabh},function(data){
+                if(data == 200){
+                    mui.alert('查询失败！');
+                    $('#loading-fs').hide();return false;
+                }
+                if(data == 300){
+                    mui.alert('恭喜你，没有违法记录！');
+                    $('#loading-fs').hide();return false;
+                }else{
+                    switch (data.ZT) {
+                        case 'A':
+                            zt = '正常';
+                            break;
+                        case 'B':
+                            zt = '超分';
+                            break;
+                        case 'C':
+                            zt = '转出';
+                            break;
+                        case 'D':
+                            zt = '暂扣';
+                            break;
+                        case 'E':
+                            zt = '撤销';
+                            break;
+                        case 'F':
+                            zt = '吊销';
+                            break;
+                        case 'G':
+                            zt = '注销';
+                            break;
+                        case 'H':
+                            zt = '违法未处理';
+                            break;
+                        case 'I':
+                            zt = '事故未处理';
+                            break;
+                        case 'J':
+                            zt = '停止使用';
+                            break;
+                        case 'K':
+                            zt = '扣押';
+                            break;
+                        case 'L':
+                            zt = '锁定';
+                            break;
+                        case 'M':
+                            zt = '逾期未换证';
+                            break;
+                        case 'N':
+                            zt = '延期换证';
+                            break;
+                        case 'P':
+                            zt = '延期体检';
+                            break;
+                        case 'R':
+                            zt = '注销可恢复';
+                            break;
+                        case 'S':
+                            zt = '逾期未审验';
+                            break;
+                        case 'T':
+                            zt = '延期审验';
+                            break;
+                        case 'U':
+                            zt = '扣留';
+                            break;
+                        default:
+                            zt = '正常';
+                            break;
+                    }
+                    $('#loading-fs').hide();
+                    $('.acc_manage').hide();
+                    $('.illegal_qu').show();
+                    $('.query_score_p2').text(data.JSZH);
+                    $('.ljjf').text(data.LJJF);
+                    $('.zt').text(zt);
+                    //console.log(data);
+                    var list = data.WFWJKList.WFWJK;
+                    for (var j = 0; j < list.length; j++){
+                        var CLJGMC = list[j].CLJGMC;//采集机构
+                        var WFSJ = list[j].WFSJ;//采集时间
+                        var FKJE = list[j].FKJE;//罚款金额
+                        var WFDZ = list[j].WFDZ;//违法地点
+                        var WFJFS = list[j].WFJFS;//违法记分
+                        var WFXW = list[j].WFXW;//违法行为
+
+                        $('.wfxxlist').append("<div><div class='query_ill_div1' data-to='0'><div class='ill_div_left'><p>时间:<span>"+WFSJ+"</span></p><p>地点:<span>"+WFDZ+"</span></p></div><div class='ill_div_right'><img src='{S_URL}img/jiant.png'></div></div><div class='query_ill_div2' style='display: none;'><p>违法行为:<span>"+WFXW+"</span></p><p>采集机关:<span>"+CLJGMC+"</span></p><p>处理状态:<span class='zt'></span></p><p>罚款金额:<span>"+FKJE+"</span></p><p>违法记分:<span>"+WFJFS+"</span></p></div></div>");
+                    }
+                    $('.query_ill_div1').click(function(){
+                        if($(this).data('to')==0){
+                            $(this).data('to',1);
+                            $(this).siblings('.query_ill_div2').show();
+                            $(this).find('.ill_div_right').css('-webkit-transform','rotate(180deg)');
+                        }else{
+                            $(this).data('to',0);
+                            $(this).siblings('.query_ill_div2').hide();
+                            $(this).find('.ill_div_right').css('-webkit-transform','rotate(0deg)');
+                        }
+                    })
+                }
+            },'JSON');
+        });
+        $('.others_car').click(function(){
+            location.href = location.href;
         });
     });
 </script>
@@ -193,6 +387,69 @@
     </div>
 </div>
 {/if}
+
+<div class="illegal_qu" style="display: none;">
+    <div class="query_score">
+        <p class="query_score_p1">驾驶证</p>
+        <p class="query_score_p2"></p>
+        <div class="query_score_div">累计<span class="ljjf"></span>分</div>
+    </div>
+    <div class="query_ill">
+        <div class="query_ill_div">
+            <p>违法未交款</p>
+        </div>
+        <div class="wfxxlist">
+
+
+        </div>
+    </div>
+
+    <div class="query_ill">
+        <div class="query_ill_div">
+            <p>违法未处理（暂无数据）</p>
+        </div>
+        <div>
+            <!--<div class="query_ill_div1" data-to='0'>
+                <div class="ill_div_left">
+                    <p>时间:<span>2016-11-12 09:29</span></p>
+                    <p>地点:<span>324省道</span></p>
+                </div>
+                <div class="ill_div_right"><img src="{S_URL}img/jiant.png"></div>
+            </div>
+
+            <div class="query_ill_div2" style="display: none;">
+                <p>违法行为:<span>机动车未按照规定期限进行安全技术检验</span></p>
+                <p>采集机关:<span>宜兴市公安局交通警察大队张渚中队</span></p>
+                <p>处理状态:<span>违法未缴款</span></p>
+                <p>罚款金额:<span>200元</span></p>
+                <p>违法记分:<span>3</span></p>
+            </div>-->
+        </div>
+
+
+    </div>
+    <p class="others_car">查询其他驾驶证违法信息</p>
+</div>
+<script>
+    $(function(){
+        $('.others_car').click(function(){
+            //跳转违法查询
+           window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_wfcx','illegal')}";
+        });
+        $('.query_ill_div1').click(function(){
+            if($(this).data('to')==0){
+                $(this).data('to',1);
+                $(this).siblings('.query_ill_div2').show();
+                $(this).find('.ill_div_right').css('-webkit-transform','rotate(180deg)');
+            }else{
+                $(this).data('to',0);
+                $(this).siblings('.query_ill_div2').hide();
+                $(this).find('.ill_div_right').css('-webkit-transform','rotate(0deg)');
+            }
+        })
+    })
+</script>
+
 <div id="loading-fs">
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
 </div>
@@ -200,8 +457,8 @@
     wx.ready(function(){
         $('.where').click(function(){
             wx.previewImage({
-                current: '{S_URL}img/help_0.jpg', // 当前显示图片的http链接
-                urls: ['{S_URL}img/help_0.jpg'] // 需要预览的图片http链接列表
+                current: '{S_URL}img/help1_0.jpg', // 当前显示图片的http链接
+                urls: ['{S_URL}img/help1_0.jpg'] // 需要预览的图片http链接列表
             });
         });
 

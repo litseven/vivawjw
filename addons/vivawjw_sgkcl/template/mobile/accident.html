@@ -3,14 +3,21 @@
 <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+     <meta name="format-detection" content="telphone=no">
      <meta name="apple-mobile-web-app-capable" content="yes">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+     <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
      <link href="{S_URL}css/style.css" rel="stylesheet">
      <script src="{S_URL}js/jquery-3.0.0.js"></script>
-     <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+     <!--<script src="{S_URL}js/vconsole.min.js"></script>-->
+     <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
      <title>事故快处</title>
+    <style>
+        .acc_example{width:100%; position:absolute; top:0; left:0;display: none;}
+        .acc_example img{display: block;width:100%;}
+    </style>
 </head>
-
 <body>
 {if $op == 'start'}
 <div class="content">
@@ -35,7 +42,7 @@
           </div>
 
           <div class="acc_photo">
-               <div>现场照片<span>(查看拍摄样片)</span></div>
+               <div>现场照片<span class="lookimg">(查看拍摄样片)</span></div>
                <div class="upload_img">
                     <div class="upload1"></div>
                     <div class="upload1"></div>
@@ -53,12 +60,12 @@
 
           <div class="acc_name">
                <div>姓名</div>
-               <input type="text" name="accname" placeholder="姓名">
+               <input type="text" name="accname" placeholder="请输入姓名">
                <input type="hidden" value="{$userid}" name="user">
           </div>
           <div class="acc_name">
                <div>对方姓名</div>
-               <input type="text" name="accothername" placeholder="姓名">
+               <input type="text" name="accothername" placeholder="请输入对方姓名">
           </div>
 
           <div class="acc_number">
@@ -68,12 +75,12 @@
 
           <div class="acc_number">
                <div>对方车牌号</div>
-               <input type="text" name="accothernum" value="苏B">
+               <input type="text" name="accothernum" value="" placeholder="请输入对方车牌号">
           </div>
 
           <div class="acc_ph">
-               <div>对方电话</div>
-               <input type="text" name="accotherphone" placeholder="手机号">
+               <div>本人手机号</div>
+               <input type="text" name="accotherphone" placeholder="请输入手机号">
           </div>
 
           <div class="acc_range">
@@ -85,8 +92,7 @@
                </select>-->
           </div>
           <div class="range_box">
-               <div>适用于没有人员伤亡，无公共设施损坏，车辆可以移动，各方驾驶人持有效的机动车驾驶证，各方机动车辆有号牌、年检合格，无饮酒、无吸食毒品、麻醉
-                    药品，各方车辆均有交强险，各方事故当事人对交通事故事实无异议。</div>
+               <div>适用于没有人员伤亡，无公共设施损坏，车辆可以移动，各方驾驶人持有效的机动车驾驶证，各方机动车辆有号牌、年检合格，无饮酒、无吸食毒品、麻醉药品，各方车辆均有交强险，各方事故当事人对交通事故事实无异议。</div>
           </div>
 
           <div class="acc_serv">
@@ -99,7 +105,7 @@
                <button class="linkaddr" data-lat="{$lpaddr[0]['lat']}" data-lng="{$lpaddr[0]['lng']}"><i>&#xe602;</i></button>
           </div>
           <div class="serv_box">
-               <div>理赔服务点地址、联系电话及工作时间（服务点工作时间： 09:00—17:00）</div>
+               <div>理赔服务点地址、联系电话及工作时间<br/>（服务点工作时间：09:00—17:00）</div>
                <div class="lpaddr">{$lpaddr[0]['address']}</div>
                <div class="lpmobile">{$lpaddr[0]['mobile']}</div>
           </div>
@@ -178,14 +184,16 @@
                     sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
                     success: function (res) {
                          var localIds = res.localIds;
+                         //console.log(localIds[0]);
                          wx.uploadImage({
                               localId: localIds[0],
                               isShowProgressTips: 1,
                               success: function (res) {
                                    var serverId = res.serverId;
-                                   //console.log(serverId);
+//                                   console.log(res);
+//                                   console.log(localIds[0]);
                                    _this.attr('data-id',serverId);
-                                   _this.css({"background-image":"url("+res.localId+")"});
+                                   _this.css({"background-image":"url("+localIds[0]+")"});
                               }
                          });
                     }
@@ -203,31 +211,29 @@
                var accotherphone =  $("[name='accotherphone']").val();
                var accserve =  $("[name='accserve']").val();
                if (accaddr == ''){
-                    alert('请正确输入事故地点');return false;
+                    mui.alert('请正确输入事故地点');return false;
                }
                if (accname == ''){
-                    alert('请输入您的姓名');return false;
+                    mui.alert('请输入您的姓名');return false;
                }
-
                if (accothername == ''){
-                    alert('请正确输入对方人的姓名');return false;
+                    mui.alert('请正确输入对方人的姓名');return false;
                }
-               var pattern = /^1[34578]\d{9}$/;
-               if (!pattern.test(accotherphone)){
-                    alert('手机号码有误！');return false;
-               }
-               reg=/^苏B[0-9A-Z]{5}$/;
+               reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
                if (!reg.test(accnum)){
-                    alert('请正确输入车牌号');return false;
+                    mui.alert('请正确输入车牌号');return false;
                }
                if (!reg.test(accothernum)){
-                    alert('请正确输入车牌号');return false;
+                    mui.alert('请正确输入对方车牌号');return false;
                }
                var pattern = /^1[34578]\d{9}$/;
                if (!pattern.test(accotherphone)){
-                    alert('手机号码有误！');return false;
+                    mui.alert('手机号码有误！');return false;
                }
-
+               var pattern = /^1[34578]\d{9}$/;
+               if (!pattern.test(accotherphone)){
+                    mui.alert('手机号码有误！');return false;
+               }
                //获取上传图片地址
                proof = [];
                $(".upload_img>div").each(function(){
@@ -242,7 +248,7 @@
                     if(data){
                          window.location.href = "{php echo $this->createMobileUrl('accident',array('op'=>'success'))}&renum=" + data;
                     }else{
-                         alert('提交失败！');
+                         mui.alert('提交失败！');
                     }
                     process = true;
                });
@@ -262,5 +268,16 @@
      </div>
 </div>
 {/if}
+<div class="acc_example">
+    <img src="{S_URL}img/example.jpg">
+</div>
+<script>
+    $('.lookimg').click(function(){
+        $('.acc_example').show();
+    });
+    $('.acc_example').click(function(){
+        $(this).hide();
+    });
+</script>
 </body>
 </html>

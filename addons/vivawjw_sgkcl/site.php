@@ -3,7 +3,7 @@ ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
 //define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/template/resource/');
 	class Vivawjw_sgkclModuleSite extends WeModuleSite {
 
 

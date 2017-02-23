@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
     <title>产品反馈</title>
@@ -42,12 +44,22 @@
             var feedtype = $("[name = 'feedtype']").val();
             var content = $("[name = 'content']").val();
             var phone = $("[name = 'phone']").val();
+            var pattern = /^1[34578]\d{9}$/;
+            var reg = /\w+[@]{1}\w+[.]\w+/;
+            if(!content){
+                mui.alert('意见不能为空！');return false;
+            }
+            if(phone){
+                if (!pattern.test(phone) && !reg.test(phone)){
+                    mui.alert('手机号码或邮箱格式有误！');return false;
+                }
+            }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('pro_feedback',array('op'=>'feedpost'))}",{feedtype:feedtype,content:content,phone:phone},function (data) {
                 if (data == 200){
                     window.location.href = "{php echo $this->createMobileUrl('pro_feedback',array('op'=>'end'))}";
                 }else{
-                    alert('提交失败！');
+                    mui.alert('提交失败！');
                 }
             });
             $("#loading-fs").hide();

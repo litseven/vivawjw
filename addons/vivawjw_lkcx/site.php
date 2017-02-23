@@ -2,19 +2,33 @@
 //ini_set('display_errors', 0);
 //error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
 
 		public function doMobileRoadsel(){
 			global $_W, $_GPC;
             $op = $op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
-            $user = $_W['member']['uid'];
+            $uid = $_W['member']['uid'];
+            $sclk = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkcx_sc').' WHERE uid=:uid',array(':uid'=>$uid));
+            //var_dump($sclk);
             //提交接口对比数据
             $data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
             //var_dump($data);
             $data = $this->object2array($data);
             $data = $data['ZGDLKResult'];
+            foreach($data as $k => $v){
+                //对比收藏
+                foreach ($sclk as $key => $value) {
+                    if ($v['DWBH'] == $value['dwbh']) {
+                        $data[$k]['bool'] = 1;
+                        break;
+                    } else {
+                        $data[$k]['bool'] = 0;
+                    }
+                }
+            }
+            //var_dump($data);
             $arr = array(
                 0 => array('name' => '梁溪区'),
                 1 => array('name' => '滨湖区'),
@@ -31,6 +45,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/te
             $i = 0;
             $child = array();
             foreach ($arr as $k => $v) {
+
                 foreach ($data as $key => $value){
                     if ($v['name'] == $value['ZGDID']) {
                         $child[$i] = $value;
@@ -40,8 +55,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/te
                 $arr[$k]['child'] = $child;
                 unset($child);
             }
-
-
+            //var_dump($arr);
             //查询
             if($op == 'search'){
                 $keyword = $_GPC['keyword'];
@@ -63,7 +77,32 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/te
 			include $this->template('roadsel');
         }
 
-
+        //收藏路况
+        public function doMobileSclk(){
+            global $_W, $_GPC;
+            $data['uid'] = $_W['member']['uid'];
+            if(!$data['uid']){
+                exit;
+            }
+            $data['dwbh'] =  trim($_GPC['dwbh']);
+            $data['wzms'] =  trim($_GPC['wzms']);
+            if($data['dwbh']){
+                $sclk = pdo_insert('vivawjw_lkcx_sc',$data);
+            }
+            if($sclk){
+                echo 200;exit;
+            }
+        }
+        //取消收藏路况
+        public function doMobileQxsclk(){
+            global $_W, $_GPC;
+            $uid = $_W['member']['uid'];
+            $dwbh =  trim($_GPC['dwbh']);
+            $wzms =  trim($_GPC['wzms']);
+            if($dwbh){
+                $qxsclk = pdo_delete('vivawjw_lkcx_sc',array('uid'=>$uid,'dwbh'=>$dwbh,'wzms'=>$wzms));
+            }
+        }
         //调取图片接口
         public function doMobileSeltp(){
             global $_W, $_GPC;

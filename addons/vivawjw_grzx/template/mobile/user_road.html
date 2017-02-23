@@ -5,46 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <script src="http://imgcdn.yimiaoxiao.com/jquery.min.js"></script>
     <title>关注路况</title>
+    <style>
+        .arrow_left{float: left;width:11%;margin-left:0;}
+        .info_right1{float:left;width:65%;}
+    </style>
 </head>
 <body style="background-color: #eeeeee;">
 <div class="content">
     <div class="content_box">
         <div style=" background-color:white;">
-            <div class="query_info">
+
+            {loop $sclk $item}
+            <div class="query_info" data-dwbh="{$item['dwbh']}">
                 <div class="query_info1" data-to='0'>
                     <div class="arrow_left"><i>&#xe622;</i></div>
-                    <div class="info_right">春申路北大街路口</div>
-                    <button data-tt='0'>取消收藏</button>
+                    <div class="info_right1">{$item['wzms']}</div>
+                    <button class="qxsc" data-id="{$item['id']}">取消收藏</button>
                 </div>
-
-                <div class="info_detail hide"  >
-                    <div class="detail_box" >
-                        <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
+                <div class="info_detail hide">
+                    <img src="" style="display: block;"  class="img{$item['dwbh']}">
+                    <div class="detail11_box" style="padding-left: 5%">
+                        <div>注：图片每5分钟自动更新</div>
+                        <div class="locaing">图片加载较慢，请耐心等待</div>
                     </div>
-                    <img style="display: none;" src="img/sy.jpg">
                 </div>
             </div>
-
-            <div class="query_info">
-                <div class="query_info1" data-to='0'>
-                    <div class="arrow_left"><i>&#xe622;</i></div>
-                    <div class="info_right">贡湖大道金城路口</div>
-                    <button data-tt='0'>取消收藏</button>
-                </div>
-
-                <div class="info_detail hide" >
-                    <div class="detail_box">
-                        <div>注：图片每5分钟自动更新，图片加载较慢，请耐心等待</div>
-                    </div>
-                    <img style="display: none;" src="img/sy.jpg">
-                </div>
-            </div>
-
+            {/loop}
         </div>
-        <a id="feed_btn" href="{php echo $this->createMobileUrldeM('vivawjw_lkcx','roadsel',array('op'=>'roadpsot'))}">我要报路况</a>
+        <!--<a id="feed_btn" href="">返回</a>-->
     </div>
 </div>
 <script>
@@ -64,18 +57,38 @@
             return;
         });
 
-        $('.query_info1 button').click(function(){
-            if($(this).data('tt') == 0){
-                $(this).data('tt',1);
-                $(this).text('收藏');
-                return false;
-            }else{
-                $(this).data('tt',0);
-                $(this).text('取消收藏');
-                return false;
-            }
+        $('.qxsc').click(function(){
+            var id = $(this).attr('data-id');
+            _this = $(this);
+            $.post("{php echo $this->createMobileUrl('user_road',array('op'=>'qxsclk'))}",{'id':id},function(data){
+                if(data == 200){
+//                    mui.alert('取消成功！');
+                    _this.parent().parent().remove();
+                }
+            });
+            return false;
+        });
 
-        })
+        $('.query_info').click(function(){
+            var dwbh = $(this).attr("data-dwbh");
+            var _this = $(this);
+            $.post("{php echo $this->createMobileUrl('seltp')}",{'dwbh':dwbh},function(data){
+                $('.img'+dwbh).attr('src','data:image/png;base64,'+data);
+                _this.find('.locaing').hide();
+                //console.log(data);
+            });
+            if($(this).data('ti')== 0){
+                $(this).data('ti',1);
+                $(this).siblings('.detail_boxes').show();
+                $(this).find('.detail_icon1').css('transform','rotate(90deg)');
+
+            }else{
+                $(this).data('ti',0);
+                $(this).siblings('.detail_boxes').hide();
+                $(this).find('.detail_icon1').css('transform','rotate(0deg)');
+
+            }
+        });
 
     })
 </script>

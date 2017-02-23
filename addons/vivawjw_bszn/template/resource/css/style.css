@@ -10,7 +10,7 @@ body{background-color:white; font-size:16px; color:#333333;}
 .content{width:100%; height:100%;}
 .content_box{width:100%;}
 a{text-decoration: none}
-
+input{-webkit-appearance: none;outline:none;}
 @font-face {
   font-family: 'iconfont';  /* project id 204563 */
   src: url('http://at.alicdn.com/t/font_7uplnm1yg5dk7qfr.eot');
@@ -23,7 +23,7 @@ a{text-decoration: none}
 .search_box{width:100%; background-color:white; padding-top:4%; padding-bottom:3%;}
 .search{width:80%; margin:0 auto; overflow:hidden;}
 .search input{border:solid 1px #b3b3b3; padding-left:3%; width:100%; height:34px; float:left; border-radius:10px;}
-.search button{border:none; background-color:transparent; float:right; margin-top:-13%;height: 34px;width: 34px}
+.search button{border:none; background-color:transparent; float:right; margin-top:-12%;height: 34px;width: 34px}
 .search button i{font-family:"iconfont" !important; color:#747171; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
 .search_tip{font-size:0.8rem; width:100%; margin-top:2%; text-align:center;}
 .search_tip span{display:inline-block; margin-left:1%; }
@@ -46,9 +46,12 @@ a{text-decoration: none}
 .icon6 i{font-size:12px; margin-left:3px;}
 
 .guild1_box{width:100%; margin-top:4%; margin-bottom:4%;}
-.question1{width:100%; height:35px; padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;}
-.ques{float:left; line-height:35px;}
-.question1 i ,.question2 i{float:right; margin-right:3%; line-height:35px; color:#00ca79; font-family:"iconfont" !important;font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.question1{width:100%;  padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;padding-top: 11px;padding-bottom: 11px}
+.ques{float:left; width:86%;}
+ .question2 i{float:right; margin-right:3%; line-height:35px; color:#00ca79; font-family:"iconfont" !important;
+     font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+.question1 i{float:right; margin-right:3%; color:#00ca79; font-family:"iconfont" !important;
+    font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
 .question2{width:100%; height:54px; padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;}
 .question2 span{font-size:0.8rem; color:#999999;}
 .ques2{float:left; line-height:24px; width:88%;}
@@ -59,9 +62,10 @@ a{text-decoration: none}
 .license_head div:nth-child(1){margin-top:4%;}
 .license_head div:nth-child(2){color:#999999; margin-top:1%; margin-bottom:2%;}
 .lice_con{width:100%;}
-.license_box{width:72%; max-height:23rem; overflow-y:auto; margin:5% auto; font-size:0.8rem; line-height:1.2rem;}
+.license_box{width:90%; max-height:23rem; overflow-y:auto; margin:5% auto; font-size:0.8rem; line-height:1.2rem;}
 #back{display:block; width:40%; margin:0 auto; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
-
+.license_box img{max-width:100%;}
+.license_box p img{max-width:100%;}
 /*交通路况随时报*/
 .picture_banner{width:100%;}
 .picture_banner img{width:100%;}

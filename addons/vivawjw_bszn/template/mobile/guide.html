@@ -23,7 +23,7 @@
                 <span>热门搜索:</span>
                 <span>
                     {loop $keylist $val}
-                    <a href="{php echo $this->createMobileUrl('guide',array('op' => 'key','hotkey' =>$val['hotkey']))}" style="text-decoration: none;color: #000;">{$val['hotkey']}</a>
+                    <a href="{php echo $this->createMobileUrl('guide',array('op' => 'key','hotkey' =>$val['hotkey']))}" style="text-decoration: none;">{$val['hotkey']}</a>
                     {/loop}
                 </span>
             </div>

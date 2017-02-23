@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <title>添加绑定车辆</title>
@@ -18,7 +20,7 @@
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>车辆类型</div>
-                <select name="wx_type">
+                <select name="wx_type"  style="font-size:0.9rem;">
                     {loop $cartype $tiem}
                     <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
                     {/loop}
@@ -26,11 +28,11 @@
             </div>
             <div class="car_style">
                 <div>车牌号码</div>
-                <input type="text" name="wx_car_num" id="car_number1" style="font-size:1rem;" value="苏BV286Z">
+                <input type="text" name="wx_car_num" id="car_number1" style="font-size:0.9rem;" value="苏B">
             </div>
             <div class="car_style">
                 <div>发动机号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入发动机号后六位" id="car_fa1" name="wx_car_engine" value="101923">
+                <input type="tel" placeholder="请输入发动机号后六位" id="car_fa1" name="wx_car_engine" style="font-size:0.9rem;">
             </div>
         </div>
         <a id="query1">立即绑定</a>
@@ -47,23 +49,24 @@
             var wx_car_engine = $("[name = 'wx_car_engine']").val();
             reg=/^苏B[0-9A-Z]{5}$/;
             if (!reg.test(wx_car_num)){
-                alert('请正确输入车牌号');return false;
+                mui.alert('请正确输入车牌号');return false;
             }
             if(wx_car_engine.length != 6){
-                alert('发动机号输入有误！');return false;
+                mui.alert('发动机号输入有误！');return false;
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car_post'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
                 $("#loading-fs").hide();
                 //console.log(data);return false;
                 if(data == 100){
-                    alert('最多只能绑定两辆车！');return false;
+                    //alert("<div class='car_cover'><div class='cover_box'><p>最多只能绑定两辆车</p><a>确定</a></div></div>");return false;
+                    mui.alert('最多只能绑定两辆车');return false;
                 }
                 if(data == 400){
-                    alert('车辆已被绑定！');return false;
+                    mui.alert('车辆已被绑定！');return false;
                 }
                 if(data == 300){
-                    alert('车辆绑定失败！');return false;
+                    mui.alert('车辆绑定失败！');return false;
                 }
                 $('.wx_car').hide();
                 $('.sub_car').show();
@@ -72,6 +75,7 @@
         });
     });
 </script>
+
 {/if}
 {if $op == 'wd_car'}
 <div class="content wd_car">
@@ -80,7 +84,7 @@
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>车辆类型</div>
-                <select name="wd_type">
+                <select name="wd_type"  style="font-size:0.9rem;">
                     {loop $cartype $tiem}
                     <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
                     {/loop}
@@ -89,11 +93,11 @@
 
             <div class="car_style">
                 <div>车牌号码</div>
-                <input type="text" name="wd_car_num" id="car_number1" style="font-size:1rem;" value="蒙D3H793">
+                <input type="text" name="wd_car_num" id="car_number1" style="font-size:0.9rem;" placeholder="请添加车牌号码">
             </div>
             <div class="car_style">
                 <div>发动机号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入发动机号后六位" id="car_fa1" name="wd_car_engine" value="180189">
+                <input type="tel" placeholder="请输入发动机号后六位" id="car_fa1" name="wd_car_engine"  style="font-size:0.9rem;">
             </div>
 
         </div>
@@ -111,23 +115,23 @@
             var wd_car_engine = $("[name = 'wd_car_engine']").val();
             reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
             if (!reg.test(wd_car_num)){
-                alert('请正确输入车牌号');return false;
+                mui.alert('请正确输入车牌号');return false;
             }
             if(wd_car_engine.length != 6){
-                alert('发动机号输入有误！');return false;
+                mui.alert('发动机号输入有误！');return false;
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wd_car_post'))}",{wd_type:wd_type,wd_car_num:wd_car_num,wd_car_engine:wd_car_engine},function(data){
                 $("#loading-fs").hide();
                 //console.log(data);return false;
                 if(data == 100){
-                    alert('最多只能绑定两辆车！');return false;
+                    mui.alert('最多只能绑定两辆车');return false;
                 }
                 if(data == 400){
-                    alert('车辆已被绑定！');return false;
+                    mui.alert('车辆已被绑定！');return false;
                 }
                 if (data == 300){
-                    alert('绑定失败');return false;
+                    mui.alert('绑定失败');return false;
                 }
                 $('.wd_car').hide();
                 $('.sub_car').show();
@@ -175,8 +179,8 @@
         {elseif $item['distinction'] == 1}
             <div class="account_mana">
                 <div class="acc_person_car1" >
-                    <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">{$item['wx_car_num']}</p>
-                    <p>点击查看违法信息</p>
+                    <p>{$item['wx_car_num']}</p>
+                    <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">点击查看违法信息</p>
                     <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
                         <i>&#xe67f;</i>
                         <span>移除</span>
@@ -190,7 +194,7 @@
                     <p>检验有效期止</p>
                     <p>{$item['YXQZ']}</p>
                 </div>
-                <div class="acc_person_car2" style="border: none;">
+                <div class="acc_person_car2">
                     <p>强制报废期止</p>
                     <p>{$item['QZBFQZ']}</p>
                 </div>
@@ -223,8 +227,8 @@
 <div class="account_mana">
     <p class="mana_car_1">{if $k == 0}绑定车辆一{elseif $k == 1}绑定车辆二{/if}</p>
     <div class="acc_person_car1" >
-        <a href="">{$item['wx_car_num']}</a>
-        <p>点击查看违法信息</p>
+        <p>{$item['wx_car_num']}</p>
+        <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">点击查看违法信息</p>
         <p class="del_bound_car" id="{$item['id']}">
             <i>&#xe67f;</i>
             <span>移除</span>
@@ -238,14 +242,13 @@
         <p>检验有效期止</p>
         <p>{$item['YXQZ']}</p>
     </div>
-    <div class="acc_person_car2" style="border: none;">
+    <div class="acc_person_car2">
         <p>强制报废期止</p>
         <p>{$item['QZBFQZ']}</p>
     </div>
 </div>
 {/if}
 {/loop}
-
 {/if}
 <script>
     $(function(){
@@ -259,14 +262,22 @@
                 process = true;
             }
         });
-        //挑转违法信息
+        //挑转车辆违法信息
         $('.ckwfxx').click(function(){
             var _this = $(this);
             var wx_type = _this.attr('data-type');
-            var wx_car_name = _this.attr('data-num');
+            var wx_car_num = _this.attr('data-num');
             var wx_car_engine = _this.attr('data-engine');
-            window.location.href = "{}";
-
+            $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
+                if(data == 300){
+                    mui.alert('查询失败！');return false;
+                }
+                if(data == 200){
+                    mui.alert('恭喜你，没有违法记录');return false;
+                }else{
+                    window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}&wx_type="+wx_type+"&wx_car_num="+wx_car_num+"&wx_car_engine="+wx_car_engine;
+                }
+            });
         });
 
     });
@@ -283,57 +294,169 @@
     </div>
 </div>
 {/if}
-<div class="query_box">
-    <div class="license">
-        <div class="licen_img">
-            <img src="{S_URL}img/lisence.png">
-            <div>苏BV286Z</div>
-        </div>
-        <div class="licen_mon">共<span>9</span>条违法信息<br>罚款<span>950</span>元</div>
-    </div>
-
-    <div style="margin-top:18px;">
-        <div class="query_info">
-            <div class="query_info1" data-to='0'>
-                <div class="arrow_left"><img src="{S_URL}img/jiant.png"></div>
-                <div class="info_right">
-                    <div>申诉</div>
-                    <div>违法时间:<span>2016-11-12 17:40</span></div>
-                    <div>违法地点:<span>新334省道宁通高速大桥东</span></div>
+{if $op == wfcx}
+<body style="background-color:#eeeeee;" >
+<div class="content">
+    <div class="content_box">
+        <div class="ill_query">
+            <div class="query_box">
+                <div class="license">
+                    <div class="licen_img">
+                        <img src="{S_URL}img/lisence.png">
+                        <div>{$data['HPHM']}</div>
+                    </div>
+                    <div class="licen_mon">共<span>{$wfnum}</span>条违法信息<br>罚款<span>{$fkje}</span>元</div>
                 </div>
-            </div>
 
-            <div class="info_detail hide"  >
-                <div class="detail_box">
-                    <div>违法行为:<span>驾驶中型以上载客载货汽车、校车、危险物品运输车辆以外的其他机动车行驶超过规定时速20%以上未达到50%的</span></div>
-                    <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div>
-                    <div>处理状态:<span>未处理</span></div>
-                    <div>罚款金额:<span>200元</span></div>
-                </div>
-            </div>
-        </div>
+                <div style="margin-top:18px;">
+                    {loop $wflist $item}
+                    <div class="query_info">
+                        <div class="query_info11" data-to='0'>
+                            <div class="arrow_left"><img src="{S_URL}img/jiant.png"></div>
+                            <div class="info_right">
+                                <a href="javascript:;" class="shensu" data-wftime="{$item['WFSJ']}" data-wfaddr="{$item['WFDD']}" data-wfcontent="{$item['WFXW']}" data-wfjkxh="{$item['XH']}" data-wfclbj="{$item['CLBJ']}" data-wfcjjg="{$item['CJJGMC']}" data-wfrksj="{$item['RKSJ']}" data-wffkjf="{$item['WFJFS']}" data-wfcph="{$data['HPHM']}" data-wfmoney="{$item['FKJE']}">申诉</a>
+                                <div class="chu">违法时间:<span>{$item['WFSJ']}</span></div>
+                                <div>违法地点:<span>{$item['WFDD']}</span></div>
+                            </div>
+                        </div>
 
-        <div class="query_info">
-            <div class="query_info1" data-to='0'>
-                <div class="arrow_left"><img src="{S_URL}img/jiant.png"></div>
-                <div class="info_right">
-                    <div>申诉</div>
-                    <div>违法时间:<span>2016-11-12 17:40</span></div>
-                    <div>违法地点:<span>新334省道宁通高速大桥东</span></div>
-                </div>
-            </div>
-
-            <div class="info_detail hide" >
-                <div class="detail_box">
-                    <div>违法行为:<span>驾驶中型以上载客载货汽车、校车、危险物品运输车辆以外的其他机动车行驶超过规定时速20%以上未达到50%的</span></div>
-                    <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div>
-                    <div>处理状态:<span>未处理</span></div>
-                    <div>罚款金额:<span>200元</span></div>
+                        <div class="info_detail hide"  >
+                            <div class="detail_box">
+                                <div>违法行为:<span>{$item['WFXW']}</span></div>
+                                <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div>
+                                <div>处理状态:<span>{php echo $zt}</span></div>
+                                <div>罚款金额:<span>{$item['FKJE']}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    {/loop}
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
+        <div class="content susub" style="display: none">
+            <div class="content_box">
+                <form>
+                    <div class="appeal_box">
+                        <div class="appeal_name">
+                            <div>姓名:</div>
+                            <input type="text" name="appeal_name" placeholder="请输入您的姓名" >
+                            <input type="hidden" value="{$userid}" name="userid">
+                        </div>
+                        <div class="appeal_phone">
+                            <div>联系方式:</div>
+                            <input type="text" name="appeal_phone" placeholder="请输入您的手机号" >
+                        </div>
+                        <div class="appeal_why">
+                            <div>申诉原因:</div>
+                            <textarea placeholder="请输入申诉原因(100字以内)" name="appeal_why"></textarea>
+                        </div>
+                        <input type="hidden" class="wfcjjg" value="">
+                        <input type="hidden" class="wftime" value="">
+                        <input type="hidden" class="wfaddr" value="">
+                        <input type="hidden" class="wfcontent" value="">
+                        <input type="hidden" class="wfjkxh" value="">
+                        <input type="hidden" class="wfclbj" value="">
+                        <input type="hidden" class="wfrksj" value="">
+                        <input type="hidden" class="wffkjf" value="">
+                        <input type="hidden" class="wfmoney" value="">
+                        <input type="hidden" class="wfcph" value="">
+                    </div>
+                    <a id="appeal_sub">提交</a>
+                </form>
+            </div>
+        </div>
+        <div class="content succees" style="display: none">
+            <div class="content_box">
+                <div class="appeal1_box">
+                    <i class="appeal_suc">&#xe60d;</i>
+                    <div>您的申诉信息我们已经收到，将尽快为您处理。</div>
+                </div>
+                <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car')}" style="text-decoration: none">返回</a>
+            </div>
+        </div>
+</body>
+<script>
+    var process = false;
+    $(function(){
+        //申诉
+        $("#loading-fs").hide();
+        $('.shensu').click(function(){
+            $('.ill_query').hide();
+            $('.susub').show();
+            $('.wfcjjg').val($(this).attr('data-wfcjjg'));
+            $('.wftime').val($(this).attr('data-wftime'));
+            $('.wfaddr').val($(this).attr('data-wfaddr'));
+            $('.wfcontent').val($(this).attr('data-wfcontent'));
+            $('.wfjkxh').val($(this).attr('data-wfjkxh'));
+            $('.wfclbj').val($(this).attr('data-wfclbj'));
+            $('.wfrksj').val($(this).attr('data-wfrksj'));
+            $('.wffkjf').val($(this).attr('data-wffkjf'));
+            $('.wfmoney').val($(this).attr('data-wfmoney'));
+            $('.wfcph').val($(this).attr('data-wfcph'));
+        });
+        $('#appeal_sub').click(function(){
+            var appeal_name = $("[name = 'appeal_name']").val();
+            var appeal_phone = $("[name = 'appeal_phone']").val();
+            var appeal_why = $("[name = 'appeal_why']").val();
+            var wfcjjg = $('.wfcjjg').val();
+            var wftime = $('.wftime').val();
+            var wfaddr = $('.wfaddr').val();
+            var wfcontent = $('.wfcontent').val();
+            var wfjkxh = $('.wfjkxh').val();
+            var wfclbj = $('.wfclbj').val();
+            var wfrksj = $('.wfrksj').val();
+            var wffkjf = $('.wffkjf').val();
+            var wfmoney = $('.wfmoney').val();
+            var wfcph = $('.wfcph').val();
+            if (appeal_name == ''){
+                mui.alert('请留下您的名字！');return false;
+            }
+            if (appeal_phone == ''){
+                mui.alert('手机号不能为空！');return false;
+            }
+            if(!(/^1[34578]\d{9}$/.test(appeal_phone))){
+                mui.alert("手机号码有误，请重填");return false;
+            }
+            if (appeal_why == ''){
+                mui.alert('请填写申诉原因,方便我们帮到您！');return false;
+            }
+            if (appeal_why.length > 100){
+                mui.alert('您字数过多，我看不过来，请在100字符之内！');return false;
+            }
+            if(process)return false;
+            $("#loading-fs").show();
+            $.post("{php echo $this->createMobileUrl('appealpost')}",{'wfcph':wfcph,'wfmoney':wfmoney,'wffkjf':wffkjf,'wfrksj':wfrksj,'wfclbj':wfclbj,'wfjkxh':wfjkxh,'wfcontent':wfcontent,'wfaddr':wfaddr,'wftime':wftime,'wfcjjg':wfcjjg,'appeal_why':appeal_why,'appeal_phone':appeal_phone,'appeal_name':appeal_name},function(data){
+                //console.log(data);
+                $("#loading-fs").hide();
+                if(data == 200){
+                    $('.content').hide();
+                    $('.susub').hide();
+                    $('.succees').show();
+                }
+                process = true;
+            });
+        });
+        $('.query_info11').click(function(){
+            if($(this).data('to') == 0){
+                $(this).data('to',1);
+                $(this).siblings('.info_detail').show();
+                /*$(this).siblings('.info_detail').show().parent().siblings().find('.info_detail').hide();*/
+                $(this).find('.arrow_left img').css('transform','rotate(180deg)');
+            }else{
+                $(this).data('to',0);
+                $(this).siblings('.info_detail').hide();
+                $(this).find('.arrow_left img').css('transform','rotate(0deg)');
+            }
+        });
+
+        $('.close').click(function(){
+            $('.binding').hide();
+        })
+    });
+</script>
+{/if}
 <script>
     wx.ready(function(){
         $('.where').click(function(){

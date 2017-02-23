@@ -5,9 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/index.css" rel="stylesheet">
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <title>违法查询</title>
+    <style>
+        @font-face {
+            font-family: 'iconfont';  /* project id 202971 */
+            src: url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.eot');
+            src: url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.eot?#iefix') format('embedded-opentype'),
+            url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.woff') format('woff'),
+            url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.ttf') format('truetype'),
+            url('http://at.alicdn.com/t/font_d8zz26i2cjfko6r.svg#iconfont') format('svg');
+        }
+
+        .illegal_qu{width:100%; margin-bottom: 80px;}
+        .query_score{width:100%; border-bottom: solid 1px #dddddd; padding-left:4%; padding-top:15px; padding-bottom: 15px; overflow: hidden;}
+        .query_score_p1{float: left; color: #999999;}
+        .query_score_p2{float: left; margin-left: 3%;}
+        .query_score_div{float: right;width:25%;text-align: center; border-left: solid 1px #999999;}
+        .query_score_div span{color:#3cca74;}
+        .query_ill{width:100%; margin-top:10px;}
+        .query_ill_div{width:100%; background-color: #f9f9f9; padding-top:12px; padding-bottom: 12px;}
+        .query_ill_div p{color:#2ECC71; border-left: solid 3px #2ECC71; padding-left:3%;margin-left:3%;}
+        .query_ill_div1{width:100%; padding-left: 6%; padding-top:20px; padding-bottom: 15px; overflow: hidden; border-bottom:solid 1px #dddddd;}
+        .ill_div_left{float: left; color:#999999; width:90%;}
+        .ill_div_right{float: right; width:5%; margin-top: 16px; margin-right:5%;}
+        .ill_div_left p span{display:inline-block; color:#333333; margin-left:3%;}
+        .ill_div_right img{display: block; width:100%;}
+        .ill_div_left p:nth-child(2){margin-top:4px;}
+        .query_ill_div2{width:100%; padding-top: 10px; padding-bottom: 10px; background-color: #eefbf3; padding-left:6%; font-size:0.9rem;}
+        .query_ill_div2 p{margin-top: 10px;}
+        .query_ill_div2 p span{display: inline-block; margin-left: 1%;}
+        .others_car{text-align: center; font-size:0.9rem; color:#2ECC71; margin-top:28px;}
+        .binding{width:100%; position:fixed; bottom:0; left:0; }
+        .binding_box{position:relative;padding-top:3%; padding-bottom:3%; overflow:hidden; width:100%; background-color:#5f5f5f; color:white;}
+        .plus{float:left; margin-top:0.5%; margin-left:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+        .close i{float:right; margin-right:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
+        .binding_box div:nth-child(2){float:left; margin-left:6.7%;}
+    </style>
 </head>
 <body >
 <div class="content chaxun">
@@ -35,12 +72,12 @@
                     <input type="text" name="carnum" id="car_number" value="苏B">
                 </div>
                 <div class="car_style">
-                    <div>发动机号<br><a class="where">(在哪里)</a></div>
+                    <div>发动机号<br><a class="where1">(在哪里)</a></div>
                     <input type="text" name="enginenum" placeholder="请输入发动机号后六位" id="car_fa" >
                 </div>
                 <a id="query">查询</a>
                 <div class="query_word1">视频及外地违法图片请到各违法处理点查看</div>
-                <div class="query_word2"><a href="" style="color: #2ecc71">查看我绑定车辆的违法信息</a></div>
+                <div class="query_word2"><a href="{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}" style="color: #2ecc71">查看我绑定车辆的违法信息</a></div>
             </div>
 
             <div class="query_box jszwf" style="display:none">
@@ -50,43 +87,35 @@
                 </div>
                 <div class="car_style">
                     <div>档案编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" name="filenum" placeholder="请输入档案编号后六位" id="car_fa1" >
+                    <input type="text" name="filenum" placeholder="请输入档案编号后六位" id="car_fa1"  >
                 </div>
                 <a id="query1">查询</a>
-                <div class="query_word3">查看我绑定驾驶证的违法信息</div>
+                <div class="query_word3"><a href="{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}" style="color: #2ecc71">查看我绑定驾驶证的违法信息</a></div>
             </div>
 
         </div>
 
 <script>
-    var process = false;
     $("#loading-fs").hide();
     $(function(){
         $('#query').click(function(){
-            if(process)return false;
             var cartype = $("[name = 'cartype']").val();
             var carnum = $("[name = 'carnum']").val();
             var enginenum = $("[name = 'enginenum']").val();
+            if (enginenum == ''){
+                mui.alert('发动机号不能为空！');return false;
+            }
             reg=/^苏B[0-9A-Z]{5}$/;
             if (!reg.test(carnum)){
-                alert('请正确输入车牌号');return false;
-            }
-            if (enginenum == ''){
-                alert('发动机号不能为空！');return false;
+                mui.alert('请正确输入车牌号');return false;
             }
             if(enginenum.length != 6){
-                alert('发动机号码输入有误！');return false;
+                mui.alert('发动机号码输入有误！');return false;
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('apipostcl')}",{'cartype':cartype,'carnum':carnum,'enginenum':enginenum},function(data){
                 //console.log(data);
                 if (data.State == 0){
-                    var list = data.WFXXList.WFXX;
-                    var fkje = 0;
-                    for (var i = 0; i < list.length; i++){
-                        var n = list[i].FKJE;
-                        fkje = fkje + n;
-                    }
                     switch (data.ZT) {
                         case 'A':
                             var a = '正常';
@@ -133,6 +162,16 @@
                         default:
                             var a = '正常';
                             break;
+                    }
+                    if(a == '正常'){
+                        $("#loading-fs").hide();
+                        mui.alert('恭喜你没有违法记录！');return false;
+                    }
+                    var list = data.WFXXList.WFXX;
+                    var fkje = 0;
+                    for (var i = 0; i < list.length; i++){
+                        var n = list[i].FKJE;
+                        fkje = fkje + n;
                     }
                     $('.start').hide();
                     $('.end').show();
@@ -183,99 +222,132 @@
                     });
                     $('.endjsyxx').hide();
                     $('.endclwf').show();
+                }else{
+                    $("#loading-fs").hide();
+                    mui.alert('车牌号或发动机号不正确！');return false;
                 }
-                process = true;
-
+                $("#loading-fs").hide();
             },'JSON');
-
-            $("#loading-fs").hide();
         });
 
         $('#query1').click(function(){
-            if(process)return false;
             var drnunum = $("[name = 'drnunum']").val();
             var filenum = $("[name = 'filenum']").val();
             if (drnunum == ''){
-                alert('发动机号不能为空！');return false;
+                mui.alert('驾驶证号不能为空！');return false;
             }
             if (filenum == ''){
-                alert('发动机号不能为空！');return false;
-            }
-            if(filenum.length != 6){
-                alert('发动机号码输入有误！');return false;
+                mui.alert('档案编号不能为空！');return false;
             }
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('apipostjsr')}",{'drnunum':drnunum,'filenum':filenum},function(data){
+                $("#loading-fs").hide();
                 //console.log(data);
-                if (data){
+                if (data.State == 0){
                     switch (data.ZT) {
                         case 'A':
-                            var a = '正常';
+                            zt = '正常';
                             break;
                         case 'B':
-                            var a = '转出';
+                            zt = '超分';
                             break;
                         case 'C':
-                            var a = '被盗抢';
+                            zt = '转出';
                             break;
                         case 'D':
-                            var a = '停驶';
+                            zt = '暂扣';
                             break;
                         case 'E':
-                            var a = '注销';
+                            zt = '撤销';
+                            break;
+                        case 'F':
+                            zt = '吊销';
                             break;
                         case 'G':
-                            var a = '违法未处理';
+                            zt = '注销';
                             break;
                         case 'H':
-                            var a = '海关监管';
+                            zt = '违法未处理';
                             break;
                         case 'I':
-                            var a = '事故未处理';
+                            zt = '事故未处理';
                             break;
                         case 'J':
-                            var a = '嫌疑车';
+                            zt = '停止使用';
                             break;
                         case 'K':
-                            var a = '查封';
+                            zt = '扣押';
                             break;
                         case 'L':
-                            var a = '扣留';
+                            zt = '锁定';
                             break;
                         case 'M':
-                            var a = '强制注销';
+                            zt = '逾期未换证';
                             break;
                         case 'N':
-                            var a = '事故逃逸';
+                            zt = '延期换证';
                             break;
-                        case 'O':
-                            var a = '锁定';
+                        case 'P':
+                            zt = '延期体检';
+                            break;
+                        case 'R':
+                            zt = '注销可恢复';
+                            break;
+                        case 'S':
+                            zt = '逾期未审验';
+                            break;
+                        case 'T':
+                            zt = '延期审验';
+                            break;
+                        case 'U':
+                            zt = '扣留';
                             break;
                         default:
-                            var a = '正常';
+                            zt = '正常';
                             break;
+                    }
+                    if(zt == '正常'){
+                        $("#loading-fs").hide();
+                        mui.alert('恭喜你没有违法记录！');return false;
                     }
                     $('.start').hide();
                     $('.end').show();
                     $('.endclwf').hide();
-                    $('.endjsyxx').show();
+                    $('.illegal_qu').show();
+                    $('.query_score_p2').text(data.JSZH);
                     $('.ljjf').text(data.LJJF);
-                    $('.ccdjrq').text(data.CCDJRQ);
-                    $('.yxqz').text(data.YXQZ);
-                    $('.jsrzt').text(a);
+                    $('.zt').text(zt);
+                    var list = data.WFWJKList.WFWJK;
+                    for (var j = 0; j < list.length; j++){
+                        var CLJGMC = list[j].CLJGMC;//采集机构
+                        var WFSJ = list[j].WFSJ;//采集时间
+                        var FKJE = list[j].FKJE;//罚款金额
+                        var WFDZ = list[j].WFDZ;//违法地点
+                        var WFJFS = list[j].WFJFS;//违法记分
+                        var WFXW = list[j].WFXW;//违法行为
+
+                        $('.wfxxlist').append("<div><div class='query_ill_div1' data-to='0'><div class='ill_div_left'><p>时间:<span>"+WFSJ+"</span></p><p>地点:<span>"+WFDZ+"</span></p></div><div class='ill_div_right'><img src='{S_URL}img/jiant.png'></div></div><div class='query_ill_div2' style='display: none;'><p>违法行为:<span>"+WFXW+"</span></p><p>采集机关:<span>"+CLJGMC+"</span></p><p>处理状态:<span class='zt'></span></p><p>罚款金额:<span>"+FKJE+"</span></p><p>违法记分:<span>"+WFJFS+"</span></p></div></div>");
+                    }
+                    $('.query_ill_div1').click(function(){
+                        if($(this).data('to')==0){
+                            $(this).data('to',1);
+                            $(this).siblings('.query_ill_div2').show();
+                            $(this).find('.ill_div_right').css('-webkit-transform','rotate(180deg)');
+                        }else{
+                            $(this).data('to',0);
+                            $(this).siblings('.query_ill_div2').hide();
+                            $(this).find('.ill_div_right').css('-webkit-transform','rotate(0deg)');
+                        }
+                    })
+                }else{
+                    $("#loading-fs").hide();
+                    mui.alert('驾驶证号或编号不正确！');return false;
                 }
-                process = true;
             },'JSON');
 
-            $("#loading-fs").hide();
         });
-
     });
 </script>
-<div id="loading-fs">
-    <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
-</div>
-
         <div class="ill_query end" style="background-color:#eeeeee;display: none">
             <div class="endclwf">
                 <div class="query_box">
@@ -291,16 +363,10 @@
                     </div>
                     <div class="query_word4"><a href="{php echo $this->createMobileUrl('illegal',array('op'=>'start'))}" style="color: #2ecc71">查询其他车辆违法信息</a></div>
                 </div>
-                <div class="binding">
-                    <div class="binding_box">
-                        <a href="" class="plus" style="text-decoration: none">&#xe616;</a>
-                        <div>绑定该车辆，接收违法通知</div>
-                        <div class="close"><i>&#xe611;</i></div>
-                    </div>
-                </div>
+
             </div>
 
-            <div class="query_box endjsyxx" style="background-color: white;display:none;">
+            <!--<div class="query_box endjsyxx" style="background-color: white;display:none;">
                 <div class="driv_info">驾驶员信息</div>
                 <div class="illegal_box">
                     <div class="ill_score">
@@ -320,17 +386,92 @@
                     </div>
                     <div class="ill_score">
                         <div>状态</div>
-                        <div class="jsrzt"></div>
+                            <div class="jsrzt"></div>
                     </div>
                 </div>
-            </div>
-
+            </div>-->
         </div>
     </div>
 </div>
+<div class="illegal_qu" style="display: none">
+    <div class="query_score">
+        <p class="query_score_p1">驾驶证</p>
+        <p class="query_score_p2"></p>
+        <div class="query_score_div">累计<span class="ljjf"></span>分</div>
+    </div>
+    <div class="query_ill">
+        <div class="query_ill_div">
+            <p>违法未交款</p>
+        </div>
+        <div class="wfxxlist">
+            <!--<div>
+                <div class="query_ill_div1" data-to='0'>
+                    <div class="ill_div_left">
+                        <p>时间:<span>2016-11-12 09:29</span></p>
+                        <p>地点:<span>324省道</span></p>
+                    </div>
+                    <div class="ill_div_right"><img src="img/jiant.png"></div>
+                </div>
+
+                <div class="query_ill_div2" style="display: none;">
+                    <p>违法行为:<span>机动车未按照规定期限进行安全技术检验</span></p>
+                    <p>采集机关:<span>宜兴市公安局交通警察大队张渚中队</span></p>
+                    <p>处理状态:<span>违法未缴款</span></p>
+                    <p>罚款金额:<span>200元</span></p>
+                    <p>违法记分:<span>3</span></p>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="query_ill">
+        <div class="query_ill_div">
+            <p>违法未处理（暂无数据）</p>
+        </div>
+        <div>
+            <!--<div class="query_ill_div1" data-to='0'>
+                <div class="ill_div_left">
+                    <p>时间:<span>2016-11-12 09:29</span></p>
+                    <p>地点:<span>324省道</span></p>
+                </div>
+                <div class="ill_div_right"><img src="{S_URL}img/jiant.png"></div>
+            </div>
+
+            <div class="query_ill_div2" style="display: none;">
+                <p>违法行为:<span>机动车未按照规定期限进行安全技术检验</span></p>
+                <p>采集机关:<span>宜兴市公安局交通警察大队张渚中队</span></p>
+                <p>处理状态:<span>违法未缴款</span></p>
+                <p>罚款金额:<span>200元</span></p>
+                <p>违法记分:<span>3</span></p>
+            </div>-->
+        </div>
+
+
+    </div>
+    <p class="others_car">查询其他车辆违法信息</p>
+
+</div>
+
+<script>
+    /*$('.query_ill_div1').click(function(){
+        if($(this).data('to')==0){
+            $(this).data('to',1);
+            $(this).siblings('.query_ill_div2').show();
+            $(this).find('.ill_div_right').css('-webkit-transform','rotate(180deg)');
+        }else{
+            $(this).data('to',0);
+            $(this).siblings('.query_ill_div2').hide();
+            $(this).find('.ill_div_right').css('-webkit-transform','rotate(0deg)');
+        }
+    })*/
+</script>
 {template 'wxsdk'}
 <script>
     $(function(){
+        $('.others_car').click(function(){
+            //跳转违法查询
+            location.href = location.href;
+        });
         $('.show_car').click(function(){
             $(this).addClass('ill_current');
             $('.show_driving').removeClass('ill_current');
@@ -338,6 +479,7 @@
             $('.clwf').show();
             $('.start').show();
             $('.end').hide();
+            $('.illegal_qu').hide();
 
         });
         $('.show_driving').click(function(){
@@ -347,6 +489,7 @@
             $('.clwf').hide();
             $('.start').show();
             $('.end').hide();
+            $('.illegal_qu').hide();
 
         });
 
@@ -372,8 +515,14 @@
     wx.ready(function(){
         $('.where').click(function(){
             wx.previewImage({
-                current: 'http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help_0.jpg', // 当前显示图片的http链接
-                urls: ['http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help_0.jpg'] // 需要预览的图片http链接列表
+                current: 'http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help1_0.jpg', // 当前显示图片的http链接
+                urls: ['http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help1_0.jpg'] // 需要预览的图片http链接列表
+            });
+        });
+        $('.where1').click(function(){
+            wx.previewImage({
+                current: 'http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help2_0.jpg', // 当前显示图片的http链接
+                urls: ['http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help2_0.jpg'] // 需要预览的图片http链接列表
             });
         });
 
@@ -413,7 +562,7 @@
     </div>
 </div>
 <script>
-
+    var process = false;
     $("#loading-fs").hide();
     $(function(){
         $('#appeal_sub').click(function(){
@@ -431,23 +580,24 @@
             var wfmoney = $('.wfmoney').val();
             var wfcph = $('.wfcph').val();
             if (appeal_name == ''){
-                alert('请留下您的名字！');return false;
+                mui.alert('请留下您的名字！');return false;
             }
             if (appeal_phone == ''){
-                alert('手机号不能为空！');return false;
+                mui.alert('手机号不能为空！');return false;
             }
             if(!(/^1[34578]\d{9}$/.test(appeal_phone))){
-                alert("手机号码有误，请重填");return false;
+                mui.alert("手机号码有误，请重填");return false;
             }
             if (appeal_why == ''){
-                alert('请填写申诉原因,方便我们帮到您！');return false;
+                mui.alert('请填写申诉原因,方便我们帮到您！');return false;
             }
             if (appeal_why.length > 100){
-                alert('您字数过多，我看不过来，请在100字符之内！');return false;
+                mui.alert('您字数过多，我看不过来，请在100字符之内！');return false;
             }
             if(process)return false;
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('appealpost')}",{'wfcph':wfcph,'wfmoney':wfmoney,'wffkjf':wffkjf,'wfrksj':wfrksj,'wfclbj':wfclbj,'wfjkxh':wfjkxh,'wfcontent':wfcontent,'wfaddr':wfaddr,'wftime':wftime,'wfcjjg':wfcjjg,'appeal_why':appeal_why,'appeal_phone':appeal_phone,'appeal_name':appeal_name},function(data){
+                $("#loading-fs").hide();
                 if(data == 200){
                     $('.succees').show();
                     $('.chaxun').hide();
@@ -466,6 +616,9 @@
         </div>
         <a id="appeal_back" href="{php echo $this->createMobileUrl('illegal')}" style="text-decoration: none">返回</a>
     </div>
+</div>
+<div id="loading-fs">
+    <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
 </div>
 </body>
 </html>
