@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
 define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_bszn/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_bszn/template/resource/');
 class vivawjw_bsznModuleSite extends WeModuleSite
 {
 	//入口
@@ -67,8 +67,9 @@ class vivawjw_bsznModuleSite extends WeModuleSite
 		}
 		//搜索关键字
 		if ($op == 'hot_key_list'){
-			$keylist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_bszn_hotkey').' WHERE uniacid = :uniacid ORDER BY id asc',array(':uniacid'=>$_W['uniacid']));
-
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_bszn_hotkey').' WHERE uniacid = :uniacid',array(':uniacid' => $_W['uniacid']));
+			$keylist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_bszn_hotkey').' WHERE uniacid = :uniacid  ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' => $_W['uniacid']));
+			$pager =pagination($total, $pindex, $psize);
 		}
 		include $this->template('manage');
 	}

@@ -669,7 +669,7 @@
                }
                $("#loading-fs").show();
                $.post("{php echo $this->createMobileUrl('roadpost')}",{uid:uid,pict_info:pict_info,proof:proof},function(data){
-                    if(data){
+                    if(data == 200){
                          window.location.href = "{php echo $this->createMobileUrl('roadsel',array('op'=>'success'))}";
                     }else{
                          $("#loading-fs").hide();

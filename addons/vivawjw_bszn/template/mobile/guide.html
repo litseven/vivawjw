@@ -10,7 +10,7 @@
     <title>办事指南</title>
 </head>
 {php echo htmlspecialchars_decode($data['content'])}
-<body style="background-color:#eeeeee;">
+<body>
 {if $op == 'list'}
 <div class="content">
     <div class="content_box">
@@ -28,6 +28,7 @@
                 </span>
             </div>
         </div>
+        <div style="height: 10px;background-color: #f5f5f5"></div>
         <div class="guild">
             <div class="guild_box">
                 {loop $data $k $item}
@@ -36,6 +37,7 @@
                     <div>{$item['title']}</div>
                     <i class="icon11">&#xe622;</i>
                 </a>
+                <div style="height: 10px;background-color: #f5f5f5"></div>
                 {/loop}
 
             </div>
@@ -104,7 +106,7 @@
 <div class="content">
     <div class="content_box">
         <div class="license_head">
-            <div>{$content['title']}</div>
+            <div style="font-weight: bold;">{$content['title']}</div>
             <div>{php echo date('Y-m-d',$content['time'])}</div>
         </div>
         <div class="lice_con">
@@ -112,7 +114,7 @@
                 {php echo htmlspecialchars_decode($content['content'])}
             </div>
         </div>
-        <a id="back" href="{php echo $this->createMobileUrl('guide',array('op' => 'list'))}">返回</a>
+       <!-- <a id="back" href="{php echo $this->createMobileUrl('guide',array('op' => 'list'))}">返回</a>-->
     </div>
 </div>
 {/if}

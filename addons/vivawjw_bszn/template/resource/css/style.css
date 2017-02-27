@@ -30,7 +30,7 @@ input{-webkit-appearance: none;outline:none;}
 
 .guild{width:100%;}
 .guild_box{width:100%;}
-.guild1{display:block; width:100%; overflow:hidden; height:44px; margin-top:4%; background-color:white;}
+.guild1{display:block; width:100%; overflow:hidden; height:44px; background-color:white;}
 .guild1 .icon1 ,.icon2 ,.icon3 ,.icon4 ,.icon5 ,.icon6{float:left; margin-left:5.3%; margin-top:13px; background-color:#657bff; border-radius:4px; width:18px; height:18px;}
 .guild1 .icon1 i ,.icon2 i ,.icon3 i ,.icon4 i ,.icon5 i ,.icon6 i{color:white; text-align:center; margin-left:1.5px; line-height:18px;font-family:"iconfont" !important;font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
 .guild1 div:nth-child(2){float:left; margin-left:2.6%; line-height:44px;}
@@ -46,7 +46,7 @@ input{-webkit-appearance: none;outline:none;}
 .icon6 i{font-size:12px; margin-left:3px;}
 
 .guild1_box{width:100%; margin-top:4%; margin-bottom:4%;}
-.question1{width:100%;  padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;padding-top: 11px;padding-bottom: 11px}
+.question1{width:100%;  padding-left:3%; overflow:hidden; border-bottom:solid 1px #b2b2b2;padding-top: 15px;padding-bottom: 15px}
 .ques{float:left; width:86%;}
  .question2 i{float:right; margin-right:3%; line-height:35px; color:#00ca79; font-family:"iconfont" !important;
      font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
@@ -62,7 +62,7 @@ input{-webkit-appearance: none;outline:none;}
 .license_head div:nth-child(1){margin-top:4%;}
 .license_head div:nth-child(2){color:#999999; margin-top:1%; margin-bottom:2%;}
 .lice_con{width:100%;}
-.license_box{width:90%; max-height:23rem; overflow-y:auto; margin:5% auto; font-size:0.8rem; line-height:1.2rem;}
+.license_box{width:90%;/* max-height:23rem;*/ overflow-y:auto; margin:5% auto; font-size:0.8rem; line-height:1.2rem;}
 #back{display:block; width:40%; margin:0 auto; margin-top:15%; text-align:center; background-color:#2ecc71; border-radius:8px; padding-top:3%; padding-bottom:3%; color:white; margin-bottom:6%;}
 .license_box img{max-width:100%;}
 .license_box p img{max-width:100%;}

@@ -53,8 +53,7 @@ CREATE TABLE `ims_vivawjw_lkcx` (
   `time` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '2',
   `turndown` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS `ims_vivawjw_lkcx_sc`;
 CREATE TABLE `ims_vivawjw_lkcx_sc` (

@@ -62,7 +62,7 @@ input{-webkit-appearance: none;outline:none;}
 .query_box{width:100%;}
 .car_style{width:100%; padding-left:5.3%; height:53px; line-height:49px; overflow:hidden; border-bottom:solid 1px #eeeeee;}
 .car_style div{float:left; width:27%;}
-.car_style select{margin-left:3%; padding-left:3%; -webkit-appearance:none; width:68%; border:solid 1px #dddddd; border-radius:8px; padding-top:2%; padding-bottom:2%; background:url(../img/trian.png) no-repeat 90% center; background-size:5%;}
+.car_style select{margin-left:3%; padding-left:3%; -webkit-appearance:none; width:68%; border:solid 1px #dddddd; border-radius:8px; padding-top:2%; padding-bottom:2%;/* background:url(../img/trian.png) no-repeat 90% center;*/ background-size:5%;}
 #car_number,#car_fa ,#car_number1,#car_fa1{margin-left:3%; padding-left:3%; width:68%; font-size:0.8rem; border:solid 1px #dddddd; border-radius:8px; padding-top:2.5%; padding-bottom:2%;}
 .car_style:nth-child(3) a ,.where{display:block; margin-top:-33px; font-size:0.6rem; text-align:center; color:#2ecc71;}
 .car_style:nth-child(1){margin-top:4%;}

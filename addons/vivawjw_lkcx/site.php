@@ -2,8 +2,8 @@
 //ini_set('display_errors', 0);
 //error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
 
 		public function doMobileRoadsel(){
@@ -205,7 +205,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/temp
                 $pindex =max(1, intval($_GPC['page']));
                 $psize =10;
                 $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivawjw_lkcx'). ' WHERE uniacid = :uniacid AND status = :status', $params);
-                $list = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkcx').' WHERE uniacid = :uniacid AND status = :status  ORDER BY sittime desc LIMIT '.($pindex - 1) * $psize.','.$psize,$params);
+                $list = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkcx').' WHERE uniacid = :uniacid AND status = :status  ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,$params);
                 $pager =pagination($total, $pindex, $psize);
             }
             if($op == 'view'){

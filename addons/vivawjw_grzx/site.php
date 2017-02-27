@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_grzx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_grzx/template/resource/');
 class vivawjw_grzxModuleSite extends WeModuleSite
 {
 	//入口
@@ -747,7 +747,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//无锡绑定车辆列表
 		if ($op == 'wx_car'){
 			$distinction = 1;
-			$wxlist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uniacid =:uniacid AND distinction = :distinction',array(':uniacid'=>$uniacid,':distinction'=>$distinction));
+			$pindex =max(1, intval($_GPC['page']));
+			$psize =10;
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uniacid = :uniacid AND distinction = :distinction',array(':uniacid' => $_W['uniacid'],':distinction'=>$distinction));
+			$wxlist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uniacid = :uniacid AND distinction = :distinction ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' =>$uniacid,':distinction'=>$distinction));
+			$pager =pagination($total, $pindex, $psize);
 		}
 		//无锡绑定车辆信息
 		if ($op == 'wx_car_info'){
@@ -757,7 +761,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//外地绑定车辆列表
 		if ($op == 'wd_car'){
 			$distinction = 0;
-			$wdlist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uniacid =:uniacid AND distinction = :distinction',array(':uniacid'=>$uniacid,':distinction'=>$distinction));
+			$pindex =max(1, intval($_GPC['page']));
+			$psize =10;
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uniacid = :uniacid AND distinction = :distinction',array(':uniacid' => $_W['uniacid'],':distinction'=>$distinction));
+			$wdlist = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uniacid = :uniacid AND distinction = :distinction ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' =>$uniacid,':distinction'=>$distinction));
+			$pager =pagination($total, $pindex, $psize);
 		}
 		//外地绑定车辆信息
 		if ($op == 'wd_car_info'){
@@ -777,7 +785,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//无锡绑定驾驶证列表
 		if ($op == 'wx_driving'){
 			$distinction = 1;
-			$wxdriving = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uniacid =:uniacid AND distinction = :distinction',array(':uniacid'=>$uniacid,':distinction'=>$distinction));
+			$pindex =max(1, intval($_GPC['page']));
+			$psize =10;
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE uniacid = :uniacid AND distinction = :distinction',array(':uniacid' => $_W['uniacid'],':distinction'=>$distinction));
+			$wxdriving = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uniacid = :uniacid AND distinction = :distinction ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' =>$uniacid,':distinction'=>$distinction));
+			$pager =pagination($total, $pindex, $psize);
 		}
 		//无锡绑定驾驶证信息
 		if ($op == 'wx_driv_info'){
@@ -788,7 +800,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//外地绑定驾驶证列表
 		if ($op == 'wd_driving'){
 			$distinction = 0;
-			$wddriving = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uniacid =:uniacid AND distinction = :distinction',array(':uniacid'=>$uniacid,':distinction'=>$distinction));
+			$pindex =max(1, intval($_GPC['page']));
+			$psize =10;
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE uniacid = :uniacid AND distinction = :distinction',array(':uniacid' => $_W['uniacid'],':distinction'=>$distinction));
+			$wddriving = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uniacid = :uniacid AND distinction = :distinction ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' =>$uniacid,':distinction'=>$distinction));
+			$pager =pagination($total, $pindex, $psize);
 		}
 		//外地绑定驾驶证信息
 		if ($op == 'wd_driv_info'){
@@ -799,7 +815,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 
 		//产品反馈
 		if ($op == 'pro_feedback'){
-			$feeddata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_feedback').' WHERE uniacid = :uniacid',array(':uniacid'=>$_W['uniacid']));
+			$pindex =max(1, intval($_GPC['page']));
+			$psize = 10;
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_feedback').' WHERE uniacid = :uniacid ',array(':uniacid' => $_W['uniacid']));
+			$feeddata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_feedback').' WHERE uniacid = :uniacid  ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' =>$uniacid));
+			$pager =pagination($total, $pindex, $psize);
 		}
 		//产品反馈信息
 		if ($op == 'feedback_info'){

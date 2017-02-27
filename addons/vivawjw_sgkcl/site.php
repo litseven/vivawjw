@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_sgkcl/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/template/resource/');
 	class Vivawjw_sgkclModuleSite extends WeModuleSite {
 
 
@@ -40,6 +40,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/tem
 			$data['accnum'] = trim($_GPC['accnum']);
 			$data['accothernum'] = trim($_GPC['accothernum']);
 			$data['accotherphone'] = trim($_GPC['accotherphone']);
+			$data['dfphone'] = trim($_GPC['dfphone']);
 			$data['accserve'] = trim($_GPC['accserve']);
 			$data['proof'] = trim($_GPC['proof']);
 			$proof = trim($_GPC['proof']);
@@ -80,7 +81,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/tem
                 $pindex =max(1, intval($_GPC['page']));
                 $psize =10;
                 $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('vivawjw_sgkc'). ' WHERE uniacid = :uniacid AND status = :status', $params);
-                $list = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc').' WHERE uniacid = :uniacid AND status = :status  ORDER BY sittime desc LIMIT '.($pindex - 1) * $psize.','.$psize,$params);
+                $list = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc').' WHERE uniacid = :uniacid AND status = :status  ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,$params);
                 $pager =pagination($total, $pindex, $psize);
             }
             if($op == 'view'){
