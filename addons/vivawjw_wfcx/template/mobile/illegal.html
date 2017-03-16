@@ -39,11 +39,20 @@
         .query_ill_div2 p{margin-top: 10px;}
         .query_ill_div2 p span{display: inline-block; margin-left: 1%;}
         .others_car{text-align: center; font-size:0.9rem; color:#2ECC71; margin-top:28px;}
-        .binding{width:100%; position:fixed; bottom:0; left:0; }
-        .binding_box{position:relative;padding-top:3%; padding-bottom:3%; overflow:hidden; width:100%; background-color:#5f5f5f; color:white;}
-        .plus{float:left; margin-top:0.5%; margin-left:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
         .close i{float:right; margin-right:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
         .binding_box div:nth-child(2){float:left; margin-left:6.7%;}
+        .licen_mon{margin-right: 9%;}
+        .licen_mon a{display:block; margin:0 auto; margin-top:3px; width:90%; height:30px; border-radius: 5px; background-color: #2ECC71; color:white;
+            text-align: center; line-height: 30px;}
+        .licen_mon_p2{color:#999999;margin-top:3px;}
+        .licen_img{margin-top:20px;margin-left: 8%;}
+        .online_study{width:100%;}
+        .study_box{width:100%;}
+        .online_tit{text-align: center; margin-top:15px;font-size:1.2rem;font-weight: bold;}
+        .online_detail{width:90%; margin:0 auto; margin-top:15px; padding-bottom:10px; border-radius: 5px; padding-left:2%; padding-right:2%; overflow:scroll; font-size:0.8rem; height:430px; background-color:white;border:solid 1px #b3b3b3;}
+        .online_detail p{ line-height:1.3rem;padding:0;margin: 0;margin-top:3px;}
+        .online_detail p:last-child{color:#999;}
+        .online_agree ,.start_study{border:none;width:40%;font-size:1rem; height:40px;display:block; margin:0 auto; margin-top:30px; background-color:#51ca6e; border-radius: 10px; color:white;}
     </style>
 </head>
 <body >
@@ -105,7 +114,7 @@
             if (enginenum == ''){
                 mui.alert('发动机号不能为空！');return false;
             }
-            reg=/^苏B[0-9A-Z]{5}$/;
+            reg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Za-z]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
             if (!reg.test(carnum)){
                 mui.alert('请正确输入车牌号');return false;
             }
@@ -356,40 +365,21 @@
                             <img src="{S_URL}img/lisence.png">
                             <div class="cphm"></div>
                         </div>
-                        <div class="licen_mon">共<span class="wfts"></span>条违法信息<br>罚款<span class="fkje"></span>元</div>
+                        <div class="licen_mon">
+                            <div class="licen_mon_box">
+                                <p class="licen_mon_p1">共<span class="wfts"></span>条违法信息罚款<span class="fkje"></span>元</p>
+                                <a href="javascript:;" class="wfcl">处理违法信息</a>
+                                <p class="licen_mon_p2">客服电话：400-1166-699</p>
+                            </div>
+                        </div>
+                        <!--<div class="licen_mon">共<span class="wfts"></span>条违法信息<br>罚款<span class="fkje"></span>元</div>-->
                     </div>
                     <div style="margin-top:18px;" class="wflist">
 
                     </div>
                     <div class="query_word4"><a href="{php echo $this->createMobileUrl('illegal',array('op'=>'start'))}" style="color: #2ecc71">查询其他车辆违法信息</a></div>
                 </div>
-
             </div>
-
-            <!--<div class="query_box endjsyxx" style="background-color: white;display:none;">
-                <div class="driv_info">驾驶员信息</div>
-                <div class="illegal_box">
-                    <div class="ill_score">
-                        <div>累计计分</div>
-                        <div class="ljjf"></div>
-                    </div><div class="ill_score">
-                    <div>准驾车型</div>
-                    <div>C1</div>
-                </div>
-                    <div class="ill_score">
-                        <div>有效时间起</div>
-                        <div class="ccdjrq"></div>
-                    </div>
-                    <div class="ill_score">
-                        <div>有效时间止</div>
-                        <div class="yxqz"></div>
-                    </div>
-                    <div class="ill_score">
-                        <div>状态</div>
-                            <div class="jsrzt"></div>
-                    </div>
-                </div>
-            </div>-->
         </div>
     </div>
 </div>
@@ -404,66 +394,47 @@
             <p>违法未交款</p>
         </div>
         <div class="wfxxlist">
-            <!--<div>
-                <div class="query_ill_div1" data-to='0'>
-                    <div class="ill_div_left">
-                        <p>时间:<span>2016-11-12 09:29</span></p>
-                        <p>地点:<span>324省道</span></p>
-                    </div>
-                    <div class="ill_div_right"><img src="img/jiant.png"></div>
-                </div>
 
-                <div class="query_ill_div2" style="display: none;">
-                    <p>违法行为:<span>机动车未按照规定期限进行安全技术检验</span></p>
-                    <p>采集机关:<span>宜兴市公安局交通警察大队张渚中队</span></p>
-                    <p>处理状态:<span>违法未缴款</span></p>
-                    <p>罚款金额:<span>200元</span></p>
-                    <p>违法记分:<span>3</span></p>
-                </div>
-            </div>-->
         </div>
     </div>
-
     <div class="query_ill">
         <div class="query_ill_div">
             <p>违法未处理（暂无数据）</p>
         </div>
         <div>
-            <!--<div class="query_ill_div1" data-to='0'>
-                <div class="ill_div_left">
-                    <p>时间:<span>2016-11-12 09:29</span></p>
-                    <p>地点:<span>324省道</span></p>
-                </div>
-                <div class="ill_div_right"><img src="{S_URL}img/jiant.png"></div>
-            </div>
 
-            <div class="query_ill_div2" style="display: none;">
-                <p>违法行为:<span>机动车未按照规定期限进行安全技术检验</span></p>
-                <p>采集机关:<span>宜兴市公安局交通警察大队张渚中队</span></p>
-                <p>处理状态:<span>违法未缴款</span></p>
-                <p>罚款金额:<span>200元</span></p>
-                <p>违法记分:<span>3</span></p>
-            </div>-->
         </div>
-
 
     </div>
     <p class="others_car">查询其他车辆违法信息</p>
-
 </div>
-
 <script>
-    /*$('.query_ill_div1').click(function(){
-        if($(this).data('to')==0){
-            $(this).data('to',1);
-            $(this).siblings('.query_ill_div2').show();
-            $(this).find('.ill_div_right').css('-webkit-transform','rotate(180deg)');
-        }else{
-            $(this).data('to',0);
-            $(this).siblings('.query_ill_div2').hide();
-            $(this).find('.ill_div_right').css('-webkit-transform','rotate(0deg)');
-        }
-    })*/
+$(function(){
+    $('.wfcl').click(function(){
+        $.post("{php echo $this->createMobileUrl('wzfkapi')}",function(data){
+            if (data == 100){
+                //mui.alert('你还没有绑定车辆');
+                if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
+                    window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                }
+            }else if(data == 300){
+                //mui.alert('您还没有绑定驾驶证');
+                if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
+                    window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
+                }
+            }else{
+                $('.end').hide();
+                $('.chaxun').hide();
+                $('.apiurl').val(data);
+                $('.online_study').show();
+            }
+        },'JSON');
+        $('.online_agree').click(function(){
+            $apiurl = $('.apiurl').val();
+            window.location.href = $apiurl;
+        });
+    });
+});
 </script>
 {template 'wxsdk'}
 <script>
@@ -521,8 +492,8 @@
         });
         $('.where1').click(function(){
             wx.previewImage({
-                current: 'http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help2_0.jpg', // 当前显示图片的http链接
-                urls: ['http://120.27.230.32/pros/addons/vivawjw_wfcx/template/resource/img/help2_0.jpg'] // 需要预览的图片http链接列表
+                current: '{S_URL}img/help2_0.jpg', // 当前显示图片的http链接
+                urls: ['{S_URL}img/help2_0.jpg'] // 需要预览的图片http链接列表
             });
         });
 
@@ -544,7 +515,7 @@
                 </div>
                 <div class="appeal_why">
                     <div>申诉原因:</div>
-                    <textarea placeholder="请输入申诉原因(100字以内)" name="appeal_why"></textarea>
+                    <textarea placeholder="请输入申诉原因(100字以内)" name="appeal_why" style="outline: none;"></textarea>
                 </div>
             </div>
             <input type="hidden" class="wfcjjg" value="">
@@ -619,6 +590,25 @@
 </div>
 <div id="loading-fs">
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+</div>
+<div class="online_study" style="display: none;">
+    <div class="study_box">
+        <p class="online_tit">办理须知</p>
+        <div class="online_detail">
+            <p>尊敬的广大用户：</p>
+            <p>您好！欢迎使用无锡交警交通违法处理支付（电子监控记录的交通违法行为）系统。无锡交警交通违法处理支付系统是无锡交警为广大群众提供的针对交通违法处理的“一站式”服务平台，您可以通过“车牌号+发动机号”对苏B开头的车辆进行交通违法自助查询、处理、缴款。</p>
+            <p>感谢您对无锡交警的理解和支持，希望您对无锡交警微警务的有关工作多提宝贵意见！服务提醒：</p>
+            <p>1：本系统仅可使用本人驾照处理本人机动车的非现场交通违法记录。</p>
+            <p>2：本系统仅限办理私人小型汽车200元（含）以下，且不记分的交通违法记录。</p>
+            <p>3、本系统可以处理用户本人机动车在全国范围内发生的交通违法记录。</p>
+            <p>4：本平台用户须以微信支付方式进行实时缴款，支付成功的，系统自动确认并发送回执；用户不支付或支付操作失败时，此笔业务自动作废，按流程重新办理即可，不会产生逾期未缴款滞纳金。</p>
+            <p>5：如需纸质处罚决定书，须持本人驾驶证、身份证和车辆行驶证到各曝光处理点补领。</p>
+            <p>6：由于数据同步问题，违法内容项目内容会有延迟，请以缴纳罚款页面显示情况为准。</p>
+            <p >若有任何疑问请咨询客服电话：400-1166-699</p>
+        </div>
+        <input type="hidden" class="apiurl">
+        <button class="online_agree">确认</button>
+    </div>
 </div>
 </body>
 </html>
