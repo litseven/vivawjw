@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<script src="{S_URL}js/vconsole.min.js"></script>-->
+
     <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
     <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
     <link href="{S_URL}css/style.css" rel="stylesheet">
@@ -47,7 +49,7 @@
             var wx_type = $("[name = 'wx_type']").val();
             var wx_car_num = $("[name = 'wx_car_num']").val();
             var wx_car_engine = $("[name = 'wx_car_engine']").val();
-            reg=/^苏B[0-9A-Z]{5}$/;
+            reg=/^苏B[0-9A-Za-z]{5}$/;
             if (!reg.test(wx_car_num)){
                 mui.alert('请正确输入车牌号');return false;
             }
@@ -113,7 +115,7 @@
             var wd_type = $("[name = 'wd_type']").val();
             var wd_car_num = $("[name = 'wd_car_num']").val();
             var wd_car_engine = $("[name = 'wd_car_engine']").val();
-            reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+            reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
             if (!reg.test(wd_car_num)){
                 mui.alert('请正确输入车牌号');return false;
             }
@@ -172,7 +174,7 @@
                 </div>
                 <div class="acc_person_car">
                     <p>状态</p>
-                    <p>{if $item['status'] == 2}申请中...{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
+                    <p>{if $item['status'] == 2}申请中{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
                 </div>
                 <a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">添加绑定车辆</a>
             </div>
@@ -220,7 +222,7 @@
     </div>
     <div class="acc_person_car">
         <p>状态</p>
-        <p>{if $item['status'] == 2}申请中...{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
+        <p>{if $item['status'] == 2}申请中{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
     </div>
 </div>
 {elseif $item['distinction'] == 1}
@@ -252,6 +254,7 @@
 {/if}
 <script>
     $(function(){
+        $('#loading-fs').hide();
         var process = false;
         $('.del_bound_car').click(function(){
             if(process)return false;
@@ -268,11 +271,14 @@
             var wx_type = _this.attr('data-type');
             var wx_car_num = _this.attr('data-num');
             var wx_car_engine = _this.attr('data-engine');
+            $('#loading-fs').show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
                 if(data == 300){
+                    $('#loading-fs').hide();
                     mui.alert('查询失败！');return false;
                 }
                 if(data == 200){
+                    $('#loading-fs').hide();
                     mui.alert('恭喜你，没有违法记录');return false;
                 }else{
                     window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}&wx_type="+wx_type+"&wx_car_num="+wx_car_num+"&wx_car_engine="+wx_car_engine;
@@ -290,7 +296,7 @@
             <i class="appeal_suc">&#xe60d;</i>
             <div>解除绑定{$info}</div>
         </div>
-        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car')}">返回</a>
+        <a id="appeal_back" href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
     </div>
 </div>
 {/if}
@@ -305,7 +311,14 @@
                         <img src="{S_URL}img/lisence.png">
                         <div>{$data['HPHM']}</div>
                     </div>
-                    <div class="licen_mon">共<span>{$wfnum}</span>条违法信息<br>罚款<span>{$fkje}</span>元</div>
+                    <!--<div class="licen_mon">共<span>{$wfnum}</span>条违法信息<br>罚款<span>{$fkje}</span>元</div>-->
+                    <div class="licen_mon">
+                        <div class="licen_mon_box">
+                            <p class="licen_mon_p1">共<span>{$wfnum}</span>条违法信息罚款<span>{$fkje}</span>元</p>
+                            <a href="javascript:;" class="wfcl">处理违法信息</a>
+                            <p class="licen_mon_p2">客服电话：400-1166-699</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="margin-top:18px;">
@@ -377,6 +390,33 @@
             </div>
         </div>
 </body>
+<script>
+    $(function(){
+        $('.wfcl').click(function(){
+            $.post("{php echo $this->createMobileUrl('wzfkapi')}",function(data){
+                if (data == 100){
+                    //mui.alert('你还没有绑定车辆');
+                    if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
+                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                    }
+                }else if(data == 300){
+                    //mui.alert('您还没有绑定驾驶证');
+                    if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
+                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
+                    }
+                }else{
+                    $('.content').hide();
+                    $('.apiurl').val(data);
+                    $('.online_study').show();
+                }
+            },'JSON');
+            $('.online_agree').click(function(){
+                $apiurl = $('.apiurl').val();
+                window.location.href = $apiurl;
+            });
+        });
+    });
+</script>
 <script>
     var process = false;
     $(function(){
@@ -470,6 +510,25 @@
 </script>
 <div id="loading-fs">
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+</div>
+<div class="online_study" style="display: none;">
+    <div class="study_box">
+        <p class="online_tit">办理须知</p>
+        <div class="online_detail">
+            <p>尊敬的广大用户：</p>
+            <p>您好！欢迎使用无锡交警交通违法处理支付（电子监控记录的交通违法行为）系统。无锡交警交通违法处理支付系统是无锡交警为广大群众提供的针对交通违法处理的“一站式”服务平台，您可以通过“车牌号+发动机号”对苏B开头的车辆进行交通违法自助查询、处理、缴款。</p>
+            <p>感谢您对无锡交警的理解和支持，希望您对无锡交警微警务的有关工作多提宝贵意见！服务提醒：</p>
+            <p>1：本系统仅可使用本人驾照处理本人机动车的非现场交通违法记录。</p>
+            <p>2：本系统仅限办理私人小型汽车200元（含）以下，且不记分的交通违法记录。</p>
+            <p>3、本系统可以处理用户本人机动车在全国范围内发生的交通违法记录。</p>
+            <p>4：本平台用户须以微信支付方式进行实时缴款，支付成功的，系统自动确认并发送回执；用户不支付或支付操作失败时，此笔业务自动作废，按流程重新办理即可，不会产生逾期未缴款滞纳金。</p>
+            <p>5：如需纸质处罚决定书，须持本人驾驶证、身份证和车辆行驶证到各曝光处理点补领。</p>
+            <p>6：由于数据同步问题，违法内容项目内容会有延迟，请以缴纳罚款页面显示情况为准。</p>
+            <p >若有任何疑问请咨询客服电话：400-1166-699</p>
+        </div>
+        <input type="hidden" class="apiurl">
+        <button class="online_agree">确认</button>
+    </div>
 </div>
 </body>
 </html>

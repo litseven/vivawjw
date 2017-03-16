@@ -16,9 +16,9 @@
         <div class="person_box">
             {loop $warnlist $k $item}
             <div class="remind1">
-                <div>{$item['title']}</div>
+                <div {if $item['state'] == 1}style="color:#999;"{/if}>{$item['title']}</div>
                 <div class="checkbox">
-                    <input type="checkbox"  id="checkbox_1_{$item['id']}" class="check" data-key="{$item['title_key']}" name="check" {if $item['status']}checked{/if}>
+                    <input type="checkbox"  id="checkbox_1_{$item['id']}" class="{if $item['state'] == 0}check{/if}" {if $item['state'] == 1}disabled="false"{/if} data-key="{$item['title_key']}" name="check" {if $item['status']}checked{/if}>
                     <label for="checkbox_1_{$item['id']}"></label>
                 </div>
             </div>

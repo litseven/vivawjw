@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
     <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
-    <link href="{S_URL}css/style.css" rel="stylesheet">
+    <link href="{S_URL}css/style.css?v=1310" rel="stylesheet">
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <title>添加绑定驾驶证</title>
@@ -41,6 +41,7 @@
         .others_car{text-align: center; font-size:0.9rem; color:#2ECC71; margin-top:28px;}
         .close i{float:right; margin-right:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
         .binding_box div:nth-child(2){float:left; margin-left:6.7%;}
+		
     </style>
 </head>
 <body>
@@ -53,7 +54,7 @@
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
                 <div>驾驶证号</div>
-                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" >
+                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" style="padding:6px;">
             </div>
             <div class="car_style">
                 <div>档案编号<br><a class="where">(在哪里)</a></div>
@@ -226,7 +227,7 @@
             </div>
         </div>
     </div>
-    <div class="manage_btn">
+    <div class="manage_btn" style="margin-bottom: 20px">
         <a class="del_bound_dr" id="{$typedriving['id']}">解除绑定</a>
     </div>
 </div>
@@ -247,7 +248,7 @@
             </div>
         </div>
     </div>
-    <div class="manage_btn">
+    <div class="manage_btn" style="margin-bottom: 20px">
         <a class="del_bound_dr" id="{$typedriving['id']}">解除绑定</a>
     </div>
 </div>
@@ -383,7 +384,7 @@
             <i class="appeal_suc">&#xe60d;</i>
             <div>解除绑定{$info}</div>
         </div>
-        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_driving')}">返回</a>
+        <a id="appeal_back" href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
     </div>
 </div>
 {/if}
