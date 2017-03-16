@@ -2,8 +2,8 @@
 //ini_set('display_errors', 0);
 //error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
 
 		public function doMobileRoadsel(){
@@ -149,7 +149,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
             );
             $streamContext = stream_context_create($opts);
             try {
-                $url = 'http://192.168.11.51:5028/WXWC/wcservice.asmx?wsdl';
+                $url = 'http://192.168.11.51/WXWC/wcservice.asmx?wsdl';
                 $c = new SoapClient($url,['stream_context' => $streamContext]);
                 //echo '<pre>';
                 //var_dump($c->register('wxzhcs','wxzhcs123456'));
@@ -184,7 +184,14 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
             }
 
 
-			}
+        }
+
+        //地图
+        public function doMobileSearchMap(){
+            global $_W,$_GPC;
+
+            include $this->template('wxmap');
+        }
 
         public function downloadMedia($mediaId,$type="image"){
             $media = array("type"=>$type,"media_id"=>$mediaId);
@@ -255,5 +262,12 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
             }
             return $arr;
         }
+
+/*
+        public function doMobileLkzb(){
+            global $_W, $_GPC;
+            $data = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkzb'));
+            echo json_encode($data);
+        }*/
 
     }
