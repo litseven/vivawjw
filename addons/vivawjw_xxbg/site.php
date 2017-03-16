@@ -2,7 +2,7 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/'.$_GET['m'].'/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_xxbg/template/resource/');
 define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_xxbg/template/resource/');
 class vivawjw_xxbgModuleSite extends WeModuleSite
 {
@@ -54,7 +54,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
         );
         $streamContext = stream_context_create($opts);
         try {
-            $url = 'http://192.168.11.51:5028/WXWC/wcservice.asmx?wsdl';
+            $url = 'http://192.168.11.58/WXWC/wcservice.asmx?wsdl';
             $c = new SoapClient($url,['stream_context' => $streamContext]);
             //echo '<pre>';
             //var_dump($c->register('wxzhcs','wxzhcs123456'));

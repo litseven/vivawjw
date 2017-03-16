@@ -34,7 +34,7 @@
                     <div>办理须知</div>
                     <div>1、驾驶人信息变更业务只能办理驾驶人的联系电话和邮寄地址的变更。<br/>
                         2、如需申请变更其他信息（如变更身份证号码、姓名等）请前往无锡车管所咨询办理(咨询电话:96122、81188228)。<br/>
-                        3、<请驾驶人如实填写相关信></请驾驶人如实填写相关信>息。凡提供虚假信息，需承担相应法律后果。</div>
+                        3、请驾驶人如实填写相关信息。凡提供虚假信息，需承担相应法律后果。</div>
                 </div>
                 <a id="tiao1" href="javascript:;" style="margin-top: 18.6%">确定</a>
             </div>
@@ -145,6 +145,7 @@
             $.post("{php echo $this->createMobileUrl('drivermanage')}",{'drivernum':drivernum,'driverpapers':driverpapers},function(data){
                 //console.log(data);
                 $("#loading-fs").hide();
+                //mui.alert(data.State);return false;
                 if(data.State == 0){
                     $('.first').hide();
                     $('.change').hide();
@@ -155,15 +156,9 @@
                     $(".drphone").text(data.SJHM);
                     $(".drmobile").text(data.LXDH);
                 }else if(data.State == 1){
-                    mui.alert('查询失败！');
+                    mui.alert('查询失败,您输入的驾驶证或证芯编号不正确！');
                 }else if(data.State == 2){
                     mui.alert('空记录！');
-                }else if(data.State == 3){
-                    mui.alert('未授权！');
-                }else if(data.State == 4){
-                    mui.alert('无权限访问！');
-                }else if(data.State == 5){
-                    mui.alert('非法参数！');
                 }
                 //0：成功、1：失败、2：空记录、3：未授权、4：无权限访问、5：非法参数
                 //window.location.href = "{php echo $this->createMobileUrl('infochange',array('op' => 'subdata','block'=>'driver'))}&drivernum="+drivernum+"&driverpapers="+driverpapers;
@@ -174,7 +169,7 @@
             var chcartype = $("[name = 'chcartype']").val();
             var chcarnum = $("[name = 'chcarnum']").val();
             var chcarpapers = $("[name = 'chcarpapers']").val();
-            reg=/^苏B[0-9A-Z]{5}$/;
+            reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
             if (!reg.test(chcarnum)){
                 mui.alert('请正确输入车牌号');return false;
             }
@@ -198,6 +193,10 @@
                     $(".drphone").text(data.SJHM);
                     $(".drmobile").text(data.LXDH);
                     //window.location.href = "{php echo $this->createMobileUrl('infochange',array('op' => 'subdata','block'=>'car'))}&chcartype="+chcartype+"&chcarnum="+chcarnum+"&chcarpapers="+chcarpapers;
+                }else if(data.State == 1){
+                    mui.alert('查询失败,您输入的车牌或证件号码不正确！');
+                }else if(data.State == 2){
+                    mui.alert('空记录！');
                 }
             },'JSON');
 
