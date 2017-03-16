@@ -44,6 +44,7 @@
 
 	</permissions>
 	<install><![CDATA[DROP TABLE IF EXISTS `ims_vivawjw_sgkc`;
+DROP TABLE IF EXISTS `ims_vivawjw_sgkc`;
 CREATE TABLE `ims_vivawjw_sgkc` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uniacid` int(11) DEFAULT NULL,
@@ -55,14 +56,17 @@ CREATE TABLE `ims_vivawjw_sgkc` (
   `accnum` varchar(10) DEFAULT NULL COMMENT '//车牌号',
   `accothernum` varchar(10) DEFAULT NULL,
   `accotherphone` varchar(11) DEFAULT NULL,
+  `dfphone` varchar(11) DEFAULT NULL,
   `accserve` varchar(255) DEFAULT NULL COMMENT '//理赔服务点',
   `recordnum` varchar(255) DEFAULT NULL COMMENT '//报警记录号',
+  `recordpassword` varchar(6) DEFAULT NULL,
   `acctime` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '2' COMMENT '//状态，1确认、2待确认、3驳回',
   `turndown` varchar(255) DEFAULT NULL COMMENT '//驳回原因',
   `sittime` int(11) DEFAULT NULL COMMENT '//受理时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `ims_vivawjw_sgkc_addr`;
 CREATE TABLE `ims_vivawjw_sgkc_addr` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

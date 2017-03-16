@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_sgkcl/template/resource/');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_sgkcl/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_sgkcl/template/resource/');
 	class Vivawjw_sgkclModuleSite extends WeModuleSite {
 
 
@@ -32,6 +32,12 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_sgkcl/template
 
 		public function doMobilePostacc(){
 			global $_W,$_GPC;
+            //随机产生6位密码
+            $re = '';
+            $s = 'abcdefghijklmnpqrstuvwxyz123456789';
+            while (strlen($re) < 6) {
+                $re .= $s[rand(0, strlen($s) - 1)]; // 从$s中随机产生一个字符
+            }
 			$data['uid'] =  $_W['member']['uid'];
 			$data['uniacid'] = $_W['uniacid'];
 			$data['accaddr'] = trim($_GPC['accaddr']);
@@ -54,6 +60,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_sgkcl/template
                 }
 			if($foto)$data['proof'] = implode(",",$foto);
 			$data['recordnum'] = 'NO-'.time();
+			$data['recordpassword'] = $re;
 			$data['acctime'] = time();
 			$accadd = pdo_insert("vivawjw_sgkc",$data);
                 if ($accadd){
@@ -109,13 +116,25 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_sgkcl/template
                 $data['sittime'] = time();
                 if($data['status'] == 1){
                     $data = pdo_update('vivawjw_sgkc', array('status'=>1,'sittime' =>time()), array('uniacid' => $_W['uniacid'], 'id' => $id));
-                    echo 200;exit;
+                    if($data){
+                        echo 200;exit;
+                    }else{
+                        echo 400;exit;
+                    }
                 }
                 if($data['status'] == 3){
                     $data = pdo_update('vivawjw_sgkc', $data, array('uniacid' => $_W['uniacid'], 'id' => $id));
                     echo 300;exit;
                 }
 
+            }
+            if($op == 'deletes'){
+                $id =intval($_GPC['id']);
+               // exit($id);
+                $delete = pdo_delete('vivawjw_sgkc',array('id'=>$id));
+                if($delete){
+                    echo 200;exit;
+                }
             }
 
             include $this->template('manage');

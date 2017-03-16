@@ -33,9 +33,9 @@
 {if $op == 'accpost'}
 <div class="content">
      <div class="content_box">
-          <div class="acc_head">
+          <!--<div class="acc_head">
                <div>事故相关信息</div>
-          </div>
+          </div>-->
           <div class="acc_place">
                <div class="shigu">事故地点</div>
                <input type="text" name="accaddr" class="accaddr" value="" >
@@ -105,9 +105,9 @@
                <button class="linkaddr" data-lat="{$lpaddr[0]['lat']}" data-lng="{$lpaddr[0]['lng']}"><i>&#xe602;</i></button>
           </div>
           <div class="serv_box">
-               <div>理赔服务点地址、联系电话及工作时间<br/>（服务点工作时间：09:00—17:00）</div>
+               <div>理赔服务点地址、联系电话及工作时间<br/>服务点工作时间：09:00—17:00</div>
                <div class="lpaddr">{$lpaddr[0]['address']}</div>
-               <div class="lpmobile">{$lpaddr[0]['mobile']}</div>
+               <div class="lpmobile">电话：{$lpaddr[0]['mobile']}</div>
           </div>
           <a class="acc_step">下一步</a>
      </div>
@@ -194,6 +194,14 @@
 //                                   console.log(localIds[0]);
                                    _this.attr('data-id',serverId);
                                    _this.css({"background-image":"url("+localIds[0]+")"});
+                                   if(window.__wxjs_is_wkwebview){
+                                        wx.getLocalImgData({
+                                             localId:localIds[0],
+                                             success:function(res){
+                                                  _this.css({"background-image":"url("+res.localData+")"});
+                                             }
+                                        });
+                                   }
                               }
                          });
                     }
@@ -214,26 +222,6 @@
                if (accaddr == ''){
                     mui.alert('请正确输入事故地点');return false;
                }
-               if (accname == ''){
-                    mui.alert('请输入您的姓名');return false;
-               }
-               reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
-               if (!reg.test(accnum)){
-                    mui.alert('请正确输入车牌号');return false;
-               }
-               var pattern = /^1[34578]\d{9}$/;
-               if (!pattern.test(accotherphone)){
-                    mui.alert('手机号码有误！');return false;
-               }
-               if (accothername == ''){
-                    mui.alert('请正确输入对方人的姓名');return false;
-               }
-               if (!reg.test(accothernum)){
-                    mui.alert('请正确输入对方车牌号');return false;
-               }
-               if (!pattern.test(dfphone)){
-                    mui.alert('手机号码有误！');return false;
-               }
                //获取上传图片地址
                proof = [];
                $(".upload_img>div").each(function(){
@@ -242,7 +230,29 @@
                });
                $("[name='proof']").val(proof.join(','));
                proof = $("[name='proof']").val();
-               if(!proof){alert("请上传照片！");return false;}
+               if(!proof){mui.alert("无锡交警提醒你：请上传照片！");return false;}
+               if (accname == ''){
+                    mui.alert('请输入您的姓名');return false;
+               }
+               reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
+               if (!reg.test(accnum)){
+                    mui.alert('请正确输入车牌号');return false;
+               }
+               var pattern = /^1[34578]\d{9}$/;
+               if (!pattern.test(accotherphone)){
+                    mui.alert('本人手机号码有误！');return false;
+               }
+               if (accothername == ''){
+                    mui.alert('请正确输入对方人的姓名');return false;
+               }
+               if (!reg.test(accothernum)){
+                    mui.alert('请正确输入对方车牌号');return false;
+               }
+               if (!pattern.test(dfphone)){
+                    mui.alert('对方手机号码有误！');return false;
+               }
+
+
                $("#loading-fs").show();
                $.post("{php echo $this->createMobileUrl('postacc')}",{dfphone:dfphone,userid:userid,accaddr:accaddr,accothername:accothername,accname:accname,accothername:accothername,accnum:accnum,accothernum:accothernum,accserve:accserve,accotherphone:accotherphone,proof:proof},function(data){
                     if(data){
@@ -264,7 +274,7 @@
                <i class="appeal_suc">&#xe60d;</i>
                <div>您的报警记录号为 {$renum}，我们将为您尽快处理，请迅速撤离现场。</div>
           </div>
-          <a id="appeal_back" href="{php echo $this->createMobileUrl('accident',array('op'=>'start'))}">返回</a>
+          <a id="appeal_back" href="{php echo $this->createMobileUrldeM('wxjj','center')}">返回</a>
      </div>
 </div>
 {/if}
