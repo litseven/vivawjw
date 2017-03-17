@@ -2,8 +2,8 @@
 //ini_set('display_errors', 0);
 //error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
 
 		public function doMobileRoadsel(){
@@ -40,7 +40,8 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/temp
                 7 => array('name' => '主要景区周边'),
                 8 => array('name' => '灵山景区周边'),
                 9 => array('name' => '鼋头渚景区周边'),
-                10 => array('name' => '地铁3号线施工周边'),
+                10 =>array('name' => '地铁3号线施工周边'),
+                11 =>array('name' => '无锡马拉松周边重要路口'),
             );
             $i = 0;
             $child = array();

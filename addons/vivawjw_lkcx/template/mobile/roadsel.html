@@ -510,6 +510,54 @@
                                    {/if}
                               {/loop}
                          </div>
+
+
+
+                         <div class="areas">
+                              <!--鼋头渚竞速周边-->
+                              <div class="area1" data-target="q_12" id="area1">
+                                   <div class="area_1" >
+                                        <i style="padding-left:5%;">&#xe612;</i>
+                                        <div style="margin-left:21%;">无锡马拉松周边重要路口</div>
+                                   </div>
+                              </div>
+
+                         </div>
+
+                         <div class="detail_box" id="q_12" style="display:none;">
+                              {loop $arr $item}
+                              {if $item['name'] == '无锡马拉松周边重要路口'}
+                              {loop $item['child'] $v}
+                              <div>
+                                   <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
+                                        <i class="detail_icon1">&#xe622;</i>
+                                        <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
+                                        <div class="deta_collect">
+                                             {if $v['bool']}
+                                             <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
+                                             <span>已收藏</span>
+                                             {else}
+                                             <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
+                                             <span>收藏</span>
+                                             {/if}
+                                        </div>
+                                   </div>
+                                   <div class="detail_boxes hide">
+                                        <img src="" style="display: block;"  class="img{$v['DWBH']}">
+                                        <div class="detail11_box">
+                                             <div>注：图片每5分钟自动更新</div>
+                                             <div class="locaing">图片加载较慢，请耐心等待</div>
+                                        </div>
+                                   </div>
+                              </div>
+                              {/loop}
+                              {/if}
+                              {/loop}
+                         </div>
+
+
+
+
                     </div>
               
                     

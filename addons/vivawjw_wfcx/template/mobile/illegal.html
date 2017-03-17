@@ -168,69 +168,100 @@
                         case 'O':
                             var a = '锁定';
                             break;
+                        case 'P':
+                            var a = '达到报废标准公告牌证作废';
+                            break;
+                        case 'Q':
+                            var a = '逾期未检验';
+                            break;
                         default:
-                            var a = '正常';
+                            var a = '';
                             break;
                     }
                     if(a == '正常'){
                         $("#loading-fs").hide();
                         mui.alert('恭喜你没有违法记录！');return false;
-                    }
-                    var list = data.WFXXList.WFXX;
-                    var fkje = 0;
-                    for (var i = 0; i < list.length; i++){
-                        var n = list[i].FKJE;
-                        fkje = fkje + n;
-                    }
-                    $('.start').hide();
-                    $('.end').show();
-                    $('.cphm').text(data.HPHM);
-                    $('.wfts').text(list.length);
-                    $('.fkje').text(fkje);
-                    $('.wflist').empty();
-                    for (var j = 0; j < list.length; j++){
-                        var wftime = list[j].WFSJ;//违法时间
-                        var wfaddr = list[j].WFDD;//违法地点
-                        var wfcontent = list[j].WFXW;//违法行为
-                        var wfcjjg = list[j].CJJGMC;//采集机构
-                        var wfjkxh = list[j].XH;//监控序号
-                        var wfclbj = list[j].CLBJ;//违法处理标记
-                        var wfrksj = list[j].RKSJ;//入录时间
-                        var wffkjf = list[j].WFJFS;//处罚记分
-                        var wfcph = carnum;//违法车牌
-                        var wfmoney = list[j].FKJE;//处罚金额
-                        //  data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'"
-                        //  data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'"
-                        $('.wflist').append('<div class="query_info"><div class="query_info1"><div class="arrow_left"><img src="{S_URL}img/jiant.png"></div> <div class="info_right"><a href="javascript:;" class="shensu" data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'" data-wfcjjg="'+wfcjjg+'" data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'">申诉</a> <div class="chu" data-to="0"><div>违法时间:<span>'+list[j].WFSJ+'</span></div><div>违法地点:<span>'+list[j].WFDD+'</span></div> </div> </div> </div><div class="info_detail hide" ><div class="detail_box"><div>违法行为:<span>'+list[j].WFXW+'</span></div> <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div><div>处理状态:<span>'+a+'</span></div><div>罚款金额:<span>'+list[j].FKJE+'</span></div></div></div></div>');
-                    }
-                    $('.chu').click(function(){
-                        if($(this).data('to') == 0){
-                            $(this).data('to',1);
-                            $(this).parents('.query_info1').siblings('.info_detail').show();
-                            /*$(this).siblings('.info_detail').show().parent().siblings().find('.info_detail').hide();*/
-                            $(this).parents('.query_info1').find('.arrow_left img').css('transform','rotate(180deg)');
+                    }else{
+                        $("#loading-fs").hide();
+                        var list = data.WFXXList.WFXX;
+                        if(list.length){
+                            var fkje = 0;
+                            for (var i = 0; i < list.length; i++){
+                                var n = list[i].FKJE;
+                                fkje = fkje + n;
+                            }
+                            $('.start').hide();
+                            $('.end').show();
+                            $('.cphm').text(data.HPHM);
+                            $('.wfts').text(list.length);
+                            $('.fkje').text(fkje);
+                            $('.wflist').empty();
+                            for (var j = 0; j < list.length; j++){
+                                var wftime = list[j].WFSJ;//违法时间
+                                var wfaddr = list[j].WFDD;//违法地点
+                                var wfcontent = list[j].WFXW;//违法行为
+                                var wfcjjg = list[j].CJJGMC;//采集机构
+                                var wfjkxh = list[j].XH;//监控序号
+                                var wfclbj = list[j].CLBJ;//违法处理标记
+                                var wfrksj = list[j].RKSJ;//入录时间
+                                var wffkjf = list[j].WFJFS;//处罚记分
+                                var wfcph = carnum;//违法车牌
+                                var wfmoney = list[j].FKJE;//处罚金额
+                                //  data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'"
+                                //  data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'"
+                                $('.wflist').append('<div class="query_info"><div class="query_info1"><div class="arrow_left"><img src="{S_URL}img/jiant.png"></div> <div class="info_right"><a href="javascript:;" class="shensu" data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'" data-wfcjjg="'+wfcjjg+'" data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'">申诉</a> <div class="chu" data-to="0"><div>违法时间:<span>'+list[j].WFSJ+'</span></div><div>违法地点:<span>'+list[j].WFDD+'</span></div> </div> </div> </div><div class="info_detail hide" ><div class="detail_box"><div>违法行为:<span>'+list[j].WFXW+'</span></div> <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div><div>处理状态:<span>'+a+'</span></div><div>罚款金额:<span>'+list[j].FKJE+'</span></div></div></div></div>');
+                            }
                         }else{
-                            $(this).data('to',0);
-                            $(this).parents('.query_info1').siblings('.info_detail').hide();
-                            $(this).parents('.query_info1').find('.arrow_left img').css('transform','rotate(0deg)');
+                            $('.start').hide();
+                            $('.end').show();
+                            $('.cphm').text(data.HPHM);
+                            $('.wfts').text(1);
+                            $('.fkje').text(list.FKJE);
+                            $('.wflist').empty();
+                            var wftime = list.WFSJ;//违法时间
+                            var wfaddr = list.WFDD;//违法地点
+                            var wfcontent = list.WFXW;//违法行为
+                            var wfcjjg = list.CJJGMC;//采集机构
+                            var wfjkxh = list.XH;//监控序号
+                            var wfclbj = list.CLBJ;//违法处理标记
+                            var wfrksj = list.RKSJ;//入录时间
+                            var wffkjf = list.WFJFS;//处罚记分
+                            var wfcph = carnum;//违法车牌
+                            var wfmoney = list.FKJE;//处罚金额
+                            //  data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'"
+                            //  data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'"
+                            $('.wflist').append('<div class="query_info"><div class="query_info1"><div class="arrow_left"><img src="{S_URL}img/jiant.png"></div> <div class="info_right"><a href="javascript:;" class="shensu" data-wftime="'+wftime+'" data-wfaddr="'+wfaddr+'" data-wfcontent="'+wfcontent+'" data-wfjkxh="'+wfjkxh+'" data-wfclbj="'+wfclbj+'" data-wfcjjg="'+wfcjjg+'" data-wfrksj="'+wfrksj+'" data-wffkjf="'+wffkjf+'" data-wfcph="'+wfcph+'" data-wfmoney="'+wfmoney+'">申诉</a> <div class="chu" data-to="0"><div>违法时间:<span>'+wftime+'</span></div><div>违法地点:<span>'+wfaddr+'</span></div> </div> </div> </div><div class="info_detail hide" ><div class="detail_box"><div>违法行为:<span>'+wfcontent+'</span></div> <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div><div>处理状态:<span>'+a+'</span></div><div>罚款金额:<span>'+wfmoney+'</span></div></div></div></div>');
                         }
-                    });
-                    $('.shensu').click(function(){
-                        $('.wfcjjg').val($(this).attr('data-wfcjjg'));
-                        $('.wftime').val($(this).attr('data-wftime'));
-                        $('.wfaddr').val($(this).attr('data-wfaddr'));
-                        $('.wfcontent').val($(this).attr('data-wfcontent'));
-                        $('.wfjkxh').val($(this).attr('data-wfjkxh'));
-                        $('.wfclbj').val($(this).attr('data-wfclbj'));
-                        $('.wfrksj').val($(this).attr('data-wfrksj'));
-                        $('.wffkjf').val($(this).attr('data-wffkjf'));
-                        $('.wfmoney').val($(this).attr('data-wfmoney'));
-                        $('.wfcph').val(carnum);
-                            $('.susub').show();
-                            $('.chaxun').hide();
-                    });
-                    $('.endjsyxx').hide();
-                    $('.endclwf').show();
+
+                        $('.chu').click(function(){
+                            if($(this).data('to') == 0){
+                                $(this).data('to',1);
+                                $(this).parents('.query_info1').siblings('.info_detail').show();
+                                /*$(this).siblings('.info_detail').show().parent().siblings().find('.info_detail').hide();*/
+                                $(this).parents('.query_info1').find('.arrow_left img').css('transform','rotate(180deg)');
+                            }else{
+                                $(this).data('to',0);
+                                $(this).parents('.query_info1').siblings('.info_detail').hide();
+                                $(this).parents('.query_info1').find('.arrow_left img').css('transform','rotate(0deg)');
+                            }
+                        });
+                        $('.shensu').click(function(){
+                            $('.wfcjjg').val($(this).attr('data-wfcjjg'));
+                            $('.wftime').val($(this).attr('data-wftime'));
+                            $('.wfaddr').val($(this).attr('data-wfaddr'));
+                            $('.wfcontent').val($(this).attr('data-wfcontent'));
+                            $('.wfjkxh').val($(this).attr('data-wfjkxh'));
+                            $('.wfclbj').val($(this).attr('data-wfclbj'));
+                            $('.wfrksj').val($(this).attr('data-wfrksj'));
+                            $('.wffkjf').val($(this).attr('data-wffkjf'));
+                            $('.wfmoney').val($(this).attr('data-wfmoney'));
+                            $('.wfcph').val(carnum);
+                                $('.susub').show();
+                                $('.chaxun').hide();
+                        });
+                        $('.endjsyxx').hide();
+                        $('.endclwf').show();
+                    }
                 }else{
                     $("#loading-fs").hide();
                     mui.alert('车牌号或发动机号不正确！');return false;

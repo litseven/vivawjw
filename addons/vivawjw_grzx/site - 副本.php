@@ -135,26 +135,19 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//根据UID判断是否有绑定1为绑定0没绑定//所有绑定的信息
 		$typecar = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound AND uniacid=:uniacid',array(':uid'=>$uid,':bound'=>1,':uniacid'=>$_W['uniacid']));
 		//获取绑定信息的违法记录
+/*--------有效期和强制报废期------------*/
+		foreach ($typecar as $key => $value){
+			$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$value['wx_type'],$value['wx_car_num'],$value['wx_car_engine']);
+			$data = $this->object2array($data);
+			$value['YXQZ'] = $data['YXQZ'];
+			$value['QZBFQZ'] = $data['QZBFQZ'];
+			$value['ZT'] = $data['ZT'];
+		}
 		//var_dump($typecar);
+
 /*---------------------------------------------------------------------------*/
 		if ($typecar){
 			$op = trim($_GPC['op'])? trim($_GPC['op']): 'success_car';
-
-			//var_dump($typecar);
-		}else{
-			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_car';
-		}
-
-		if($op == 'success_car'){
-			/*--------有效期和强制报废期------------*/
-			/*foreach ($typecar as $key => $value){
-				$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$value['wx_type'],$value['wx_car_num'],$value['wx_car_engine']);
-				$data = $this->object2array($data);
-				$value['YXQZ'] = $data['YXQZ'];
-				$value['QZBFQZ'] = $data['QZBFQZ'];
-				$value['ZT'] = $data['ZT'];
-			}*/
-
 			//绑定车辆的数量；一个微信号最多绑定两辆车
 			$bdcarnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$uid,':bound'=>1));
 			//查询外地绑定车辆状态
@@ -243,7 +236,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				}
 				$value['ZT'] = $zt;
 			}
+			//var_dump($typecar);
+		}else{
+			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_car';
 		}
+
 		//无锡绑定车辆
 		if ($op == 'wx_car_post'){
 			//判断用户最多绑定两辆车
@@ -419,7 +416,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				$n = $wflist[$i]['FKJE'];
 				$fkje = $fkje + $n;
 			}
-			echo json_encode($data);exit;
+
 		}
 
 		include $this->template('user_car');

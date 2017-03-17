@@ -169,7 +169,7 @@
             var chcartype = $("[name = 'chcartype']").val();
             var chcarnum = $("[name = 'chcarnum']").val();
             var chcarpapers = $("[name = 'chcarpapers']").val();
-            reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+            reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
             if (!reg.test(chcarnum)){
                 mui.alert('请正确输入车牌号');return false;
             }
@@ -246,7 +246,7 @@
                 $('.gg_drivercar').show();
             });
             $('.wuupdate').click(function(){
-                location.reload();
+                window.location.href = "{php echo $this->createMobileUrldeM('wxjj','center')}";
             });
         });
     </script>

@@ -138,14 +138,6 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//var_dump($typecar);
 /*---------------------------------------------------------------------------*/
 		if ($typecar){
-			$op = trim($_GPC['op'])? trim($_GPC['op']): 'success_car';
-
-			//var_dump($typecar);
-		}else{
-			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_car';
-		}
-
-		if($op == 'success_car'){
 			/*--------有效期和强制报废期------------*/
 			/*foreach ($typecar as $key => $value){
 				$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$value['wx_type'],$value['wx_car_num'],$value['wx_car_engine']);
@@ -154,9 +146,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				$value['QZBFQZ'] = $data['QZBFQZ'];
 				$value['ZT'] = $data['ZT'];
 			}*/
-
+			$op = trim($_GPC['op'])? trim($_GPC['op']): 'success_car';
 			//绑定车辆的数量；一个微信号最多绑定两辆车
 			$bdcarnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$uid,':bound'=>1));
+
+			var_dump($bdcarnum);
 			//查询外地绑定车辆状态
 			$wddatakey = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND distinction=:distinction AND bound=:bound',array(':uid'=>$uid,':distinction'=>0,':bound'=>1));
 			$wddataapi = $this->wxapi('WDCLZCSQCX','C81DD8605F0531F0B6C717D07A8979F4');
@@ -243,6 +237,13 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				}
 				$value['ZT'] = $zt;
 			}
+			//var_dump($typecar);
+		}else{
+			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_car';
+		}
+
+		if($op == 'success_car'){
+
 		}
 		//无锡绑定车辆
 		if ($op == 'wx_car_post'){
@@ -353,77 +354,79 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			}
 		}
 
-		//违法查询
-		if($op == 'wfcx'){
-			$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$_GPC['wx_type'],trim(strtoupper($_GPC['wx_car_num'])),$_GPC['wx_car_engine']);
-			$data = $this->object2array($data);
-			$wflist = $data['WFXXList']['WFXX'];
-			if ($data['State'] == 0) {
-				switch ($data['ZT']) {
-					case 'A':
-						$zt = '正常';
-						break;
-					case 'B':
-						$zt = '转出';
-						break;
-					case 'C':
-						$zt = '被盗抢';
-						break;
-					case 'D':
-						$zt = '停驶';
-						break;
-					case 'E':
-						$zt = '注销';
-						break;
-					case 'G':
-						$zt = '违法未处理';
-						break;
-					case 'H':
-						$zt = '海关监管';
-						break;
-					case 'I':
-						$zt = '事故未处理';
-						break;
-					case 'J':
-						$zt = '嫌疑车';
-						break;
-					case 'K':
-						$zt = '查封';
-						break;
-					case 'L':
-						$zt = '扣留';
-						break;
-					case 'M':
-						$zt = '强制注销';
-						break;
-					case 'N':
-						$zt = '事故逃逸';
-						break;
-					case 'O':
-						$zt = '锁定';
-						break;
-					default:
-						$zt = '正常';
-						break;
-				}
-				if($zt == '正常'){
-					echo 200;exit;
-				}
-			}else{
-				echo 300;exit;
-			}
-			//var_dump($wflist);
-			$wfnum = count($wflist);
-			$fkje = 0;
-			for($i=0;$i<$wfnum;$i++){
-				$n = $wflist[$i]['FKJE'];
-				$fkje = $fkje + $n;
-			}
-			echo json_encode($data);exit;
-		}
-
 		include $this->template('user_car');
 	}
+
+	//违法查询
+	public function doMobileWfcar(){
+		global $_W,$_GPC;
+		$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$_GPC['wx_type'],trim(strtoupper($_GPC['wx_car_num'])),$_GPC['wx_car_engine']);
+		$data = $this->object2array($data);
+		$wflist = $data['WFXXList']['WFXX'];
+		if ($data['State'] == 0) {
+			switch ($data['ZT']) {
+				case 'A':
+					$zt = '正常';
+					break;
+				case 'B':
+					$zt = '转出';
+					break;
+				case 'C':
+					$zt = '被盗抢';
+					break;
+				case 'D':
+					$zt = '停驶';
+					break;
+				case 'E':
+					$zt = '注销';
+					break;
+				case 'G':
+					$zt = '违法未处理';
+					break;
+				case 'H':
+					$zt = '海关监管';
+					break;
+				case 'I':
+					$zt = '事故未处理';
+					break;
+				case 'J':
+					$zt = '嫌疑车';
+					break;
+				case 'K':
+					$zt = '查封';
+					break;
+				case 'L':
+					$zt = '扣留';
+					break;
+				case 'M':
+					$zt = '强制注销';
+					break;
+				case 'N':
+					$zt = '事故逃逸';
+					break;
+				case 'O':
+					$zt = '锁定';
+					break;
+				default:
+					$zt = '正常';
+					break;
+			}
+			if($zt == '正常'){
+				echo 200;exit;
+			}
+		}else{
+			echo 300;exit;
+		}
+		//var_dump($wflist);
+		$wfnum = count($wflist);
+		$fkje = 0;
+		for($i=0;$i<$wfnum;$i++){
+			$n = $wflist[$i]['FKJE'];
+			$fkje = $fkje + $n;
+		}
+		include $this->template('wfcar');
+	}
+
 
 	//查询信息跳转支付接口
 	public function doMobileWzfkapi(){

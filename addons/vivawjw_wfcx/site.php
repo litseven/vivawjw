@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_wfcx/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_wfcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/template/resource/');
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
 	/*
@@ -63,13 +63,13 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	//车辆违法查询接口
 	public function doMobileApipostcl(){
 		global $_W,$_GPC;
-		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',trim($_GPC['cartype']),trim($_GPC['carnum']),trim($_GPC['enginenum']));
+		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['cartype']),trim(strtoupper($_GPC['carnum'])),trim($_GPC['enginenum']));
 		echo json_encode($data);
 	}
 	//驾驶人违法查询
 	public function doMobileApipostjsr(){
 		global $_W,$_GPC;
-		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',trim($_GPC['drnunum']),trim($_GPC['filenum']));
+		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['drnunum']),trim($_GPC['filenum']));
         echo json_encode($data);
 		//var_dump($data);
 	}

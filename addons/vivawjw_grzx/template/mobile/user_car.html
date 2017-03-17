@@ -59,7 +59,7 @@
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car_post'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
                 $("#loading-fs").hide();
-                //console.log(data);return false;
+               //mui.alert(data.data);return false;
                 if(data == 100){
                     //alert("<div class='car_cover'><div class='cover_box'><p>最多只能绑定两辆车</p><a>确定</a></div></div>");return false;
                     mui.alert('最多只能绑定两辆车');return false;
@@ -158,15 +158,15 @@
 
 {if $op == 'success_car'}
 <!--只绑定辆车的信息-->
+
 {if $bdcarnum == 1}
-    {loop $typecar  $item}
-        {if $item['distinction'] == 0}
+        {if $typecar['distinction'] == 0}
             <div class="account_mana">
                 <div class="acc_person_car">
                     <p>绑定车辆</p>
-                    <p>{$item['wd_car_num']}</p>
-                    {if $item['status'] != 2}
-                    <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
+                    <p>{$typecar['wd_car_num']}</p>
+                    {if $typecar['status'] != 2}
+                    <p class="del_bound_car" id="{$typecar['id']}" style="float: right;margin-right: 3%;color: #999;">
                         <i>&#xe67f;</i>
                         <span>移除</span>
                     </p>
@@ -174,36 +174,35 @@
                 </div>
                 <div class="acc_person_car">
                     <p>状态</p>
-                    <p>{if $item['status'] == 2}申请中{elseif $item['status'] == 0}绑定成功{else}申请失败{/if}</p>
+                    <p>{if $typecar['status'] == 2}申请中{elseif $typecar['status'] == 0}绑定成功{else}申请失败{/if}</p>
                 </div>
                 <a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">添加绑定车辆</a>
             </div>
-        {elseif $item['distinction'] == 1}
+        {elseif $typecar['distinction'] == 1}
             <div class="account_mana">
                 <div class="acc_person_car1" >
-                    <p>{$item['wx_car_num']}</p>
-                    <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">点击查看违法信息</p>
-                    <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
+                    <p>{$typecar['wx_car_num']}</p>
+                    <p class="ckwfxx" data-type="{$typecar['wx_type']}" data-engine="{$typecar['wx_car_engine']}" data-num="{$typecar['wx_car_num']}">点击查看违法信息</p>
+                    <p class="del_bound_car" id="{$typecar['id']}" style="float: right;margin-right: 3%;color: #999;">
                         <i>&#xe67f;</i>
                         <span>移除</span>
                     </p>
                 </div>
                 <div class="acc_person_car2">
                     <p>违法状态</p>
-                    <p>违法未处理</p>
+                    <p>{$typecar['ZT']}</p>
                 </div>
                 <div class="acc_person_car2">
                     <p>检验有效期止</p>
-                    <p>{$item['YXQZ']}</p>
+                    <p>{$typecar['YXQZ']}</p>
                 </div>
                 <div class="acc_person_car2">
                     <p>强制报废期止</p>
-                    <p>{$item['QZBFQZ']}</p>
+                    <p>{$typecar['QZBFQZ']}</p>
                 </div>
                 <a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">添加绑定车辆</a>
             </div>
         {/if}
-    {/loop}
 <!--绑定两辆车的信息-->
 {elseif $bdcarnum == 2}
 {loop $typecar $k $item}
@@ -238,7 +237,7 @@
     </div>
     <div class="acc_person_car2">
         <p>违法状态</p>
-        <p>违法未处理</p>
+        <p>{$item['ZT']}</p>
     </div>
     <div class="acc_person_car2">
         <p>检验有效期止</p>
@@ -254,281 +253,13 @@
 {/if}
 <script>
     $(function(){
-        $('#loading-fs').hide();
-        var process = false;
-        $('.del_bound_car').click(function(){
-            if(process)return false;
-            var id = $(this).attr('id');
-            if(confirm('解除绑定车辆后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
-                $("#loading-fs").show();
-                window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'del_bound_car'))}&id="+id;
-                process = true;
-            }
-        });
-        //挑转车辆违法信息
         $('.ckwfxx').click(function(){
-            var _this = $(this);
             var wx_type = _this.attr('data-type');
             var wx_car_num = _this.attr('data-num');
             var wx_car_engine = _this.attr('data-engine');
-            $('#loading-fs').show();
-            $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
-                if(data == 300){
-                    $('#loading-fs').hide();
-                    mui.alert('查询失败！');return false;
-                }
-                if(data == 200){
-                    $('#loading-fs').hide();
-                    mui.alert('恭喜你，没有违法记录');return false;
-                }else{
-                    window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}&wx_type="+wx_type+"&wx_car_num="+wx_car_num+"&wx_car_engine="+wx_car_engine;
-                }
-            });
-        });
-
-    });
-</script>
-{/if}
-{if $op == 'del_bound_car'}
-<div class="content">
-    <div class="content_box">
-        <div class="appeal1_box">
-            <i class="appeal_suc">&#xe60d;</i>
-            <div>解除绑定{$info}</div>
-        </div>
-        <a id="appeal_back" href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
-    </div>
-</div>
-{/if}
-{if $op == wfcx}
-<body style="background-color:#eeeeee;" >
-<div class="content">
-    <div class="content_box">
-        <div class="ill_query">
-            <div class="query_box">
-                <div class="license">
-                    <div class="licen_img">
-                        <img src="{S_URL}img/lisence.png">
-                        <div>{$data['HPHM']}</div>
-                    </div>
-                    <!--<div class="licen_mon">共<span>{$wfnum}</span>条违法信息<br>罚款<span>{$fkje}</span>元</div>-->
-                    <div class="licen_mon">
-                        <div class="licen_mon_box">
-                            <p class="licen_mon_p1">共<span>{$wfnum}</span>条违法信息罚款<span>{$fkje}</span>元</p>
-                            <a href="javascript:;" class="wfcl">处理违法信息</a>
-                            <p class="licen_mon_p2">客服电话：400-1166-699</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top:18px;">
-                    {loop $wflist $item}
-                    <div class="query_info">
-                        <div class="query_info11" data-to='0'>
-                            <div class="arrow_left"><img src="{S_URL}img/jiant.png"></div>
-                            <div class="info_right">
-                                <a href="javascript:;" class="shensu" data-wftime="{$item['WFSJ']}" data-wfaddr="{$item['WFDD']}" data-wfcontent="{$item['WFXW']}" data-wfjkxh="{$item['XH']}" data-wfclbj="{$item['CLBJ']}" data-wfcjjg="{$item['CJJGMC']}" data-wfrksj="{$item['RKSJ']}" data-wffkjf="{$item['WFJFS']}" data-wfcph="{$data['HPHM']}" data-wfmoney="{$item['FKJE']}">申诉</a>
-                                <div class="chu">违法时间:<span>{$item['WFSJ']}</span></div>
-                                <div>违法地点:<span>{$item['WFDD']}</span></div>
-                            </div>
-                        </div>
-
-                        <div class="info_detail hide"  >
-                            <div class="detail_box">
-                                <div>违法行为:<span>{$item['WFXW']}</span></div>
-                                <div>违法图片:<span>视频及外地违法图片请到各违法处理点查看</span></div>
-                                <div>处理状态:<span>{php echo $zt}</span></div>
-                                <div>罚款金额:<span>{$item['FKJE']}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    {/loop}
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-        <div class="content susub" style="display: none">
-            <div class="content_box">
-                <form>
-                    <div class="appeal_box">
-                        <div class="appeal_name">
-                            <div>姓名:</div>
-                            <input type="text" name="appeal_name" placeholder="请输入您的姓名" >
-                            <input type="hidden" value="{$userid}" name="userid">
-                        </div>
-                        <div class="appeal_phone">
-                            <div>联系方式:</div>
-                            <input type="text" name="appeal_phone" placeholder="请输入您的手机号" >
-                        </div>
-                        <div class="appeal_why">
-                            <div>申诉原因:</div>
-                            <textarea placeholder="请输入申诉原因(100字以内)" name="appeal_why"></textarea>
-                        </div>
-                        <input type="hidden" class="wfcjjg" value="">
-                        <input type="hidden" class="wftime" value="">
-                        <input type="hidden" class="wfaddr" value="">
-                        <input type="hidden" class="wfcontent" value="">
-                        <input type="hidden" class="wfjkxh" value="">
-                        <input type="hidden" class="wfclbj" value="">
-                        <input type="hidden" class="wfrksj" value="">
-                        <input type="hidden" class="wffkjf" value="">
-                        <input type="hidden" class="wfmoney" value="">
-                        <input type="hidden" class="wfcph" value="">
-                    </div>
-                    <a id="appeal_sub">提交</a>
-                </form>
-            </div>
-        </div>
-        <div class="content succees" style="display: none">
-            <div class="content_box">
-                <div class="appeal1_box">
-                    <i class="appeal_suc">&#xe60d;</i>
-                    <div>您的申诉信息我们已经收到，将尽快为您处理。</div>
-                </div>
-                <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car')}" style="text-decoration: none">返回</a>
-            </div>
-        </div>
-</body>
-<script>
-    $(function(){
-        $('.wfcl').click(function(){
-            $.post("{php echo $this->createMobileUrl('wzfkapi')}",function(data){
-                if (data == 100){
-                    //mui.alert('你还没有绑定车辆');
-                    if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
-                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
-                    }
-                }else if(data == 300){
-                    //mui.alert('您还没有绑定驾驶证');
-                    if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
-                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
-                    }
-                }else{
-                    $('.content').hide();
-                    $('.apiurl').val(data);
-                    $('.online_study').show();
-                }
-            },'JSON');
-            $('.online_agree').click(function(){
-                $apiurl = $('.apiurl').val();
-                window.location.href = $apiurl;
-            });
+            window.location.href = "{php echo $this->createMobileUrl('wfcar')}&wx_type="+wx_type+'&wx_car_num='+wx_car_num+'&wx_car_engine='+wx_car_engine;
         });
     });
 </script>
-<script>
-    var process = false;
-    $(function(){
-        //申诉
-        $("#loading-fs").hide();
-        $('.shensu').click(function(){
-            $('.ill_query').hide();
-            $('.susub').show();
-            $('.wfcjjg').val($(this).attr('data-wfcjjg'));
-            $('.wftime').val($(this).attr('data-wftime'));
-            $('.wfaddr').val($(this).attr('data-wfaddr'));
-            $('.wfcontent').val($(this).attr('data-wfcontent'));
-            $('.wfjkxh').val($(this).attr('data-wfjkxh'));
-            $('.wfclbj').val($(this).attr('data-wfclbj'));
-            $('.wfrksj').val($(this).attr('data-wfrksj'));
-            $('.wffkjf').val($(this).attr('data-wffkjf'));
-            $('.wfmoney').val($(this).attr('data-wfmoney'));
-            $('.wfcph').val($(this).attr('data-wfcph'));
-        });
-        $('#appeal_sub').click(function(){
-            var appeal_name = $("[name = 'appeal_name']").val();
-            var appeal_phone = $("[name = 'appeal_phone']").val();
-            var appeal_why = $("[name = 'appeal_why']").val();
-            var wfcjjg = $('.wfcjjg').val();
-            var wftime = $('.wftime').val();
-            var wfaddr = $('.wfaddr').val();
-            var wfcontent = $('.wfcontent').val();
-            var wfjkxh = $('.wfjkxh').val();
-            var wfclbj = $('.wfclbj').val();
-            var wfrksj = $('.wfrksj').val();
-            var wffkjf = $('.wffkjf').val();
-            var wfmoney = $('.wfmoney').val();
-            var wfcph = $('.wfcph').val();
-            if (appeal_name == ''){
-                mui.alert('请留下您的名字！');return false;
-            }
-            if (appeal_phone == ''){
-                mui.alert('手机号不能为空！');return false;
-            }
-            if(!(/^1[34578]\d{9}$/.test(appeal_phone))){
-                mui.alert("手机号码有误，请重填");return false;
-            }
-            if (appeal_why == ''){
-                mui.alert('请填写申诉原因,方便我们帮到您！');return false;
-            }
-            if (appeal_why.length > 100){
-                mui.alert('您字数过多，我看不过来，请在100字符之内！');return false;
-            }
-            if(process)return false;
-            $("#loading-fs").show();
-            $.post("{php echo $this->createMobileUrl('appealpost')}",{'wfcph':wfcph,'wfmoney':wfmoney,'wffkjf':wffkjf,'wfrksj':wfrksj,'wfclbj':wfclbj,'wfjkxh':wfjkxh,'wfcontent':wfcontent,'wfaddr':wfaddr,'wftime':wftime,'wfcjjg':wfcjjg,'appeal_why':appeal_why,'appeal_phone':appeal_phone,'appeal_name':appeal_name},function(data){
-                //console.log(data);
-                $("#loading-fs").hide();
-                if(data == 200){
-                    $('.content').hide();
-                    $('.susub').hide();
-                    $('.succees').show();
-                }
-                process = true;
-            });
-        });
-        $('.query_info11').click(function(){
-            if($(this).data('to') == 0){
-                $(this).data('to',1);
-                $(this).siblings('.info_detail').show();
-                /*$(this).siblings('.info_detail').show().parent().siblings().find('.info_detail').hide();*/
-                $(this).find('.arrow_left img').css('transform','rotate(180deg)');
-            }else{
-                $(this).data('to',0);
-                $(this).siblings('.info_detail').hide();
-                $(this).find('.arrow_left img').css('transform','rotate(0deg)');
-            }
-        });
-
-        $('.close').click(function(){
-            $('.binding').hide();
-        })
-    });
-</script>
-{/if}
-<script>
-    wx.ready(function(){
-        $('.where').click(function(){
-            wx.previewImage({
-                current: '{S_URL}img/help2_0.jpg', // 当前显示图片的http链接
-                urls: ['{S_URL}img/help2_0.jpg'] // 需要预览的图片http链接列表
-            });
-        });
-
-    });
-</script>
-<div id="loading-fs">
-    <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
-</div>
-<div class="online_study" style="display: none;">
-    <div class="study_box">
-        <p class="online_tit">办理须知</p>
-        <div class="online_detail">
-            <p>尊敬的广大用户：</p>
-            <p>您好！欢迎使用无锡交警交通违法处理支付（电子监控记录的交通违法行为）系统。无锡交警交通违法处理支付系统是无锡交警为广大群众提供的针对交通违法处理的“一站式”服务平台，您可以通过“车牌号+发动机号”对苏B开头的车辆进行交通违法自助查询、处理、缴款。</p>
-            <p>感谢您对无锡交警的理解和支持，希望您对无锡交警微警务的有关工作多提宝贵意见！服务提醒：</p>
-            <p>1：本系统仅可使用本人驾照处理本人机动车的非现场交通违法记录。</p>
-            <p>2：本系统仅限办理私人小型汽车200元（含）以下，且不记分的交通违法记录。</p>
-            <p>3、本系统可以处理用户本人机动车在全国范围内发生的交通违法记录。</p>
-            <p>4：本平台用户须以微信支付方式进行实时缴款，支付成功的，系统自动确认并发送回执；用户不支付或支付操作失败时，此笔业务自动作废，按流程重新办理即可，不会产生逾期未缴款滞纳金。</p>
-            <p>5：如需纸质处罚决定书，须持本人驾驶证、身份证和车辆行驶证到各曝光处理点补领。</p>
-            <p>6：由于数据同步问题，违法内容项目内容会有延迟，请以缴纳罚款页面显示情况为准。</p>
-            <p >若有任何疑问请咨询客服电话：400-1166-699</p>
-        </div>
-        <input type="hidden" class="apiurl">
-        <button class="online_agree">确认</button>
-    </div>
-</div>
 </body>
 </html>

@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_xxbg/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_xxbg/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_xxbg/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_xxbg/template/resource/');
 class vivawjw_xxbgModuleSite extends WeModuleSite
 {
 	/*
@@ -25,7 +25,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$driverpapers = trim($_GPC['driverpapers']);
 
 		//提交接口对比数据
-		$data = $this->wxapi('JSZXXCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$drivernum,$driverpapers);
+		$data = $this->wxapi('JSZXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$drivernum,$driverpapers);
 		echo json_encode($data);
 	}
 
@@ -33,11 +33,11 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	public function doMobileCarmanage(){
 		global $_W,$_GPC;
 		$chcartype = $_GPC['chcartype'];
-		$chcarnum = trim($_GPC['chcarnum']);
+		$chcarnum = trim(strtoupper($_GPC['chcarnum']));
 		$chcarpapers = trim($_GPC['chcarpapers']);
 
         //提交接口对比数据
-        $data = $this->wxapi('CLXXCX','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$chcartype,$chcarnum,$chcarpapers);
+        $data = $this->wxapi('CLXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers);
         echo json_encode($data);
 	}
     //接口
@@ -74,7 +74,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$sjhm = $_GPC['sjhm'];
 		$lsdz = $_GPC['lsdz'];
 		//提交接口对比数据
-		$data = $this->wxapi('JSZXXBG','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$driverpapers,$drivernum,$lxdh,$sjhm,$lsdz);
+		$data = $this->wxapi('JSZXXBG','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$driverpapers,$drivernum,$lxdh,$sjhm,$lsdz);
 		echo json_encode($data);
 
 
@@ -89,7 +89,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$sjhm = $_GPC['sjhm'];
 		$lsdz = $_GPC['lsdz'];
 		//提交接口对比数据
-		$data = $this->wxapi('CLXXBG','C81DD8605F0531F0B6C717D07A8979F4','wxzhcs',$chcartype,$chcarnum,$chcarpapers,$lxdh,$sjhm,$lsdz);
+		$data = $this->wxapi('CLXXBG','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers,$lxdh,$sjhm,$lsdz);
 		echo json_encode($data);
 	}
 
