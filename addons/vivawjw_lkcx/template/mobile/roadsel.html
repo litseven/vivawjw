@@ -56,26 +56,21 @@
                <div class="place_box_1 " id="map_f" style="display: block;">
                
                     <div class="place_box " >
+                    {loop $arr $key $item}
                          <div class="areas">
-                              <!--梁溪区-->
-                              <div class="area1" data-target="q_1">
+                              
+                              <div class="area1" data-target="q_{$key}">
                                    <div class="area_1">
                                         <i>&#xe612;</i>
-                                        <div>梁溪区</div>
+                                        <div style="margin-left:23%">{$item['name']}</div>
                                    </div>
                               </div>
-                              <!--滨湖区-->
-                              <div class="area1"  data-target="q_2">
-                                   <div class="area_1">
-                                        <i>&#xe612;</i>
-                                        <div>滨湖区</div>
-                                   </div>
-                              </div>
+                              
                          </div>
                          <!--详细信息-->
-                         <div class="detail_box" id="q_1" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '梁溪区'}
+                         <div class="detail_box" id="q_{$key}" style="display:none;">
+                              
+                                   
                                         {loop $item['child'] $v}
                                         <div>
                                              <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
@@ -100,460 +95,11 @@
                                              </div>
                                         </div>
                                         {/loop}
-                                   {/if}
-                              {/loop}
+                                  
+                              
                          </div>
-
-                         <div class="detail_box" id="q_2" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '滨湖区'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                                 <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>已收藏</span>
-                                                            {else}
-                                                                 <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="areas">
-                              <!--新吴区-->
-                              <div class="area1" data-target="q_3">
-                                   <div class="area_1" >
-                                        <i>&#xe612;</i>
-                                        <div>新吴区</div>
-                                   </div>
-                              </div>
-                              <!--锡山区-->
-                              <div class="area1" data-target="q_4">
-                                   <div class="area_1">
-                                        <i>&#xe612;</i>
-                                        <div>锡山区</div>
-                                   </div>
-
-                              </div>
-
-                         </div>
-                         <!--详细信息-->
-
-                         <div class="detail_box" id="q_3" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '新吴区'}
-                                        {loop $item['child'] $v}
-                                        <div>
-                                             <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                  <i class="detail_icon1">&#xe622;</i>
-                                                  <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                  <div class="deta_collect">
-                                                       {if $v['bool']}
-                                                            <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>已收藏</span>
-                                                       {else}
-                                                            <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>收藏</span>
-                                                       {/if}
-                                                  </div>
-                                             </div>
-                                             <div class="detail_boxes hide">
-                                                  <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                  <div class="detail11_box">
-                                                       <div>注：图片每5分钟自动更新</div>
-                                                       <div  class="locaing">图片加载较慢，请耐心等待</div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="detail_box" id="q_4" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '锡山区'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect" >
-                                                            {if $v['bool']}
-                                                                 <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>已收藏</span>
-                                                            {else}
-                                                                 <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div  class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="areas">
-                              <!--惠山区-->
-                              <div class="area1" data-target="q_5">
-                                   <div class="area_1" >
-                                        <i>&#xe612;</i>
-                                        <div>惠山区</div>
-                                   </div>
-                              </div>
-                              <!--高架道路-->
-                              <div class="area1" data-target="q_6">
-                                   <div class="area_1">
-                                        <i>&#xe612;</i>
-                                        <div>高架道路</div>
-                                   </div>
-
-                              </div>
-
-                         </div>
-
-                         <!--详细信息-->
-
-                         <div class="detail_box" id="q_5" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '惠山区'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                                 <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>已收藏</span>
-                                                            {else}
-                                                                 <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="detail_box" id="q_6" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '高架道路'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect" >
-                                                            {if $v['bool']}
-                                                                 <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>已收藏</span>
-                                                            {else}
-                                                                 <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                                 <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="areas">
-                              <!--高速公路-->
-                              <div class="area1" data-target="q_7">
-                                   <div class="area_1" >
-                                        <i>&#xe612;</i>
-                                        <div>高速公路</div>
-                                   </div>
-                              </div>
-                              <!--主要景区周边-->
-                              <div class="area1" data-target="q_8">
-                                   <div class="area_1">
-                                        <i>&#xe612;</i>
-                                        <div style="margin-left:30%;">主要景区周边</div>
-                                   </div>
-
-                              </div>
-
-                         </div>
-
-                         <!--详细信息-->
-
-                         <div class="detail_box" id="q_7" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '高速公路'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                            <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>已收藏</span>
-                                                            {else}
-                                                            <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="detail_box" id="q_8" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '主要景区周边'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                            <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>已收藏</span>
-                                                            {else}
-                                                            <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-
-                         <div class="areas">
-                              <!--灵山景区周边-->
-                              <div class="area1" data-target="q_9" id="area1">
-                                   <div class="area_1" >
-                                        <i style="padding-left:5%;">&#xe612;</i>
-                                        <div style="margin-left:21%;">灵山景区周边</div>
-                                   </div>
-                              </div>
-
-                         </div>
-
-                         <div class="detail_box" id="q_9" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '灵山景区周边'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                            <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>已收藏</span>
-                                                            {else}
-                                                            <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="areas">
-                              <!--鼋头渚竞速周边-->
-                              <div class="area1" data-target="q_10" id="area1">
-                                   <div class="area_1" >
-                                        <i style="padding-left:5%;">&#xe612;</i>
-                                        <div style="margin-left:21%;">鼋头渚景区周边</div>
-                                   </div>
-                              </div>
-
-                         </div>
-
-                         <div class="detail_box" id="q_10" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '鼋头渚景区周边'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                            <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>已收藏</span>
-                                                            {else}
-                                                            <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-                         <div class="areas">
-                              <!--地铁3号线施工周边-->
-                              <div class="area1" data-target="q_11" id="area1">
-                                   <div class="area_1" >
-                                        <i style="padding-left:5%;">&#xe612;</i>
-                                        <div style="margin-left:21%;">地铁3号线施工周边</div>
-                                   </div>
-                              </div>
-
-                         </div>
-
-                         <div class="detail_box" id="q_11" style="display:none;">
-                              {loop $arr $item}
-                                   {if $item['name'] == '地铁3号线施工周边'}
-                                        {loop $item['child'] $v}
-                                             <div>
-                                                  <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                                       <i class="detail_icon1">&#xe622;</i>
-                                                       <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                                       <div class="deta_collect">
-                                                            {if $v['bool']}
-                                                            <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>已收藏</span>
-                                                            {else}
-                                                            <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                                            <span>收藏</span>
-                                                            {/if}
-                                                       </div>
-                                                  </div>
-                                                  <div class="detail_boxes hide">
-                                                       <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                                       <div class="detail11_box">
-                                                            <div>注：图片每5分钟自动更新</div>
-                                                            <div class="locaing">图片加载较慢，请耐心等待</div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        {/loop}
-                                   {/if}
-                              {/loop}
-                         </div>
-
-
-
-                         <div class="areas">
-                              <!--鼋头渚竞速周边-->
-                              <div class="area1" data-target="q_12" id="area1">
-                                   <div class="area_1" >
-                                        <i style="padding-left:5%;">&#xe612;</i>
-                                        <div style="margin-left:21%;">无锡马拉松周边重要路口</div>
-                                   </div>
-                              </div>
-
-                         </div>
-
-                         <div class="detail_box" id="q_12" style="display:none;">
-                              {loop $arr $item}
-                              {if $item['name'] == '无锡马拉松周边重要路口'}
-                              {loop $item['child'] $v}
-                              <div>
-                                   <div class="detail1" data-ti='0' data-dwbh="{$v['DWBH']}">
-                                        <i class="detail_icon1">&#xe622;</i>
-                                        <div class="deta_addr" data-dwbh="{$v['DWBH']}">{$v['WZMS']}</div>
-                                        <div class="deta_collect">
-                                             {if $v['bool']}
-                                             <i class="star"  data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                             <span>已收藏</span>
-                                             {else}
-                                             <i class="sclk" data-dwbh="{$v['DWBH']}" data-wzms="{$v['WZMS']}">&#xe623;</i>
-                                             <span>收藏</span>
-                                             {/if}
-                                        </div>
-                                   </div>
-                                   <div class="detail_boxes hide">
-                                        <img src="" style="display: block;"  class="img{$v['DWBH']}">
-                                        <div class="detail11_box">
-                                             <div>注：图片每5分钟自动更新</div>
-                                             <div class="locaing">图片加载较慢，请耐心等待</div>
-                                        </div>
-                                   </div>
-                              </div>
-                              {/loop}
-                              {/if}
-                              {/loop}
-                         </div>
+                         {/loop}
+                        
 
 
 
@@ -562,7 +108,7 @@
               
                     
                 
-                    <a id="road" href="{php echo $this->createMobileUrl('roadsel',array('op'=>'roadpsot'))}" style="text-decoration: none">我要报路况</a>
+                    <a id="road" href="{php echo $this->createMobileUrl('roadsel',array('op'=>'roadpsot'))}" style="text-decoration: none;">我要报路况</a>
                </div>
                <div id="map_container" style="margin-top: 2%;" >
                          <div id="map"></div>
@@ -617,24 +163,15 @@
 <script>
      $(function(){
                var map_height = $('body').height()- $('.search_box')[0].scrollHeight-$('.search_btn_box').height()-10;
-               $('#map_container').attr('style',"height:"+map_height+"px")
-               $('#map_container').hide()
-               
+               $('#map_container').attr('style',"height:"+map_height+"px");
+               $('#map_container').hide();
 
-          /*$('.search_btn_box div').click(function(){
-               var x = $(this).index();
-               $('.search_place_box .place_box_1').eq(x).show().siblings().hide();
-               $(this).addClass('search_btn_bg').siblings().removeClass('search_btn_bg');
-          });*/
-          $('.search_map').click(function(){
-
-          });
           $('.search_btn_bg').click(function(){
                $('#map_f').show(); 
                $('#map_container').hide(); 
                $('.search_map').attr('style',"background-color:white;color:black;")
                $('.search_btn_bg').attr('style',"background-color:#51ca6e;color:white;")
-          })
+          });
           var count = 0;
           wx.ready(function(){
                $('.search_map').click(function(){
@@ -771,8 +308,9 @@
     function pointInfo(marker,areaName,roadName,bianHAo) {
         marker.addEventListener('click', function() {
         this.openInfoWindow(infoWindow);
-        $.post("{php echo $this->createMobileUrl('seltp')}",{dwbh:bianHAo},function(data){
-            $('#imgsrc').attr('src','data:image/png;base64,'+data);
+        $.post("{php echo $this->createMobileUrl('seltp_new')}",{dwbh:bianHAo},function(data){
+            $('#imgsrc').attr('src',data);
+            //$('#imgsrc').attr('src','data:image/png;base64,'+data);
             $('#areaName').text("区域："+areaName+"");
             $('#roadName').text("地址："+roadName+"");
             $('#loading').hide();
@@ -795,16 +333,33 @@
                     //console.log(data);
                //});
           });
-               var count_o = 0;
              $('.detail1').click(function(){
                var dwbh = $(this).attr("data-dwbh");
                var _this = $(this);
-              
+               var ti = _this.attr('data-ti');
+                  if(ti == 0){
+                       $.post("{php echo $this->createMobileUrl('seltp_new',array('test'=>1))}",{'dwbh':dwbh},function(data){
+                            $('.img'+ dwbh).attr('src',data);
+                            //$('.img'+ dwbh).attr('src','data:image/png;base64,'+data);
+                            _this.siblings().find('.locaing').hide();
+                            //console.log(data);
+                       });
+                       $(".detail_boxes").hide();
+                       $('.detail_icon1').css('transform','rotate(0deg)');
+                       $(this).siblings('.detail_boxes').show();
+                       $(this).find('.detail_icon1').css('transform','rotate(90deg)');
+                       _this.attr('data-ti',1);
+                  }else{
+                       $(this).siblings('.detail_boxes').hide();
+                       $(this).find('.detail_icon1').css('transform','rotate(0deg)');
+                       _this.attr('data-ti',0);
+                  }
                
-               if(count_o==0){
+               /*if(count_o==0){
 
-                    $.post("{php echo $this->createMobileUrl('seltp')}",{'dwbh':dwbh},function(data){
-                         $('.img'+ dwbh).attr('src','data:image/png;base64,'+data);
+                    $.post("{php echo $this->createMobileUrl('seltp_new',array('test'=>1))}",{'dwbh':dwbh},function(data){
+                         $('.img'+ dwbh).attr('src',data);
+                               //$('.img'+ dwbh).attr('src','data:image/png;base64,'+data);
                          _this.siblings().find('.locaing').hide();
                          //console.log(data);
                     });
@@ -821,7 +376,7 @@
                     $(this).siblings('.detail_boxes').hide();
                     $(this).find('.detail_icon1').css('transform','rotate(0deg)');
                     count_o = 0;
-               }
+               }*/
                
            
 

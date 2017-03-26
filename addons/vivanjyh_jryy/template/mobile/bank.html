@@ -31,9 +31,9 @@
         <div class="appoint">
             <div class="app_red"></div>
             <div class="app_gray">
-                <div class="appoint_tit">
+                <div class="appoint_tit" style="width: 55%;">
                     <i>&#xe681;</i>
-                    <p>立即预约</p>
+                    <p>填写预约信息</p>
                 </div>
                 <div class="arrow"><i>&#xe61f;</i></div>
                 <div class="form_box">
@@ -95,9 +95,9 @@ Access Denied
 {template 'wxsdk'}
 <script>
     var process = false;
-    $("#loading-fs").hide();
     $(function(){
         $('.sub').click(function(){
+            $("#loading-fs").show();
             if(process)return false;
             var name = $("[name = 'name']").val();
             var title = $("[name = 'title']").val();
@@ -111,20 +111,23 @@ Access Denied
             if (!pattern.test(phone)){
                 alert('手机号码有误！');return false;
             }
-
-            $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('messagepost')}",{'name':name,'title':title,'phone':phone,'content':content,'zhihang':zhihang},function(data){
+
               /*  data = JSON.parse(data);
                 console.log(data);*/
                 if (data == 200){
-                    alert('您已经预约成功！');
-                    location.reload();
+                    $("#loading-fs").hide();
+                    //alert('亲，您已成功提交信息，我们会尽快联系您~注：理财产品额度均需通过网点理财经理预约，预约信息将告知网点理财经理尽快联系您');
+                    $('.tankuang').show();
                 }else if(data == 300){
+                    $("#loading-fs").hide();
                     alert('请先关注公众号并在微信中打开！');
                 }
             });
-            process = true;
-            $("#loading-fs").hide();
+            process = false;
+        });
+        $('.tankuang_close').click(function(){
+            $('.tankuang').hide();
         });
     });
     wx.ready(function(){
@@ -149,5 +152,15 @@ Access Denied
         });
     });
 </script>
+
+<!--弹框-->
+<div class="tankuang" style="display: none;">
+    <div class="tk_cover">
+        <div></div>
+        <p class="tk_cover_p1">亲，您已成功提交信息，我们会尽快联系您~</p>
+        <p class="tk_cover_p2">注：理财产品额度均需通过网点理财经理预约，预约信息将告知网点理财经理尽快联系您</p>
+        <a class="tankuang_close">关闭</a>
+    </div>
+</div>
 </body>
 </html>

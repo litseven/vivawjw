@@ -66,7 +66,8 @@
 {else if $op == 'tongguo'}
 <div class="complete">
     <i>&#xe6a3;</i>
-    <p class="complete_p1">恭喜您本次年审学习已审核通过！</p>
+    <p class="complete_p1">恭喜您本次年审学习已审核通过!</p>
+    <p class="complete_p1" style="margin-top: 10px">不再须要到车管所现场签字确认年审!</p>
     <p class="complete_p2">感谢您的积极参与，再见！</p>
     <p class="complete_p4">(无锡市公安局交通警察支队车辆管理所)</p>
     <a href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
@@ -130,8 +131,8 @@
                 }
                 imgval[i] = new Array( $(this).data('val'),$(this).data('id'));
             });
-            console.log(imgval.length);
-            console.log($(".aimg").length);
+            //console.log(imgval.length);
+            //console.log($(".aimg").length);
 
             if (imgval.length != $(".aimg").length){
                 return false;
@@ -140,7 +141,7 @@
                if(data == 200){
                    window.location.href = "{php echo $this->createMobileUrl('user_study',array('op'=>'success'))}";
                }else if(data == 300){
-                    alert(11);
+
                }
            },'JSON');
         });

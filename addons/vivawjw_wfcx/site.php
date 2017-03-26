@@ -6,6 +6,19 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_wfcx/template/
 //define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/template/resource/');
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
+
+	public function doMobileTest(){
+		$test = get_headers('http://wxjjtest.scienmedia.com/pros/attachment/images/1/wfimg/2017/03/3202009012476793.jpg');
+		$tests = explode(':',$test['4']);
+
+		var_dump(trim($tests[1]));
+		if(trim($tests[1]) < 0){
+			echo 0;
+		}else{
+			echo 1;
+		}
+
+	}
 	/*
 	 * 入口
 	 */
@@ -32,16 +45,49 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 
 		include $this->template('wxappeal');
 	}
+
+	//验证是否绑定
+	public function doMobileAppealverify(){
+		global $_W,$_GPC;
+		$carnum = $_GPC['carnum'];
+		$uid = $_W['member']['uid'];
+		if(substr($carnum,0,4) == '苏B'){
+			$data = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND wx_car_num=:wx_car_num AND bound=:bound',array(':uid'=>$uid,':wx_car_num'=>$carnum,':bound'=>1));
+			if($data){
+				echo 200;exit;
+			}else{
+				echo 100;exit;
+			}
+		}else{
+			$data = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND wd_car_num=:wd_car_num AND bound=:bound',array(':uid'=>$uid,':wd_car_num'=>$carnum,':bound'=>1));
+			if($data){
+				echo 200;exit;
+			}else{
+				echo 100;exit;
+			}
+		}
+
+
+	}
+
+
 	//申请信息处理
 	public function doMobileAppealpost(){
 		global $_W,$_GPC;
+
+
+		$cou = pdo_fetchcolumn('SELECT count(*) FROM  '.tablename('vivawjw_wfcx').' WHERE uid=:uid and wfjkxh=:wfjkxh and wfcph=:wfcph',array(':uid'=>$_W['member']['uid'],':wfjkxh'=>$_GPC['wfjkxh'],':wfcph'=>$_GPC['wfcph']));
+		// echo $cou;
+		if($cou>0){
+			echo 300;exit;
+		}
 		$data['appeal_name'] = $_GPC['appeal_name'];
 		$data['appeal_phone'] = $_GPC['appeal_phone'];
 		$data['appeal_why'] = $_GPC['appeal_why'];
 		$data['uniacid'] = $_W['uniacid'];
 		$data['uid'] = $_W['member']['uid'];
 		$data['time'] = time();
-
+		$data['openid']=$_W['openid'];
 		$data['wfcjjg'] = $_GPC['wfcjjg'];
 		$data['wftime'] = strtotime($_GPC['wftime']);
 		$data['wfaddr'] = $_GPC['wfaddr'];
@@ -52,11 +98,63 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$data['wffkjf'] = $_GPC['wffkjf'];
 		$data['wfmoney'] = $_GPC['wfmoney'];
 		$data['wfcph'] = $_GPC['wfcph'];
-		if(!empty($data['appeal_name']) && !empty($data['appeal_phone']) && !empty($data['appeal_why'])){
-			$insert_data = pdo_insert('vivawjw_wfcx',$data);
-			if ($insert_data){
-				echo 200;
+		$apitime=date('Y-m-d h:i', time());
+		$dataapi=$this->wxapiss($_W['openid'],$apitime,$_GPC['wfcph'],$_GPC['wfjkxh'],$_GPC['appeal_why']);
+		$dataapis=$this->object2array($dataapi);
+		// echo json_encode($dataapis);exit;
+		// echo $dataapis['State'];exit;
+		if($dataapis['State']==0){
+			if($data['appeal_why']){
+				$insert_data = pdo_insert('vivawjw_wfcx',$data);
+				if ($insert_data){
+					echo 200;
+				}
 			}
+		}else{
+			// echo $dataapi['State'];
+			echo 400;exit;
+		}
+
+	}
+
+
+	//接口查询申诉结果3.23 xia
+
+	public function doMobilessjgpost(){
+		global $_W,$_GPC;
+		$id =$_GPC['id'];
+		$data= pdo_fetchall('SELECT id,wfcph,wfjkxh FROM'.tablename('vivawjw_wfcx').'WHERE id=:id',array(':id'=>$id));
+		// echo $data[0]['id'];
+		$dataapi=$this->wxapissjg($_W['openid'],$data[0]['wfcph'],$data[0]['wfjkxh']);
+		$dataapis=$this->object2array($dataapi);
+		echo $dataapis['SSJG'];
+	}
+
+
+	public function wxapissjg($wx,$carnum,$jk){
+		libxml_disable_entity_loader(false);
+		$opts = array(
+			'ssl'   => array(
+				'verify_peer'          => false
+			),
+			'https' => array(
+				'curl_verify_ssl_peer'  => false,
+				'curl_verify_ssl_host'  => false
+			)
+		);
+		$streamContext = stream_context_create($opts);
+		try {
+			$url = 'http://192.168.11.58/WXWC/wcservice.asmx?wsdl';
+			$c = new SoapClient($url,['stream_context' => $streamContext]);
+			//echo '<pre>';
+			//var_dump($c->register('wxzhcs','wxzhcs123456'));
+			//C81DD8605F0531F0B6C717D07A8979F4
+			//return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4',$wx,$time,$carnum,$jk,$nr);
+			return $c->DJSSJGCX('C81DD8605F0531F0B6C717D07A8979F4',$wx,$carnum,$jk);
+			// return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4','ocJugjrKn12kVR8lt_OSCGiU3rgk','2017-03-18 12:47','苏B7KR12','3202009014349753','左转弯前方有些许白漆，让人误以为是待转区域，白漆长久模糊了。更何况对面的车道就有待转区域。难道待转区域只划半条马路？！同样是不影响直行车辆的。若是没那些模糊的白漆，我也不会左拐出去等待的');
+
+		} catch (SOAPFault $e) {
+			print_r($e);
 		}
 	}
 
@@ -70,10 +168,49 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	public function doMobileApipostjsr(){
 		global $_W,$_GPC;
 		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['drnunum']),trim($_GPC['filenum']));
-        echo json_encode($data);
+		echo json_encode($data);
 		//var_dump($data);
 	}
 
+	//查询违法图片
+	public function doMobileAtest(){
+		global $_W,$_GPC;
+		$wfcar = $_GPC['carnum'];
+		$wftp = $_GPC['wfxh'];
+		$filename = 'images/'.$_W['uniacid']."/wfimg/".date("Y",time())."/".date("m",time())."/$wftp.jpg";
+		$imgurl = tomedia($filename);
+		$imginfo = get_headers($imgurl);
+
+		$contLength = explode(':',$imginfo['4']);
+
+		if($imginfo[0] != 'HTTP/1.1 200 OK' || trim($contLength[1]) <= 0){
+			$data = $this->wxapi('WFTP','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$wftp,$wfcar);
+			$data = $this->object2array($data);
+			if($data['State'] == 0){
+				$imgdata = $data['WFTP'];
+				load()->func('file');
+				file_write($filename, $imgdata);
+				file_remote_upload($filename);
+			}else{
+				$imgdata = file_get_contents(MODULE_ROOT."/template/resource/img/nopic.jpg");
+				load()->func('file');
+				file_write($filename, $imgdata);
+				file_remote_upload($filename);
+			}
+
+
+
+			/*$imgdata = $data['WFTP'];
+			  if(!$imgdata){
+				$imgdata = file_get_contents(MODULE_ROOT."/template/resource/img/nopic.jpg");
+			}
+			load()->func('file');
+			file_write($filename, $imgdata);
+			file_remote_upload($filename);*/
+		}
+		echo $imgurl;
+
+	}
 	//查询信息跳转支付接口
 	public function doMobileWzfkapi(){
 		global $_W,$_GPC;
@@ -148,17 +285,17 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 			print_r($e);
 		}
 	}
-    //对象转数组
-    public function object2array($object) {
-        foreach ($object as $k => $v) {
-            if (is_array($v) || is_object($v)) {
-                $arr[$k] = $this->object2array($v);
-            } else {
-                $arr[$k] = $v;
-            }
-        }
-        return $arr;
-    }
+	//对象转数组
+	public function object2array($object) {
+		foreach ($object as $k => $v) {
+			if (is_array($v) || is_object($v)) {
+				$arr[$k] = $this->object2array($v);
+			} else {
+				$arr[$k] = $v;
+			}
+		}
+		return $arr;
+	}
 
 	/*
 	 * 后台管理

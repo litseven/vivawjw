@@ -41,7 +41,7 @@
         .others_car{text-align: center; font-size:0.9rem; color:#2ECC71; margin-top:28px;}
         .close i{float:right; margin-right:4%; font-family:"iconfont" !important; color:white; font-size:16px;font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale;}
         .binding_box div:nth-child(2){float:left; margin-left:6.7%;}
-		
+
     </style>
 </head>
 <body>
@@ -51,16 +51,16 @@
     <div class="content_box">
         <div class="bind_car">添加绑定本地驾驶证</div>
         <form>
-        <div class="query_box" style="margin-top:5%;">
-            <div class="car_style">
-                <div>驾驶证号</div>
-                <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" style="padding:6px;">
+            <div class="query_box" style="margin-top:5%;">
+                <div class="car_style">
+                    <div>驾驶证号</div>
+                    <input type="text" name="wx_driv_num" id="car_number1" placeholder="请输入驾驶证号" style="padding:6px;">
+                </div>
+                <div class="car_style">
+                    <div>档案编号<br><a class="where">(在哪里)</a></div>
+                    <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" >
+                </div>
             </div>
-            <div class="car_style">
-                <div>档案编号<br><a class="where">(在哪里)</a></div>
-                <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" >
-            </div>
-        </div>
         </form>
         <a id="query1">下一步</a>
         <div class="bind">温馨提示：外地驾驶证点击<a href="{php echo $this->createMobileUrl('user_driving',array('op'=>'wd_driving'))}">这里绑定</a></div>
@@ -69,11 +69,14 @@
 <script>
     var process = false;
     $(function () {
+        if({$oldBoundDriver} > 1){
+            mui.alert("根据业务部门要求，只支持绑定本人驾驶证，系统已自动解绑用户之前数据，请重新绑定！");
+        }
         $('#query1').click(function () {
             if(process)return false;
             var wx_driv_num = $("[name = 'wx_driv_num']").val();
             var wx_driv_record = $("[name = 'wx_driv_record']").val();
-            reg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i;
+            reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(wx_driv_num == ''){
                 mui.alert('驾驶证号不能为空！');return false;
             }
@@ -98,7 +101,7 @@
                     mui.alert('绑定失败');return false;
                 }
                 $('.wx_driving').hide();
-                $('.sub_driving').show();
+                $('.sub_driving_wx').show();
                 process = true;
             });
 
@@ -107,6 +110,15 @@
     });
 </script>
 {/if}
+<div class="content sub_driving_wx" style="display: none;">
+    <div class="content_box">
+        <div class="appeal1_box">
+            <i class="appeal_suc">&#xe60d;</i>
+            <div>您的驾驶证已绑定成功！</div>
+        </div>
+        <a id="appeal_back" href="{php echo $this->createMobileUrl('user_driving')}">返回</a>
+    </div>
+</div>
 {if $op == 'wd_driving'}
 <div class="content wd_driving">
     <div class="content_box">
@@ -435,7 +447,7 @@
     $(function(){
         $('.others_car').click(function(){
             //跳转违法查询
-           window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_wfcx','illegal')}";
+            window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_wfcx','illegal')}";
         });
         $('.query_ill_div1').click(function(){
             if($(this).data('to')==0){

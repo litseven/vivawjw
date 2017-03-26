@@ -58,7 +58,8 @@
                 </div>
                 <div class="car_style">
                     <div>证芯编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" name="driverpapers" placeholder="证芯编号后六位或档案编号后六位" id="car_fa1" />
+                    <input type="text" name="driverpapers" placeholder="证芯编号后六位或档案编号后六位" id="car_fa1" class="car_where"/>
+                    <p class="car_where_show" style="margin-left:25%; line-height: 22px;font-size: 0.8rem;">提醒:输入证芯编号或档案编号<span style="color:red;">后六位</span>！</p>
                 </div>
                 <a id="query1">下一步</a>
             </div>
@@ -81,7 +82,9 @@
                 </div>
                 <div class="car_style" style="margin-top: -17px">
 
-                    <input type="text" name="chcarpapers" placeholder="请输入身份证后六位或机构代码证前六位" id="car_fa" style="width: 89%; margin-left: 0;"/>
+                    <input type="text" name="chcarpapers" placeholder="请输入身份证后六位或机构代码证前六位" id="car_fa" style="width: 89%; margin-left: 0;" class="num_where"/>
+                    <p class="num_where_show" style="margin-left:1%; line-height: 22px;font-size: 0.8rem;">提醒:输入身份证<span style="color:red;">后六位</span>或机构代码证<span style="color:red;">前六位！</span></p>
+
                 </div>
                 <a id="query">下一步</a>
             </div>
@@ -89,9 +92,22 @@
     </div>
 
 <script>
-    var process = false;
     $("#loading-fs").hide();
     $(function(){
+        $('.car_where').focus(function(){
+            $('.car_where_show').show();
+            $(this).parent('.car_style').css('padding-bottom','25%');
+        });
+        $('.car_where').blur(function(){
+            $(this).parent('.car_style').css('padding-bottom',0);
+        });
+        $('.num_where').focus(function(){
+            $('.num_where_show').show();
+            $(this).parent('.car_style').css('padding-bottom','25%');
+        });
+        $('.num_where').blur(function(){
+            $(this).parent('.car_style').css('padding-bottom',0);
+        });
         $('.driver').click(function(){
             $('.ill_tit').removeClass('ill_current');
             $(this).addClass('ill_current');

@@ -1,10 +1,29 @@
 <?php
-//ini_set('display_errors', 0);
-//error_reporting(E_ALL);
+//if($_GET['test']!=1){
+//echo "<h1 style='color:#f90;margin-top:20%;text-align:center'>路况信息升级中，请稍后访问！</h1>";
+//die;}
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
 //define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
 define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
+
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
+
+
+
+		public function roadareaCache(){ // 5mins 缓存  by zhangwei 
+			$roadareaCache = cache_load('roadareaCache');
+			//cache_delete('roadareaCache');	
+			if(!$roadareaCache || TIMESTAMP-$roadareaCache['creattime']>(3600*6)){
+						$roadareaCache['data'] = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+						$roadareaCache['creattime'] = TIMESTAMP;
+						cache_write('roadareaCache',$roadareaCache);
+				}
+			return $roadareaCache['data'];
+			}
+
+
 
 		public function doMobileRoadsel(){
 			global $_W, $_GPC;
@@ -13,10 +32,15 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
             $sclk = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkcx_sc').' WHERE uid=:uid',array(':uid'=>$uid));
             //var_dump($sclk);
             //提交接口对比数据
-            $data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
-            //var_dump($data);
-            $data = $this->object2array($data);
+            $data = $this->roadareaCache();
+			
+			
+            
+			$data = $this->object2array($data);
+			
+			
             $data = $data['ZGDLKResult'];
+
             foreach($data as $k => $v){
                 //对比收藏
                 foreach ($sclk as $key => $value) {
@@ -28,21 +52,27 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
                     }
                 }
             }
-            //var_dump($data);
-            $arr = array(
-                0 => array('name' => '梁溪区'),
-                1 => array('name' => '滨湖区'),
-                2 => array('name' => '新吴区'),
-                3 => array('name' => '锡山区'),
-                4 => array('name' => '惠山区'),
-                5 => array('name' => '高架道路'),
-                6 => array('name' => '高速公路'),
-                7 => array('name' => '主要景区周边'),
-                8 => array('name' => '灵山景区周边'),
-                9 => array('name' => '鼋头渚景区周边'),
-                10 =>array('name' => '地铁3号线施工周边'),
-                11 =>array('name' => '无锡马拉松周边重要路口'),
-            );
+			
+			$scien_temp = $scien_arr = array();
+			foreach($data as $v){$scien_temp[$v['ZGDName']] = NULL;}
+			foreach($scien_temp as $k=>$v){array_push($scien_arr,array('name'=>$k));}
+			$arr = $scien_arr;
+			
+//            $arr = array(
+//                0 => array('name' => '梁溪区'),
+//                1 => array('name' => '滨湖区'),
+//                2 => array('name' => '新吴区'),
+//                3 => array('name' => '锡山区'),
+//                4 => array('name' => '惠山区'),
+//                5 => array('name' => '高架道路'),
+//                6 => array('name' => '高速公路'),
+//                7 => array('name' => '主要景区周边'),
+//                8 => array('name' => '灵山景区周边'),
+//                9 => array('name' => '鼋头渚景区周边'),
+//                10 =>array('name' => '地铁3号线施工周边'),
+//                11 =>array('name' => '无锡马拉松周边重要路口'),
+//            );
+			
             $i = 0;
             $child = array();
             foreach ($arr as $k => $v) {
@@ -56,7 +86,10 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
                 $arr[$k]['child'] = $child;
                 unset($child);
             }
-            //var_dump($arr);
+            // var_dump($arr);
+            // echo '<pre>';
+            // print_r($arr);
+            // echo '</pre>';
             //查询
             if($op == 'search'){
                 $keyword = $_GPC['keyword'];
@@ -72,11 +105,92 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
                 }
             }
 
-
-            //echo '<pre>';
-            //var_dump($keyword);
 			include $this->template('roadsel');
         }
+
+
+            public function doMobileRoadselzfb(){
+            global $_W, $_GPC;
+            $op = $op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
+            $uid = $_W['member']['uid'];
+            $sclk = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkcx_sc').' WHERE uid=:uid',array(':uid'=>$uid));
+            //var_dump($sclk);
+            //提交接口对比数据
+            $data = $this->roadareaCache();
+            
+            
+            
+            $data = $this->object2array($data);
+            
+            
+            $data = $data['ZGDLKResult'];
+
+            foreach($data as $k => $v){
+                //对比收藏
+                foreach ($sclk as $key => $value) {
+                    if ($v['DWBH'] == $value['dwbh']) {
+                        $data[$k]['bool'] = 1;
+                        break;
+                    } else {
+                        $data[$k]['bool'] = 0;
+                    }
+                }
+            }
+            
+            $scien_temp = $scien_arr = array();
+            foreach($data as $v){$scien_temp[$v['ZGDName']] = NULL;}
+            foreach($scien_temp as $k=>$v){array_push($scien_arr,array('name'=>$k));}
+            $arr = $scien_arr;
+            
+//            $arr = array(
+//                0 => array('name' => '梁溪区'),
+//                1 => array('name' => '滨湖区'),
+//                2 => array('name' => '新吴区'),
+//                3 => array('name' => '锡山区'),
+//                4 => array('name' => '惠山区'),
+//                5 => array('name' => '高架道路'),
+//                6 => array('name' => '高速公路'),
+//                7 => array('name' => '主要景区周边'),
+//                8 => array('name' => '灵山景区周边'),
+//                9 => array('name' => '鼋头渚景区周边'),
+//                10 =>array('name' => '地铁3号线施工周边'),
+//                11 =>array('name' => '无锡马拉松周边重要路口'),
+//            );
+            
+            $i = 0;
+            $child = array();
+            foreach ($arr as $k => $v) {
+
+                foreach ($data as $key => $value){
+                    if ($v['name'] == $value['ZGDID']) {
+                        $child[$i] = $value;
+                        $i++;
+                    }
+                }
+                $arr[$k]['child'] = $child;
+                unset($child);
+            }
+            // var_dump($arr);
+            // echo '<pre>';
+            // print_r($arr);
+            // echo '</pre>';
+            //查询
+            if($op == 'search'){
+                $keyword = $_GPC['keyword'];
+                foreach ($data as $key => $value){
+                    //echo $key.'---'.$value['DWBH'].'---'.$value['WZMS'].'<br/>';
+                    $arr[$key]['DWBH'] = $value['DWBH'];
+                    $arr[$key]['WZMS'] = $value['WZMS'];
+                }
+                foreach ($arr as $kk => $vv) {
+                    if (strpos($vv['WZMS'],$keyword) !== false) {
+                        $return[$kk] = $vv;
+                    }
+                }
+            }
+
+            include $this->template('roadsel_zfb');
+        } 
 
         //收藏路况
         public function doMobileSclk(){
@@ -104,6 +218,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
                 $qxsclk = pdo_delete('vivawjw_lkcx_sc',array('uid'=>$uid,'dwbh'=>$dwbh,'wzms'=>$wzms));
             }
         }
+		
         //调取图片接口
         public function doMobileSeltp(){
             global $_W, $_GPC;
@@ -116,11 +231,37 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
             echo $data;
             //echo '<img src="data:image/png;base64,'.$data.'"/>';
         }
+
+
+        //调取图片接口
+        public function doMobileSeltp_new(){ // 每30秒生成图片上传至远程文件夹
+            global $_W, $_GPC;
+            //提交接口对比数据
+            $dwbh = $_GPC['dwbh'];
+			$imgurl = tomedia('images/'.$_W['uniacid'].'/roadpic/'.$dwbh.'.png');
+			$imginfo = get_headers($imgurl);
+			$time = strtotime(str_replace("Last-Modified: ","",$imginfo[5]));
+			
+			if(!$time || TIMESTAMP - $time  > 30){
+					$data = $this->wxapi('LKTPCX','C81DD8605F0531F0B6C717D07A8979F4',$dwbh);
+					$data = $this->object2array($data);
+					$data = $data['LKKZ'];
+					//$data = base64_encode($data);
+					
+					load()->func('file');
+					$filename = 'images/'.$_W['uniacid'].'/roadpic/'.$dwbh.'.png';
+					
+					file_write($filename, $data);
+					file_remote_upload($filename);
+				}
+			
+            echo $imgurl;
+        }
         //搜索关键字查询
         public function doMobileSearchkey(){
             global $_W, $_GPC;
             $keyword = $_GPC['keyword'];
-            $data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+            $data = $this->roadareaCache();
             $data = $this->object2array($data);
             foreach ($data['ZGDLKResult'] as $key => $value){
                 //echo $key.'---'.$value['DWBH'].'---'.$value['WZMS'].'<br/>';
