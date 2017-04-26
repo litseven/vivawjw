@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_xxbg/template/resource/');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_xxbg/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_xxbg/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_xxbg/template/resource/');
 class vivawjw_xxbgModuleSite extends WeModuleSite
 {
 	/*
@@ -26,6 +26,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 
 		//提交接口对比数据
 		$data = $this->wxapi('JSZXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$drivernum,$driverpapers);
+
 		echo json_encode($data);
 	}
 
@@ -40,31 +41,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
         $data = $this->wxapi('CLXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers);
         echo json_encode($data);
 	}
-    //接口
-    public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
-        libxml_disable_entity_loader(false);
-        $opts = array(
-            'ssl'   => array(
-                'verify_peer'          => false
-            ),
-            'https' => array(
-                'curl_verify_ssl_peer'  => false,
-                'curl_verify_ssl_host'  => false
-            )
-        );
-        $streamContext = stream_context_create($opts);
-        try {
-            $url = 'http://192.168.11.58/WXWC/wcservice.asmx?wsdl';
-            $c = new SoapClient($url,['stream_context' => $streamContext]);
-            //echo '<pre>';
-            //var_dump($c->register('wxzhcs','wxzhcs123456'));
-            //C81DD8605F0531F0B6C717D07A8979F4
-            return $c->$api($sign,$wx,$typt,$carnum,$engnum);
 
-        } catch (SOAPFault $e) {
-            print_r($e);
-        }
-    }
 	//变更驾驶人信息
 	public function doMobileDrpost(){
 		global $_W,$_GPC;
@@ -73,12 +50,33 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$lxdh = $_GPC['lxdh'];
 		$sjhm = $_GPC['sjhm'];
 		$lsdz = $_GPC['lsdz'];
+		libxml_disable_entity_loader(false);
+		$opts = array(
+			'ssl'   => array(
+				'verify_peer'          => false
+			),
+			'https' => array(
+				'curl_verify_ssl_peer'  => false,
+				'curl_verify_ssl_host'  => false
+			)
+		);
+		$streamContext = stream_context_create($opts);
+		try {
+			$url = 'http://192.168.11.51/WXWC/wcservice.asmx?wsdl';
+			$c = new SoapClient($url,['stream_context' => $streamContext]);
+			$data =  $c->JSZXXBG('C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$drivernum,$driverpapers,$lsdz,$lxdh,$sjhm);
+			echo json_encode($data);
+		} catch (SOAPFault $e) {
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
+		}
 		//提交接口对比数据
-		$data = $this->wxapi('JSZXXBG','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$driverpapers,$drivernum,$lxdh,$sjhm,$lsdz);
-		echo json_encode($data);
-
-
+		//$data = $this->wxapi('JSZXXBG','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$drivernum,$driverpapers,$lsdz,$lxdh,$sjhm);
+		//$data = $this->wxapi('JSZXXBG','C81DD8605F0531F0B6C717D07A8979F4','WXZHCS','340304198211110012','062105','qqqq','','15812345678');
 	}
+
+
+
+
 	//变更机动车信息
 	public function doMobileCarpost(){
 		global $_W,$_GPC;
@@ -89,12 +87,54 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		$sjhm = $_GPC['sjhm'];
 		$lsdz = $_GPC['lsdz'];
 		//提交接口对比数据
-		$data = $this->wxapi('CLXXBG','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers,$lxdh,$sjhm,$lsdz);
-		echo json_encode($data);
+		libxml_disable_entity_loader(false);
+		$opts = array(
+			'ssl'   => array(
+				'verify_peer'          => false
+			),
+			'https' => array(
+				'curl_verify_ssl_peer'  => false,
+				'curl_verify_ssl_host'  => false
+			)
+		);
+		$streamContext = stream_context_create($opts);
+		try {
+			$url = 'http://192.168.11.51/WXWC/wcservice.asmx?wsdl';
+			$c = new SoapClient($url,['stream_context' => $streamContext]);
+			$data = $c->CLXXBG('C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers,'',$lsdz,$lxdh,$sjhm);
+			echo json_encode($data);
+		} catch (SOAPFault $e) {
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
+		}
+
 	}
 
 
+//接口
+	public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
+		libxml_disable_entity_loader(false);
+		$opts = array(
+			'ssl'   => array(
+				'verify_peer'          => false
+			),
+			'https' => array(
+				'curl_verify_ssl_peer'  => false,
+				'curl_verify_ssl_host'  => false
+			)
+		);
+		$streamContext = stream_context_create($opts);
+		try {
+			$url = 'http://192.168.11.51/WXWC/wcservice.asmx?wsdl';
+			$c = new SoapClient($url,['stream_context' => $streamContext]);
+			//echo '<pre>';
+			//var_dump($c->register('wxzhcs','wxzhcs123456'));
+			//C81DD8605F0531F0B6C717D07A8979F4
+			return $c->$api($sign,$wx,$typt,$carnum,$engnum);
 
+		} catch (SOAPFault $e) {
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
+		}
+	}
 
 	/*
 	 * 后台管理

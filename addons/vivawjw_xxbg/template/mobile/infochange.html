@@ -54,7 +54,7 @@
             <div class="query_box change_jsr" style="display: none">
                 <div class="car_style">
                     <div>驾驶证号</div>
-                    <input type="text" name="drivernum" id="car_number1" placeholder="请输入驾驶证号" />
+                    <input type="text" name="drivernum" id="car_number1" placeholder="请输入驾驶证号"/>
                 </div>
                 <div class="car_style">
                     <div>证芯编号<br><a class="where">(在哪里)</a></div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="car_style">
                     <div>车牌号码</div>
-                    <input type="text" name="chcarnum" id="car_number" value="苏B"/>
+                    <input type="text" name="chcarnum" id="car_number" />
                 </div>
                 <div class="car_style" style="border-bottom:none;">
                     <div style="width:100%;">机动车所有人身份证/组织机构代码证号</div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="car_style" style="margin-top: -17px">
 
-                    <input type="text" name="chcarpapers" placeholder="请输入身份证后六位或机构代码证前六位" id="car_fa" style="width: 89%; margin-left: 0;" class="num_where"/>
+                    <input type="text" name="chcarpapers" placeholder="请输入身份证后六位或机构代码证前六位" id="car_fa" style="width: 89%; margin-left: 0;" class="num_where" />
                     <p class="num_where_show" style="margin-left:1%; line-height: 22px;font-size: 0.8rem;">提醒:输入身份证<span style="color:red;">后六位</span>或机构代码证<span style="color:red;">前六位！</span></p>
 
                 </div>
@@ -280,6 +280,7 @@
                         <div class="address_box">
                             <p>江苏省</p>
                             <select name="city">
+                                <option value="">请选择</option>
                                 <option value="无锡市">无锡市</option>
                                 <option value="江阴市">江阴市</option>
                                 <option value="宜兴">宜兴</option>
@@ -296,7 +297,6 @@
         </div>
 
     <script>
-        var process = false;
         $("#loading-fs").hide();
         $(function(){
             $('#modify').click(function(){
@@ -310,49 +310,36 @@
                 //公共参数
                 var lxdh = $("[name = 'lxdh']").val();
                 var sjhm = $("[name = 'sjhm']").val();
-                var lsdz = $("[name = 'city']").val()+$("[name = 'district']").val()+$("[name = 'address']").val();
                 var district = $("[name = 'district']").val();
                 var address = $("[name = 'address']").val();
-                if(sjhm == ''){
-                    mui.alert('手机号码不能为空！');return false;
-                }
-                var pattern = /^1[34578]\d{9}$/;
-                if (!pattern.test(sjhm)){
-                    mui.alert('手机号码有误！');return false;
-                }
-                if(district == ''){
-                    mui.alert('地址不完整！');return false;
-                }
-                if(address == ''){
-                    mui.alert('地址不完整！');return false;
-                }
+                var lsdz = $("[name = 'city']").val()+$("[name = 'district']").val()+$("[name = 'address']").val();
+
                 if(drivernum && driverpapers){
                     //alert(1);
                     $("#loading-fs").show();
                     $.post("{php echo $this->createMobileUrl('drpost')}",{'drivernum':drivernum,'driverpapers':driverpapers,'lxdh':lxdh,'sjhm':sjhm,'lsdz':lsdz},function(data){
+                        //console.log(lxdh+'---'+sjhm+'----'+lsdz);return false;
+                        //console.log(data);
                         $("#loading-fs").hide();
                         if (data.State == 0){
-                            mui.alert('ok'+data.ZXBH);
                             $('.content').hide();
                             $('.succeed').show();
                         }else if(data.State == 1){
-                            mui.alert('失败'+data.ZXBH);
+                            mui.alert('修改失败');
                         }
-                        process = true;
                     },'JSON');
                 }
                 if(chcartype && chcarnum && chcarpapers){
                     $("#loading-fs").show();
                     $.post("{php echo $this->createMobileUrl('carpost')}",{'chcartype':chcartype,'chcarnum':chcarnum,'chcarpapers':chcarpapers,'lxdh':lxdh,'sjhm':sjhm,'lsdz':lsdz},function(data){
+                        //console.log(data);
                         $("#loading-fs").hide();
                         if (data.State == 0){
-                            alert('ok'+data.HPHM);
                             $('.content').hide();
                             $('.succeed').show();
                         }else if(data.State == 1){
-                            mui.alert('失败'+data.HPHM);
+                            mui.alert('修改失败');
                         }
-                        process = true;
                     },'JSON');
                 }
             });
