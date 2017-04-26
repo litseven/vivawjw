@@ -2,7 +2,7 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_grzx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_grzx/template/resource/');
 class vivawjw_grzxModuleSite extends WeModuleSite
 {
 	//入口
@@ -62,174 +62,44 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		if (empty($_W['fans']['nickname'])) {
 			mc_oauth_userinfo();
 		}
-		//新表内查询有无绑定
-		$bdcarnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid',array(':uid'=>$_W['member']['uid']));
-		if($bdcarnum < 2){
-			//查询老数据是否有绑定
-			$openId = $_W['openid'];
-			//$openId = 'ocJugjmpzv-BstIx8B_m8kjl950Y';
-			$issel = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid',array(':uid'=>$_W['member']['uid']));
-			if(!$issel){
-				$oldData = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_old_users').' WHERE FOpenId=:FOpenId AND FStatus=:FStatus AND FAttentionType=:FAttentionType',array(':FOpenId'=>$openId,':FStatus'=>1,':FAttentionType'=>122));
-				//如果有绑定数据导入新表
-				if($oldData){
-					foreach ($oldData as $value){
-						//老数据0为本地1为外地
-						if($value['FIsLocal'] == 1){
-							if($value['FIsApply'] == 2){
-								$new['status'] = 0;//绑定成功
-							}elseif($value['FIsApply'] == -1){
-								$new['status'] = 1;//绑定失败
-							}elseif($value['FIsApply'] == 1 || $value['FIsApply'] == 0){
-								$new['status'] = 2;//申请中
-							}
-							$new['uid'] = $_W['member']['uid'];
-							$carnum = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND wd_car_num=:wd_car_num AND bound=:bound',array(':uid'=>$new['uid'],':wd_car_num'=>$value['FCarNumber'],':bound'=>1));
-							if(!$carnum){
-								$new['uniacid'] = $_W['uniacid'];
-								$new['distinction'] = 0;//0为外地
-								//$new['status'] = 0;//绑定状态
-								$new['bound'] = 1;//绑定
-								$new['time'] = strtotime($value['FUpdateTime']);
-								$new['wd_type'] =  $value['FCarType'];//类型
-								$new['wd_car_num'] = $value['FCarNumber'];//车牌
-								$new['wd_car_engine'] = $value['FEngine'];//发动机号
-								$new['issel'] = 1;
-								pdo_insert('vivawjw_user_bound_car',$new);
-							}
-						}else{
-							$new['uid'] = $_W['member']['uid'];
-							$carnum = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND wx_car_num=:wx_car_num AND bound=:bound',array(':uid'=>$new['uid'],':wx_car_num'=>$value['FCarNumber'],':bound'=>1));
-							if(!$carnum){
-								$new['uniacid'] = $_W['uniacid'];
-								$new['distinction'] = 1;//新数据1为无锡
-								$new['status'] = 0;//绑定状态
-								$new['bound'] = 1;//绑定成功
-								$new['time'] = strtotime($value['FUpdateTime']);
-								$new['wx_type'] =  $value['FCarType'];//类型
-								$new['wx_car_num'] = $value['FCarNumber'];//车牌
-								$new['wx_car_engine'] = $value['FEngine'];//发动机号
-								$new['issel'] = 1;
-								pdo_insert('vivawjw_user_bound_car',$new);
-							}
-						}
-					}
+		load()->func('logging');
+		//车辆类型
+		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
 
-				}
-			}else{
-				foreach ($issel as $k => $v){
-					if($v['issel'] != 1){
-						$oldData = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_old_users').' WHERE FOpenId=:FOpenId AND FStatus=:FStatus AND FAttentionType=:FAttentionType',array(':FOpenId'=>$openId,':FStatus'=>1,':FAttentionType'=>122));
-						//如果有绑定数据导入新表
-						if($oldData){
-							foreach ($oldData as $value){
-								//老数据0为本地1为外地
-								if($value['FIsLocal'] == 1){
-									if($value['FIsApply'] == 2){
-										$new['status'] = 0;//绑定成功
-									}elseif($value['FIsApply'] == -1){
-										$new['status'] = 1;//绑定失败
-									}elseif($value['FIsApply'] == 1 || $value['FIsApply'] == 0){
-										$new['status'] = 2;//申请中
-									}
-									$new['uid'] = $_W['member']['uid'];
-									$carnum = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND wd_car_num=:wd_car_num AND bound=:bound',array(':uid'=>$new['uid'],':wd_car_num'=>$value['FCarNumber'],':bound'=>1));
-									if(!$carnum){
-										$new['uniacid'] = $_W['uniacid'];
-										$new['distinction'] = 0;//0为外地
-										//$new['status'] = 0;//绑定状态
-										$new['bound'] = 1;//绑定
-										$new['time'] = strtotime($value['FUpdateTime']);
-										$new['wd_type'] =  $value['FCarType'];//类型
-										$new['wd_car_num'] = $value['FCarNumber'];//车牌
-										$new['wd_car_engine'] = $value['FEngine'];//发动机号
-										$new['issel'] = 1;
-										pdo_insert('vivawjw_user_bound_car',$new);
-									}
-								}else{
-									$new['uid'] = $_W['member']['uid'];
-									$carnum = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND wx_car_num=:wx_car_num AND bound=:bound',array(':uid'=>$new['uid'],':wx_car_num'=>$value['FCarNumber'],':bound'=>1));
-									if(!$carnum){
-										$new['uniacid'] = $_W['uniacid'];
-										$new['distinction'] = 1;//新数据1为无锡
-										$new['status'] = 0;//绑定状态
-										$new['bound'] = 1;//绑定成功
-										$new['time'] = strtotime($value['FUpdateTime']);
-										$new['wx_type'] =  $value['FCarType'];//类型
-										$new['wx_car_num'] = $value['FCarNumber'];//车牌
-										$new['wx_car_engine'] = $value['FEngine'];//发动机号
-										$new['issel'] = 1;
-										pdo_insert('vivawjw_user_bound_car',$new);
-									}
-								}
-							}
-
-						}
-					}
-				}
-			}
-
-
-
-		}
-
-		/*---------------------------------------------------------------------------------------------------------------------------------*/
 		$data['uid'] = $_W['member']['uid'];
 		$data['uniacid'] = $_W['uniacid'];
 		$data['time'] = time();
 		$uid = $data['uid'];
-		//车辆类型
-		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
-		//根据UID判断是否有绑定1为绑定0没绑定//所有绑定的信息
-		$typecar = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound AND uniacid=:uniacid',array(':uid'=>$uid,':bound'=>1,':uniacid'=>$_W['uniacid']));
-		//获取绑定信息的违法记录
-		//var_dump($typecar);
-		/*---------------------------------------------------------------------------*/
-		if ($typecar){
-			$op = trim($_GPC['op'])? trim($_GPC['op']): 'success_car';
-
-			//var_dump($typecar);
+		//1.判断新表有无数据
+		$bdcarnums = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND uniacid=:uniacid',array(':uid'=>$_W['member']['uid'],':uniacid'=>$_W['uniacid']));
+		//如果没有绑定显示绑定页，如果有两条绑定显示成功页
+		if($bdcarnums){
+			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_car';	// 显示去绑定页面
+			foreach ($bdcarnums as $k => $v) {
+				if ($v['bound'] == 1) {  // 如果至少有一条数据为绑定状态，显示成功页
+					$op = trim($_GPC['op'])? trim($_GPC['op']): 'success_car';
+					break;
+				}
+			}
 		}else{
 			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_car';
 		}
-
+		/*---------------------------------------------------------------------------*/
 		if($op == 'success_car'){
-			/*--------有效期和强制报废期------------*/
-			/*foreach ($typecar as $key => $value){
-				$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$value['wx_type'],$value['wx_car_num'],$value['wx_car_engine']);
-				$data = $this->object2array($data);
-				$value['YXQZ'] = $data['YXQZ'];
-				$value['QZBFQZ'] = $data['QZBFQZ'];
-				$value['ZT'] = $data['ZT'];
-			}*/
-
 			//绑定车辆的数量；一个微信号最多绑定两辆车
-			$bdcarnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$uid,':bound'=>1));
-			//查询外地绑定车辆状态
-			/*$wddatakey = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND distinction=:distinction AND bound=:bound',array(':uid'=>$uid,':distinction'=>0,':bound'=>1));
-			$wddataapi = $this->wxapi('WDCLZCSQCX','C81DD8605F0531F0B6C717D07A8979F4');
-			$wddataapi = $this->object2array($wddataapi);
-			//echo $wddatakey['wd_car_num'];//绑定的外地车牌号码
-			if($wddataapi['State'] == 0){
-				foreach ($wddataapi['WDCLZCSQCXResult'] as $key => $value){
-					$arr[$key]['WXH'] = $value['WXH'];
-					$arr[$key]['HPHM'] = $value['HPHM'];
-				}
-				foreach ($arr as $k => $v) {
-					//$wddatakey['wd_car_num']
-					if (strpos($v['HPHM'],$wddatakey['wd_car_num']) !== false) {
-						//var_dump($v);
-						pdo_update('vivawjw_user_bound_car',array('status'=>$v['ZCZT']),array('uid'=>$uid,'distinction'=>0,'wd_car_num'=>$v['HPHM']));
-					}
-				}
-				//测试用（访问一次更新数据库中数据，访问第二次更新页面显示状态）
+			$bdcarnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound AND uniacid=:uniacid',array(':uid'=>$uid,':bound'=>1 ,':uniacid'=>$_W['uniacid']));
+			//根据UID判断是否有绑定1为绑定0没绑定//所有绑定的信息
+			$typecar = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound AND uniacid=:uniacid',array(':uid'=>$uid,':bound'=>1,':uniacid'=>$_W['uniacid']));
 
-			}else{
-
-			}*/
 			foreach ($typecar as $key => &$value){
+				$value['wx_type'] = $value['wx_type'] ? $value['wx_type'] : $value['wd_type'];
+				$value['wx_car_num'] = $value['wx_car_num'] ? $value['wx_car_num'] : $value['wd_car_num'];
+				$value['wx_car_engine'] = $value['wx_car_engine'] ? $value['wx_car_engine'] : $value['wd_car_engine'];
+
 				$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$value['wx_type'],$value['wx_car_num'],$value['wx_car_engine']);
 				$data = $this->object2array($data);
+				//日志
+				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLWFCX','openID'=>$_W['openid'],'地区(distinction)'=>$value['distinction'],'号牌类型'=>$value['wx_type'],'车牌号'=>$value['wx_car_num'],'发动机号'=>$value['wx_car_engine']), 'trace',$_GPC['m'].'_success_car_'.date('Ymd',time()));
 				$value['YXQZ'] = $data['YXQZ'];
 				$value['QZBFQZ'] = $data['QZBFQZ'];
 				switch ($data['ZT']) {
@@ -285,18 +155,19 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//无锡绑定车辆
 		if ($op == 'wx_car_post'){
 			//判断用户最多绑定两辆车
-			$wxcargnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$uid,':bound'=>1));
+			$wxcargnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound AND uniacid=:uniacid',array(':uid'=>$uid,':bound'=>1,':uniacid'=>$_W['uniacid']));
 			if($wxcargnum >= 2){
-				echo 100;exit;
+				exit('Access Denied');
 			}else{
 				//判断是否被绑定
-				$seldata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND wx_car_num=:wx_car_num AND bound=:bound',array(':distinction'=>1,':wx_car_num'=>trim($_GPC['wx_car_num']),':bound'=>1));
+				$seldata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND wx_car_num=:wx_car_num AND bound=:bound AND uniacid=:uniacid',array(':distinction'=>1,':wx_car_num'=>trim($_GPC['wx_car_num']),':bound'=>1,':uniacid'=>$_W['uniacid']));
 				if($seldata){
 					echo 400;exit;
 				}
 			}
 			$wxcar = $this->wxwfapi('CLBD','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['wx_type']),trim(strtoupper($_GPC['wx_car_num'])),trim($_GPC['wx_car_engine']));
 			$wxcar = $this->object2array($wxcar);
+			logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLBD','openID'=>$_W['openid'],'号牌类型'=>$value['wx_type'],'车牌号'=>$value['wx_car_num'],'发动机号'=>$value['wx_car_engine']), 'trace',$_GPC['m'].'_wx_car_post_'.date('Ymd',time()));
 			//绑定失败State=1失败；0成功
 			if($wxcar['State']==0){
 				//绑定保存到数据库中
@@ -307,7 +178,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				$data['distinction'] = 1;//1为无锡0为外地
 				$data['bound'] = 1;//1为绑定0没绑定
 				$data['issel'] = 1;
-				$boundcar = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND uid=:uid AND wx_car_num=:wx_car_num AND bound=:bound',array(':distinction'=>1,':uid'=>$uid,':wx_car_num'=>trim($_GPC['wx_car_num']),':bound'=>0));
+				$boundcar = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND uid=:uid AND wx_car_num=:wx_car_num AND bound=:bound AND uniacid=:uniacid',array(':distinction'=>1,':uid'=>$uid,':wx_car_num'=>trim($_GPC['wx_car_num']),':bound'=>0,':uniacid'=>$_W['uniacid']));
 
 
 				// 接口绑定成功后，直接删除以往记录！
@@ -341,11 +212,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		//外地绑定车辆
 		if ($op == 'wd_car_post'){
 			//判断是否被绑定
-			$wdcargnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$uid,':bound'=>1));
+			$wdcargnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND bound=:bound AND uniacid=:uniacid',array(':uid'=>$uid,':bound'=>1,':uniacid'=>$_W['uniacid']));
 			if($wdcargnum >= 2){
 				echo 100;exit;
 			}else{
-				$seldata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND wd_car_num=:wd_car_num AND bound=:bound',array(':distinction'=>0,':wd_car_num'=>trim($_GPC['wd_car_num']),':bound'=>1));
+				$seldata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND wd_car_num=:wd_car_num AND bound=:bound AND uniacid=:uniacid',array(':distinction'=>0,':wd_car_num'=>trim($_GPC['wd_car_num']),':bound'=>1,':uniacid'=>$_W['uniacid']));
 				if($seldata){
 					echo 400;exit;
 				}
@@ -353,9 +224,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			$wdcar = $this->wxapi('WDCLZCSQ','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['wd_type']),trim(strtoupper($_GPC['wd_car_num'])),trim($_GPC['wd_car_engine']));
 			$wdcar = $this->object2array($wdcar);
 			//绑定失败State=1失败；0成功
-			if($wdcar['State']){
-				echo 300;exit;
-			}else{
+			if($wdcar['State'] == 0){
 				$data['wd_type'] = trim($_GPC['wd_type']);
 				$data['wd_car_num'] = trim($_GPC['wd_car_num']);
 				$data['wd_car_engine'] = trim($_GPC['wd_car_engine']);
@@ -363,7 +232,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				$data['distinction'] = 0;//1为无锡0为外地
 				$data['bound'] = 1;//1为绑定0没绑定
 				//同一uid绑定过
-				$boundcar = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND uid=:uid AND wd_car_num=:wd_car_num AND bound=:bound',array(':distinction'=>0,':uid'=>$uid,':wd_car_num'=>trim($_GPC['wd_car_num']),':bound'=>0));
+				$boundcar = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND uid=:uid AND wd_car_num=:wd_car_num AND bound=:bound AND uniacid=:uniacid',array(':distinction'=>0,':uid'=>$uid,':wd_car_num'=>trim($_GPC['wd_car_num']),':bound'=>0,':uniacid'=>$_W['uniacid']));
 				if($boundcar){
 					$wddata = pdo_update('vivawjw_user_bound_car',array('bound'=>1,'status'=>$data['status']),array('uid'=>$boundcar['uid'],'wd_car_num'=>$boundcar['wd_car_num']));
 					if($wddata){
@@ -375,14 +244,17 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 						echo json_encode($wdcar);exit;
 					}
 				}
+			}else{
+				echo 300;exit;
+
 			}
 		}
 		//解除绑定无锡和外地车辆
 		if ($op == 'del_bound_car'){
 			$id = $_GPC['id'];
-			$jbcardata = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE id=:id',array(':id'=>$id));
+			$jbcardata = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE id=:id AND uniacid=:uniacid',array(':id'=>$id,':uniacid'=>$_W['uniacid']));
 			//判断无锡和外地，1为无锡，0为外地
-			if($jbcardata['distinction']){
+			if($jbcardata['distinction'] == 1){
 				$qbcar = $this->wxapi('CLQXBD','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$jbcardata['wx_type'],$jbcardata['wx_car_num'],$jbcardata['wx_car_engine']);
 				$qbcar = $this->object2array($qbcar);
 			}else{
@@ -407,8 +279,11 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 
 		//违法查询
 		if($op == 'wfcx'){
-			$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$_GPC['wx_type'],trim(strtoupper($_GPC['wx_car_num'])),$_GPC['wx_car_engine']);
+			$data = $this->wxwfapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$_GPC['wx_type'],trim(strtoupper($_GPC['wx_car_num'])),trim(strtoupper($_GPC['wx_car_engine'])));
 			$data = $this->object2array($data);
+			//日志
+			logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLBD','openID'=>$_W['openid'],'号牌类型'=>$_GPC['wx_type'],'车牌号'=>trim(strtoupper($_GPC['wx_car_num'])),'发动机号'=>trim(strtoupper($_GPC['wx_car_engine']))), 'trace',$_GPC['m'].'_wfcx_'.date('Ymd',time()));
+
 			$wflist = $data['WFXXList']['WFXX'];
 			if ($data['State'] == 0) {
 				switch ($data['ZT']) {
@@ -458,9 +333,8 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 						$zt = '正常';
 						break;
 				}
-				if($zt == '正常'){
-					echo 200;exit;
-				}
+			}elseif($data['State'] == 2){
+				echo 200;exit;
 			}else{
 				echo 300;exit;
 			}
@@ -548,11 +422,13 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				load()->func('file');
 				file_write($filename, $imgdata);
 				file_remote_upload($filename);
+				file_delete($filename);
 			}else{
 				$imgdata = file_get_contents(MODULE_ROOT."/template/resource/img/nopic.jpg");
 				load()->func('file');
 				file_write($filename, $imgdata);
 				file_remote_upload($filename);
+				file_delete($filename);
 			}
 
 
@@ -572,7 +448,8 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 	//申请信息处理
 	public function doMobileAppealpost(){
 		global $_W,$_GPC;
-
+		//载入日志函数
+		load()->func('logging');
 
 		$cou = pdo_fetchcolumn('SELECT count(*) FROM  '.tablename('vivawjw_wfcx').'WHERE uid=:uid and wfjkxh=:wfjkxh and wfcph=:wfcph',array(':uid'=>$_W['member']['uid'],':wfjkxh'=>$_GPC['wfjkxh'],':wfcph'=>$_GPC['wfcph']));
 		// echo $cou;
@@ -598,8 +475,10 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		$data['wfcph'] = $_GPC['wfcph'];
 		$apitime=date('Y-m-d h:i', time());
 		$tsnr= $_GPC['appeal_name'].":".$_GPC['appeal_phone'].";".$_GPC['appeal_why'];
-		$dataapi=$this->wxapiss($_W['openid'],$apitime,$_GPC['wfcph'],$_GPC['wfjkxh'],$tsnr);
+		$dataapi=$this->wxapiss($_W['openid'],$apitime,strtoupper($_GPC['wfcph']),$_GPC['wfjkxh'],$tsnr);
 		$dataapis=$this->object2array($dataapi);
+		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'DJSSJGCX','openID'=>$_W['openid'],'车牌号'=>$_GPC['wfcph'],'监控序号'=>$_GPC['wfjkxh'],'内容'=>$tsnr ,'状态'=>$dataapis['State']), 'trace',$_GPC['m'].'_shensu_'.date('Ymd',time()));
+
 		// echo json_encode($dataapis);exit;
 		// echo $dataapis['State'];exit;
 		if($dataapis['State']==0){
@@ -653,36 +532,43 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			// return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4','ocJugjrKn12kVR8lt_OSCGiU3rgk','2017-03-18 12:47','苏B7KR12','3202009014349753','左转弯前方有些许白漆，让人误以为是待转区域，白漆长久模糊了。更何况对面的车道就有待转区域。难道待转区域只划半条马路？！同样是不影响直行车辆的。若是没那些模糊的白漆，我也不会左拐出去等待的');
 
 		} catch (SOAPFault $e) {
-			print_r($e);
+			echo "系统繁忙，请稍后再试！";
 		}
 	}
 
 	//我的驾驶证
 	public function doMobileUser_driving(){
 		global $_W,$_GPC;
+		/*if($_GPC['test'] != 1){
+			die("<h1 style='width:80%;margin:0 auto;font-size:30px;'>系统升级，请稍后再试！</h1>");
+		}*/
+		//载入日志函数
+		load()->func('logging');
 		if (empty($_W['fans']['nickname'])) {
 			mc_oauth_userinfo();
 		}
-		//调取老数据
-		$r = new Redis();
-		$v = $r->connect('r-bp1fd9985c4f7234.redis.rds.aliyuncs.com',6379);
-		$res = $r->auth('0qEFuasxAaqbT1c3');
-		//$value = $r->get("Driver_ocJugjsllErxRFVPkxow5jZK_sr4");
-
 		$data['uid'] = $_W['member']['uid'];
 		$data['uniacid'] = $_W['uniacid'];
 		$data['time'] = time();
-		$uid = $data['uid'];
+		$uid = $_W['member']['uid'];
 		//1.判断新表有无数据，有显示，没有显示绑定页
-		$typedriving = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND uniacid=:uniacid AND bound=:bound',array(':uid'=>$uid,':uniacid'=>$_W['uniacid'],':bound'=>1));
-		if($typedriving){
+		$typedriving = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND uniacid=:uniacid ORDER BY bound DESC',array(':uid'=>$uid,':uniacid'=>$_W['uniacid']));
+		if($typedriving['bound'] == 1){
 			$op = trim($_GPC['op'])? trim($_GPC['op']): 'success_driving';
-			if($typedriving['distinction'] == 1){
+		}else{
+			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_driving';
+		}
+		if($op == 'success_driving'){
+			if($typedriving){
 				//无锡驾驶证
+				$typedriving['wx_driv_num'] = $typedriving['wx_driv_num'] ? $typedriving['wx_driv_num'] : $typedriving['wd_driv_num'];
+				$typedriving['wx_driv_record'] = $typedriving['wx_driv_record'] ? $typedriving['wx_driv_record'] : substr($typedriving['wd_driv_record'],-6);
 				//var_dump($typedriving);
 				$wxwfdata = $this->wxwfapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$typedriving['wx_driv_num'],$typedriving['wx_driv_record']);
 				//$wxwfdata = $this->wxwfapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],'320223196504165739','700151');
 				$wxwfdata = $this->object2array($wxwfdata);
+				//日志
+				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSZQXBD','openID'=>$_W['openid'],'地区(distinction)'=>$typedriving['distinction'],'驾驶证号'=>$typedriving['wx_driv_num'],'档案编号'=>$typedriving['wx_driv_record']), 'trace',$_GPC['m'].'_success_driving_'.date('Ymd',time()));
 				if ($wxwfdata) {
 					switch ($wxwfdata['ZT']) {
 						case 'A':
@@ -748,68 +634,16 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 					}
 				}
 			}
-		}else{
-			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_driving';
 		}
-		//2.判断老数据表，有两条取消绑定。一条插入新表
-		$oldDriver = $r->get("Driver_".$_W['openid']);
-		$oldDriver = json_decode($oldDriver,true);
-		//$oldDriver = $this->object2array($oldDriver);
-		//如果有绑定计算个数
-		if($oldDriver['status'] == 1){
-			$counDriverData = count($oldDriver);
-		}
-		$oldUser = $r->get("Users_".$_W['openid']);
-		$oldUser = json_decode($oldUser,true);
-		//$oldUser = $this->object2array($oldUser);
-		//121为绑定驾驶证，且有绑定,计算个数
-		if($oldUser['FAttentionType'] == 121 && $oldUser['FStatus'] == 1){
-			$conUserData = count($oldUser);
-		}
-		//老表绑定的总数
-		$oldBoundDriver = $counDriverData + $conUserData;
-		if($oldBoundDriver > 1){
-			foreach ($oldDriver as $value) {
-				$this->wxapi('JSZQXBD','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$value['cardnumber'],$value['recordnumber']);
-			}
-			foreach ($oldUser as $val) {
-				$this->wxapi('JSZQXBD','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$val['FDriverCardNumber'],$val['FDriverRecordNumber']);
-			}
-		}elseif($oldBoundDriver == 1){
-			$new['status'] = 0;//绑定状态
-			$new['bound'] = 1;//绑定成功
-			$new['time'] = $oldDriver[0]['dateline'] ? $oldDriver[0]['dateline'] : strtotime($oldUser[0]['FUpdateTime']);
-			$new['issel'] =1;
-			//老数据0为本地1为外地
-			$islocal = $oldDriver[0]['islocal'] ? $oldDriver[0]['islocal'] : $oldUser[0]['FIsLocal'];//本地0，外地1
-			$carnumber = $oldDriver[0]['cardnumber'] ? $oldDriver[0]['cardnumber'] : $oldUser[0]['FDriverCardNumber'];//驾驶证
-			$driv_record = $oldDriver[0]['recordnumber'] ? $oldDriver[0]['recordnumber'] : $oldUser[0]['FDriverRecordNumber'];//档案编号
-			if($islocal == 0){
-				$new['distinction'] = 1;//新数据1为无锡本地0为外地
-				$new['wx_driv_num'] = $carnumber;
-				$new['wx_driv_record'] = $driv_record;
-				pdo_insert('vivawjw_user_bound_driving',$new);
-			}elseif($islocal == 1){
-				$new['distinction'] = 0;//新数据1为无锡本地0为外地
-				$new['wd_driv_num'] = $carnumber;
-				$new['wd_driv_record'] = $driv_record;
-				pdo_insert('vivawjw_user_bound_driving',$new);
-			}
-		}else{
-			$op = trim($_GPC['op'])? trim($_GPC['op']): 'wx_driving';
-		}
-		/*if($op == 'success_driving'){
-
-        }*/
 		//无锡添加驾驶证
 		if ($op == 'wx_drivpost'){
 			//判断是否被绑定
-			$wxdrivingnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$_W['member']['uid'],':bound'=>1));
+			/*$wxdrivingnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$_W['member']['uid'],':bound'=>1));*/
 			$wxdriving = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE wx_driv_num=:wx_driv_num AND bound=:bound',array(':wx_driv_num'=>trim($_GPC['wx_driv_num']),':bound'=>1));
 
-			if($wxdrivingnum){
+			/*if($wxdrivingnum){
 				echo 400;exit;
-			}
+			}*/
 			if($wxdriving){
 				echo 100;exit;
 			}
@@ -817,9 +651,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			$wxdriving = $this->wxapi('JSZBD','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['wx_driv_num']),trim($_GPC['wx_driv_record']));
 			$wxdriving = $this->object2array($wxdriving);
 			//绑定失败State=1失败；0成功
-			if($wxdriving['State']){
-				echo 300;exit;
-			}else{
+			if($wxdriving['State'] == 0){
 				$data['wx_driv_num'] = trim($_GPC['wx_driv_num']);
 				$data['wx_driv_record'] = trim($_GPC['wx_driv_record']);
 				$data['status'] = $wxdriving['State'];//绑定成功为0失败为1
@@ -838,16 +670,19 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 						echo json_encode($wxdriving);exit;
 					}
 				}
+			}else{
+				echo 300;exit;
+
 			}
 		}
 		//外地添加驾驶证
 		if ($op == 'wd_drivpost'){
 			//判断是否被绑定
-			$wddrivingnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$_W['member']['uid'],':bound'=>1));
-			$wddriving = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE wx_driv_num=:wx_driv_num AND bound=:bound ',array(':wx_driv_num'=>trim($_GPC['wx_driv_num']),':bound'=>1));
-			if($wddrivingnum){
+			/*$wddrivingnum = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND bound=:bound',array(':uid'=>$_W['member']['uid'],':bound'=>1));*/
+			$wddriving = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_user_bound_driving').' WHERE wd_driv_num=:wd_driv_num AND bound=:bound ',array(':wd_driv_num'=>trim($_GPC['wd_driv_num']),':bound'=>1));
+			/*if($wddrivingnum){
 				echo 400;exit;
-			}
+			}*/
 			if($wddriving){
 				echo 100;exit;
 			}
@@ -855,9 +690,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			$wddriving = $this->wxapi('WDJSZZCSQ','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['wd_driv_num']),trim($_GPC['wd_driv_record']));
 			$wddriving = $this->object2array($wddriving);
 			//绑定失败State=1失败；0成功
-			if($wddriving['State']){
-				echo 300;exit;
-			}else{
+			if($wddriving['State'] == 0){
 				$data['wd_driv_num'] = trim($_GPC['wd_driv_num']);
 				$data['wd_driv_record'] = trim($_GPC['wd_driv_record']);
 				$data['distinction'] = 0;//0为外地
@@ -877,6 +710,9 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 						echo json_encode($wddriving);exit;
 					}
 				}
+
+			}else{
+				echo 300;exit;
 			}
 		}
 		//解除绑定驾驶证
@@ -885,17 +721,17 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			$jbdrdata = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE id=:id',array(':id'=>$id));
 			//判断无锡和外地，1为无锡，0为外地
 			if ($jbdrdata['distinction']) {
-				$jbdr = $this->wxapi('JSZQXBD', 'C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'], $jbdrdata['wx_driv_num'], $jbdrdata['wx_driv_record']);
+				$jbdr = $this->wxwfapi('JSZQXBD', 'C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'], $jbdrdata['wx_driv_num'], $jbdrdata['wx_driv_record']);
 				$jbdr = $this->object2array($jbdr);
 			}else{
-				$jbdr = $this->wxapi('JSZQXBD', 'C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'], $jbdrdata['wd_driv_num'], $jbdrdata['wd_driv_record']);
+				$jbdr = $this->wxwfapi('JSZQXBD', 'C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'], $jbdrdata['wd_driv_num'], $jbdrdata['wd_driv_record']);
 				$jbdr = $this->object2array($jbdr);
 			}
 			//$jbdr['State'] = 0;//解绑成功
-			if($jbdr['State']){
+			if($jbdr['State'] ==1){
 				$info = '失败';
 			}elseif($jbdr['State'] == 0){
-				$delbound = pdo_update('vivawjw_user_bound_driving',array('bound'=>$jbdr['State']),array('id'=>$id));
+				$delbound = pdo_update('vivawjw_user_bound_driving',array('bound'=>0),array('id'=>$id));
 				if ($delbound){
 					$info = '成功';
 				}else{
@@ -907,11 +743,14 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		}
 
 		if($op == 'jsrwfcx'){
-			$jszh = trim($_GPC['jszh']);
-			$dabh = trim($_GPC['dabh']);
+			$jszh = trim(strtoupper($_GPC['jszh']));
+			$dabh = trim(strtoupper($_GPC['dabh']));
 			$datas = $this->wxwfapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$jszh,$dabh);
 			//$datas = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid']','320681199407246632','378927');
 			$data = $this->object2array($datas);
+			//日志
+			logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSRWFCX','openID'=>$_W['openid'],'地区(distinction)'=>$typedriving['distinction'],'驾驶证号'=>$jszh,'档案编号'=>$dabh), 'trace',$_GPC['m'].'_jsrwfcx_'.date('Ymd',time()));
+
 			//var_dump($_GPC);
 			if($data['State'] == 0){
 				if($data['ZT'] == 'A'){
@@ -919,6 +758,8 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				}else{
 					echo json_encode($datas);exit;
 				}
+			}elseif($data['State'] == 2){
+				echo 300;exit;
 			}else{
 				echo 200;exit;
 			}
@@ -969,15 +810,42 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 	//我的快处
 	public function doMobileUser_dispose(){
 		global $_W,$_GPC;
-		$op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
+
 		if (empty($_W['fans']['nickname'])) {
 			mc_oauth_userinfo();
 		}
+		$op =trim($_GPC['op'])? trim($_GPC['op']): 'kcdata';
 		/*---------------------------------------------------------------------------------------------------------------------------------*/
 		$uid = $_W['member']['uid'];
 		//$uid = $data['uid'] = 2;
 		$kcdata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_sgkc').' WHERE uid = :uid AND uniacid = :uniacid',array(':uid'=>$uid,'uniacid'=>$_W['uniacid']));
+		foreach ($kcdata as $info){
+			$info['proof'] = explode(",",$info['proof']);
+			$v = array();
+			foreach($info['proof'] as $k){
+				$type = strtolower(substr($k,strrpos($k,'.')+1));
+				$img = array('jpeg','jpg','png');
+				$video = array('mp4','mpeg','mov');
+				if(in_array($type, $img)){
+					$v['imgdir'][] = $k;
+				}
+				if(in_array($type, $video)){
+					$v['videodir'][] = $k;
+				}
+			}
+		}
 		include $this->template('user_dispose');
+	}
+
+	public function roadareaCache(){ // 5mins 缓存  by zhangwei
+		$roadareaCache = cache_load('roadareaCache');
+		//cache_delete('roadareaCache');
+		if(!$roadareaCache || TIMESTAMP-$roadareaCache['creattime']>(3600*6)){
+			$roadareaCache['data'] = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+			$roadareaCache['creattime'] = TIMESTAMP;
+			cache_write('roadareaCache',$roadareaCache);
+		}
+		return $roadareaCache['data'];
 	}
 
 	//我的路况
@@ -991,7 +859,9 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		$uid = $_W['member']['uid'];
 		//$uid = $data['uid'] = 2;
 		$sclk = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_lkcx_sc').' WHERE uid=:uid',array(':uid'=>$uid));
-		$data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+		// $data = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
+
+		$data = $this->roadareaCache();
 		//var_dump($data);
 		$data = $this->object2array($data);
 		$data = $data['ZGDLKResult'];
@@ -1007,15 +877,27 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			}
 		}
 
+		$s=array();
+		foreach ($sclk as $ks => $vs) {
+			$s[] =  $vs['wzms'];
+		}
+		$s=array_unique($s);
+		foreach ($sclk as $kks => $vss) {
+			if($s[$kks]==$vss[$kks]){
+				$sclk[$kks]['cf']="1";
+			}
+		}
 
 		//var_dump($sclk);
 		if($op == 'qxsclk'){
 			$id = $_GPC['id'];
-			$qxsclk = pdo_delete('vivawjw_lkcx_sc',array('id'=>$id));
+			$qxsclk = pdo_delete('vivawjw_lkcx_sc',array('wzms'=>$id));
 			if($qxsclk){
 				echo 200;exit;
 			}
 		}
+
+
 
 		include $this->template('user_road');
 	}
@@ -1092,7 +974,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 							$turndown[$k] = '手持承诺书';
 							break;
 						case 'qmimg':
-							$turndown[$k] = '手持承诺书';
+							$turndown[$k] = '签名照片';
 							break;
 					}
 				}
@@ -1105,6 +987,27 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		}
 		include $this->template('user_study');
 	}
+
+	//重新学习
+	public function doMobileAgainStudy(){
+		global $_W,$_GPC;
+		$upData['status'] = 4;
+		$upData['studyplan'] = 2;
+		$whereData['uid'] = $_GPC['uid'];
+		$whereData['uniacid'] = $_W['uniacid'];
+		$againData = pdo_update('vivawjw_zxxx',$upData,$whereData);
+		if($againData){
+			$data = pdo_update('vivawjw_zxxx_video',array('status'=>1),array('uid'=>$_GPC['uid']));
+			if($data){
+				echo 200;exit;
+			}else{
+				echo 400;exit;
+			}
+		}else{
+			echo 300;exit;
+		}
+	}
+
 	//上传重审图片
 	public function doMobileSub_image(){
 		global $_W,$_GPC;
@@ -1114,7 +1017,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			if($value[0] == 'video1' || $value[0] == 'video2' || $value[0] == 'video3' || $value[0] == 'video4'){
 				$againImg = pdo_update('vivawjw_zxxx_video',array('video_avatar'=>$value[1]),array('uid'=>$_W['member']['uid'],'video_name'=>$value[0]));
 			}
-			if($value[0] == 'datiimg' || $value[0] == 'xindeimg' || $value[0] == 'shentiimg' || $value[0] == 'sfzimg' || $value[0] == 'sffimg' || $value[0] == 'qmimg'){
+			if($value[0] == 'datiimg' || $value[0] == 'xindeimg' || $value[0] == 'shentiimg' || $value[0] == 'sfzimg' || $value[0] == 'sffimg' || $value[0] == 'qmimg' || $value[0] == 'cnsimg' || $value[0] =='sccnsimg'){
 				$againAvatar = pdo_update('vivawjw_zxxx',array($value[0]=>$value[1]),array('uid'=>$_W['member']['uid']));
 			}
 		}
@@ -1155,7 +1058,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			return $c->$api($sign,$wx,$typt,$carnum,$engnum);
 
 		} catch (SOAPFault $e) {
-			echo 700;
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
 		}
 	}
 	//接口
@@ -1180,7 +1083,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			return $c->$api($sign,$wx,$typt,$carnum,$engnum);
 
 		} catch (SOAPFault $e) {
-			echo 700;
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
 		}
 	}
 
@@ -1206,7 +1109,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			// return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4','ocJugjrKn12kVR8lt_OSCGiU3rgk','2017-03-18 12:47','苏B7KR12','3202009014349753','左转弯前方有些许白漆，让人误以为是待转区域，白漆长久模糊了。更何况对面的车道就有待转区域。难道待转区域只划半条马路？！同样是不影响直行车辆的。若是没那些模糊的白漆，我也不会左拐出去等待的');
 
 		} catch (SOAPFault $e) {
-			echo 700;
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
 		}
 	}
 	//对象转数组
@@ -1221,7 +1124,57 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		return $arr;
 	}
 
-
+	//绑定失败提交页面
+	public function doMobileProBound(){
+		global $_W,$_GPC;
+		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
+		include $this->template('pro_bound');
+	}
+	//提交信息
+	public function doMobileBoundInfo(){
+		global $_W,$_GPC;
+		$data['uniacid'] = $_W['uniacid'];
+		$data['uid'] = $_W['member']['uid'];
+		$data['openid'] = $_W['openid'];
+		$data['time'] = time();
+		$type = $_GPC['type'];
+		//驾驶证
+		if($type == 'q_7'){
+			$data['bound_driver'] = trim(strtoupper($_GPC['bound_driver']));
+			$data['bound_drnum'] = trim(strtoupper($_GPC['bound_drnum']));
+			$selData = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_again_bound').' WHERE uniacid=:uniacid AND openid=:openid AND bound_driver=:bound_driver',array(':uniacid'=>$data['uniacid'],':openid'=>$data['openid'],':bound_driver'=>$data['bound_driver']));
+			if($selData){
+				echo 300;exit;
+			}else{
+				$data['state'] = 0;
+				$data['status'] = 2;//待审核
+				$data = pdo_insert('vivawjw_again_bound',$data);
+				if($data){
+					echo 200;exit;
+				}else{
+					echo 100;exit;
+				}
+			}
+			//车辆
+		}elseif($type == 'q_8'){
+			$data['bound_cartype'] = trim(strtoupper($_GPC['bound_cartype']));
+			$data['bound_car'] = trim(strtoupper($_GPC['bound_car']));
+			$data['bound_carnum'] = trim(strtoupper($_GPC['bound_carnum']));
+			$selData = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_again_bound').' WHERE uniacid=:uniacid AND openid=:openid AND bound_car=:bound_car',array(':uniacid'=>$data['uniacid'],':openid'=>$data['openid'],':bound_car'=>$data['bound_car']));
+			if($selData){
+				echo 300;exit;
+			}else {
+				$data['state'] = 1;
+				$data['status'] = 2;//待审核
+				$data = pdo_insert('vivawjw_again_bound', $data);
+				if ($data) {
+					echo 200;exit;
+				} else {
+					echo 100;exit;
+				}
+			}
+		}
+	}
 
 
 
@@ -1314,6 +1267,8 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		if ($op == 'feedback_info'){
 			$id = $_GPC['id'];
 			$feedone = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_feedback').' WHERE id = :id ',array(':id'=>$id));
+			$feedonef = pdo_fetch('SELECT fanid,uid FROM '.tablename('mc_mapping_fans').' WHERE uid = :id ',array(':id'=>$feedone['uid']));
+			$feedone['fanid']=$feedonef['fanid'];
 		}
 		if($op == 'feed_del'){
 			$id = $_GPC['id'];
@@ -1322,6 +1277,40 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				echo 200;exit;
 			}
 		}
+
+		//绑定反馈列表
+		if ($op == 'pro_bound'){
+			$pindex =max(1, intval($_GPC['page']));
+			$psize = 10;
+			$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('vivawjw_again_bound').' WHERE uniacid = :uniacid ',array(':uniacid' => $_W['uniacid']));
+			$feeddata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_again_bound').' WHERE uniacid = :uniacid  ORDER BY id desc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' =>$uniacid));
+			$pager =pagination($total, $pindex, $psize);
+		}
+		//绑定反馈信息
+		if ($op == 'bound_info'){
+			$id = $_GPC['id'];
+			$feedone = pdo_fetch('SELECT * FROM '.tablename('vivawjw_again_bound').' WHERE id = :id ',array(':id'=>$id));
+			$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id ASC');
+			$feedonef = pdo_fetch('SELECT fanid,uid FROM '.tablename('mc_mapping_fans').' WHERE uid = :id ',array(':id'=>$feedone['uid']));
+			$feedone['fanid']=$feedonef['fanid'];
+			//echo $feedonef['fanid'];
+			foreach ($cartype as $k => $v){
+				if($feedone['bound_cartype'] == $v['carnum']){
+					$cartype =  $v['cartype'].'('.$v['carnum'].')';
+				}
+			}
+			//var_dump($cartype);
+		}
+		//删除绑定反馈信息
+		if($op == 'pro_bound_del'){
+			$id = $_GPC['id'];
+			$boundCardel = pdo_delete('vivawjw_again_bound',array('id'=>$id,'uniacid'=>$_W['uniacid']));
+			if ($boundCardel){
+				echo 200;exit;
+			}
+		}
+
+
 
 		include $this->template('manage');
 	}
@@ -1374,8 +1363,8 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 			echo 200;exit;
 		}
 	}
-	//外地驾驶证受理
-	public function doWeBfeedturndown(){
+	//产品反馈受理
+	public function doWebFeedturndown(){
 		global $_W,$_GPC;
 		$id = $_GPC['id'];
 		$turndown = $_GPC['turndown'];
@@ -1387,6 +1376,55 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		}
 	}
 
+	//绑定反馈受理
+	public function doWebBoundturndown(){
+		global $_W,$_GPC;
+		$id = $_GPC['id'];
+		$turndown = $_GPC['turndown'];
+		$status = $_GPC['status'];
+		$sittime = time();
+		$drdata = pdo_update('vivawjw_again_bound',array('turndown'=>$turndown,'status'=>$status,'sittime'=>$sittime),array('id'=>$id));
+		if($drdata){
+			echo 200;exit;
+		}
+	}
+	//强制解绑
+	public function doWebQzjb(){
+		global $_W,$_GPC;
+		//载入日志函数
+		load()->func('logging');
+		$qzjbData = pdo_fetch('SELECT * FROM '.tablename('vivawjw_again_bound').' WHERE id=:id',array(':id'=>$_GPC['id']));
+		if($qzjbData['state'] == 1){//车辆
+			$cartype = trim($qzjbData['bound_cartype']);
+			$carnum = trim(strtoupper($qzjbData['bound_car']));
+			$carengine = substr(trim(strtoupper($qzjbData['bound_carnum'])),-6);
+			$bdcar = $this->wxwfapi('CLQXBD','C81DD8605F0531F0B6C717D07A8979F4','QZJBOPENID',$cartype,$carnum,$carengine);
+			$bdcar = $this->object2array($bdcar);
+			if($bdcar['State'] == 0){
+				//记录数组数据
+				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLQXBD','车辆类型'=>$cartype,'车牌号'=>$carnum,'发动机号'=>$carengine,'状态'=>$bdcar['State']), 'trace',$_GPC['m'].date('Ymd',time()));
+				echo 200;exit;
+			}else{
+				//记录数组数据
+				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLQXBD','车辆类型'=>$cartype,'车牌号'=>$carnum,'发动机号'=>$carengine,'状态'=>$bdcar['State']), 'trace',$_GPC['m'].date('Ymd',time()));
+				echo 100;exit;
+			}
+		}elseif($qzjbData['state'] == 0){//驾驶证
+			$drivenum = trim(strtoupper($qzjbData['bound_driver']));
+			$driverecord = substr(trim(strtoupper($qzjbData['bound_drnum'])),-6);
+			$bddriver = $this->wxapi('JSZQXBD','C81DD8605F0531F0B6C717D07A8979F4','QZJBOPENID',$drivenum,$driverecord);
+			$bddriver = $this->object2array($bddriver);
+			if($bddriver['State'] == 0){
+				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSZQXBD','驾驶证号'=>$drivenum,'档案编号'=>$driverecord,'状态'=>$bddriver['State']), 'trace',$_GPC['m'].date('Ymd',time()));
+				echo 200;exit;
+			}else{
+				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSZQXBD','驾驶证号'=>$drivenum,'档案编号'=>$driverecord,'状态'=>$bddriver['State']), 'trace',$_GPC['m'].date('Ymd',time()));
+				echo 100;
+			}
+		}else{
+			echo 100;
+		}
+	}
 
 
 
@@ -1412,6 +1450,9 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				"RKSJ"=> "2017-03-21 23:30:32"
 			)
 		);*/
+
+		//print_r($wddataapi);die;
+
 		if($wddataapi['State'] == 0) {
 			foreach ($wddataapi['WDJSZZCSQCXResult'] as $key => $value) {
 				$arr[$key]['WXH'] =  mc_openid2uid($value['WXH']);

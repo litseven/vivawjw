@@ -49,7 +49,7 @@
 {if $op == 'wx_driving'}
 <div class="content wx_driving">
     <div class="content_box">
-        <div class="bind_car">添加绑定本地驾驶证</div>
+        <div class="bind_car">添加绑定（无锡）驾驶证</div>
         <form>
             <div class="query_box" style="margin-top:5%;">
                 <div class="car_style">
@@ -58,30 +58,37 @@
                 </div>
                 <div class="car_style">
                     <div>档案编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" >
+                    <input type="text" placeholder="请输入档案编号后六位" id="car_fa1" name="wx_driv_record" class="driver_where">
+                    <p class="driver_where_show" style="margin-left:25%; line-height: 22px;font-size: 0.8rem;">提醒:输入档案编号<span style="color:red;">后六位</span>！</p>
                 </div>
             </div>
         </form>
         <a id="query1">下一步</a>
-        <div class="bind">温馨提示：外地驾驶证点击<a href="{php echo $this->createMobileUrl('user_driving',array('op'=>'wd_driving'))}">这里绑定</a></div>
+        <div class="bind">提示：绑定（外地）驾驶证点击<a href="{php echo $this->createMobileUrl('user_driving',array('op'=>'wd_driving'))}">这里绑定</a></div>
+    </div>
+    <div style="margin:30% auto 10%;bottom:3%;text-align: center;">
+        <a href="{php echo $this->createMobileUrldeM('vivawjw_grzx','probound')}" style="color:#51ca6e;font-size: .9rem">如绑定出现问题请点这里</a>
     </div>
 </div>
 <script>
-    var process = false;
     $(function () {
-        if({$oldBoundDriver} > 1){
-            mui.alert("根据业务部门要求，只支持绑定本人驾驶证，系统已自动解绑用户之前数据，请重新绑定！");
-        }
+        $('.driver_where').focus(function(){
+            $('.driver_where_show').show();
+            $(this).parent('.car_style').css('padding-bottom','20%');
+        });
+        $('.driver_where').blur(function(){
+            $(this).parent('.car_style').css('padding-bottom',0);
+        });
+
         $('#query1').click(function () {
-            if(process)return false;
             var wx_driv_num = $("[name = 'wx_driv_num']").val();
             var wx_driv_record = $("[name = 'wx_driv_record']").val();
-            reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            reg=/(^3202\d{13}(\d|X|x)$)/;
             if(wx_driv_num == ''){
                 mui.alert('驾驶证号不能为空！');return false;
             }
             if (!reg.test(wx_driv_num)){
-                mui.alert('驾驶证号不正确！');return false;
+                mui.alert('请填写正确无锡驾驶证号！');return false;
             }
             if(wx_driv_record.length != 6){
                 mui.alert('档案编号输入有误！');return false;
@@ -90,22 +97,15 @@
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_driving',array('op'=>'wx_drivpost'))}&" + drivdata,function (data) {
                 $("#loading-fs").hide();
-                console.log(data);
+                //console.log(data);
                 if(data == 100){
                     mui.alert('驾驶证已被绑定！');return false;
-                }
-                if(data == 400){
-                    mui.alert('您已绑定驾驶证！');return false;
-                }
-                if (data == 300){
-                    mui.alert('绑定失败');return false;
+                }else if (data == 300){
+                    mui.alert('驾驶证或档案编号不正确！','绑定失败');return false;
                 }
                 $('.wx_driving').hide();
                 $('.sub_driving_wx').show();
-                process = true;
             });
-
-
         });
     });
 </script>
@@ -122,7 +122,7 @@
 {if $op == 'wd_driving'}
 <div class="content wd_driving">
     <div class="content_box">
-        <div class="bind_car">添加绑定外地驾驶证</div>
+        <div class="bind_car">添加绑定（外地）驾驶证</div>
         <form>
             <div class="query_box" style="margin-top:5%;">
                 <div class="car_style">
@@ -131,24 +131,37 @@
                 </div>
                 <div class="car_style">
                     <div>档案编号<br><a class="where">(在哪里)</a></div>
-                    <input type="text" placeholder="请输入完整的档案编号" id="car_fa1" name="wd_driv_record">
+                    <input type="text" placeholder="请输入完整的档案编号" id="car_fa1" name="wd_driv_record" class="driver_where">
+                    <p class="driver_where_show" style="margin-left:25%; line-height: 22px;font-size: 0.8rem;">提醒:输入<span style="color:red;">完整的</span>档案编号！</p>
                 </div>
             </div>
         </form>
         <a id="query1">下一步</a>
-        <div class="bind">温馨提示：无锡驾驶证点击<a href="{php echo $this->createMobileUrl('user_driving',array('op'=>'wx_driving'))}">这里绑定</a></div>
+        <div class="bind">提示：绑定（无锡）驾驶证点击<a href="{php echo $this->createMobileUrl('user_driving',array('op'=>'wx_driving'))}">这里绑定</a></div>
+    </div>
+    <div style="margin:30% auto 10%;bottom:3%;text-align: center;">
+        <a href="{php echo $this->createMobileUrldeM('vivawjw_grzx','probound')}" style="color:#51ca6e;font-size: .9rem">如绑定出现问题请点这里</a>
     </div>
 </div>
 <script>
-    var process = false;
     $('#loading-fs').hide();
     $(function () {
+        $('.driver_where').focus(function(){
+            $('.driver_where_show').show();
+            $(this).parent('.car_style').css('padding-bottom','20%');
+        });
+        $('.driver_where').blur(function(){
+            $(this).parent('.car_style').css('padding-bottom',0);
+        });
         $('#query1').click(function () {
-            if(process)return false;
             var wd_driv_num = $("[name = 'wd_driv_num']").val();
             var wd_driv_record = $("[name = 'wd_driv_record']").val();
+            reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(wd_driv_num == ''){
                 mui.alert('驾驶证号不能为空！');return false;
+            }
+            if (!reg.test(wd_driv_num)){
+                mui.alert('请填写正确驾驶证号！');return false;
             }
             if(wd_driv_record.length != 12){
                 mui.alert('档案编号输入有误！');return false;
@@ -157,19 +170,15 @@
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_driving',array('op'=>'wd_drivpost'))}&" + drivdata,function (data) {
                 $("#loading-fs").hide();
-                console.log(data);
+                //console.log(data);
                 if(data == 100){
                     mui.alert('驾驶证已被绑定！');return false;
-                }
-                if(data == 400){
-                    mui.alert('您已绑定驾驶证！');return false;
                 }
                 if (data == 300){
                     mui.alert('绑定失败');return false;
                 }
                 $('.wd_driving').hide();
                 $('.sub_driving').show();
-                process = true;
             });
         });
     });
@@ -249,8 +258,9 @@
         <div class="manage_box_1">
             <p class="manage_box_p1">驾驶证号</p>
             <div class="manage_box_div" style="font-size:0.9rem;">
-                <p class="manage_box_p2">{$typedriving['wd_driv_num']}</p>
-                <p class="manage_box_p3">点击驾驶证号查看违法信息</p>
+                <p class="manage_box_p2 jszh">{$typedriving['wd_driv_num']}</p>
+                <input type="hidden" value="{$typedriving['wd_driv_record']}" class="dabh">
+                {if $typedriving['status'] == 0}<p class="manage_box_p3 ckwfxx">点击驾驶证号查看违法信息</p>{/if}
             </div>
         </div>
         <div class="manage_box_1">
@@ -259,6 +269,14 @@
                 <p class="manage_box_p2">{if $typedriving['status'] == 2}申请中...{elseif $typedriving['status'] == 0}绑定成功{else}申请失败{/if}</p>
             </div>
         </div>
+        {if $typedriving['status'] == 0}
+        <div class="manage_box_1">
+            <p class="manage_box_p1">累计积分</p>
+            <div class="manage_box_div">
+                <p class="manage_box_p2">{$wxwfdata['LJJF']}分</p>
+            </div>
+        </div>
+        {/if}
     </div>
     <div class="manage_btn" style="margin-bottom: 20px">
         <a class="del_bound_dr" id="{$typedriving['id']}">解除绑定</a>
@@ -271,24 +289,40 @@
         var process = false;
         $('.del_bound_dr').click(function(){
             var id = $(this).attr('id');
-            if(confirm('解除绑定驾驶证后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
-                $("#loading-fs").show();
-                window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'del_bound_dr'))}&id="+id;
-            }
+            /* if(confirm('解除绑定驾驶证后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
+             $("#loading-fs").show();
+             window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'del_bound_dr'))}&id="+id;
+             }*/
+            mui.confirm('解除绑定驾驶证后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？','提示',['是','否'],function(e){
+                if (e.index == 0) {
+                    $("#loading-fs").show();
+                    window.location.href = "{php echo $this->createMobileUrl('user_driving',array('op'=>'del_bound_dr'))}&id="+id;
+                }
+            })
         });
         $('.ckwfxx').click(function(){
             var jszh = $('.jszh').text();
             var dabh = $('.dabh').val();
+            if(!jszh){
+                return false;
+            }
+            if(dabh.length > 6){
+                dabh = dabh.substr(-6);
+            }
             $('#loading-fs').show();
             $.post("{php echo $this->createMobileUrl('user_driving',array('op'=>'jsrwfcx'))}",{'jszh':jszh,'dabh':dabh},function(data){
                 if(data == 200){
-                    mui.alert('查询失败！');
-                    $('#loading-fs').hide();return false;
+                    $('#loading-fs').hide();
+                    mui.alert('查询失败！');return false;
                 }
                 if(data == 300){
-                    mui.alert('恭喜你，没有违法记录！');
-                    $('#loading-fs').hide();return false;
+                    $('#loading-fs').hide();
+                    mui.alert('恭喜你，没有违法记录！');return false;
                 }else{
+                    if(!data.WFWJKList){
+                        $('#loading-fs').hide();
+                        mui.alert('恭喜你，没有违法记录！');return false;
+                    }
                     switch (data.ZT) {
                         case 'A':
                             zt = '正常';

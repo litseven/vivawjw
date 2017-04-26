@@ -12,6 +12,7 @@
     <title>产品反馈</title>
 </head>
 <body>
+{template 'wxsdk'}
 {if $op == 'feedback'}
 <div class="content">
     <div class="content_box">
@@ -24,7 +25,16 @@
                     <option value="3">用户体验</option>
                 </select>
             </div>
+
             <div class="feed_fg"></div>
+            <!--<div class="upload_img">
+                <div class="upload1" style="margin: 0 5.5%;"></div>
+                <div class="upload1" style="margin: 0 5.5%;"></div>
+                <div class="upload1" style="margin: 0 5.5%;"></div>
+                &lt;!&ndash;<div class="upload1"></div>&ndash;&gt;
+                <input type="hidden" name="proof">
+            </div>
+            <div class="feed_fg"></div>-->
             <div class="feed_sugg">
                 <textarea placeholder="请输入产品意见，我们将不断优化" name="content"></textarea>
                 <input type="text" placeholder="请输入您的手机号/邮箱(选填)" name="phone">
@@ -37,6 +47,38 @@
     <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
 </div>
 <script>
+    wx.ready(function(){
+        $('.upload_img>div').click(function(){
+            var _this = $(this);
+            wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                success: function (res) {
+                    var localIds = res.localIds;
+                    wx.uploadImage({
+                        localId: localIds[0],
+                        isShowProgressTips: 1,
+                        success: function (res) {
+                            var serverId = res.serverId;
+                            //console.log(serverId);
+                            _this.attr('data-id',serverId);
+                            _this.css({"background-image":"url("+localIds[0]+")"});
+                            if(window.__wxjs_is_wkwebview){
+                                wx.getLocalImgData({
+                                    localId:localIds[0],
+                                    success:function(res){
+                                        _this.css({"background-image":"url("+res.localData+")"});
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+
+    });
     var process = false;
     $(function(){
         $('#feed_sub').click(function () {

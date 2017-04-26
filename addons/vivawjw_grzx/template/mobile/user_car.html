@@ -18,10 +18,10 @@
 {if $op == 'wx_car'}
 <div class="content wx_car">
     <div class="content_box">
-        <div class="bind_car">添加绑定车辆</div>
+        <div class="bind_car">添加绑定（无锡）车辆</div>
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
-                <div>车辆类型</div>
+                <div>号牌种类</div>
                 <select name="wx_type"  style="font-size:0.9rem;">
                     {loop $cartype $tiem}
                     <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
@@ -39,7 +39,10 @@
             </div>
         </div>
         <a id="query1">立即绑定</a>
-        <div class="bind">温馨提示：非苏B车辆点击<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wd_car'))}">这里绑定</a></div>
+        <div class="bind">提示：绑定（外地）车辆点击<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wd_car'))}">这里绑定</a></div>
+    </div>
+    <div style="margin:30% auto 10%;bottom:3%;text-align: center;">
+        <a href="{php echo $this->createMobileUrldeM('vivawjw_grzx','probound')}" style="color:#51ca6e;font-size: .9rem">如绑定出现问题请点这里</a>
     </div>
 </div>
 <script>
@@ -52,11 +55,6 @@
         $('.car_where').blur(function(){
             $(this).parent('.car_style').css('padding-bottom',0);
         });
-
-
-
-
-
         $('#query1').click(function(){
             if(process)return false;
             var wx_type = $("[name = 'wx_type']").val();
@@ -72,10 +70,11 @@
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car_post'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
                 $("#loading-fs").hide();
-                //mui.alert(data.data);return false;
                 if(data == 100){
-                    //alert("<div class='car_cover'><div class='cover_box'><p>最多只能绑定两辆车</p><a>确定</a></div></div>");return false;
-                    mui.alert('最多只能绑定两辆车');return false;
+                    mui.alert('最多只能绑定两辆车',function(){
+                        window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'success_car'))}";
+                    });
+                    return false;
                 }
                 if(data == 400){
                     mui.alert('车辆已被绑定！');return false;
@@ -95,10 +94,10 @@
 {if $op == 'wd_car'}
 <div class="content wd_car">
     <div class="content_box">
-        <div class="bind_car">添加绑定外地车辆</div>
+        <div class="bind_car">添加绑定（外地）车辆</div>
         <div class="query_box" style="margin-top:5%;">
             <div class="car_style">
-                <div>车辆类型</div>
+                <div>号牌种类</div>
                 <select name="wd_type"  style="font-size:0.9rem;">
                     {loop $cartype $tiem}
                     <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
@@ -118,11 +117,13 @@
 
         </div>
         <a id="query">立即绑定</a>
-        <div class="bind">温馨提示：苏B车辆点击<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">这里绑定</a></div>
+        <div class="bind">提示：绑定（无锡）车辆点击<a href="{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car'))}">这里绑定</a></div>
+    </div>
+    <div style="margin:30% auto 10%;bottom:3%;text-align: center;">
+        <a href="{php echo $this->createMobileUrldeM('vivawjw_grzx','probound')}" style="color:#51ca6e;font-size: .9rem">如绑定出现问题请点这里</a>
     </div>
 </div>
 <script>
-    var process = false;
     $(function(){
         $('.car_where').focus(function(){
             $('.car_where_show').show();
@@ -132,7 +133,6 @@
             $(this).parent('.car_style').css('padding-bottom',0);
         });
         $('#query').click(function(){
-            if(process)return false;
             var wd_type = $("[name = 'wd_type']").val();
             var wd_car_num = $("[name = 'wd_car_num']").val();
             var wd_car_engine = $("[name = 'wd_car_engine']").val();
@@ -148,7 +148,10 @@
                 $("#loading-fs").hide();
                 //console.log(data);return false;
                 if(data == 100){
-                    mui.alert('最多只能绑定两辆车');return false;
+                    mui.alert('最多只能绑定两辆车',function(){
+                        window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'success_car'))}";
+                    });
+                    return false;
                 }
                 if(data == 400){
                     mui.alert('车辆已被绑定！');return false;
@@ -158,7 +161,6 @@
                 }
                 $('.wd_car').hide();
                 $('.sub_car').show();
-                process = true;
             });
 
 
@@ -192,9 +194,10 @@
 {loop $typecar  $item}
 {if $item['distinction'] == 0}
 <div class="account_mana">
-    <div class="acc_person_car">
-        <p>绑定车辆</p>
+    <div class="acc_person_car1">
+        <!-- <p>绑定车辆</p> -->
         <p>{$item['wd_car_num']}</p>
+        {if $item['status'] == 0}<p class="ckwfxx" data-type="{$item['wd_type']}" data-engine="{$item['wd_car_engine']}" data-num="{$item['wd_car_num']}">点击查看在无锡的违法信息</p>{/if}
         <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
             <i>&#xe67f;</i>
             <span>移除</span>
@@ -238,9 +241,10 @@
 {if $item['distinction'] == 0}
 <div class="account_mana">
     <p class="mana_car_1">{if $k == 0}绑定车辆一{elseif $k == 1}绑定车辆二{/if}</p>
-    <div class="acc_person_car">
-        <p>绑定车辆</p>
+    <div class="acc_person_car1">
+        <!-- <p>绑定车辆</p> -->
         <p>{$item['wd_car_num']}</p>
+        {if $item['status'] == 0}<p class="ckwfxx" data-type="{$item['wd_type']}" data-engine="{$item['wd_car_engine']}" data-num="{$item['wd_car_num']}">点击查看违法信息</p>{/if}
         <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
             <i>&#xe67f;</i>
             <span>移除</span>
@@ -281,19 +285,21 @@
 <script>
     $(function(){
         $('#loading-fs').hide();
-        var process = false;
         $('.del_bound_car').click(function(){
-            if(process)return false;
             var id = $(this).attr('id');
-            if(confirm('解除绑定车辆后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
-                $("#loading-fs").show();
-                window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'del_bound_car'))}&id="+id;
-                process = true;
-            }
+            /*if(confirm('解除绑定车辆后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？')){
+             $("#loading-fs").show();
+             window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'del_bound_car'))}&id="+id;
+             }*/
+            mui.confirm('解除绑定车辆后，您将无法收到驾驶证违法提醒、驾驶证到期等提醒通知。\n 确定解除绑定吗？','提示',['是','否'],function(e){
+                if (e.index == 0) {
+                    $("#loading-fs").show();
+                    window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'del_bound_car'))}&id="+id;
+                }
+            })
         });
         //挑转车辆违法信息
         $('.ckwfxx').click(function(){
-            if(process)return false;
             var _this = $(this);
             var wx_type = _this.attr('data-type');
             var wx_car_num = _this.attr('data-num');
@@ -304,13 +310,11 @@
                 if(data == 300){
                     $('#loading-fs').hide();
                     mui.alert('查询失败！');return false;
-                }
-                if(data == 200){
+                }else if(data == 200){
                     $('#loading-fs').hide();
-                    mui.alert('恭喜你，没有违法记录');return false;
+                    mui.alert('空记录！');return false;
                 }else{
                     $('#loading-fs').hide();
-                    process = true;
                     //window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'wfcx'))}&wx_type="+wx_type+"&wx_car_num="+wx_car_num+"&wx_car_engine="+wx_car_engine;
                     //console.log(data);
                     if (data.State == 0) {
@@ -371,7 +375,12 @@
                             $("#loading-fs").hide();
                             mui.alert('恭喜你没有违法记录！');
                             return false;
-                        } else {
+                        }
+                        else {
+                            if(!data.WFXXList){
+                                $("#loading-fs").hide();
+                                mui.alert('恭喜你没有违法记录！');return false;
+                            }
                             var list = data.WFXXList.WFXX;
                             $("#loading-fs").hide();
                             if (list.length) {
@@ -458,9 +467,11 @@
                             var show = $(this).attr('data-show');
                             var wfxh = $(this).attr('data-wfjkxh');
                             if(show == 0){
+                                $('#loading-fs').show();
                                 $.post("{php echo $this->createMobileUrl('atest')}",{carnum:wfcph,wfxh:wfxh},function(data){
                                     //console.log(data);
                                     data = $.trim(data);
+                                    $('#loading-fs').hide();
                                     $('.wftp'+wfxh).html("<div style='min-height:40px;background:url({S_URL}img/loading.gif) no-repeat center center;background-size: cover;'><img onclick='zoomwz(this);' src='"+data+"'  width='100%' /></div>").show();
                                 });
                                 show = $(this).attr('data-show' ,1);
@@ -471,6 +482,22 @@
 
                         });
                         $('.shensu').click(function () {
+                            var dt = new Date();
+                            if(dt.getDay()=="0" || dt.getDay()=="6"){
+                                mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
+                            }
+
+                            var time_n = dt.getTime()/1000;
+                            time_n = Math.floor(time_n);
+                            var time_l = 1493568000;
+                            var time_r = 1493654399;
+                            if(time_n >= time_l && time_n <= time_r){
+                                mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
+                            }
+
+                            if($(this).attr('data-wfjkxh').substr(0,4) != '3202'){
+                                mui.alert('该条为外地违法记录，请联系违法发生地交管部门或到车管所一号窗口申诉！');return false;
+                            }
                             $('.wfcjjg').val($(this).attr('data-wfcjjg'));
                             $('.wftime').val($(this).attr('data-wftime'));
                             $('.wfaddr').val($(this).attr('data-wfaddr'));
@@ -533,7 +560,7 @@
                                 <div class="licen_mon_box">
                                     <p class="licen_mon_p1">共<span class="wfts"></span>条违法信息罚款<span class="fkje"></span>元</p>
                                     <a href="javascript:;" class="wfcl">处理违法信息</a>
-                                    <p class="licen_mon_p2">客服电话：400-1166-699</p>
+                                    <!-- <p class="licen_mon_p2">客服电话：400-1166-699</p> -->
                                 </div>
                             </div>
 
@@ -552,15 +579,15 @@
     <div class="content_box">
         <form>
             <div class="appeal_box">
-                <!--  <div class="appeal_name">
-                     <div>姓名:</div>
-                     <input type="text" name="appeal_name" placeholder="请输入您的姓名" >
-                     <input type="hidden" value="{$userid}" name="userid">
-                 </div>
-                 <div class="appeal_phone">
-                     <div>联系方式:</div>
-                     <input type="text" name="appeal_phone" placeholder="请输入您的手机号" >
-                 </div> -->
+                <div class="appeal_name">
+                    <div>姓名:</div>
+                    <input type="text" name="appeal_name" placeholder="请输入您的姓名" >
+                    <input type="hidden" value="{$userid}" name="userid">
+                </div>
+                <div class="appeal_phone">
+                    <div>联系方式:</div>
+                    <input type="text" name="appeal_phone" placeholder="请输入您的手机号" >
+                </div>
                 <div class="appeal_why">
                     <div>申诉原因:</div>
                     <textarea placeholder="请输入申诉原因(100字以内)" name="appeal_why"></textarea>
@@ -584,7 +611,7 @@
     <div class="content_box">
         <div class="appeal1_box">
             <i class="appeal_suc">&#xe60d;</i>
-            <div>您的申诉信息我们已经收到，将尽快为您处理。</div>
+            <div>我们已经收到您的申诉，将尽快为您处理。请您在“个人中心-我的申诉”版块查看申诉结果。</div>
         </div>
         <a id="appeal_back" href="{php echo $this->createMobileUrl('user_car')}" style="text-decoration: none">返回</a>
     </div>
@@ -592,17 +619,35 @@
 <script>
     $(function(){
         $('.wfcl').click(function(){
+            var cphm = $('.chepaihao').html();
+            cphm = cphm.substr(0,2);
+            if(cphm != '苏B'){
+                mui.alert('对不起，本平台只提供无锡本地苏B车辆的违法在线处理服务。');return false;
+            }
+
+            //mui.alert("本平台违法处理服务进行平台维护升级，给您带来的不便，十分抱歉");return;
+
             $.post("{php echo $this->createMobileUrl('wzfkapi')}",function(data){
                 if (data == 100){
                     //mui.alert('你还没有绑定车辆');
-                    if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
-                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
-                    }
+                    /* if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
+                     window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                     }*/
+                    mui.confirm('你还没有绑定车辆。现在就去绑定车辆','提示',['是','否'],function(e){
+                        if (e.index == 0) {
+                            window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                        }
+                    })
                 }else if(data == 300){
                     //mui.alert('您还没有绑定驾驶证');
-                    if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
-                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
-                    }
+                    /*if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
+                     window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
+                     }*/
+                    mui.confirm('你还没有绑定驾驶证。现在就去绑定驾驶证','提示',['是','否'],function(e){
+                        if (e.index == 0) {
+                            window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
+                        }
+                    })
                 }else{
                     $('.content').hide();
                     $('.apiurl').val(data);
@@ -622,6 +667,21 @@
         //申诉
         $("#loading-fs").hide();
         $('.shensu').click(function(){
+            var dt = new Date();
+            if(dt.getDay()=="0" || dt.getDay()=="6"){
+                mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
+            }
+            var time_n = dt.getTime()/1000;
+            time_n = Math.floor(time_n);
+            var time_l = 1493568000;
+            var time_r = 1493654399;
+            if(time_n >= time_l && time_n <= time_r){
+                mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
+            }
+
+            if($(this).attr('data-wfjkxh').substr(0,4) != '3202'){
+                mui.alert('该条为外地违法记录，请联系违法发生地交管部门或到车管所一号窗口申诉！');return false;
+            }
             $('.ill_query').hide();
             $('.susub').show();
             $('.wfcjjg').val($(this).attr('data-wfcjjg'));
@@ -649,15 +709,15 @@
             var wffkjf = $('.wffkjf').val();
             var wfmoney = $('.wfmoney').val();
             var wfcph = $('.wfcph').val();
-            // if (appeal_name == ''){
-            //     mui.alert('请留下您的名字！');return false;
-            // }
-            // if (appeal_phone == ''){
-            //     mui.alert('手机号不能为空！');return false;
-            // }
-            // if(!(/^1[34578]\d{9}$/.test(appeal_phone))){
-            //     mui.alert("手机号码有误，请重填");return false;
-            // }
+            if (appeal_name == ''){
+                mui.alert('请留下您的名字！');return false;
+            }
+            if (appeal_phone == ''){
+                mui.alert('手机号不能为空！');return false;
+            }
+            if(!(/^1[34578]\d{9}$/.test(appeal_phone))){
+                mui.alert("手机号码有误，请重填");return false;
+            }
             if (appeal_why == ''){
                 mui.alert('请填写申诉原因,方便我们帮到您！');return false;
             }
@@ -674,11 +734,13 @@
                     $('.susub').hide();
                     $('.succees').show();
                 }else if(data == 300){
-
-                    mui.alert('请勿重复申诉')
+                    mui.alert('请勿重复申诉',function(){
+                        window.location = window.location;
+                    });
                 }else if(data == 400){
-
-                    mui.alert('提交失败')
+                    mui.alert('提交失败',function(){
+                        window.location = window.location;
+                    });
                 }else{
                     alert(data)
                 }
@@ -716,7 +778,7 @@
     });
 </script>
 <div id="loading-fs">
-    <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+    <div><i id="loadanim"></i><span>加载中，请稍后 ...</span></div>
 </div>
 <div class="online_study" style="display: none;">
     <div class="study_box">
@@ -731,7 +793,7 @@
             <p>4：本平台用户须以微信支付方式进行实时缴款，支付成功的，系统自动确认并发送回执；用户不支付或支付操作失败时，此笔业务自动作废，按流程重新办理即可，不会产生逾期未缴款滞纳金。</p>
             <p>5：如需纸质处罚决定书，须持本人驾驶证、身份证和车辆行驶证到各曝光处理点补领。</p>
             <p>6：由于数据同步问题，违法内容项目内容会有延迟，请以缴纳罚款页面显示情况为准。</p>
-            <p >若有任何疑问请咨询客服电话：400-1166-699</p>
+            <!-- <p >若有任何疑问请咨询客服电话：400-1166-699</p> -->
         </div>
         <input type="hidden" class="apiurl">
         <button class="online_agree">确认</button>

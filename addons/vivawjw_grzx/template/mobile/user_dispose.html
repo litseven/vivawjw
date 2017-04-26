@@ -7,10 +7,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <title>我的快处</title>
+    <style>
+        * {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+        body,h1,h2,h3,h4,input,ul,li,dl,dt,dd,p,button,a{margin:0;padding:0; /*list-style:none;*/font-weight:normal;}
+        body{width:100%;color:#333333; font-size:16px;}
+        html{width:100%;}
+        img{display:block;}
+        input,select{-webkit-appearance: none; outline: none;}
+
+        .accident{width:100%;}
+        .acc_div{width:100%; border-bottom: solid 1px #b3b3b3; padding-right: 6%; padding-top: 13px; padding-left:6%; padding-bottom: 13px; overflow: hidden;}
+        .acc_div p:nth-child(1){float: left; width:35%;}
+        .acc_div p:nth-child(2){float: left;}
+        .acc_div_box .acc_div_img:nth-child(1){margin-left: 0}
+        .acc_div_box{width:100%; overflow: hidden;}
+        .acc_div .acc_div_img{width:21%; float: left; margin-top:10px; margin-left:2%; margin-right: 2%;}
+        .acc_div .acc_div_img img{width:100%;}
+        .acc_div .acc_div_img p{font-size:0.7rem;width:100%; margin-top:5px; text-align: center; color:#68d181;}
+        .acc_btn{width:34%; height:36px; display: block; margin:6% auto;border-radius: 10px; text-align: center; line-height: 36px; color:white; background-color: #51ca6e;}
+        .kong{width:100%; height: 20px;background-color: #eee;}
+    </style>
 </head>
 <body>
 {if $kcdata}
-<div class="my_ss_list">
+{loop $kcdata $item}
+<div class="kong"></div>
+<div class="accident">
+    <div class="acc_div">
+        <p>事故地点:</p>
+        <p>{$item['accaddr']}阿莱克的发卡时</p>
+    </div>
+    <div class="acc_div">
+        <p>提交时间</p>
+        <p>{php echo date('Y-m-d H:i:s',$item['acctime'])}</p>
+    </div>
+
+    <div class="acc_div">
+        <div>现场照片</div>
+        <div class="acc_div_box">
+            {loop $v['imgdir'] $k $foto}
+            <div class="acc_div_img">
+                <img src="{php echo tomedia($foto);}">
+                {if $k == 0}
+                    <p>驾驶证照</p>
+                {elseif $k == 1}
+                    <p>车辆正面照</p>
+                {elseif $k == 2}
+                    <p>车辆尾照</p>
+                {elseif $k == 3}
+                    <p>碰撞位置照片</p>
+                {/if}
+            </div>
+            {/loop}
+            <!--<div class="acc_div_img">
+                <img src="img/bg_img.png">
+                <p>车辆正面照</p>
+            </div>
+
+            <div class="acc_div_img">
+                <img src="img/bg_img.png">
+                <p>车辆尾照</p>
+            </div>
+
+            <div class="acc_div_img">
+                <img src="img/bg_img.png">
+                <p>碰撞位置照片</p>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="acc_div">
+        <p>姓名</p>
+        <p>{$item['accname']}</p>
+    </div>
+
+    <div class="acc_div">
+        <p>车牌号</p>
+        <p>{$item['accnum']}</p>
+    </div>
+
+    <div class="acc_div">
+        <p>本人手机号</p>
+        <p>{$item['accotherphone']}</p>
+    </div>
+
+    <div class="acc_div">
+        <p>对方姓名</p>
+        <p>{$item['accothername']}</p>
+    </div>
+
+    <div class="acc_div">
+        <p>对方车牌号</p>
+        <p>{$item['accothernum']}</p>
+    </div>
+
+    <div class="acc_div">
+        <p>对方手机号</p>
+        <p>{$item['dfphone']}</p>
+    </div>
+</div>
+{/loop}
+<a class="acc_btn" href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
+<!--<div class="my_ss_list">
     {loop $kcdata $item}
     <ul>
         <li>
@@ -33,7 +131,7 @@
     </ul>
     {/loop}
     <a href="javascript:history.go(-1);">返回</a>
-</div>
+</div>-->
 {else}
 <div class="content">
     <div class="content_box">
@@ -41,7 +139,7 @@
             <i class="appeal_suc">&#xe8ae;</i>
             <div>您还没有快处记录。</div>
         </div>
-        <a id="appeal_back" href="javascript:history.go(-1);">返回</a>
+        <a id="appeal_back" href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
     </div>
 </div>
 {/if}

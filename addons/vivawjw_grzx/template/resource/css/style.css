@@ -381,7 +381,16 @@ i{
 .car_cover .cover_box{width:66%; height:140px;margin:0 auto; margin-top:40%; background-color:white; border-radius: 10px;}
 .car_cover .cover_box p{text-align: center; padding-top:25px; border-bottom: solid 1px #B2B2B2; padding-bottom: 25px;}
 .car_cover .cover_box a{display: block; margin:0 auto; margin-top:15px; text-align: center; line-height:36px; width:56%; height:36px; border-radius: 5px; background-color:#51CA6E; color:white;}
+.upload_img{width:95%; margin:5% auto; overflow:hidden;}
 
+.upload_img>div{background: url(../img/upload1.png) no-repeat center; background-size: cover;}
+.upload1 {
+    width: 22%;
+    float: left;
+    margin: 0 1.5%;
+    height: 66px;
+    border: solid 1px #dddddd;
+}
 
 
 .licen_mon{margin-right: 9%;}

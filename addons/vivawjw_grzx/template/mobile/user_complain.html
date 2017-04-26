@@ -6,6 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="{S_URL}css/style.css" rel="stylesheet">
+     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <title>我的申诉</title>
 </head>
 <body>
@@ -22,14 +23,20 @@
             <span>{php echo date('Y-m-d',$item['time'])}</span>
         </li>
         <li>
-            <span>申诉状态</span>
-            <span>{if $item['status'] == 2}等待审核{elseif $item['status'] == 1}审核通过{else}审核未通过{/if}</span>
+            <span></span>
+           <a href="javascript:void(0)" data-id="{$item['id']}" style="margin: 10px auto;height: 38px;line-height: 38px;padding:0 0" class="ssjg">查看申诉状态</a>
+        </li>
+        <li class="ssnr" style="display: none;float:right;">
+         
+            <span class="sszt">申诉结果</span>
+      
+            <span class="ssjgnr"></span>
         </li>
         <li></li>
     </ul>
     {/loop}
     <a href="javascript:history.go(-1);">返回</a>
-</div>
+</div>  
 {else}
 <div class="content">
     <div class="content_box">
@@ -41,5 +48,45 @@
     </div>
 </div>
 {/if}
+<script>
+    $(".ssjg").click(function(){
+        var is = $(this)
+        if(is.parent('li').next().css("display")=="none" ){
+            var id = $(this).attr('data-id')
+            
+            // $(this).parent('li').next().show();
+            $('#loading-fs').show();
+            $.post("{php echo $this->createMobileUrl('ssjgpost')}",{id:id},function (data){
+                    // alert(data)
+                    if(data==0){
+                        $('#loading-fs').hide();
+                        is.parent('li').next().show()
+                        is.parent().next().find('.sszt').text("申诉状态：处理中");
+                        // is.parent().next().find('.ssjgnr').text("我们已经收到您的申诉，将尽快为您处理，请耐心等待");
+                    }else{
+                        $('#loading-fs').hide();
+                        is.parent('li').next().show()
+                         // console.log($(this).parent().next())
+                         is.parent().next().find('.sszt').text("申诉结果：");
+                        is.parent().next().find('.ssjgnr').text(data);
+                    }
+
+                        
+                         
+                 })
+               
+        }else{  
+                
+                is.parent().next().hide();
+        }
+        
+
+    })
+
+
+</script>
+<div id="loading-fs">
+    <div><i id="loadanim"></i><span>提交数据中，请稍后 ...</span></div>
+</div>
 </body>
 </html>
