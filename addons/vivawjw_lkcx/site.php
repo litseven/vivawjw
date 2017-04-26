@@ -5,8 +5,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_lkcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/resource/');
 
 	class Vivawjw_lkcxModuleSite extends WeModuleSite {
 
@@ -15,7 +15,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
 		public function roadareaCache(){ // 5mins 缓存  by zhangwei 
 			$roadareaCache = cache_load('roadareaCache');
 			//cache_delete('roadareaCache');	
-			if(!$roadareaCache || TIMESTAMP-$roadareaCache['creattime']>(3600*6)){
+			if(!$roadareaCache || TIMESTAMP-$roadareaCache['creattime']>(1800)){
 						$roadareaCache['data'] = $this->wxapi('ZGDLKCX','C81DD8605F0531F0B6C717D07A8979F4');
 						$roadareaCache['creattime'] = TIMESTAMP;
 						cache_write('roadareaCache',$roadareaCache);
@@ -241,7 +241,6 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
 			$imgurl = tomedia('images/'.$_W['uniacid'].'/roadpic/'.$dwbh.'.png');
 			$imginfo = get_headers($imgurl);
 			$time = strtotime(str_replace("Last-Modified: ","",$imginfo[5]));
-			
 			if(!$time || TIMESTAMP - $time  > 30){
 					$data = $this->wxapi('LKTPCX','C81DD8605F0531F0B6C717D07A8979F4',$dwbh);
 					$data = $this->object2array($data);
@@ -253,9 +252,11 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
 					
 					file_write($filename, $data);
 					file_remote_upload($filename);
+
+                $time = $time.rand(100,999);
 				}
 			
-            echo $imgurl;
+            echo $imgurl.'?'.$time;
         }
         //搜索关键字查询
         public function doMobileSearchkey(){
@@ -277,6 +278,60 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
             //var_dump($return);
             //var_dump($arr);
         }
+
+        //提交路况信息
+        public function doMobileRoadpost(){
+            global $_W,$_GPC;
+
+            $data['uid'] = $_W['member']['uid'];
+            $data['uniacid'] = $_W['uniacid'];
+            $data['pictinfo'] = trim($_GPC['pict_info']);
+            $data['proof'] = trim($_GPC['proof']);
+            $data['time'] = time();
+            $proof = trim($_GPC['proof']);
+            $proof = explode(",",$proof);
+            $foto=array();
+            foreach($proof as $v){
+                $DLres = $this -> downloadMedia($v);
+                if(!is_array($DLres)){
+                    array_push($foto, $DLres);
+                }
+            }
+            if($foto)$data['proof'] = implode(",",$foto);
+
+            $img=explode(',', $data['proof']);
+
+            if($img[0]!=""){
+
+                $img[0] = file_get_contents('http://file.oss.scienmedia.com/'.$img[0]);
+                $img[0]=base64_encode($img[0]);
+            }
+
+            if($img[1]!=""){
+
+                $img[1] = file_get_contents('http://file.oss.scienmedia.com/'.$img[1]);
+                $img[1]=base64_encode($img[1]);
+            }
+            if($img[2]!=""){
+
+                $img[2] = file_get_contents('http://file.oss.scienmedia.com/'.$img[2]);
+                $img[2]=base64_encode($img[2]);
+            }
+            $dataApi = $this->wxapi('JTLKBL','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],time(),date('Y-m-d H:i',time()),$data['pictinfo'],$img[0],$img[1],$img[2]);
+            $dataApi=$this->object2array($dataApi);
+            if($dataApi['State'] == 0){
+                $rodata = pdo_insert('vivawjw_lkcx',$data);
+                if ($rodata){
+                    echo 200;exit;
+                }else{
+                    echo 300;exit;
+                }
+            }else{
+                echo 300;exit;
+            }
+        }
+
+
         //接口
         public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
             libxml_disable_entity_loader(false);
@@ -299,34 +354,10 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_lkcx/template/
                 return $c->$api($sign,$wx,$typt,$carnum,$engnum);
 
             } catch (SOAPFault $e) {
-                print_r($e);
+                echo "<script>alert('系统繁忙，请稍后再试！')</script>";
             }
         }
-        //提交路况信息
-		public function doMobileRoadpost(){
-			global $_W,$_GPC;
-            $data['uid'] = trim($_GPC['uid']);
-            $data['uniacid'] = $_W['uniacid'];
-            $data['pictinfo'] = trim($_GPC['pict_info']);
-			$data['proof'] = trim($_GPC['proof']);
-            $data['time'] = time();
-			$proof = trim($_GPC['proof']);
-			$proof = explode(",",$proof);
-			$foto=array();
-			foreach($proof as $v){
-                $DLres = $this -> downloadMedia($v);
-                    if(!is_array($DLres)){
-                        array_push($foto, $DLres);
-                    }
-                }
-			if($foto)$data['proof'] = implode(",",$foto);
-            $rodata = pdo_insert('vivawjw_lkcx',$data);
-            if ($rodata){
-                echo 200;exit;
-            }
 
-
-        }
 
         //地图
         public function doMobileSearchMap(){

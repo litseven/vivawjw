@@ -90,7 +90,7 @@
                                                   <img src="" style="display: block;" class="img{$v['DWBH']}">
                                                   <div class="detail11_box">
                                                        <div>注：图片每5分钟自动更新</div>
-                                                       <div class="locaing">图片加载较慢，请耐心等待</div>
+                                                       <div class="locaing"><i id="loadanim"></i>图片加载较慢，请耐心等待!</div>
                                                   </div>
                                              </div>
                                         </div>
@@ -403,10 +403,10 @@
           <div class="picture_tip">您如果遇到交通拥堵或者看到交通事故，请拍下来在这里告诉我们，
                我们会第一时间疏导处理。</div>
           <div class="upload_img">
-               <div class="upload1"></div>
-               <div class="upload1"></div>
-               <div class="upload1"></div>
-               <div class="upload1"></div>
+               <div class="upload1" style="margin: 0 5.5%;"></div>
+               <div class="upload1" style="margin: 0 5.5%;"></div>
+               <div class="upload1" style="margin: 0 5.5%;"></div>
+               <!--<div class="upload1"></div>-->
                <input type="hidden" name="proof">
                <input type="hidden" name="uid" value="{$user}">
           </div>
@@ -417,6 +417,7 @@
 </div>
 <script>
      //上传图片
+     var process = false;
      $("#loading-fs").hide();
      wx.ready(function(){
           $('.upload_img>div').click(function(){
@@ -450,10 +451,9 @@
 
 
      });
-
      $('.picture_btn').click(function(){
+          if(process)return false;
           var pict_info = $('.pict_intro').val();
-          var uid = $("[name = 'uid']").val();
           //获取上传图片地址
           proof = [];
           $(".upload_img>div").each(function(){
@@ -464,16 +464,20 @@
           proof = $("[name='proof']").val();
           if(!proof){mui.alert("无锡交警提醒你：请上传照片！");return false;}
           if (pict_info == ''){
-               mui.alert('请您输入说明！');return false;
+               mui.alert('无锡交警提醒你：请您输入说明！');return false;
           }
           $("#loading-fs").show();
-          $.post("{php echo $this->createMobileUrl('roadpost')}",{uid:uid,pict_info:pict_info,proof:proof},function(data){
+          $.post("{php echo $this->createMobileUrl('roadpost')}",{pict_info:pict_info,proof:proof},function(data){
                if(data == 200){
                     window.location.href = "{php echo $this->createMobileUrl('roadsel',array('op'=>'success'))}";
+               }else if(data == 300){
+                    $("#loading-fs").hide();
+                    mui.alert('访问超时，请重新稍后！');
                }else{
                     $("#loading-fs").hide();
                     mui.alert('提交失败！');
                }
+               process = false;
           });
 
      });
