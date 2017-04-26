@@ -2,8 +2,8 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_wfcx/template/resource/');
-//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/template/resource/');
+//define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/addons/vivawjw_wfcx/template/resource/');
+define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/template/resource/');
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
 
@@ -161,14 +161,21 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	//车辆违法查询接口
 	public function doMobileApipostcl(){
 		global $_W,$_GPC;
-		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['cartype']),trim(strtoupper($_GPC['carnum'])),trim($_GPC['enginenum']));
+		//载入日志函数
+		load()->func('logging');
+		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['cartype']),trim(strtoupper($_GPC['carnum'])),trim(strtoupper($_GPC['enginenum'])));
 		echo json_encode($data);
+		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLWFCX','车辆类型'=>$_GPC['cartype'],'车牌号'=>strtoupper($_GPC['carnum']),'发动机号'=>$_GPC['enginenum'],'openId'=>$_W['openid'],'UID'=>$_W['member']['uid']), 'trace',$_GPC['m']);
+
 	}
 	//驾驶人违法查询
 	public function doMobileApipostjsr(){
 		global $_W,$_GPC;
+		//载入日志函数
+		load()->func('logging');
 		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['drnunum']),trim($_GPC['filenum']));
 		echo json_encode($data);
+		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSRWFCX','驾驶证号'=>$_GPC['drnunum'],'档案编号'=>$_GPC['filenum'],'openId'=>$_W['openid'],'UID'=>$_W['member']['uid']), 'trace',$_GPC['m']);
 		//var_dump($data);
 	}
 
@@ -218,7 +225,10 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$uniacid = $_W['uniacid'];
 		$cardata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND uniacid=:uniacid AND status=:status AND bound=:bound',array(':uid'=>$uid,':uniacid'=>$uniacid,':status'=>0,':bound'=>1));
 		$drivingdata = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND uniacid=:uniacid AND status=:status AND bound=:bound',array(':uid'=>$uid,':uniacid'=>$uniacid,':status'=>0,':bound'=>1));
-		if(!$cardata){
+		if($cardata){
+
+        }
+        if(!$cardata){
 			echo 100;exit;
 		}
 		if(!$drivingdata){

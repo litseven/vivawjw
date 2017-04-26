@@ -70,8 +70,8 @@
         <div class="ill_query start"  style="display: block;">
             <div class="query_box clwf"  style="display:block;">
                 <div class="car_style">
-                    <div>车辆类型</div>
-                    <select name="cartype">
+                    <div>号牌种类</div>
+                    <select name="cartype" class="carSelect">
                         {loop $cartype $tiem}
                         <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
                         {/loop}
@@ -83,7 +83,7 @@
                 </div>
                 <div class="car_style">
                     <div>发动机号<br><a class="where1">(在哪里)</a></div>
-                    <input type="text" name="enginenum" placeholder="请输入发动机号后六位" id="car_fa" class="car_where">
+                    <input type="text" name="enginenum" placeholder="请输入发动机号后六位" id="car_fa" class="car_where" >
                     <p class="car_where_show" style="margin-left:30%; line-height: 22px;font-size: 0.8rem;">提醒:输入发动机<span style="color:red;">后六位</span>！</p>
                 </div>
 
@@ -111,6 +111,15 @@
         <script>
             $("#loading-fs").hide();
             $(function(){
+                $('.carSelect').change(function(){
+                    var carS = $(this).val();
+                    console.log(carS);
+                    if(carS == 15){
+                        $('.car_where').attr('placeholder','挂车无需添加发动机号码');
+                    }else{
+                        $('.car_where').attr('placeholder','请输入发动机号后六位');
+                    }
+                });
                 $('.car_where').focus(function(){
                     $('.car_where_show').show();
                     $(this).parent('.car_style').css('padding-bottom','20%');
@@ -130,19 +139,27 @@
                     var cartype = $("[name = 'cartype']").val();
                     var carnum = $("[name = 'carnum']").val();
                     var enginenum = $("[name = 'enginenum']").val();
-                    if (enginenum == ''){
-                        mui.alert('发动机号不能为空！');return false;
+                    if(cartype == 51 || cartype == 52){
+                        reg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Za-z]{1}[A-Za-z]{1}[A-Za-z0-9]{5}[A-Za-z0-9挂学警港澳]{1}$/;
+                    }else if(cartype == 15){
+                        reg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Za-z]{1}[A-Za-z]{1}[A-Za-z0-9]{4}$/;
+                        enginenum = '无';
+                    } else{
+                        reg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Za-z]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
                     }
-                    reg=/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Za-z]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
                     if (!reg.test(carnum)){
                         mui.alert('请正确输入车牌号');return false;
                     }
-                    if(enginenum.length != 6){
+                    if (enginenum == ''){
+                        mui.alert('发动机号不能为空！');return false;
+                    }
+                    if(enginenum.length != 6 && enginenum != '无'){
                         mui.alert('发动机号码输入有误！');return false;
                     }
                     $("#loading-fs").show();
-                    $.post("{php echo $this->createMobileUrl('apipostcl')}",{'cartype':cartype,'carnum':carnum,'enginenum':enginenum},function(data){
-                        //console.log(data);
+                    $.post("{php echo $this->createMobileUrl('apipostcl')}",{cartype:cartype,carnum:carnum,enginenum:enginenum},function(data){
+                        console.log(data);
+                        //data.State =  '';
                         if (data.State == 0){
                             switch (data.ZT) {
                                 case 'A':
@@ -193,9 +210,6 @@
                                 case 'Q':
                                     var a = '逾期未检验';
                                     break;
-                                case '':
-                                    var a = '无无锡违章';
-                                    break;
                                 default:
                                     zt = '正常';
                                     break;
@@ -203,11 +217,12 @@
                             if(a == '正常'){
                                 $("#loading-fs").hide();
                                 mui.alert('恭喜你没有违法记录！');return false;
-                            }else if(a == '无无锡违章'){
-                                $("#loading-fs").hide();
-                                mui.alert('无无锡地区违法记录！');return false;
                             }else{
                                 $("#loading-fs").hide();
+                                if(!data.WFXXList){
+                                    $("#loading-fs").hide();
+                                    mui.alert('恭喜你没有违法记录！');return false;
+                                }
                                 var list = data.WFXXList.WFXX;
                                 if(list.length){
                                     var fkje = 0;
@@ -299,9 +314,11 @@
                                     var show = $(this).attr('data-show');
                                     var wfxh = $(this).attr('data-wfjkxh');
                                     if(show == 0){
+                                        $('#loading-fs').show();
                                         $.post("{php echo $this->createMobileUrl('atest')}",{carnum:carnum,wfxh:wfxh},function(data){
                                             //console.log(data);
                                            // $('.wftp'+wfxh).html("<img src='"+data+"'>").show();
+                                            $('#loading-fs').hide();
                                             $('.wftp'+wfxh).html("<div style='min-height:40px;background:url({S_URL}img/loading.gif) no-repeat center center;background-size: cover;'><img onclick='zoomwz(this);' src='"+data+"'  width='100%' /></div>").show();
 
                                         });
@@ -325,11 +342,20 @@
                                     var wfrksjval = $(this).attr('data-wfrksj');
                                     var wffkjfval = $(this).attr('data-wffkjf');
                                     var wfmoneyval = $(this).attr('data-wfmoney');
+                                    if(wfjkxhtval.substr(0,4) != '3202'){
+                                        mui.alert('该条为外地违法记录，请联系违法发生地交管部门或到车管所一号窗口申诉！');return false;
+                                    }
                                     $.post("{php echo $this->createMobileUrl('appealverify')}",{carnum:carnum},function(data){
                                         if(data == 100){
-                                            if(confirm('您还没有绑定车辆,现在去绑定？')){
+                                            /*if(confirm('您还没有绑定车辆,现在去绑定？')){
                                                 window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
-                                            }
+                                            }*/
+                                            mui.confirm('您还没有绑定车辆,现在去绑定？','提示',['是','否'],function(e){
+                                                if (e.index == 0) {
+                                                    $("#loading-fs").show();
+                                                    window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                                                }
+                                            })
                                         }else{
                                             $('.wfcjjgval').val(wfcjjgval);
                                             $('.wftimeval').val(wftimeval);
@@ -352,7 +378,7 @@
                             }
                         }else{
                             $("#loading-fs").hide();
-                            mui.alert('车牌号或发动机号不正确！');return false;
+                            mui.alert('请检查您车牌类型、车牌号或发动机号','查询失败');return false;
                         }
                         $("#loading-fs").hide();
                     },'JSON');
@@ -430,9 +456,6 @@
                                 case 'U':
                                     zt = '扣留';
                                     break;
-                                case '':
-                                    zt = '无无锡违章';
-                                    break;
                                 default:
                                     zt = '正常';
                                     break;
@@ -440,9 +463,6 @@
                             if(zt == '正常'){
                                 $("#loading-fs").hide();
                                 mui.alert('恭喜你没有违法记录！');return false;
-                            }else if(zt == '无无锡违章'){
-                                $("#loading-fs").hide();
-                                mui.alert('无无锡地区违法记录！');return false;
                             }
                             $('.start').hide();
                             $('.end').show();
@@ -451,6 +471,11 @@
                             $('.query_score_p2').text(data.JSZH);
                             $('.ljjf').text(data.LJJF);
                             $('.zt').text(zt);
+                            if(!data.WFWJKList){
+                                $("#loading-fs").hide();
+                                mui.alert('恭喜你没有违法记录！');return false;
+                            }
+
                             var list = data.WFWJKList.WFWJK;
                             for (var j = 0; j < list.length; j++){
                                 var CLJGMC = list[j].CLJGMC;//采集机构
@@ -539,17 +564,34 @@
 <script>
     $(function(){
         $('.wfcl').click(function(){
+            var cphm = $('.cphm').html();
+            cphm = cphm.substr(0,2);
+            if(cphm != '苏B'){
+                mui.alert('对不起，本平台只提供无锡当地苏B车辆的违法在线处理服务。');return false;
+            }
             $.post("{php echo $this->createMobileUrl('wzfkapi')}",function(data){
                 if (data == 100){
                     //mui.alert('你还没有绑定车辆');
-                    if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
-                        window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
-                    }
+                    /*if(confirm('你还没有绑定车辆。现在就去绑定车辆')){
+                            window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                    }*/
+                    mui.confirm('您还没有绑定车辆,现在去绑定？','提示',['是','否'],function(e){
+                        if (e.index == 0) {
+                            $("#loading-fs").show();
+                            window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                        }
+                    })
                 }else if(data == 300){
                     //mui.alert('您还没有绑定驾驶证');
-                    if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
+                    /*if(confirm('你还没有绑定驾驶证。现在就去绑定驾驶证')){
                         window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_driving')}";
-                    }
+                    }*/
+                    mui.confirm('您还没有绑定驾驶证,现在去绑定？','提示',['是','否'],function(e){
+                        if (e.index == 0) {
+                            $("#loading-fs").show();
+                            window.location.href = "{php echo $this->createMobileUrldeM('vivawjw_grzx','user_car')}";
+                        }
+                    })
                 }else{
                     $('.end').hide();
                     $('.chaxun').hide();
