@@ -570,68 +570,73 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				//日志
 				logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSZQXBD','openID'=>$_W['openid'],'地区(distinction)'=>$typedriving['distinction'],'驾驶证号'=>$typedriving['wx_driv_num'],'档案编号'=>$typedriving['wx_driv_record']), 'trace',$_GPC['m'].'_success_driving_'.date('Ymd',time()));
 				if ($wxwfdata) {
-					switch ($wxwfdata['ZT']) {
-						case 'A':
-							$zt = '正常';
-							break;
-						case 'B':
-							$zt = '超分';
-							break;
-						case 'C':
-							$zt = '转出';
-							break;
-						case 'D':
-							$zt = '暂扣';
-							break;
-						case 'E':
-							$zt = '撤销';
-							break;
-						case 'F':
-							$zt = '吊销';
-							break;
-						case 'G':
-							$zt = '注销';
-							break;
-						case 'H':
-							$zt = '违法未处理';
-							break;
-						case 'I':
-							$zt = '事故未处理';
-							break;
-						case 'J':
-							$zt = '停止使用';
-							break;
-						case 'K':
-							$zt = '扣押';
-							break;
-						case 'L':
-							$zt = '锁定';
-							break;
-						case 'M':
-							$zt = '逾期未换证';
-							break;
-						case 'N':
-							$zt = '延期换证';
-							break;
-						case 'P':
-							$zt = '延期体检';
-							break;
-						case 'R':
-							$zt = '注销可恢复';
-							break;
-						case 'S':
-							$zt = '逾期未审验';
-							break;
-						case 'T':
-							$zt = '延期审验';
-							break;
-						case 'U':
-							$zt = '扣留';
-							break;
-						default:
-							$zt = '正常';
-							break;
+					$wxwfdata['ZT'] = str_split($wxwfdata['ZT'], 1);
+					foreach ($wxwfdata['ZT'] as $k => $v) {
+						switch ($v) {
+							case 'A':
+								$zt = '正常';
+								break;
+							case 'B':
+								$zt = '超分';
+								break;
+							case 'C':
+								$zt = '转出';
+								break;
+							case 'D':
+								$zt = '暂扣';
+								break;
+							case 'E':
+								$zt = '撤销';
+								break;
+							case 'F':
+								$zt = '吊销';
+								break;
+							case 'G':
+								$zt = '注销';
+								break;
+							case 'H':
+								$zt = '违法未处理';
+								break;
+							case 'I':
+								$zt = '事故未处理';
+								break;
+							case 'J':
+								$zt = '停止使用';
+								break;
+							case 'K':
+								$zt = '扣押';
+								break;
+							case 'L':
+								$zt = '锁定';
+								break;
+							case 'M':
+								$zt = '逾期未换证';
+								break;
+							case 'N':
+								$zt = '延期换证';
+								break;
+							case 'P':
+								$zt = '延期体检';
+								break;
+							case 'R':
+								$zt = '注销可恢复';
+								break;
+							case 'S':
+								$zt = '逾期未审验';
+								break;
+							case 'T':
+								$zt = '延期审验';
+								break;
+							case 'U':
+								$zt = '扣留';
+								break;
+							default:
+								$zt = '正常';
+								break;
+						}
+						$wxwfdata['ZT'][$k] = $zt;
 					}
+					$wxwfdata['ZT'] = implode('，', $wxwfdata['ZT']);
 				}
 			}
 		}
