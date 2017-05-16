@@ -2,7 +2,7 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', '/addons/'.$_GET['m'].'/template/resource/');
 class Vivanjyh_jryyModuleSite extends WeModuleSite
 {
 	//入口
@@ -57,11 +57,9 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 			echo 200;
 			$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
 			$postarray = array(
-				"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
+				//"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
 				"mobile" => $_W['current_module']['config']['mobile'],
-				//"mobile"=>"15651635323",
-				//"mobile"=>"17312230681",
-				//"mobile"=>"18862801582,13771471058",
+				
 				"text"=>"【维瓦互动】您收到一条来自“".$_GPC['title']."”的预约信息，姓名:".$data['name']."电话:".$data['phone']."留言:".$data['content']."，请尽快回复处理回T退订"
 			);
 			$sr = ihttp_post($smsUri,$postarray);
