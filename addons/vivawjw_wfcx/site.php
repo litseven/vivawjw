@@ -7,6 +7,7 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/temp
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
 
+
 	public function doMobileTest(){
 		$test = get_headers('http://wxjjtest.scienmedia.com/pros/attachment/images/1/wfimg/2017/03/3202009012476793.jpg');
 		$tests = explode(':',$test['4']);

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui,user-scalable=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>办理须知</title>
+    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js" ></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <style>
+        * {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+        body,h1,h2,h3,h4,input,ul,li,dl,dt,dd,p,button,a{margin:0;padding:0; /*list-style:none;*/font-weight:normal;}
+        body{height:100%; font-size: 16px; color:#333333; background-color:#f5f5f5;}
+        html{height:100%;}
+        img{display:block;}
+        input:focus::-webkit-input-placeholder{color:transparent;}
+        input,select{outline: none;border:none;-webkit-tap-highlight-color: rgba(0,0,0,0);  background-color: transparent;}
+        a{text-decoration: none;color:#333333;}
+        .attend{width:100%; height:100%;}
+        .attend_tip{width:100%; background-color:white; font-size:0.8rem; padding:4%;}
+        .attend_tip p{margin-top:2%;line-height: 18px;}
+        .attend_tip p:nth-child(1){color:#2ecc71; margin-top:0;}
+        .write_info_p{font-size:0.8rem; color:#a0a0a0; width:92%; margin:3% auto;}
+        .bind_style{width:100%; background-color:white;}
+        .bind_style_box{border-bottom: solid 1px #d2d2d2;}
+        .bind_style_box ,.lisence_box>div{overflow: hidden;padding-top:3%;padding-bottom:3%;}
+        .bind_style_box p,.lisence_box>div p{float: left; width:30%; padding-left:4%;}
+        .bind_style_box select,.lisence_box>div input{border:none; float: right; width:50%;display: block; margin-right: 4%;}
+        .number_box{width:100%;}
+        .lisence_box>div{border-bottom: solid 1px #d2d2d2;}
+        .file_box>div{overflow: hidden;padding-top:3%;padding-bottom:3%;border-bottom: solid 1px #d2d2d2;}
+        .file_box>div>p{float: left;width:30%;padding-left:4%;}
+        .file_box>div>select,.file_box>div>input,.file_box>div>div{float: right;width:50%;margin-right: 4%;}
+        .file_box>div>div span{font-size:0.9rem; color:#9d9d9d;}
+        .file_box>div>div input{width:70%;border:none;}
+        .file_box>div>select{width:51%;}
+        .bind_style_box select{width:51%;}
+        .submit{ margin:20% auto 10%; color:white; text-align: center; display: block; letter-spacing:2px;background-color: #2ECC71; width:40%; padding-top:2.4%; padding-bottom: 2.4%; border-radius: 8px;}
+        .upload_div{width:100%;;background-color:white;padding:0 0 10px;border-bottom: 1px solid #d2d2d2;}
+        .upload_img {width: 95%;margin: 5% auto;overflow: hidden;}
+        .upload1 {width: 22%;float: left;margin: 0 1.5%;height: 66px;line-height: 61px;border: solid 1px #dddddd;}
+        .upload_img>div{background: url({S_URL}img/plus.png) no-repeat center;background-size: cover;}
+        .text{width:100%;}
+        .text textarea{width:100%;border:none;border-bottom:1px solid #d2d2d2;padding:10px 15px;font-size: 0.9rem;height:100px;resize: none;}
+        .text p {padding:5px 0 5px 15px;}
+        .upload_div p{padding:5px 0 5px 15px;background-color: #f5f5f5}
+    </style>
+</head>
+<body>
+{template 'wxsdk'}
+<div class="attend">
+    <div class="attend_tip">
+        <p>若您绑定出现问题请先阅读以下提示：</p>
+        <p>1、若用户从“<span style="font-size: .9rem;color:red;font-weight: bold">无锡公安</span>”公众号内跳转至“<span style="font-size: .9rem;color:red;font-weight: bold">无锡交警</span>”，请先点击关注“<a
+                href="javascript:;" style="font-size: .9rem;color:#2ecc71;font-weight: bold;text-decoration:underline;" class="clickImg">无锡交警</a>”公众号，再进行绑定操作。</p>
+        <p>2、外地车辆和驾驶证需要绑定的，请先点击选择“绑定外地车辆”或“绑定外地驾驶证”。</p>
+        <p>3、外地驾驶证绑定时，需输入完整的档案编号。</p>
+        <p>4、绑定车辆时，请先选择车辆类型。</p>
+        <p style="color: red;">5、同一辆车只能绑定一个微信号。</p>
+    </div>
+    <p class="write_info_p">看完上述原因，若您依旧绑定失败，请填写以下信息，我们将核查原因，您的信息我们将保密，请放心。</p>
+
+    <div class="bind_style">
+        <div class="style_box" >
+            <div class="bind_style_box">
+                <p>绑定类型</p>
+                <select id="mySelect">
+                    <option value="q_7">驾驶证绑定</option>
+                    <option value="q_8">车辆绑定</option>
+                </select>
+            </div>
+            <div class="number_box">
+                <div class="lisence_box" id="q_7">
+                    <div>
+                        <p>驾驶证号</p>
+                        <input type="text" placeholder="请输入驾驶证号" name="bound_driver">
+                    </div>
+                    <div>
+                        <p>档案编号</p>
+                        <input type="text" placeholder="请输入完整的档案编号" name="bound_drnum">
+                    </div>
+                </div>
+                <div class="file_box" style="display: none;" id="q_8">
+                    <div>
+                        <p>车牌类型</p>
+                        <select  style="display: block;" name="bound_cartype">
+                            {loop $cartype $tiem}
+                            <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                    <div>
+                        <p>车牌号码</p>
+                        <div>
+                            <input type="text" value="苏B" placeholder="苏B" name="bound_car">
+                        </div>
+                    </div>
+                    <div>
+                        <p>发动机号</p>
+                        <input type="text" placeholder="请输入发动机号后六位" name="bound_carnum">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="upload_div">
+        <p>请上传绑定失败图片：</p>
+        <div class="upload_img">
+            <div id="upload1" class="upload1" style="margin: 0 5.5%;"></div>
+            <div id="upload2" class="upload1" style="margin: 0 5.5%;"></div>
+            <div id="upload3" class="upload1" style="margin: 0 5.5%;"></div>
+            <input type="hidden" name="proof">
+        </div>
+    </div>
+    <div class="text">
+        <p>绑定失败原因：</p>
+        <textarea name="reason" placeholder="请输入绑定失败原因(如遇帐号异常请留下您的联系方式，给您带来不便敬请谅解)"></textarea>
+    </div>
+    <a class="submit">提交</a>
+</div>
+<script>
+    $('#mySelect').change(function(){
+        var x = document.getElementById("mySelect");
+        var y = x.options[x.selectedIndex].value;
+        $('.lisence_box,.file_box').hide();
+        $('#'+y).show();
+    });
+    var process = false;
+    $(function(){
+        //上传图片
+        $('.upload_img>div').click(function(){
+            var _this = $(this);
+            wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                success: function (res) {
+                    var localIds = res.localIds;
+                    //console.log(localIds[0]);
+                    wx.uploadImage({
+                        localId: localIds[0],
+                        isShowProgressTips: 1,
+                        success: function (res) {
+                            var serverId = res.serverId;
+//                                   console.log(res);
+//                                   console.log(localIds[0]);
+                            _this.attr('data-id',serverId);
+                            _this.css({"background-image":"url("+localIds[0]+")"});
+                            if(window.__wxjs_is_wkwebview){
+                                wx.getLocalImgData({
+                                    localId:localIds[0],
+                                    success:function(res){
+                                        _this.css({"background-image":"url("+res.localData+")"});
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $('.submit').click(function(){
+            var type = $('#mySelect').val();
+            //获取上传图片地址
+            proof = [];
+            $(".upload_img>div").each(function(){
+                sid = $(this).data('id');
+                if(sid)proof.push(sid);
+            });
+            $("[name='proof']").val(proof.join(','));
+            proof = $("[name='proof']").val();
+            if(!proof){mui.alert("请上传照片！");return false;}
+            var reason = $("[name = 'reason']").val();
+            if(!reason){mui.alert('请填写绑定失败原因，以便我们更好的帮您解决问题!');return false;}
+
+            if(type == 'q_7'){
+                var bound_driver = $("[name = 'bound_driver']").val();
+                var bound_drnum = $("[name = 'bound_drnum']").val();
+                reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                if(bound_driver == ''){
+                    mui.alert('驾驶证号不能为空！');return false;
+                }
+                if (!reg.test(bound_driver)){
+                    mui.alert('驾驶证号不正确！');return false;
+                }
+                var regs = /[0-9a-zA-Z]/;
+                if (!regs.test(bound_drnum)){
+                    mui.alert('请输入正确档案编号！');return false;
+                }
+
+                if(process)return false;
+                process = true;
+                $.post("{php echo $this->createMobileUrl('boundInfo')}",{bound_driver:bound_driver,bound_drnum:bound_drnum,type:type,proof:proof,reason:reason},function(data){
+                    //console.log(data);
+                    if(data == 200){
+                        mui.alert('您的信息已经提交成功，我们会尽快为您解决，给您带来的不便尽请谅解！',function () {
+                            window.location = window.location;
+                        });return false;
+                    }else if(data == 300){
+                        mui.alert('您的信息我们正在受理，请不要重复提交！',function () {
+                            window.location = window.location;
+                        });return false;
+                    }else{
+                        mui.alert('提交失败！',function () {
+                            window.location = window.location;
+                        });return false;
+                    }
+                });
+                process = false;
+
+            }else if(type == 'q_8'){
+                var bound_cartype = $("[name = 'bound_cartype']").val();
+                var bound_car = $("[name = 'bound_car']").val();
+                var bound_carnum = $("[name = 'bound_carnum']").val();
+                reg=/^[京津沪渝冀豫云辽黑湘皖鲁苏新浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领]{1}[A-Za-z]{1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警港澳]{1}$/;
+                if (!reg.test(bound_car)){
+                    mui.alert('请正确输入车牌号');return false;
+                }
+                var regs = /[0-9a-zA-Z]/;
+                if (!regs.test(bound_carnum)){
+                    mui.alert('请输入正确发动机号！');return false;
+                }
+                if(process)return false;
+                process = true;
+                $.post("{php echo $this->createMobileUrl('boundInfo')}",{bound_cartype:bound_cartype,bound_car:bound_car,bound_carnum:bound_carnum,type:type,proof:proof,reason:reason},function(data){
+                    //console.log(data);
+                    if(data == 200){
+                        mui.alert('您的信息已经提交成功，我们会尽快为您解决，给您带来的不便尽请谅解！',function () {
+                            window.location = window.location;
+                        });return false;
+                    }else if(data == 300){
+                        mui.alert('您的信息我们正在受理，请不要重复提交！',function () {
+                            window.location = window.location;
+                        });return false;
+                    }else{
+                        mui.alert('提交失败！',function () {
+                            window.location = window.location;
+                        });return false;
+                    }
+                });
+                process = false;
+            }
+        });
+
+        $('.clickImg').click(function(){
+            mui.alert('<img src="{S_URL}img/ewm.jpg" width="100%" height="100%">','长按关注');
+        });
+    });
+
+</script>
+</body>
+</html>

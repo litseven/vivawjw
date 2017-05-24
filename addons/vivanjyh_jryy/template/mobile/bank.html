@@ -8,6 +8,7 @@
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <title>{$title}</title>
+
 </head>
 <body>
 {if $data['status'] == 1}
@@ -55,6 +56,16 @@
                             <input type="text" placeholder="请输入您的电话" name="phone">
                         </div>
                     </div>
+                    <div class="form1 form2">
+                        <div class="form1_left">
+                            <div>必填</div>
+                            <div></div>
+                        </div>
+                        <div class="form2_right" style="width:74%; display: flex; align-items: center;">
+                            <input type="text" name="code" placeholder="请输入验证码" style="width:48%;height: 36px;padding-left: 3%; border-radius: 10px;border: solid 1px #ccc;">
+                            <button class="subcode"  style="background-color:#e31a22;width:30%; border-radius: 5px; color:white; border: 0;font-size:0.7rem;height: 32px;line-height: 32px;text-align: center;margin-left: 2%;">获取验证码</button>
+                        </div>
+                    </div>
                     <div class="form1 form4">
                         <div class="form1_left">
                             <div>必填</div>
@@ -70,7 +81,7 @@
                     </div>
                     <div class="form1 form3">
                         <div class="form1_left">
-                            <div>选填</div>
+                            <div>必填</div>
                             <div></div>
                         </div>
                         <div class="form1_right">
@@ -96,12 +107,46 @@ Access Denied
 <script>
     var process = false;
     $(function(){
-        $('.sub').click(function(){
-            $("#loading-fs").show();
+        //验证码
+        $('.subcode').click(function(){
+            _this = $(this);
+            var phone = $("[name = 'phone']").val();
+            var pattern = /^1[34578]\d{9}$/;
+            if (!pattern.test(phone)){
+                alert('请输入有效手机号码！');return false;
+            }
             if(process)return false;
+            process = true;
+            $.post("{php echo $this->createMobileUrl('code')}",{phone:phone},function(data){
+                if(data.status){
+                    _this.attr('disabled', 'disabled');
+                    x = 60;
+                    var ctimes = setInterval(function() {
+                        x--;
+                        if (x == 0) {
+                            _this.text('获取验证码');
+                            _this.removeAttr('disabled', 'disabled');
+                            _this.css('background-color','#e31a22');
+                            clearInterval(ctimes);
+                        } else {
+                            _this.css('background-color','#666');
+                            _this.text('( '+ x + ' )');
+                        }
+                    }, 1000);
+                }else{
+                    _this.removeAttr('disabled', 'disabled');
+                    alert(data.info);
+                }
+
+            },'JSON');
+            process = false;
+        });
+        //提交
+        $('.sub').click(function(){
             var name = $("[name = 'name']").val();
             var title = $("[name = 'title']").val();
             var phone = $("[name = 'phone']").val();
+            var code = $("[name = 'code']").val();
             var content = $("[name = 'content']").val();
             var zhihang = $(".zhihang option:selected").val();
             if(name == ''){
@@ -109,9 +154,18 @@ Access Denied
             }
             var pattern = /^1[34578]\d{9}$/;
             if (!pattern.test(phone)){
-                alert('手机号码有误！');return false;
+                alert('请输入有效手机号码！');return false;
             }
-            $.post("{php echo $this->createMobileUrl('messagepost')}",{'name':name,'title':title,'phone':phone,'content':content,'zhihang':zhihang},function(data){
+            if(!code){
+                alert('请输入正确验证码！');return false;
+            }
+            if(content == ''){
+                alert('请留言！');return false;
+            }
+            $("#loading-fs").show();
+            if(process)return false;
+            process = true;
+            $.post("{php echo $this->createMobileUrl('messagepost')}",{'name':name,'title':title,'phone':phone,'code':code,'content':content,'zhihang':zhihang},function(data){
 
               /*  data = JSON.parse(data);
                 console.log(data);*/
@@ -119,7 +173,11 @@ Access Denied
                     $("#loading-fs").hide();
                     //alert('亲，您已成功提交信息，我们会尽快联系您~注：理财产品额度均需通过网点理财经理预约，预约信息将告知网点理财经理尽快联系您');
                     $('.tankuang').show();
-                }else if(data == 300){
+                }else if(data == 100){
+                    $("#loading-fs").hide();
+                    alert('验证码有误！');
+                }
+                else if(data == 300){
                     $("#loading-fs").hide();
                     alert('请先关注公众号并在微信中打开！');
                 }

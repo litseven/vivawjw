@@ -28,7 +28,7 @@
                         <td style="vertical-align:middle;text-align: center">{$item['name']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['article']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['zhihang']}</td>
-                        <td style="vertical-align:middle;text-align: center">{$item['phone']}</td>
+                        <td style="vertical-align:middle;text-align: center" title="{$item['phone']}({php echo $item['isp'] ? $item['isp'] : '暂不支持该号码'})">{$item['phone']}({php echo $item['isp'] ? $item['isp'] : '暂不支持该号码'})</td>
                         <td style="vertical-align:middle;text-align: center" title="{$item['content']}">{$item['content']}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
                         <td id="update_{$item['id']}" style="text-align: center">

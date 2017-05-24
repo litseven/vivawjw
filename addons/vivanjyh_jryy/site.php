@@ -2,9 +2,25 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 defined('IN_IA') or exit('Access Denied');
-define('S_URL', '/addons/'.$_GET['m'].'/template/resource/');
+define('S_URL', '/addons/vivanjyh_jryy/template/resource/');
 class Vivanjyh_jryyModuleSite extends WeModuleSite
 {
+
+	//借权获取粉丝信息
+	protected $profile;
+	//借权获取用户信息（uid）
+	protected $member;
+	public function __construct()
+	{
+		global $_W, $_GPC;
+		if (!defined('IN_SYS')) {
+			load()->func('addons');
+			$this->profile = getFansInfo($_W['openid']);
+			$this->member = getMember($_W['openid']);
+		}
+	}
+	//$this->member['uid'];
+
 	//入口
 	public function doMobileBank(){
 		global $_W,$_GPC;
@@ -40,8 +56,10 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 	public function doMobileMessagepost(){
 		global $_W,$_GPC;
 		load()->func('communication');
-		$data['uid'] = 2;
-		//$data['uid'] = $_W['member']['uid'];
+		load()->model('utility');
+		$_W['current_module']['config']['jifen'] = $_W['current_module']['config']['jifen'] ? $_W['current_module']['config']['jifen'] : 25;
+		//$data['uid'] = 2;
+		$data['uid'] = $this->member['uid'];
 		if(!$data['uid']){
 			echo 300;exit;
 		}
@@ -52,18 +70,57 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$data['article'] = trim($_GPC['title']);
 		$data['zhihang'] = trim($_GPC['zhihang']);
 		$data['time'] = time();
+//		var_dump(code_verify($_W['uniacid'], trim($_GPC['phone']), trim($_GPC['code'])));exit;
+		if (!code_verify($_W['uniacid'], trim($_GPC['phone']), trim($_GPC['code'])) && trim($_GPC['code'])) {
+			echo 100;exit;
+		}
+
 		$res = pdo_insert('viva_jryy_message',$data);
 		if($res){
+			$reditData = pdo_fetchall('SELECT * FROM '.tablename('mc_credits_record').' WHERE remark = :remark AND uid = :uid',array(':uid'=>$this->member['uid'],':remark'=>'南京银行北京分行预约成功增加积分'. $data['phone']));
+			if(!$reditData){
+				mc_credit_update($this->member['uid'], 'credit1', $_W['current_module']['config']['jifen'], array($this->member['uid'], '南京银行北京分行预约成功增加积分' . $data['phone']));
+			}
 			echo 200;
 			$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
 			$postarray = array(
-				//"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
+				"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a	3",
 				"mobile" => $_W['current_module']['config']['mobile'],
-				
 				"text"=>"【维瓦互动】您收到一条来自“".$_GPC['title']."”的预约信息，姓名:".$data['name']."电话:".$data['phone']."留言:".$data['content']."，请尽快回复处理回T退订"
 			);
 			$sr = ihttp_post($smsUri,$postarray);
 			//exit(json_encode($sr));
+		}
+	}
+
+	//验证码
+	public function doMobileCode(){
+		global $_W,$_GPC;
+		load()->func('communication');
+		$phone = trim($_GPC['phone']);
+		$code = '';
+		for ($i=0;$i<4;$i++){
+			$code .= mt_rand(0, 9);
+		}
+		$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
+		$postarray = array(
+			"apikey"=>"2cdb5bfbe05e7eff45fb33e74c8a7e74",
+			"mobile" => $phone,
+			"text" =>"【维瓦互动】您好，本次确认码为 " . $code
+		);
+		$sr = ihttp_post($smsUri,$postarray);
+		$sr['content'] = json_decode($sr['content']);
+		if ($sr['content']->data[0]->msg == '发送成功') {
+			$data = array(
+				'uniacid' => trim($_W['uniacid']),
+				'receiver' => trim($_GPC['phone']),
+				'verifycode' => trim($code),
+				'createtime' => time()
+			);
+			pdo_insert('uni_verifycode', $data);
+			exit(json_encode(array('status' => 1, 'info' => '发送成功')));
+		} else {
+			exit(json_encode(array('status' => 0, 'info' => '发送失败')));
 		}
 	}
 
@@ -76,7 +133,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		$pindex =max(1, intval($_GPC['page']));
 		$psize =10;
 		$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('viva_jryy').' WHERE uniacid = :uniacid',array(':uniacid' => $_W['uniacid']));
-		$list = pdo_fetchall('SELECT * FROM '.tablename('viva_jryy').' WHERE uniacid = :uniacid  ORDER BY id asc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' => $_W['uniacid']));
+		$list = pdo_fetchall('SELECT * FROM '.tablename('viva_jryy').' WHERE uniacid = :uniacid  ORDER BY id DESC LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' => $_W['uniacid']));
 		$pager =pagination($total, $pindex, $psize);
 		//编辑
 		if($op == 'view'){
@@ -130,11 +187,21 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 		global $_W,$_GPC;
 		//$op =trim($_GPC['op'])? trim($_GPC['op']): 'list';
 		//获取页码
+		load()->func('communication');
 		$pindex =max(1, intval($_GPC['page']));
 		$psize =10;
 		$total = pdo_fetchcolumn('SELECT COUNT(*) FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid',array(':uniacid' => $_W['uniacid']));
-		$list = pdo_fetchall('SELECT * FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid  ORDER BY id asc LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' => $_W['uniacid']));
+		$list = pdo_fetchall('SELECT * FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid  ORDER BY id DESC LIMIT '.($pindex - 1) * $psize.','.$psize,array(':uniacid' => $_W['uniacid']));
 		$pager =pagination($total, $pindex, $psize);
+		foreach ($list as $k => $v){
+			$url = "https://www.baifubao.com/callback?cmd=1059&callback=phone&phone=" . $v['phone'];
+			$info=ihttp_post($url);
+			$json = json_decode(str_replace('/*fgg_again*/phone(', '', substr($info['content'], 0, strlen($info['content']) - 1 )));
+			$list[$k]['isp'] = $json->data->area_operator;
+//			echo '<pre>';
+//			print_r(json_decode(str_replace('/*fgg_again*/phone(', '', substr($info['content'], 0, strlen($info['content']) - 1 ))));
+		}
+
 		/*if($op == 'view'){
 			$id = $_GPC['id'];
 			$dataone = pdo_fetch('SELECT * FROM '.tablename('viva_jryy_message').' WHERE uniacid = :uniacid AND id = :id',array(':uniacid'=>$_W['uniacid'],':id'=>$_GPC['id']));
@@ -214,4 +281,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 	}
 
 }
-?> 
+?>
+
+
+

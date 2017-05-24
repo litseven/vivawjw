@@ -75,7 +75,8 @@
             var dwbh = $(this).attr("data-dwbh");
             var _this = $(this);
             $.post("{php echo $this->createMobileUrl('seltp')}",{'dwbh':dwbh},function(data){
-                $('.img'+dwbh).attr('src','data:image/png;base64,'+data);
+
+                $('.img'+dwbh).attr('src',data);
                 _this.find('.locaing').hide();
                 //console.log(data);
             });

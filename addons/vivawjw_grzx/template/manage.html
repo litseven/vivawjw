@@ -715,17 +715,21 @@
                     <thead class="navbar-inner">
                     <tr>
                         <th style="width:5%;text-align: center">序号</th>
-                        <th style="width:30%;text-align: center">反馈类型</th>
+                        <th style="width:5%;text-align: center">UID</th>
+                        <th style="width:30%;text-align: center">openID</th>
+                        <th style="width:10%;text-align: center">反馈类型</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <th style="width:15%;text-align: center">状态</th>
+                        <th style="width:10%;text-align: center">状态</th>
                         <th style="width:15%;text-align: center">受理时间</th>
-                        <th style="width:20%;text-align: center">操作</th>
+                        <th style="width:15%;text-align: center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     {loop $feeddata $item}
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['uid']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['openid']}</td>
                         <td style="vertical-align:middle;text-align: center">{if $item['state'] == 1}车辆{else}驾驶证{/if}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
                         <td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">未受理</span>{elseif $item['status'] == 1} <span style="color:green;">通过</span>{else} <span style="color:red;">驳回</span>{/if}</td>
@@ -762,6 +766,11 @@
 {/if}
 <!--绑定反馈信息-->
 {if $op == 'bound_info'}
+<style>
+    .thumbscien img{width:18%;margin-right:2%}
+    .thumbscien img:last-child{margin:0}
+    input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder { color:transparent; }
+</style>
 <div class="panel panel-default">
     <div class="panel-heading">产品反馈信息</div>
     <div class="panel-body">
@@ -816,6 +825,26 @@
                 <p class="form-control-static">{php echo date('Y-m-d H:i:s',$feedone['time'])}</p>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定失败原因:</label>
+            <div class="col-sm-9 col-xs-9 col-md-9">
+                <p class="form-control-static">{$feedone['reason']}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">资料预览</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label ">照片</label>
+            <div class="col-sm-9 col-xs-9 col-md-9 thumbscien">
+                {loop $v['imgdir'] $foto}
+                <a href="{php echo tomedia($foto);}" data-lightbox="roadtrip"><img src="{php echo tomedia($foto);}" ></a>
+                {/loop}
+            </div>
+        </div>
     </div>
 </div>
 <div class="panel panel-default">
@@ -840,7 +869,7 @@
             </div>
             {else}
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{if $feedone['status']==1}通过{else}驳回{/if}</p>
+                <p class="form-control-static">{if $feedone['status']==1}通过{else}{$feedone['turndown']}{/if}</p>
             </div>
             {/if}
         </div>

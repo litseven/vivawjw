@@ -14,41 +14,46 @@
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">顶部标题</label>
 					<div class="col-sm-9 col-xs-12">
-						<input type="text" class="form-control" name="title" value="{$settings['title']}" placeholder="">
+						<input type="text" class="form-control" name="data[title]" value="{$settings['title']}" placeholder="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">底部版权</label>
 					<div class="col-sm-9 col-xs-12">
-						<input type="text" class="form-control" name="footer" value="{$settings['footer']}" placeholder="">
+						<input type="text" class="form-control" name="data[footer]" value="{$settings['footer']}" placeholder="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">标题图标</label>
 					<div class="col-sm-9 col-xs-12">
-						{php echo tpl_form_field_image('logoimg', $value = $settings['logoimg'], $default = '', $options = array())}
+						{php echo tpl_form_field_image('data[logoimg]', $value = $settings['logoimg'], $default = '', $options = array())}
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">顶部背景图</label>
 					<div class="col-sm-9 col-xs-12">
-						{php echo tpl_form_field_image('bgimg', $value = $settings['bgimg'], $default = '', $options = array())}
+						{php echo tpl_form_field_image('data[bgimg]', $value = $settings['bgimg'], $default = '', $options = array())}
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">发送手机号</label>
 					<div class="col-sm-9 col-xs-12">
-						<input type="text" class="form-control" name="mobile" value="{$settings['mobile']}" placeholder="">
+						<input type="text" class="form-control" name="data[mobile]" value="{$settings['mobile']}" placeholder="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">添加支行</label>
 					<div class="col-sm-9 col-xs-12">
-						<textarea name="zhihang" class="form-control">{$settings['zhihang']}</textarea>
+						<textarea name="data[zhihang]" class="form-control">{$settings['zhihang']}</textarea>
 						<p style="color:red;">添加支行请用 “,” 隔开</p>
 					</div>
 				</div>
-
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">预约赠送记分数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input name="data[jifen]" class="form-control" value="{$settings['jifen']}" placeholder="默认初始赠送积分 25 积分"/>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">

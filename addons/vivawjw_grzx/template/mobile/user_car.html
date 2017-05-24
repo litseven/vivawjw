@@ -16,6 +16,13 @@
 <body>
 {template 'wxsdk'}
 {if $op == 'wx_car'}
+<script>
+   /* wx.ready(function(){
+        mui.alert(' 业务调整中，即将恢复，给您带来不便敬请谅解！', function() {
+            wx.closeWindow();
+        });
+    });*/
+</script>
 <div class="content wx_car">
     <div class="content_box">
         <div class="bind_car">添加绑定（无锡）车辆</div>
@@ -60,6 +67,12 @@
             var wx_type = $("[name = 'wx_type']").val();
             var wx_car_num = $("[name = 'wx_car_num']").val();
             var wx_car_engine = $("[name = 'wx_car_engine']").val();
+
+            if(wx_car_num.substr(0,2) != '苏B'){
+                mui.alert('对不起，您是非无锡车牌，请选择外地绑定！');return false;
+            }
+
+
             reg=/^苏B[0-9A-Za-z]{5}$/;
             if (!reg.test(wx_car_num)){
                 mui.alert('请正确输入车牌号');return false;
@@ -70,17 +83,19 @@
             $("#loading-fs").show();
             $.post("{php echo $this->createMobileUrl('user_car',array('op'=>'wx_car_post'))}",{wx_type:wx_type,wx_car_num:wx_car_num,wx_car_engine:wx_car_engine},function(data){
                 $("#loading-fs").hide();
+                //mui.alert(data.data);return false;
                 if(data == 100){
-                    mui.alert('最多只能绑定两辆车',function(){
-                        window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'success_car'))}";
-                    });
-                    return false;
+                    //alert("<div class='car_cover'><div class='cover_box'><p>最多只能绑定两辆车</p><a>确定</a></div></div>");return false;
+                    mui.alert('最多只能绑定两辆车');return false;
                 }
                 if(data == 400){
                     mui.alert('车辆已被绑定！');return false;
                 }
                 if(data == 300){
                     mui.alert('车辆绑定失败！');return false;
+                }
+                if(data == 700){
+                    mui.alert('帐号异常，请在产品反馈中联系管理员，给您带来不便尽请谅解！');return false
                 }
                 $('.wx_car').hide();
                 $('.sub_car_wuxi').show();
@@ -92,6 +107,13 @@
 
 {/if}
 {if $op == 'wd_car'}
+<script>
+    /*wx.ready(function(){
+        mui.alert(' 业务调整中，即将恢复，给您带来不便敬请谅解！', function() {
+            wx.closeWindow();
+        });
+    });*/
+</script>
 <div class="content wd_car">
     <div class="content_box">
         <div class="bind_car">添加绑定（外地）车辆</div>
@@ -148,16 +170,16 @@
                 $("#loading-fs").hide();
                 //console.log(data);return false;
                 if(data == 100){
-                    mui.alert('最多只能绑定两辆车',function(){
-                        window.location.href = "{php echo $this->createMobileUrl('user_car',array('op'=>'success_car'))}";
-                    });
-                    return false;
+                    mui.alert('最多只能绑定两辆车');return false;
                 }
                 if(data == 400){
                     mui.alert('车辆已被绑定！');return false;
                 }
                 if (data == 300){
                     mui.alert('绑定失败');return false;
+                }
+                if(data == 700){
+                    mui.alert('帐号异常，请在产品反馈中联系管理员，给您带来不便尽请谅解！');return false
                 }
                 $('.wd_car').hide();
                 $('.sub_car').show();
@@ -197,6 +219,7 @@
     <div class="acc_person_car1">
         <!-- <p>绑定车辆</p> -->
         <p>{$item['wd_car_num']}</p>
+        <!-- class = 'ckwfxx' -->
         {if $item['status'] == 0}<p class="ckwfxx" data-type="{$item['wd_type']}" data-engine="{$item['wd_car_engine']}" data-num="{$item['wd_car_num']}">点击查看在无锡的违法信息</p>{/if}
         <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
             <i>&#xe67f;</i>
@@ -213,6 +236,7 @@
 <div class="account_mana">
     <div class="acc_person_car1" >
         <p>{$item['wx_car_num']}</p>
+        <!-- class = 'ckwfxx' -->
         <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">点击查看违法信息</p>
         <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
             <i>&#xe67f;</i>
@@ -244,6 +268,7 @@
     <div class="acc_person_car1">
         <!-- <p>绑定车辆</p> -->
         <p>{$item['wd_car_num']}</p>
+        <!-- class = 'ckwfxx' -->
         {if $item['status'] == 0}<p class="ckwfxx" data-type="{$item['wd_type']}" data-engine="{$item['wd_car_engine']}" data-num="{$item['wd_car_num']}">点击查看违法信息</p>{/if}
         <p class="del_bound_car" id="{$item['id']}" style="float: right;margin-right: 3%;color: #999;">
             <i>&#xe67f;</i>
@@ -260,6 +285,7 @@
     <p class="mana_car_1">{if $k == 0}绑定车辆一{elseif $k == 1}绑定车辆二{/if}</p>
     <div class="acc_person_car1" >
         <p>{$item['wx_car_num']}</p>
+        <!-- class = 'ckwfxx' -->
         <p class="ckwfxx" data-type="{$item['wx_type']}" data-engine="{$item['wx_car_engine']}" data-num="{$item['wx_car_num']}">点击查看违法信息</p>
         <p class="del_bound_car" id="{$item['id']}">
             <i>&#xe67f;</i>
@@ -281,6 +307,12 @@
 </div>
 {/if}
 {/loop}
+{else}
+<script>
+    mui.alert('信息有误，请进入产品反馈咨询！',function(){
+        wx.closeWindow();
+    });
+</script>
 {/if}
 <script>
     $(function(){
@@ -486,14 +518,14 @@
                             if(dt.getDay()=="0" || dt.getDay()=="6"){
                                 mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
                             }
-
-                            var time_n = dt.getTime()/1000;
-                            time_n = Math.floor(time_n);
-                            var time_l = 1493568000;
-                            var time_r = 1493654399;
-                            if(time_n >= time_l && time_n <= time_r){
-                                mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
-                            }
+                            /* var time_n = date.getTime()/1000;
+                             time_n = Math.floor(time_n);
+                             var time_l = 1493567999;//4月90 23：59：59
+                             var time_r = 1493568000;//5月1 0：0 ：0
+                             if(time_l > time_n  || time_n < time_r){
+                             mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
+                             }
+                             */
 
                             if($(this).attr('data-wfjkxh').substr(0,4) != '3202'){
                                 mui.alert('该条为外地违法记录，请联系违法发生地交管部门或到车管所一号窗口申诉！');return false;
@@ -619,6 +651,9 @@
 <script>
     $(function(){
         $('.wfcl').click(function(){
+            //暂时加   5/15
+            //var cphm = $(this).attr('data-num');
+
             var cphm = $('.chepaihao').html();
             cphm = cphm.substr(0,2);
             if(cphm != '苏B'){
@@ -649,9 +684,13 @@
                         }
                     })
                 }else{
+                    //暂时加    5/15
+                    //$('.account_mana').hide();
+
                     $('.content').hide();
                     $('.apiurl').val(data);
                     $('.online_study').show();
+                    console.log($('title').text());$('title').text('违法处理');
                 }
             },'JSON');
             $('.online_agree').click(function(){
@@ -671,13 +710,13 @@
             if(dt.getDay()=="0" || dt.getDay()=="6"){
                 mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
             }
-            var time_n = dt.getTime()/1000;
-            time_n = Math.floor(time_n);
-            var time_l = 1493568000;
-            var time_r = 1493654399;
-            if(time_n >= time_l && time_n <= time_r){
-                mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
-            }
+            /*var time_n = date.getTime()/1000;
+             time_n = Math.floor(time_n);
+             var time_l = 1493567999;//4月90 23：59：59
+             var time_r = 1493568000;//5月1 0：0 ：0
+             if(time_l > time_n  || time_n < time_r){
+             mui.alert("节假日暂停申诉服务，给您造成的不便 我们深感歉意");return false;
+             }*/
 
             if($(this).attr('data-wfjkxh').substr(0,4) != '3202'){
                 mui.alert('该条为外地违法记录，请联系违法发生地交管部门或到车管所一号窗口申诉！');return false;

@@ -89,7 +89,7 @@
                                              <div class="detail_boxes hide">
                                                   <img src="" style="display: block;" class="img{$v['DWBH']}">
                                                   <div class="detail11_box">
-                                                       <div>注：图片每5分钟自动更新</div>
+                                                       <div>注：图片每2分钟自动更新</div>
                                                        <div class="locaing"><i id="loadanim"></i>图片加载较慢，请耐心等待!</div>
                                                   </div>
                                              </div>
@@ -148,7 +148,7 @@
                          <div class="detail_boxes hide">
                               <img src="" style="display: block;"  class="img{$it['DWBH']}">
                               <div class="detail11_box">
-                                   <div>注：图片每5分钟自动更新</div>
+                                   <div>注：图片每2分钟自动更新</div>
                                    <div class="locaing">图片加载较慢，请耐心等待</div>
                               </div>
                          </div>
@@ -338,12 +338,10 @@
                var _this = $(this);
                var ti = _this.attr('data-ti');
                   if(ti == 0){
-                       $.post("{php echo $this->createMobileUrl('seltp_new',array('test'=>1))}",{'dwbh':dwbh},function(data){
-                            $('.img'+ dwbh).attr('src',data);
-                            //$('.img'+ dwbh).attr('src','data:image/png;base64,'+data);
-                            _this.siblings().find('.locaing').hide();
-                            //console.log(data);
-                       });
+                       var timestamp=new Date().getTime();
+                       $('.img'+ dwbh).attr('src',"{php echo $_W['attachurl'].'images/'.$_W['uniacid'].'/roadpic/"+dwbh+".png?'}"+timestamp);
+                       _this.siblings().find('.locaing').hide();
+
                        $(".detail_boxes").hide();
                        $('.detail_icon1').css('transform','rotate(0deg)');
                        $(this).siblings('.detail_boxes').show();

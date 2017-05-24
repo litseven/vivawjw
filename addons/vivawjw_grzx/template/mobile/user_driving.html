@@ -46,6 +46,13 @@
 </head>
 <body>
 {template 'wxsdk'}
+<script>
+    /* wx.ready(function(){
+     mui.alert(' 业务调整中，即将恢复，给您带来不便敬请谅解！', function() {
+     wx.closeWindow();
+     });
+     });*/
+</script>
 {if $op == 'wx_driving'}
 <div class="content wx_driving">
     <div class="content_box">
@@ -80,15 +87,18 @@
             $(this).parent('.car_style').css('padding-bottom',0);
         });
 
+        /*if('{$oldBoundDriver}' > 1){
+         mui.alert("根据业务部门要求，只支持绑定本人驾驶证，系统已自动解绑用户之前数据，请重新绑定！");
+         }*/
         $('#query1').click(function () {
             var wx_driv_num = $("[name = 'wx_driv_num']").val();
             var wx_driv_record = $("[name = 'wx_driv_record']").val();
-            reg=/(^3202\d{13}(\d|X|x)$)/;
+            reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(wx_driv_num == ''){
                 mui.alert('驾驶证号不能为空！');return false;
             }
             if (!reg.test(wx_driv_num)){
-                mui.alert('请填写正确无锡驾驶证号！');return false;
+                mui.alert('驾驶证号不正确！');return false;
             }
             if(wx_driv_record.length != 6){
                 mui.alert('档案编号输入有误！');return false;
@@ -99,9 +109,12 @@
                 $("#loading-fs").hide();
                 //console.log(data);
                 if(data == 100){
-                    mui.alert('驾驶证已被绑定！');return false;
+                    mui.alert('驾驶证已被绑定！','绑定失败');return false;
                 }else if (data == 300){
-                    mui.alert('驾驶证或档案编号不正确！','绑定失败');return false;
+                    mui.alert('请确认是否为无锡本地驾驶证！','绑定失败');return false;
+                }
+                if(data == 700){
+                    mui.alert('帐号异常，请在产品反馈中联系管理员，给您带来不便尽请谅解！');return false
                 }
                 $('.wx_driving').hide();
                 $('.sub_driving_wx').show();
@@ -156,12 +169,8 @@
         $('#query1').click(function () {
             var wd_driv_num = $("[name = 'wd_driv_num']").val();
             var wd_driv_record = $("[name = 'wd_driv_record']").val();
-            reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(wd_driv_num == ''){
                 mui.alert('驾驶证号不能为空！');return false;
-            }
-            if (!reg.test(wd_driv_num)){
-                mui.alert('请填写正确驾驶证号！');return false;
             }
             if(wd_driv_record.length != 12){
                 mui.alert('档案编号输入有误！');return false;
@@ -176,6 +185,9 @@
                 }
                 if (data == 300){
                     mui.alert('绑定失败');return false;
+                }
+                if(data == 700){
+                    mui.alert('帐号异常，请在产品反馈中联系管理员，给您带来不便尽请谅解！');return false
                 }
                 $('.wd_driving').hide();
                 $('.sub_driving').show();
@@ -232,7 +244,7 @@
         <div class="manage_box_1">
             <p class="manage_box_p1">状态</p>
             <div class="manage_box_div">
-                <p class="manage_box_p2">{$zt}</p>
+                <p class="manage_box_p2">{$wxwfdata['ZT']}</p>
             </div>
         </div>
         <div class="manage_box_1">
@@ -391,18 +403,32 @@
                     $('.query_score_p2').text(data.JSZH);
                     $('.ljjf').text(data.LJJF);
                     $('.zt').text(zt);
-                    //console.log(data);
                     var list = data.WFWJKList.WFWJK;
-                    for (var j = 0; j < list.length; j++){
-                        var CLJGMC = list[j].CLJGMC;//采集机构
-                        var WFSJ = list[j].WFSJ;//采集时间
-                        var FKJE = list[j].FKJE;//罚款金额
-                        var WFDZ = list[j].WFDZ;//违法地点
-                        var WFJFS = list[j].WFJFS;//违法记分
-                        var WFXW = list[j].WFXW;//违法行为
+                    //console.log(data.WFWJKList);
+                    if(list.length){
+                        for (var j = 0; j < list.length; j++){
+                            var CLJGMC = list[j].CLJGMC;//采集机构
+                            var WFSJ = list[j].WFSJ;//采集时间
+                            var FKJE = list[j].FKJE;//罚款金额
+                            var WFDZ = list[j].WFDZ;//违法地点
+                            var WFJFS = list[j].WFJFS;//违法记分
+                            var WFXW = list[j].WFXW;//违法行为
 
+                            $('.wfxxlist').append("<div><div class='query_ill_div1' data-to='0'><div class='ill_div_left'><p>时间:<span>"+WFSJ+"</span></p><p>地点:<span>"+WFDZ+"</span></p></div><div class='ill_div_right'><img src='{S_URL}img/jiant.png'></div></div><div class='query_ill_div2' style='display: none;'><p>违法行为:<span>"+WFXW+"</span></p><p>采集机关:<span>"+CLJGMC+"</span></p><p>处理状态:<span class='zt'></span></p><p>罚款金额:<span>"+FKJE+"</span></p><p>违法记分:<span>"+WFJFS+"</span></p></div></div>");
+                        }
+                    }else{
+                        var CLJGMC = list.CLJGMC;//采集机构
+                        var WFSJ = list.WFSJ;//采集时间
+                        var FKJE = list.FKJE;//罚款金额
+                        var WFDZ = list.WFDZ;//违法地点
+                        var WFJFS = list.WFJFS;//违法记分
+                        var WFXW = list.WFXW;//违法行为
                         $('.wfxxlist').append("<div><div class='query_ill_div1' data-to='0'><div class='ill_div_left'><p>时间:<span>"+WFSJ+"</span></p><p>地点:<span>"+WFDZ+"</span></p></div><div class='ill_div_right'><img src='{S_URL}img/jiant.png'></div></div><div class='query_ill_div2' style='display: none;'><p>违法行为:<span>"+WFXW+"</span></p><p>采集机关:<span>"+CLJGMC+"</span></p><p>处理状态:<span class='zt'></span></p><p>罚款金额:<span>"+FKJE+"</span></p><p>违法记分:<span>"+WFJFS+"</span></p></div></div>");
                     }
+
+
+
+
                     $('.query_ill_div1').click(function(){
                         if($(this).data('to')==0){
                             $(this).data('to',1);

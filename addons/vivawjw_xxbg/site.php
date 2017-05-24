@@ -11,6 +11,7 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	 */
 	public function doMobileInfochange(){
 		global $_W,$_GPC;
+		load()->func('tpl');
 		$op =trim($_GPC['op'])? trim($_GPC['op']): 'notice';
 		$block =trim($_GPC['block'])? trim($_GPC['block']): 'driver';
 		$show =trim($_GPC['show'])? trim($_GPC['show']): 'driver';
@@ -21,12 +22,11 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	//驾驶证信息查询验证
 	public function doMobileDrivermanage(){
 		global $_W,$_GPC;
-		$drivernum = trim($_GPC['drivernum']);
-		$driverpapers = trim($_GPC['driverpapers']);
+		$drivernum = trim(strtoupper($_GPC['drivernum']));
+		$driverpapers = trim(strtoupper($_GPC['driverpapers']));
 
 		//提交接口对比数据
 		$data = $this->wxapi('JSZXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$drivernum,$driverpapers);
-
 		echo json_encode($data);
 	}
 
@@ -35,18 +35,18 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 		global $_W,$_GPC;
 		$chcartype = $_GPC['chcartype'];
 		$chcarnum = trim(strtoupper($_GPC['chcarnum']));
-		$chcarpapers = trim($_GPC['chcarpapers']);
+		$chcarpapers = trim(strtoupper($_GPC['chcarpapers']));
 
-        //提交接口对比数据
-        $data = $this->wxapi('CLXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers);
-        echo json_encode($data);
+		//提交接口对比数据
+		$data = $this->wxapi('CLXXCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$chcartype,$chcarnum,$chcarpapers);
+		echo json_encode($data);
 	}
 
 	//变更驾驶人信息
 	public function doMobileDrpost(){
 		global $_W,$_GPC;
-		$drivernum = $_GPC['drivernum'];
-		$driverpapers = $_GPC['driverpapers'];
+		$drivernum = trim(strtoupper($_GPC['drivernum']));
+		$driverpapers = trim(strtoupper($_GPC['driverpapers']));
 		$lxdh = $_GPC['lxdh'];
 		$sjhm = $_GPC['sjhm'];
 		$lsdz = $_GPC['lsdz'];
@@ -81,8 +81,8 @@ class vivawjw_xxbgModuleSite extends WeModuleSite
 	public function doMobileCarpost(){
 		global $_W,$_GPC;
 		$chcartype = $_GPC['chcartype'];
-		$chcarnum = $_GPC['chcarnum'];
-		$chcarpapers = $_GPC['chcarpapers'];
+		$chcarnum = trim(strtoupper($_GPC['chcarnum']));
+		$chcarpapers = trim(strtoupper($_GPC['chcarpapers']));
 		$lxdh = $_GPC['lxdh'];
 		$sjhm = $_GPC['sjhm'];
 		$lsdz = $_GPC['lsdz'];

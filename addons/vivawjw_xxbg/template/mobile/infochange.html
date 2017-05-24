@@ -6,10 +6,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
-    <script type="text/javascript" src="{$_W['siteroot']}/app/resource/js/lib/mui.min.js?v=20160906"></script>
-    <link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/mui.min.css">
+    <link href="{$_W['siteroot']}app/resource/css/common.min.css?v=20160906" rel="stylesheet">
+    <link href="{$_W['siteroot']}app/resource/css/mui.picker.css" rel="stylesheet">
+    <link href="{$_W['siteroot']}app/resource/css/mui.poppicker.css" rel="stylesheet">
     <link href="{S_URL}css/style.css" rel="stylesheet">
     <script src="{S_URL}js/jquery-3.0.0.js"></script>
+    <!--<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/util.js"></script>-->
+    <!--<script src="{$_W['siteroot']}app/resource/js/require.js"></script>-->
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <!--<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/common.js?v=20160906"></script>-->
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/city.data.js"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/mui.poppicker.js"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/mui.picker.js"></script>
     <title>信息变更</title>
     <style>
         .acc_example{width: 100%;position:fixed;top: 0;left:0;display: none;background-color: rgba(0,0,0,0.9);height: 100%;}
@@ -17,6 +25,14 @@
     </style>
 </head>
 <body>
+{template 'wxsdk'}
+<script>
+ /*   wx.ready(function(){
+        mui.alert(' 业务调整中，即将恢复，给您带来不便敬请谅解！', function() {
+            wx.closeWindow();
+        });
+    });*/
+</script>
 <!--办理须知-->
 <div class="content ">
     <div class="content_box">
@@ -66,7 +82,7 @@
             <div class="query_box change_jdc" style="display: none">
                 <div class="car_style">
                     <div>车辆类型</div>
-                    <select name="chcartype">
+                    <select name="chcartype" style="border:solid 1px #dddddd !important;">
                         {loop $cartype $tiem}
                         <option value="{$tiem['carnum']}">{$tiem['cartype']}</option>
                         {/loop}
@@ -221,7 +237,7 @@
     });
 </script>
 <!--信息-驾驶人--车辆-->
-        <div class="gg_driver" style="display: none;">
+        <div class="gg_driver" style="display:none;">
             <div class="info_change">
                 <div class="change_box">
                     <div class="infor_box">
@@ -277,18 +293,16 @@
                         <p class="number1">新移动电话号码:</p>
                         <input id="number1" type="number" placeholder="请输入您的新移动电话号码" name="sjhm">
                         <p class="add_p">新邮寄地址:</p>
-                        <div class="address_box">
-                            <p>江苏省</p>
-                            <select name="city">
-                                <option value="">请选择</option>
-                                <option value="无锡市">无锡市</option>
-                                <option value="江阴市">江阴市</option>
-                                <option value="宜兴">宜兴</option>
-                            </select>
-                            <input type="text" name="district">
-                            <p>区</p>
+                        <div class="address_box" id="showCityPicker">
+                            <input id="province" value="" name="province" placeholder="请选择" style="margin-left:0;"/>
+                            <input id="city" value="" name="city" placeholder="请选择" style="margin-left: 4.5%">
+                            <input id="dist" value="" name="district" placeholder="请选择" style="margin-left: 4.5%">
                         </div>
-                        <input id="address" type="text" placeholder="请填写详细街道门牌地址" name="address">
+                           <!-- <div class="mui-input-row">
+                                <label>选择地区</label>
+                                {php echo tpl_app_form_field_district('address', array('province' => $address['province'],'city' => $address['city'],'district' => $address['district']));}
+                            </div>-->
+                        <input id="address" type="text" placeholder="请填写详细街道门牌地址" name="xxdz">
                         <p class="change1_tip">如不在无锡地区居住请将驾驶证转至居住地车管所</p>
                     </div>
                 </div>
@@ -297,6 +311,27 @@
         </div>
 
     <script>
+        (function($, doc) {
+            $.init();
+            $.ready(function() {
+                var cityPicker = new $.PopPicker({
+                    layer: 3
+                });
+                cityPicker.setData(cityData);
+                var showCityPickerButton = doc.getElementById('showCityPicker');
+                showCityPickerButton.addEventListener('tap', function(event) {
+                    cityPicker.show(function(items) {
+                        //console.log(items);
+                        showCityPickerButton.value = items[0].text + '  ' + items[1].text + '  ' + items[2].text;
+                        document.getElementById("province").value = items[0].text;
+                        document.getElementById("city").value = items[1].text;
+                        document.getElementById("dist").value = items[2].text;
+                    });
+                }, false);
+            });
+        })(mui, document);
+
+
         $("#loading-fs").hide();
         $(function(){
             $('#modify').click(function(){
@@ -310,10 +345,12 @@
                 //公共参数
                 var lxdh = $("[name = 'lxdh']").val();
                 var sjhm = $("[name = 'sjhm']").val();
-                var district = $("[name = 'district']").val();
-                var address = $("[name = 'address']").val();
-                var lsdz = $("[name = 'city']").val()+$("[name = 'district']").val()+$("[name = 'address']").val();
 
+                var province = $("[name = 'province']").val();
+                var city = $("[name = 'city']").val();
+                var district = $("[name = 'district']").val();
+                var lsdz = province+city+district+$("[name = 'xxdz']").val();
+                    //console.log(lsdz);return false;
                 if(drivernum && driverpapers){
                     //alert(1);
                     $("#loading-fs").show();
