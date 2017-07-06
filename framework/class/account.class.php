@@ -722,6 +722,18 @@ abstract class WeBase {
 		}
 	}
 
+
+    protected function createMobileUrldeM($m,$do, $query = array(), $noredirect = true) { // by scienmedia  2016-09-14
+
+        global $_W;
+
+        $query['do'] = $do;
+
+        $query['m'] = strtolower($m);
+
+        return murl('entry', $query, $noredirect);
+
+    }
 	/**
 	 * 构造手机页面URL
 	 * @param $do string 要进入的操作名称对应当前模块的 doMobileXXX 中的 Xxx
@@ -1497,4 +1509,6 @@ abstract class WeModuleCron extends WeBase {
 		pdo_insert('core_cron_record', $data);
 		message(error($errno, $note), '', 'ajax');
 	}
+
+
 }

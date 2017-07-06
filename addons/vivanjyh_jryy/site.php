@@ -84,7 +84,7 @@ class Vivanjyh_jryyModuleSite extends WeModuleSite
 			echo 200;
 			$smsUri = "https://sms.yunpian.com/v2/sms/batch_send.json";
 			$postarray = array(
-				"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a	3",
+				"apikey"=>"687ede36e02cfc2e44c8e636ee8c22a3",
 				"mobile" => $_W['current_module']['config']['mobile'],
 				"text"=>"【维瓦互动】您收到一条来自“".$_GPC['title']."”的预约信息，姓名:".$data['name']."电话:".$data['phone']."留言:".$data['content']."，请尽快回复处理回T退订"
 			);

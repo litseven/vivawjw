@@ -23,7 +23,7 @@
      body,html,#map{width: 100%;height: 100%;}
 
      .BMap_bubble_content{width: 80vw!important;height: auto;}
-     .BMap_bubble_content >p {color: #333f;font-size: 12px!important}
+     .BMap_bubble_content >p {font-size: 12px!important}
      .BMap_pop>div:first-child{border-top-left-radius: 10px;}
      .BMap_pop>div:nth-of-type(3) {border-top-right-radius: 10px}
      .BMap_pop>div:nth-of-type(5) {border-bottom-left-radius: 10px;}
@@ -130,6 +130,17 @@
 
           <div class="place_box">
                <div class="detail_box">
+               {if !$return}
+               <div class="content" style="background-color: #eeeeee;">
+                   <div class="content_box">
+                       <div class="appeal1_box">
+                           <i class="appeal_suc">&#xe8ae;</i>
+                         <div>抱歉，没有搜索到该关键词路况</div>
+                       </div>
+                    
+                   </div>
+               </div>
+               {/if}
                     {loop $return $it}
                     <div>
                          <div class="detail1" data-ti='0' data-dwbh="{$it['DWBH']}">
@@ -314,7 +325,7 @@
             $('#areaName').text("区域："+areaName+"");
             $('#roadName').text("地址："+roadName+"");
             $('#loading').hide();
-                              $('.BMap_pop').append("<div class='testt' style='border-top-right-radius: 10px;box-sizing: content-box;position: absolute;top: 0;left: 80vw;background: #fff;width: 30px;height: 30px;z-index: 10001;pointer-events:none'><img src='{S_URL}img/close.jpg' style='width:50%;height:50%;position:absolute;left:33%;top:20%' /></div>");           
+               $('.BMap_pop').append("<div class='testt' style='border-top-right-radius: 10px;box-sizing: content-box;position: absolute;top: 0;left: 80vw;background: #fff;width: 30px;height: 30px;z-index: 10001;pointer-events:none'><img src='{S_URL}img/close.jpg' style='width:50%;height:50%;position:absolute;left:33%;top:20%' /></div>");
             // 片加载完毕重绘infowindow
             document.getElementById('imgsrc').onload = function (){
                 infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
@@ -328,6 +339,9 @@
           //查询
           $('.sel_search').click(function(){
                var keyword = $('#search').val();
+               if(keyword == ""){
+                    mui.alert("请输入搜索内容");return false;
+               }
                window.location.href = "{php echo $this->createMobileUrl('roadsel',array('op' => 'search'))}&keyword="+keyword;
                //$.post("{php echo $this->createMobileUrl('roadsel')}",{keyword:keyword},function(data){
                     //console.log(data);
@@ -338,8 +352,14 @@
                var _this = $(this);
                var ti = _this.attr('data-ti');
                   if(ti == 0){
-                       var timestamp=new Date().getTime();
-                       $('.img'+ dwbh).attr('src',"{php echo $_W['attachurl'].'images/'.$_W['uniacid'].'/roadpic/"+dwbh+".png?'}"+timestamp);
+                      /* $.post("{php echo $this->createMobileUrl('seltp_new',array('test'=>1))}",{'dwbh':dwbh},function(data){
+                            $('.img'+ dwbh).attr('src',data);
+                            _this.siblings().find('.locaing').hide();
+                       });*/
+
+                        var timestamp=new Date().getTime();
+                       //alert(timestamp);
+                       $('.img'+ dwbh).attr('src',"{php echo tomedia('images/'.$_W['uniacid'].'/roadpic/"+dwbh+".png?')}"+timestamp);
                        _this.siblings().find('.locaing').hide();
 
                        $(".detail_boxes").hide();

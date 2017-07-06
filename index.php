@@ -3,6 +3,9 @@
  * [WeEngine System] Copyright (c) 2013 WE7.CC
  * $sn: pro/index.php : v 815cdc81ea88 : 2015/08/29 09:40:39 : RenChao $
  */
+
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 require './framework/bootstrap.inc.php';
 $host = $_SERVER['HTTP_HOST'];
 if (!empty($host)) {

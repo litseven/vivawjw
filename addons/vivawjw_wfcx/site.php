@@ -7,7 +7,6 @@ define('S_URL', 'http://'. $_SERVER['HTTP_HOST'].'/pros/addons/vivawjw_wfcx/temp
 class vivawjw_wfcxModuleSite extends WeModuleSite
 {
 
-
 	public function doMobileTest(){
 		$test = get_headers('http://wxjjtest.scienmedia.com/pros/attachment/images/1/wfimg/2017/03/3202009012476793.jpg');
 		$tests = explode(':',$test['4']);
@@ -75,8 +74,8 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	//申请信息处理
 	public function doMobileAppealpost(){
 		global $_W,$_GPC;
-
-
+		//载入日志函数
+		load()->func('logging');
 		$cou = pdo_fetchcolumn('SELECT count(*) FROM  '.tablename('vivawjw_wfcx').' WHERE uid=:uid and wfjkxh=:wfjkxh and wfcph=:wfcph',array(':uid'=>$_W['member']['uid'],':wfjkxh'=>$_GPC['wfjkxh'],':wfcph'=>$_GPC['wfcph']));
 		// echo $cou;
 		if($cou>0){
@@ -100,8 +99,11 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$data['wfmoney'] = $_GPC['wfmoney'];
 		$data['wfcph'] = $_GPC['wfcph'];
 		$apitime=date('Y-m-d h:i', time());
-		$dataapi=$this->wxapiss($_W['openid'],$apitime,$_GPC['wfcph'],$_GPC['wfjkxh'],$_GPC['appeal_why']);
+		$tsnr= $_GPC['appeal_name'].":".$_GPC['appeal_phone'].";".$_GPC['appeal_why'];
+		$dataapi=$this->wxapiss($_W['openid'],$apitime,strtoupper($_GPC['wfcph']),$_GPC['wfjkxh'],$tsnr);
 		$dataapis=$this->object2array($dataapi);
+		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'DJSS','openID'=>$_W['openid'],'车牌号'=>strtoupper($_GPC['wfcph']),'监控序号'=>$_GPC['wfjkxh'],'申诉内容'=>$tsnr), 'trace',$_GPC['m'].'_DJSS_'.date('Ymd',time()));
+
 		// echo json_encode($dataapis);exit;
 		// echo $dataapis['State'];exit;
 		if($dataapis['State']==0){
@@ -119,6 +121,32 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 	}
 
 
+
+	public function wxapiss($wx,$time,$carnum,$jk,$nr){
+		libxml_disable_entity_loader(false);
+		$opts = array(
+			'ssl'   => array(
+				'verify_peer'          => false
+			),
+			'https' => array(
+				'curl_verify_ssl_peer'  => false,
+				'curl_verify_ssl_host'  => false
+			)
+		);
+		$streamContext = stream_context_create($opts);
+		try {
+			$url = 'http://192.168.11.58/WXWC/wcservice.asmx?wsdl';
+			$c = new SoapClient($url,['stream_context' => $streamContext]);
+			//echo '<pre>';
+			//var_dump($c->register('wxzhcs','wxzhcs123456'));
+			//C81DD8605F0531F0B6C717D07A8979F4
+			return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4',$wx,$time,$carnum,$jk,$nr);
+			// return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4','ocJugjrKn12kVR8lt_OSCGiU3rgk','2017-03-18 12:47','苏B7KR12','3202009014349753','左转弯前方有些许白漆，让人误以为是待转区域，白漆长久模糊了。更何况对面的车道就有待转区域。难道待转区域只划半条马路？！同样是不影响直行车辆的。若是没那些模糊的白漆，我也不会左拐出去等待的');
+
+		} catch (SOAPFault $e) {
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
+		}
+	}
 	//接口查询申诉结果3.23 xia
 
 	public function doMobilessjgpost(){
@@ -155,7 +183,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 			// return $c->DJSS('C81DD8605F0531F0B6C717D07A8979F4','ocJugjrKn12kVR8lt_OSCGiU3rgk','2017-03-18 12:47','苏B7KR12','3202009014349753','左转弯前方有些许白漆，让人误以为是待转区域，白漆长久模糊了。更何况对面的车道就有待转区域。难道待转区域只划半条马路？！同样是不影响直行车辆的。若是没那些模糊的白漆，我也不会左拐出去等待的');
 
 		} catch (SOAPFault $e) {
-			print_r($e);
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
 		}
 	}
 
@@ -166,18 +194,17 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		load()->func('logging');
 		$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['cartype']),trim(strtoupper($_GPC['carnum'])),trim(strtoupper($_GPC['enginenum'])));
 		echo json_encode($data);
-		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLWFCX','车辆类型'=>$_GPC['cartype'],'车牌号'=>strtoupper($_GPC['carnum']),'发动机号'=>$_GPC['enginenum'],'openId'=>$_W['openid'],'UID'=>$_W['member']['uid']), 'trace',$_GPC['m']);
-
+		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLWFCX','openID'=>$_W['openid'],'号牌类型'=>trim($_GPC['cartype']),'车牌号'=>trim(strtoupper($_GPC['carnum'])),'发动机号'=>trim(strtoupper($_GPC['enginenum']))), 'trace',$_GPC['m'].'_CLWFCX_'.date('Ymd',time()));
 	}
 	//驾驶人违法查询
 	public function doMobileApipostjsr(){
 		global $_W,$_GPC;
 		//载入日志函数
 		load()->func('logging');
-		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim($_GPC['drnunum']),trim($_GPC['filenum']));
+		$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],trim(strtoupper($_GPC['drnunum'])),trim(strtoupper($_GPC['filenum'])));
 		echo json_encode($data);
-		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSRWFCX','驾驶证号'=>$_GPC['drnunum'],'档案编号'=>$_GPC['filenum'],'openId'=>$_W['openid'],'UID'=>$_W['member']['uid']), 'trace',$_GPC['m']);
 		//var_dump($data);
+		logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSRWFCX','openID'=>$_W['openid'],'身份证号'=>trim(strtoupper($_GPC['drnunum'])),'档案编号'=>trim(strtoupper($_GPC['filenum']))), 'trace',$_GPC['m'].'_JSRWFCX_'.date('Ymd',time()));
 	}
 
 	//查询违法图片
@@ -191,7 +218,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 
 		$contLength = explode(':',$imginfo['4']);
 
-		if($imginfo[0] != 'HTTP/1.1 200 OK' || trim($contLength[1]) <= 0){
+		if($imginfo[0] != 'HTTP/1.1 200 OK' || trim($contLength[1]) <= 86766){
 			$data = $this->wxapi('WFTP','C81DD8605F0531F0B6C717D07A8979F4',$_W['openid'],$wftp,$wfcar);
 			$data = $this->object2array($data);
 			if($data['State'] == 0){
@@ -216,7 +243,9 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 			file_write($filename, $imgdata);
 			file_remote_upload($filename);*/
 		}
-		echo $imgurl;
+		$time = time().rand(100,999);
+		echo $imgurl.'?'.$time;
+		//echo $imgurl;
 
 	}
 	//查询信息跳转支付接口
@@ -226,10 +255,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 		$uniacid = $_W['uniacid'];
 		$cardata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE uid=:uid AND uniacid=:uniacid AND status=:status AND bound=:bound',array(':uid'=>$uid,':uniacid'=>$uniacid,':status'=>0,':bound'=>1));
 		$drivingdata = pdo_fetch('SELECT * FROM '.tablename('vivawjw_user_bound_driving').' WHERE uid=:uid AND uniacid=:uniacid AND status=:status AND bound=:bound',array(':uid'=>$uid,':uniacid'=>$uniacid,':status'=>0,':bound'=>1));
-		if($cardata){
-
-        }
-        if(!$cardata){
+		if(!$cardata){
 			echo 100;exit;
 		}
 		if(!$drivingdata){
@@ -271,6 +297,78 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 			//echo 200;exit;
 		}
 	}
+
+	//PC端
+	public function doMobilePcwfcx(){
+		global $_W,$_GPC;
+		$cartype = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_cartype').' ORDER BY id asc');
+		include $this->template('PCwfcx');
+	}
+	//PC端车辆违法查询接口
+	public function doMobilePcapipostcl(){
+		global $_W,$_GPC;
+		//防止跨域访问
+		if(preg_match('/'.str_replace('/','\/',$_W['siteroot']).'/',$_SERVER['HTTP_REFERER'])){
+			//载入日志函数
+			load()->func('logging');
+			$data = $this->wxapi('CLWFCX','C81DD8605F0531F0B6C717D07A8979F4','PCwxzhcs',trim($_GPC['cartype']),trim(strtoupper($_GPC['carnum'])),trim(strtoupper($_GPC['enginenum'])));
+			echo json_encode($data);
+			//logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'CLWFCX','openID'=>$_W['openid'],'号牌类型'=>trim($_GPC['cartype']),'车牌号'=>trim(strtoupper($_GPC['carnum'])),'发动机号'=>trim(strtoupper($_GPC['enginenum']))), 'trace',$_GPC['m'].'_PC_CLWFCX_'.date('Ymd',time()));
+		}else{
+			echo '访问未受限';
+		}
+
+	}
+
+	//PC驾驶人违法查询
+	public function doMobilePcapipostjsr(){
+		global $_W,$_GPC;
+		//载入日志函数
+		//防止跨域访问
+		if(preg_match('/'.str_replace('/','\/',$_W['siteroot']).'/',$_SERVER['HTTP_REFERER'])){
+			load()->func('logging');
+			$data = $this->wxapi('JSRWFCX','C81DD8605F0531F0B6C717D07A8979F4','PCwxzhcs',trim(strtoupper($_GPC['drnunum'])),trim(strtoupper($_GPC['filenum'])));
+			echo json_encode($data);
+			//var_dump($data);
+			//logging_run(array('方法名'=>$_GPC['do'],'接口名'=>'JSRWFCX','openID'=>$_W['openid'],'身份证号'=>trim(strtoupper($_GPC['drnunum'])),'档案编号'=>trim(strtoupper($_GPC['filenum']))), 'trace',$_GPC['m'].'_JSRWFCX_'.date('Ymd',time()));
+		}else{
+			echo '访问未受限';
+		}
+	}
+	//PC查询违法图片
+	public function doMobilePcimg(){
+		global $_W,$_GPC;
+		if(preg_match('/'.str_replace('/','\/',$_W['siteroot']).'/',$_SERVER['HTTP_REFERER'])){
+			$wfcar = $_GPC['carnum'];
+			$wftp = $_GPC['wfxh'];
+			$filename = 'images/'.$_W['uniacid']."/wfimg/".date("Y",time())."/".date("m",time())."/$wftp.jpg";
+			$imgurl = tomedia($filename);
+			$imginfo = get_headers($imgurl);
+			$contLength = explode(':',$imginfo['4']);
+			if($imginfo[0] != 'HTTP/1.1 200 OK' || trim($contLength[1]) <= 86766){
+				$data = $this->wxapi('WFTP','C81DD8605F0531F0B6C717D07A8979F4','PCwxzhcs',$wftp,$wfcar);
+				$data = $this->object2array($data);
+				if($data['State'] == 0){
+					$imgdata = $data['WFTP'];
+					load()->func('file');
+					file_write($filename, $imgdata);
+					file_remote_upload($filename);
+				}else{
+					$imgdata = file_get_contents(MODULE_ROOT."/template/resource/img/nopic.jpg");
+					load()->func('file');
+					file_write($filename, $imgdata);
+					file_remote_upload($filename);
+				}
+
+			}
+			$time = time().rand(100,999);
+			echo $imgurl.'?'.$time;
+		}else{
+			echo '访问未受限';
+		}
+	}
+
+
 	//接口
 	public function wxapi($api,$sign,$wx,$typt,$carnum,$engnum){
 		libxml_disable_entity_loader(false);
@@ -293,7 +391,7 @@ class vivawjw_wfcxModuleSite extends WeModuleSite
 			return $c->$api($sign,$wx,$typt,$carnum,$engnum);
 
 		} catch (SOAPFault $e) {
-			print_r($e);
+			echo "<script>alert('系统繁忙，请稍后再试！')</script>";
 		}
 	}
 	//对象转数组

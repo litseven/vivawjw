@@ -24,10 +24,11 @@
                     <thead class="navbar-inner">
                     <tr>
                         <th style="width:5%;text-align: center">序号</th>
-                        <th style="width:30%;text-align: center">车牌号码</th>
+                        <th style="width:5%;text-align: center">UID</th>
+                        <th style="width:20%;text-align: center">车牌号码</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <!--<th style="width:15%;text-align: center">状态</th>-->
-                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
+                        <th style="width:15%;text-align: center">状态</th>
+                        <th style="width:15%;text-align: center">是否绑定</th>
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -35,10 +36,11 @@
                     {loop $wxlist $item}
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['uid']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['wx_car_num']}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">未受理</span>{elseif $item['status'] == 1} <span style="color:green;">通过</span>{else} <span style="color:red;">驳回</span>{/if}</td>-->
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] != 2}{php echo date('Y-m-d H:i:s',$item['sittime'])}{/if}</td>-->
+                        <td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">申请中</span>{elseif $item['status'] == 1} <span style="color:red;">绑定失败</span>{else} <span style="color:green;">绑定成功</span>{/if}</td>
+                        <td style="vertical-align:middle;text-align: center" >{if $item['bound'] == 1}<span style="color:green;">绑定中</span>{else}<span style="color:red;">未绑定</span> {/if}</td>
                         <td id="update_{$item['id']}" style="text-align: center">
                             <a href="{php echo $this->createWebUrl('manage',array('op'=>wx_car_info,'id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
@@ -79,10 +81,11 @@
                     <thead class="navbar-inner">
                     <tr>
                         <th style="width:5%;text-align: center">序号</th>
-                        <th style="width:30%;text-align: center">车牌号码</th>
+                        <th style="width:5%;text-align: center">UID</th>
+                        <th style="width:20%;text-align: center">车牌号码</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <!--<th style="width:15%;text-align: center">状态</th>-->
-                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
+                        <th style="width:15%;text-align: center">状态</th>
+                        <th style="width:15%;text-align: center">是否绑定</th>
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -90,10 +93,11 @@
                     {loop $wdlist $item}
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['uid']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['wd_car_num']}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">未受理</span>{elseif $item['status'] == 1} <span style="color:green;">通过</span>{else} <span style="color:red;">驳回</span>{/if}</td>-->
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] != 2}{php echo date('Y-m-d H:i:s',$item['sittime'])}{/if}</td>-->
+                        <td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">申请中</span>{elseif $item['status'] == 1} <span style="color:red;">绑定失败</span>{else} <span style="color:green;">绑定成功</span>{/if}</td>
+                        <td style="vertical-align:middle;text-align: center" >{if $item['bound'] == 1}<span style="color:green;">绑定中</span>{else}<span style="color:red;">未绑定</span> {/if}</td>
                         <td id="update_{$item['id']}" style="text-align: center">
                             <a href="{php echo $this->createWebUrl('manage',array('op'=>wd_car_info,'id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
@@ -343,10 +347,11 @@
                     <thead class="navbar-inner">
                     <tr>
                         <th style="width:5%;text-align: center">序号</th>
+                        <th style="width:5%;text-align: center">UID</th>
                         <th style="width:30%;text-align: center">驾驶证号</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <!--<th style="width:15%;text-align: center">状态</th>-->
-                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
+                        <th style="width:15%;text-align: center">状态</th>
+                        <th style="width:15%;text-align: center">是否绑定</th>
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -354,10 +359,11 @@
                     {loop $wxdriving $item}
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['uid']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['wx_driv_num']}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">未受理</span>{elseif $item['status'] == 1} <span style="color:green;">通过</span>{else} <span style="color:red;">驳回</span>{/if}</td>-->
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] != 2}{php echo date('Y-m-d H:i:s',$item['sittime'])}{/if}</td>-->
+                        <td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">申请中</span>{elseif $item['status'] == 1} <span style="color:red;">绑定失败</span>{else} <span style="color:green;">绑定成功</span>{/if}</td>
+                        <td style="vertical-align:middle;text-align: center" >{if $item['bound'] == 1}<span style="color:green;">绑定中</span>{else}<span style="color:red;">未绑定</span> {/if}</td>
                         <td id="update_{$item['id']}" style="text-align: center">
                             <a href="{php echo $this->createWebUrl('manage',array('op'=>wx_driv_info,'id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
@@ -452,10 +458,11 @@
                     <thead class="navbar-inner">
                     <tr>
                         <th style="width:5%;text-align: center">序号</th>
+                        <th style="width:5%;text-align: center">UID</th>
                         <th style="width:30%;text-align: center">驾驶证号</th>
                         <th style="width:15%;text-align: center">提交时间</th>
-                        <!--<th style="width:15%;text-align: center">状态</th>-->
-                        <!--<th style="width:15%;text-align: center">受理时间</th>-->
+                        <th style="width:15%;text-align: center">状态</th>
+                        <th style="width:15%;text-align: center">是否绑定</th>
                         <th style="width:20%;text-align: center">操作</th>
                     </tr>
                     </thead>
@@ -463,10 +470,11 @@
                     {loop $wddriving $item}
                     <tr>
                         <td style="vertical-align:middle;text-align: center">{$item['id']}</td>
+                        <td style="vertical-align:middle;text-align: center">{$item['uid']}</td>
                         <td style="vertical-align:middle;text-align: center">{$item['wd_driv_num']}</td>
                         <td style="vertical-align:middle;text-align: center" >{php echo date('Y-m-d H:i:s',$item['time'])}</td>
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">未受理</span>{elseif $item['status'] == 1} <span style="color:green;">通过</span>{else} <span style="color:red;">驳回</span>{/if}</td>-->
-                        <!--<td style="vertical-align:middle;text-align: center" >{if $item['status'] != 2}{php echo date('Y-m-d H:i:s',$item['sittime'])}{/if}</td>-->
+                        <td style="vertical-align:middle;text-align: center" >{if $item['status'] == 2}<span style="color:orange;">申请中</span>{elseif $item['status'] == 1} <span style="color:red;">绑定失败</span>{else} <span style="color:green;">绑定成功</span>{/if}</td>
+                        <td style="vertical-align:middle;text-align: center" >{if $item['bound'] == 1}<span style="color:green;">绑定中</span>{else}<span style="color:red;">未绑定</span> {/if}</td>
                         <td id="update_{$item['id']}" style="text-align: center">
                             <a href="{php echo $this->createWebUrl('manage',array('op'=>'wd_driv_info','id'=>$item['id']))}" class="btn btn-default btn-sm"  title="点击查看">查看</a>
                             <a href="javascript:;" class="btn btn-danger btn-sm" data-id="{$item['id']}"  title="点击删除">删除</a>
@@ -869,7 +877,7 @@
             </div>
             {else}
             <div class="col-sm-9 col-xs-9 col-md-9">
-                <p class="form-control-static">{if $feedone['status']==1}通过{else}{$feedone['turndown']}{/if}</p>
+                <p class="form-control-static">{if $feedone['status']==1}通过{else}驳回{/if}</p>
             </div>
             {/if}
         </div>

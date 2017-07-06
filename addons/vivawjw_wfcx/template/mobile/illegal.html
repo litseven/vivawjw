@@ -312,7 +312,7 @@
                                     if(show == 0){
                                         $('#loading-fs').show();
                                         $.post("{php echo $this->createMobileUrl('atest')}",{carnum:carnum,wfxh:wfxh},function(data){
-                                            //console.log(data);
+                                            console.log(data);
                                             // $('.wftp'+wfxh).html("<img src='"+data+"'>").show();
                                             $('#loading-fs').hide();
                                             $('.wftp'+wfxh).html("<div style='min-height:40px;background:url({S_URL}img/loading.gif) no-repeat center center;background-size: cover;'><img onclick='zoomwz(this);' src='"+data+"'  width='100%' /></div>").show();
@@ -379,14 +379,14 @@
                                             $('.chaxun').hide();
                                         }
                                     });
-
+                                    $("#loading-fs").hide();
+                                    mui.alert('请检查您车牌类型、车牌号或发动机号','查询失败');return false;
                                 });
                                 $('.endjsyxx').hide();
                                 $('.endclwf').show();
                             }
                         }else{
-                            $("#loading-fs").hide();
-                            mui.alert('请检查您车牌类型、车牌号或发动机号','查询失败');return false;
+
                         }
                         $("#loading-fs").hide();
                     },'JSON');

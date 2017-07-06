@@ -71,9 +71,13 @@
             if(wx_car_num.substr(0,2) != '苏B'){
                 mui.alert('对不起，您是非无锡车牌，请选择外地绑定！');return false;
             }
+            if(wx_type == 51 || wx_type == 52){
+                reg=/^苏B[0-9A-Za-z]{6}$/;
+            } else{
+                reg=/^苏B[0-9A-Za-z]{5}$/;
+            }
 
-
-            reg=/^苏B[0-9A-Za-z]{5}$/;
+            //reg=/^苏B[0-9A-Za-z]{5}$/;
             if (!reg.test(wx_car_num)){
                 mui.alert('请正确输入车牌号');return false;
             }

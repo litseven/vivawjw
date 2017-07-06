@@ -210,7 +210,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 				echo 100;exit;
 			}else{
 				//判断是否被绑定
-				$seldata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND wx_car_num=:wx_car_num AND bound=:bound AND uniacid=:uniacid',array(':distinction'=>1,':wx_car_num'=>trim($_GPC['wx_car_num']),':bound'=>1,':uniacid'=>$_W['uniacid']));
+				$seldata = pdo_fetchall('SELECT * FROM '.tablename('vivawjw_user_bound_car').' WHERE distinction=:distinction AND wx_type=:wx_type AND wx_car_num=:wx_car_num AND bound=:bound AND uniacid=:uniacid',array(':distinction'=>1,':wx_type'=>trim($_GPC['wx_type']),':wx_car_num'=>trim($_GPC['wx_car_num']),':bound'=>1,':uniacid'=>$_W['uniacid']));
 				if($seldata){
 					echo 400;exit;
 				}

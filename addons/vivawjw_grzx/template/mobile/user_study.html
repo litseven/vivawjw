@@ -15,11 +15,12 @@
         html,body{height: 100%;}
         /*结果页*/
         .complete{width:100%;}
-        .complete i{text-align:center; margin-top:14%;color:#51ca6e; font-size:5rem;display: block; }
+        .complete i{text-align:center; padding-top:14%;color:#51ca6e; font-size:5rem;display: block; }
         .complete_p1{text-align: center; margin-top:9%;margin-bottom: 5%}
         .complete_p2{ font-size:0.8rem;line-height:1.1rem; margin-top:6%;width:80%;margin: 0 auto;}
         .complete_p3{color:#a5a5a5; font-size:0.8rem; text-align: center; margin-top:8%;width:80%; margin: 0 auto;}
         .complete_p4{font-size:0.8rem;line-height:1.1rem;text-align: center;width:80%; margin: 0 auto;}
+        .complete_p5{text-align: center;margin-bottom: 5%;font-size:0.8rem}
         .complete a ,.reject a{text-align: center;border:none;width:40%;font-size:1rem; height:40px;line-height:40px;display:block; margin:0 auto; margin-top:9%; background-color:#51ca6e; border-radius: 10px; color:white;}
         @font-face {
             font-family: 'iconfont';  /* project id 232816 */
@@ -77,16 +78,17 @@
 {else if $op == 'tongguo'}
 <div class="complete">
     <i>&#xe6a3;</i>
-    <p class="complete_p1">恭喜您本次年审学习已审核通过!</p>
+    <p class="complete_p1">恭喜您本次年审学习已审核通过</p>
     <p class="complete_p1" style="margin-top: 10px">不再需要到车管所现场签字确认年审!</p>
-    <p class="complete_p2">感谢您的积极参与，再见！</p>
+    <p class="complete_p5">感谢您的积极参与，再见！</p>
     <p class="complete_p4">(无锡市公安局交通警察支队车辆管理所)</p>
+    <p class="complete_p5" style="margin-top: 10px">审核时间：{php echo date('Y年m月d日 H:i',$study['sttime'])}</p>
     <a href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
 </div>
 {else if $op == 'weitongguo'}
 <div class="complete">
     <i style="color:#F76260;">&#xe660;</i>
-    <p class="complete_p1">对不起，您的学习审核没有通过!</p>
+    <p class="complete_p1">对不起，您的学习审核没有通过</p>
     <p class="complete_p1" style="margin: 2% auto;width:80%;text-align: left;">驳回理由: <span style="color: #EE3B3B;">{$study['turndown']}</span></p>
     <p class="complete_p2">您可以使用本系统重新参加审验教育学习，也可以带好驾驶证、身份证、一张身份证正反面复印件和一张一寸近期彩照到无锡市滨湖区蠡湖路106号（滨湖交警大队违法处理室旁，预约电话 85802373）参加现场学习，感谢您的理解和配合。（无锡市公安局交通警察支队车辆管理所）</p>
     <!--<a href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>-->
@@ -95,7 +97,7 @@
 {else if $op == 'styding'}
 <div class="complete">
     <i class="appeal_suc">&#xe8ae;</i>
-    <p class="complete_p1">对不起，您还没有完成本次年审学习!</p>
+    <p class="complete_p1">对不起，您还没有完成本次年审学习</p>
     <p class="complete_p2">请回到在线学习页面按照提示操作，完成本次学习的所有流程。最后一个流程是上传您本人手持承诺书的照片。（无锡市公安局交通警察支队车辆管理所）</p>
     <a href="{php echo $this->createMobileUrldeM('wxjj','uc')}">返回</a>
 </div>

@@ -500,9 +500,9 @@ function pagination($total, $pageIndex, $pageSize = 15, $url = '', $context = ar
 		}
 	}
 
-	$html = '<div><ul class="pagination pagination-centered">';
+	$html = '<div><ul class="pagination pagination-centered"><li><a style="margin-right: 10px;border-radius:4px;">总数：'.$total.'</a></li>';
 	if ($pdata['cindex'] > 1) {
-		$html .= "<li><a {$pdata['faa']} class=\"pager-nav\">首页</a></li>";
+		$html .= "<li><a {$pdata['faa']} class=\"pager-nav\" style='border-top-left-radius:4px;border-bottom-left-radius:4px;'>首页</a></li>";
 		$html .= "<li><a {$pdata['paa']} class=\"pager-nav\">&laquo;上一页</a></li>";
 	}
 	//页码算法：前5后4，不足10位补齐
