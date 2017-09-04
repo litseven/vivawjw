@@ -1319,7 +1319,7 @@ class vivawjw_grzxModuleSite extends WeModuleSite
 		$data['uid'] = $_W['member']['uid'];
 		$data['openid'] = $_W['openid'];
 		$data['reason'] = trim($_GPC['reason']);
-
+		$data['phone'] = trim($_GPC['phone']);
 		$data['proof'] = trim($_GPC['proof']);
 		$proof = trim($_GPC['proof']);
 		$proof = explode(",",$proof);

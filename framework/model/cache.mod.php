@@ -104,7 +104,8 @@ function cache_build_users_struct() {
 		'taobao' => '阿里旺旺',
 		'site' => '主页',
 		'bio' => '自我介绍',
-		'interest' => '兴趣爱好'
+		'interest' => '兴趣爱好',
+        'human' => '实人认证'
 	);
 	cache_write('userbasefields', $base_fields);
 	$fields = pdo_getall('profile_fields', array(), array(), 'field');
@@ -121,6 +122,7 @@ function cache_build_users_struct() {
 		$fields['credit5'] = '预留积分类型5';
 		$fields['credit6'] = '预留积分类型6';
 		$fields['createtime'] = '加入时间';
+		$fields['human'] = '实人认证';
 		cache_write('usersfields', $fields);
 	} else {
 		cache_write('usersfields', $base_fields);

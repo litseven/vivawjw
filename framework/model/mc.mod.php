@@ -762,7 +762,7 @@ function _mc_login($member) {
 	global $_W;
 
 	if (!empty($member) && !empty($member['uid'])) {
-		$sql = 'SELECT `uid`,`realname`,`mobile`,`email`,`groupid`,`credit1`,`credit2`,`credit6` FROM ' . tablename('mc_members') . ' WHERE `uid`=:uid AND `uniacid`=:uniacid';
+		$sql = 'SELECT `uid`,`realname`,`mobile`,`email`,`groupid`,`credit1`,`credit2`,`credit6`,`human` FROM ' . tablename('mc_members') . ' WHERE `uid`=:uid AND `uniacid`=:uniacid';
 		$member = pdo_fetch($sql, array(':uid' => $member['uid'], ':uniacid' => $_W['uniacid']));
 		if (!empty($member) && (!empty($member['mobile']) || !empty($member['email']))) {
 			$_W['member'] = $member;

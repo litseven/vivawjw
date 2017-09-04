@@ -26,11 +26,11 @@
         .write_info_p{font-size:0.8rem; color:#a0a0a0; width:92%; margin:3% auto;}
         .bind_style{width:100%; background-color:white;}
         .bind_style_box{border-bottom: solid 1px #d2d2d2;}
-        .bind_style_box ,.lisence_box>div{overflow: hidden;padding-top:3%;padding-bottom:3%;}
-        .bind_style_box p,.lisence_box>div p{float: left; width:30%; padding-left:4%;}
-        .bind_style_box select,.lisence_box>div input{border:none; float: right; width:50%;display: block; margin-right: 4%;}
+        .bind_style_box ,.lisence_box>div,.phone>div{overflow: hidden;padding-top:3%;padding-bottom:3%;}
+        .bind_style_box p,.lisence_box>div p,.phone>div p{float: left; width:30%; padding-left:4%;}
+        .bind_style_box select,.lisence_box>div input,.phone>div input{border:none; float: right; width:50%;display: block; margin-right: 4%;}
         .number_box{width:100%;}
-        .lisence_box>div{border-bottom: solid 1px #d2d2d2;}
+        .lisence_box>div,.phone>div{border-bottom: solid 1px #d2d2d2;}
         .file_box>div{overflow: hidden;padding-top:3%;padding-bottom:3%;border-bottom: solid 1px #d2d2d2;}
         .file_box>div>p{float: left;width:30%;padding-left:4%;}
         .file_box>div>select,.file_box>div>input,.file_box>div>div{float: right;width:50%;margin-right: 4%;}
@@ -103,6 +103,12 @@
                         <input type="text" placeholder="请输入发动机号后六位" name="bound_carnum">
                     </div>
                 </div>
+                <div class="phone">
+                    <div>
+                        <p>手机号码</p>
+                        <input type="text" placeholder="请输入手机号码" name="phone">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -117,7 +123,7 @@
     </div>
     <div class="text">
         <p>绑定失败原因：</p>
-        <textarea name="reason" placeholder="请输入绑定失败原因(如遇帐号异常请留下您的联系方式，给您带来不便敬请谅解)"></textarea>
+        <textarea name="reason" placeholder="请输入绑定失败原因"></textarea>
     </div>
     <a class="submit">提交</a>
 </div>
@@ -176,7 +182,8 @@
             if(!proof){mui.alert("请上传照片！");return false;}
             var reason = $("[name = 'reason']").val();
             if(!reason){mui.alert('请填写绑定失败原因，以便我们更好的帮您解决问题!');return false;}
-
+            var phone =$("[name = 'phone']").val();
+            if(!phone){mui.alert('请填写手机号码！');return false;}
             if(type == 'q_7'){
                 var bound_driver = $("[name = 'bound_driver']").val();
                 var bound_drnum = $("[name = 'bound_drnum']").val();
@@ -194,7 +201,7 @@
 
                 if(process)return false;
                 process = true;
-                $.post("{php echo $this->createMobileUrl('boundInfo')}",{bound_driver:bound_driver,bound_drnum:bound_drnum,type:type,proof:proof,reason:reason},function(data){
+                $.post("{php echo $this->createMobileUrl('boundInfo')}",{bound_driver:bound_driver,bound_drnum:bound_drnum,type:type,proof:proof,reason:reason,phone:phone},function(data){
                     //console.log(data);
                     if(data == 200){
                         mui.alert('您的信息已经提交成功，我们会尽快为您解决，给您带来的不便尽请谅解！',function () {
@@ -226,7 +233,7 @@
                 }
                 if(process)return false;
                 process = true;
-                $.post("{php echo $this->createMobileUrl('boundInfo')}",{bound_cartype:bound_cartype,bound_car:bound_car,bound_carnum:bound_carnum,type:type,proof:proof,reason:reason},function(data){
+                $.post("{php echo $this->createMobileUrl('boundInfo')}",{bound_cartype:bound_cartype,bound_car:bound_car,bound_carnum:bound_carnum,type:type,proof:proof,reason:reason,phone:phone},function(data){
                     //console.log(data);
                     if(data == 200){
                         mui.alert('您的信息已经提交成功，我们会尽快为您解决，给您带来的不便尽请谅解！',function () {

@@ -245,6 +245,7 @@ function tpl_app_form_field_image($name, $value = '') {
 	</div>
 	<script>
 		util.image($('.js-image-{$name}'), function(url){
+		console.log(url);
 			$('.js-image-{$name}').parent().find('.js-image-preview').append('<input type="hidden" value="'+url.attachment+'" name="{$name}[]" /><img src="'+url.url+'" data-id="'+url.id+'" data-preview-src="" data-preview-group="__IMG_UPLOAD_{$name}" />');
 		}, {
 			crop : false,
